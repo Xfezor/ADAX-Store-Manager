@@ -1,46 +1,31 @@
-.titulo {
-    color: #777777;
-    text-align: center;
+.adax {
+  background-color: #D74E4E;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  border-radius: 20px;
+  justify-content: center;
+  width: 700px;
+  height: 100%;
+}
 
-  }
+.titulo {
+  color: #000000;
+  font-family: 'Roboto', sans-serif;
+  font-size: 50px;
+  font-weight: 700;
+}
+header {
+  background-color: #56FFB8;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
 body {
   background-color: #56FFB8;
 }
 .adax{
-  background-color: #D74E4E;
-  font-family: 'Montserrat';
-  font-size: 20px;
-  text-align: center;
-  margin-left: 29%;
-  margin-right: 29%;
-  margin-top: 2%;
-  display: inline-block;
-  border-radius: 20px;
-  padding-left: 3%;
-  padding-right: 3%;
-  text-align: center;
-  padding-bottom: 1px;
-  padding-top: 1px;
-}
-.title{
-  font-weight: normal;
-  font-style: normal;
-}
-.contenedorarriba{
-  width: 100%;
-  text-align: center;
-}
-.back{
-  font-size: 43px;
-  border-color: transparent;
-  background-color: transparent;
-  display: inline-block;
-  margin-left: 2%;
-}
-.exit{
-  font-size: 45px;
-  border-color: transparent;
-  background-color: transparent;
-  display: inline-block;
-  margin-right: 2%;
+  background-color: rgb(177, 8, 8);
 }
