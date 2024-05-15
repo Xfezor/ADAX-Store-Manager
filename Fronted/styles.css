@@ -6,62 +6,25 @@
 body {
   background-color: #56FFB8;
 }
-.adax{
-  background-color: #D74E4E;
-  font-family: 'Montserrat';
-  font-size: 20px;
-  text-align: center;
-  margin-left: 27% ;
-  margin-right: 27% ;
-  margin-top: 10px;
-  display: inline-block;
-  border-radius: 20px;
-  padding-left: 2%;
-  padding-right: 2%;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  flex: 1;
+.contendorarriba {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .title{
   font-weight: normal;
   font-style: normal;
 }
-.contenedorarriba{
-  width: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .back{
   font-size: 43px;
   border-color: transparent;
   background-color: transparent;
-  display: inline-block;
   margin-left: 10px;
-  text-align: left;
 }
 .exit{
-  font-size: 45px;
   border-color: transparent;
   background-color: transparent;
-  display: inline-block;
-  margin-right: auto;
-  text-align: right;
 }
-
-@media screen and (max-width: 768px) {
-  .contenedorarriba {
-    flex-direction: column; /* Cambia a un diseño de columna */
-    align-items: stretch; /* Estira los elementos verticalmente */
-  }
-  
-  .back, .exit {
-    margin: 0; /* Elimina el margen en la dirección de la columna */
-  }
-}
-
-
 
 .container {
   display: flex;
