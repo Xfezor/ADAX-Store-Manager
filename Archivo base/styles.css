@@ -22,25 +22,3 @@ body {
   padding-bottom: 1px;
   padding-top: 1px;
 }
-.title{
-  font-weight: normal;
-  font-style: normal;
-}
-.contenedorarriba{
-  width: 100%;
-  text-align: center;
-}
-.back{
-  font-size: 43px;
-  border-color: transparent;
-  background-color: transparent;
-  display: inline-block;
-  margin-left: 2%;
-}
-.exit{
-  font-size: 45px;
-  border-color: transparent;
-  background-color: transparent;
-  display: inline-block;
-  margin-right: 2%;
-}
