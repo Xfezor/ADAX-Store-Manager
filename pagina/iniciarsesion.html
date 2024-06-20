@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Iniciar seccion</title>
+        <style>
+            /* Estilos para centrar los elementos */
+            .login-h1{
+                background-color: rgb(192, 13, 13); 
+                border-top: 10px;
+                width: 620px;
+                padding: 10px;
+                text-align: center;
+                border-radius: 20px;
+                height: 60px;
+                font-size: 50px;
+                margin-bottom: 90px;
+            }
+            
+            .Inicio-h1{
+              text-align: center; 
+              margin-bottom: 15px; 
+              font-size: 40px;
+              
+            }
+            .login-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background-color: aquamarine;
+            }
+            #formulario {
+                background-color: rgb(15, 220, 152);
+                border-radius: 15px;
+                padding: 15px;
+                height: 390px;
+                width: 580px;
+                margin-bottom: 100px;
+
+            }
+            .login-label{
+              display: block;
+              width: auto;
+              font-size: 30px;
+             
+            }
+            .login-input {
+                width: 570px;
+                height: 50px;
+                font-size: 25px;
+                margin-bottom: 30px;
+                border-radius: 15px;
+                border-color: transparent;
+            }
+            .login-button {
+                width: 150px;
+                height: 35px;
+                margin: 0 auto;
+                border-radius: 50px;
+                background-color: rgb(238, 14, 14);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            .login-a{
+                font-size: 25px;
+            }
+        </style>
+    </head>
+<body>
+<div class="login-container">
+    <h1 class="login-h1">ADAX Store Manager</h1>
+    <form id="formulario" method="post">
+    <h1 class="Inicio-h1" style="font-size: 47px; margin-top: -10;">Iniciar sesion</h1>
+    <label class="login-label"><b>Usuario</b></label>
+    <input type="text" class="login-input" placeholder="Ingrese su usuario"></input><br>
+    <label class="login-label"><b>Contraseña</b></label>
+    <input type="password" class="login-input" placeholder="contraseña" required></input><br>
+    <b>¿Problemas para iniciar sesion? Ingrese<a  class="login-a" href="ingreseAqui.html" >Aqui</a><br>
+    <b>Nuevo usuario? Registrarse</b><a class="login-a" href="RegistroTienda.html">Aqui</a><br>
+    <button class="login-button"><b>Iniciar sesion</b></button>
+    
+</form>
+</div>
+</body>
+</html>

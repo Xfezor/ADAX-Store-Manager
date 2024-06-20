@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro Tiend</title>
+        <style>
+            .login-container{
+                background-color: aquamarine;
+                display: flex;
+                justify-content: center; 
+                align-items: center; 
+                min-height: 100vh;
+            }
+            #formulario{
+                background-color: rgb(17, 202, 140);
+                border-radius: 15px;
+                position: absolute;
+                padding: 20px;
+                text-align: center;
+            }
+            .Registro-h1{
+            text-align: center;
+            }
+    
+            .formulario-button{
+                background-color: rgb(21, 230, 160);
+                border-top-left-radius: 15px ;
+                border-bottom-left-radius: 15px ;
+                font-size: 30px;
+                margin-bottom: px;
+                width: 200px;
+                height: 50px;
+            }
+            .formulario-button2:hover {
+                background-color:rgb(9, 189, 129);
+            }
+            .formulario-button:hover{
+                background-color: rgb(9, 189, 129);
+            }
+            .formulario-button2{
+                background-color:rgb(21, 230, 160);
+                border-top-right-radius: 15px  ;
+                border-bottom-right-radius: 15px;
+                font-size: 30px;
+                margin-bottom: 40px;
+                width: 200px;
+                height: 50px;
+            }
+            .a{
+            text-decoration: none;
+            color: black;
+            }       
+            .formulario-label{
+                
+                position: absolute;
+                font-size: 26px;
+                margin-top:-27px;
+            }
+            .formulario-input{
+                border-radius: 15px;
+                margin-bottom: 35px;
+                width: 400px;
+                height: 40px;
+                border-color: transparent;
+            }
+            .Registro-button{
+                font-size: large;
+                background-color: red;
+                border-radius: 20px;
+                border-color: transparent;
+            }
+            .usuario{
+             text-align: left;
+            }
+
+            </style>
+        </head>
+    <body style="background-color: aquamarine;">
+    <h1 style="background-color: rgb(192, 13, 13); width: 520px; height: 60px; border-radius: 20px; text-align: center; padding: 10px; margin: 0 auto; margin-bottom:2px; font-size: 40px;">ADAX Store Manager</h1>  
+    <div class="login-container">
+    <form id="formulario" method="post">
+        <h1 class="Registro-h1">Registrarse</h1> 
+        <button class="formulario-button"><a class="a" href="Registroempleado.html">Empleado</a></button><button class="formulario-button2"><a class="a"  href="RegistroTienda.html" >Tienda</a></button><br>
+    
+        <label class="formulario-label"><b>Nombre Completo</b></label>
+        <input type="text" class="formulario-input" placeholder="Escriba su nombre"></input><br>
+    
+        <label class="formulario-label"><b>Correo Electronico</b></label>
+        <input type="email" class="formulario-input" placeholder="Escriba su correo electronico..." required></input><br>
+    
+        
+        <label  class="formulario-label"><b>Contraseña</b></label>
+        <input type="password" class="formulario-input" placeholder=" Escriba su Contraseña...." required></input><br>
+    
+        <input type="password" class="formulario-input" placeholder=" Repita su Contraseña...." required></input><br>
+        
+        <label  class="formulario-label"><b>Nombre de la Tienda</b></label>
+        <input type="text" class="formulario-input" placeholder="Escriba el nombre de su tienda..."></input><br>
+        <b>Ya eres usuario?ingresa</b><a class="usuario" href="iniciarsesion.html"> Aqui</a><br>
+        <button class="Registro-button">Registrarse</button>
+    </form>
+    </div>
+    </body>
+    </html>
