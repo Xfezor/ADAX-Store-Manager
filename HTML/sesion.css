@@ -1,6 +1,5 @@
 body {
     background-color: #56FFB8;
-
   }
   .title{
     font-weight: normal;
@@ -30,17 +29,6 @@ body {
     text-align: center;
   
   }
-  .back{
-    font-size: 43px;
-    border-color: transparent;
-    background-color: transparent;
-    margin-left: 2em;
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-  .back:hover{
-    transform: scale(1.2);
-  }
   .exit{
     font-size: 45px;
     border-color: transparent;
@@ -52,17 +40,23 @@ body {
   .exit:hover{
     transform: scale(1.2);
   }
-  .contenedor_sesion {
-    background-color: darkgreen;
+
+  .Contenedorsesion {
+    display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    margin: 0 px;
+    margin: 0 auto;
+    margin-top: 5%;
     width: 50%;
-    border: ;
+    height: 30em;
+    background-color: yellow;
   }
-  .sesion {
-    margin: 30px;
-    width: 20px;
+  .cuadradoverde {
+    background-color: azure;
+    width: 40%;
+    height: 50%;
 
+  }
+  input {
+    width: o auto;
   }
