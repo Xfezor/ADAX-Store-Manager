@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>CSS Template</title>
+<title>Inicio de sesión</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://kit.fontawesome.com/436bc767b0.js" crossorigin="anonymous"></script>
@@ -13,23 +13,27 @@
 <link rel="stylesheet" href="sesion.css">
 </head>
 <header>
-  <div class="contenedorarriba border">
-    <div class="adax border">
+  <div class="contenedorarriba ">
+    <div class="adax ">
       <h1 class="title">ADAX Store Manager</h1>
     </div>
-      <button class="exit border">
+      <button class="exit ">
         <i class="fa-solid fa-xmark"></i>
       </button>
   </div>
 </header>
-<body>
-  <div class="Contenedorsesion">
+<body class="container-fluid">
+  <form class="Contenedorsesion">
     <div class="cuadradoverde">
       <h1><b>Usuario</b></h1>
-      <input type="text" placeholder="Ingrese su Usuario">
+      <input type="text" placeholder="Ingrese su Usuario..." required>
+      <div class="invalid-feedback">Por favor, ingrese su usuario</div>
       <h1><b>Contraseña</b></h1>
-      <input type="password" placeholder="Ingrese su Contraseña">
+      <input type="password" placeholder="Ingrese su Contraseña..." required>
+      <div class="invalid-feedback">Por favor, ingrese su contraseña</div>
+      <p>Problemas para inicar sesion? <a href="https://www.google.com">Ingrese</p>
+      <button class= "button2" type="submit">Entrar</button>
     </div>
-  </div>
+  </form>
 </body>
 </html>
