@@ -23,9 +23,11 @@ body {
   padding-bottom: 1.2em;
   width: fit-content;
   height: fit-content;
-  display: inline-block;
+  display: flex;
   margin: auto;
   margin-top: 10px;
+  text-align: center;
+
 }
 .back{
   font-size: 43px;
