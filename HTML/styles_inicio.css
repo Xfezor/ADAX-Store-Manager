@@ -12,6 +12,14 @@ body {
   margin: 0px auto;
   margin-top: 3em;
 }
+@media only screen and (max-height: 800px){
+  .contenedorarriba{
+    display: flex;
+    width: 100%;
+    margin: 0px auto;
+  }
+  
+}
 .adax{
   background-color: #D74E4E;
   font-family: 'Montserrat';
@@ -114,34 +122,31 @@ transition: transform 0.3s ease;
   width: 98.5%;
   height: 45px;
   background-color: #4BD79C;
-  position: absolute;
+  position: fixed;
   bottom: 1em;
   display: flex;
   border: 2px solid none;
   z-index: 1;
   justify-content: space-between;
-  left: 50%;
-  transform: translateX(-50%);
   border-radius: 10px;
   padding: 2px 20px;
+  transform: translateX(0.8%);
   align-content: center;
   text-align: center;
 }
 @media only screen  and (max-height: 768px) {
   .user{
-    width: 98.5%;
-    height: 45px;
-    background-color: #4BD79C;
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    border: 2px solid none;
-    z-index: 1;
-    justify-content: space-between;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 10px;
-    padding: 2px 20px;
+      width: 98.5%;
+      height: 45px;
+      background-color: #4BD79C;
+      position: fixed;
+      bottom: 0;
+      display: flex;
+      border: 2px solid none;
+      z-index: 1;
+      justify-content: space-between;
+      border-radius: 10px;
+      padding: 2px 20px;
   }
 }
 #cerrarsesion{
@@ -150,6 +155,7 @@ transition: transform 0.3s ease;
   background-color: #D74E4E;
   margin: auto 0;
   color: black;
+  border-radius: 15px;
 }
 #cerrarsesion:hover{
   background-color: #aa4949;

@@ -11,6 +11,14 @@ body {
   margin: 0px auto;
   margin-top: 3em;
 }
+@media only screen and (max-height: 800px){
+  .contenedorarriba{
+    display: flex;
+    width: 100%;
+    margin: 0px auto;
+  }
+  
+}
 .adax{
   background-color: #D74E4E;
   font-family: 'Montserrat';
