@@ -71,8 +71,6 @@ transition: transform 0.3s ease;
   max-height: 10000px;
   border: 2px solid transparent;
   position: absolute;
-
-  
 }
 @media only screen and (max-height: 650px){
   .big-button-container{
@@ -104,10 +102,12 @@ transition: transform 0.3s ease;
   padding-right: 20px;
   transition: 0.10s ease-in-out;
   --bs-btn-hover-bg: #15c079;
-}
-.btn :hover{
-  background-color: none;
 
+}
+.btn:hover{
+  background-color: none;
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
 
 }
 .textogrande{
