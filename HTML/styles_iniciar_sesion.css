@@ -78,8 +78,8 @@ input {
   padding-left: 10px;
   border-color: transparent;
 }
-.button2 {
-  background-color: #ff0000;
+#button2 {
+  background-color: #D74E4E;
   display: flex;
   margin: auto;
   width: 30%;
@@ -88,6 +88,7 @@ input {
   margin-top: 10%;
   border-radius: 10px;
   text-align: center;
+  color: black;
 
 }
 
