@@ -91,7 +91,7 @@ body {
   margin: auto;
   margin-top: 4%;
 }
-.conteiner1-active{
+.conteiner1 active{
   background-color:#82cfab;
   border-radius: 2em;
   text-align: left;
@@ -103,7 +103,7 @@ body {
   margin: auto;
   margin-top: 4%;
 }
-.conteiner2-active {
+.conteiner2 active {
   background-color:#82cfab;
   border-radius: 2em;
   text-align: left;
@@ -149,6 +149,8 @@ input {
   background-color: #a3f8d0;
   cursor: pointer;
   border: 1px solid black;
+  transition: opacity 0.5s ease;
+  opacity: 0.5;
 }
 .btn1:hover{
   background-color: #56FFB8;
@@ -161,6 +163,9 @@ input {
   background-color: #69a086;
   cursor: pointer;
   border: 1px solid black;
+  font-size: 20px;
+  transition: opacity 0.5s ease;
+  opacity: 1;
 }
 .btn2{
   border-radius: 0 20px 20px 0;
@@ -170,6 +175,8 @@ input {
   background-color: #a3f8d0;
   cursor: pointer;
   border: 1px solid black;
+  transition: opacity 0.5s ease;
+  opacity: 0.5;
 }
 .btn2:hover{
   background-color: #56FFB8;
@@ -182,6 +189,12 @@ input {
   background-color: #69a086;
   cursor: pointer;
   border: 1px solid black;
+  font-size: 20px;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+
+
+
 }
 #empleadoBtn-active {
   border-radius: 20px 0 0 20px;

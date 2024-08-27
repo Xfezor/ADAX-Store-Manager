@@ -29,8 +29,8 @@
   <div class="conteiner1" id="cont1" >
     <h1 class="Registrarse"><b>Registrarse</b></h1>
       <div class="toggle-buttons">
-        <button class="btn1-active" id="empleadoBtn" >Empleado</button>
-        <button class="btn2" id="tiendaBtn">Tienda</button>
+        <button class="btn1-active" id="empleadoBtn" onclick="cambiarestadoBtn1(this)">Empleado</button>
+        <button class="btn2" id="tiendaBtn" onclick="cambiarestadoBtn2(this)">Tienda</button>
       </div>
       <form id="tienda">
         <h1 class="middel-text"><b>Nombre Completo</b></h1>
@@ -50,8 +50,8 @@
   <div class="conteiner2" id="cont2"  style="display: none;">
     <h1 class="Registrarse"><b>Registrarse</b></h1>
     <div class="toggle-buttons">
-      <button class="btn1" id="empleadoBtn1" >Empleado</button>
-      <button class="btn2-active" id="tiendaBtn1">Tienda</button>
+      <button class="btn1" id="empleadoBtn1" onclick="cambiarestadoBtn11(this)">Empleado</button>
+      <button class="btn2-active" id="tiendaBtn1" onclick="cambiarestadoBtn22(this)">Tienda</button>
     </div>
     <form id="empleado">
       <h1 class="middel-text"><b>Nombre Completo</b></h1>
@@ -60,7 +60,7 @@
       <input type="text" placeholder="Ingrese su documento de identidad">
       <h1 class="middel-text"><b>Contraseña</b></h1>
       <input type="password" placeholder="Ingrese su contraseña"><br>
-      <input type="password" placeholder="Ingrese su contraseña">
+      <input type="password" placeholder="Repita su contraseña">
       <h1 class="middel-text"><b>Nombre de la Tienda</b></h1>
       <input type="text" placeholder="Ingrese el nombre de la tienda">
       <p>¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>

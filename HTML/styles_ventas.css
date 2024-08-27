@@ -21,7 +21,7 @@ body {
 
   }
 .adax{
-    background-color: #D74E4E;
+    background-color: #df6363;
     font-family: 'Montserrat';
     font-weight: 700;
     font-size: 20px;
@@ -40,7 +40,7 @@ body {
 }
 @media only screen and (max-height:800px){
     .adax{
-        background-color: #D74E4E;
+        background-color: #df6363;
         font-family: 'Montserrat';
         font-weight: 700;
         font-size: 20px;
@@ -130,7 +130,7 @@ body {
 #search-button {
     height: 80%;
     width: 100%;
-    background-color: #D74E4E;
+    background-color: #df6363;
     margin: auto 0;
     color: black;
     border-radius: 15px;
@@ -142,7 +142,7 @@ body {
     #search-button {
         height: 80%;
         width: 100%;
-        background-color: #D74E4E;
+        background-color: #df6363;
         margin: auto 0;
         color: black;
         border-radius: 15px;
@@ -153,12 +153,12 @@ body {
     }
 }
 #search-button:hover{
-    background-color: #aa4949;
+    background-color: #af3333;
     color: black;
 }
 
 .product-list{
-    background-color: #4BD79C;
+    background-color: #82cfab;
     grid-column: 1/-1;
     grid-row: 3/-1;
     display: grid;
@@ -171,7 +171,7 @@ body {
 #add-button{
     height: fit-content;
     width: fit-content;
-    background-color: #D74E4E;
+    background-color: #df6363;
     color: black;
     border-radius: 15px;
     padding-left: 20px;
@@ -179,10 +179,13 @@ body {
     grid-column: 2/3;
     justify-self: center;
 }
+#add-button:hover{
+    background-color: #af3333;
+}
 #minus-button{
     height: fit-content;
     width: fit-content;
-    background-color: #D74E4E;
+    background-color: #df6363;
     color: black;
     border-radius: 15px;
     padding-left: 20px;
@@ -190,7 +193,9 @@ body {
     grid-column: 3/4;
     justify-self: center;
 }
-
+#minus-button:hover{
+    background-color: #af3333;
+}
 
 
 .right-container{
@@ -219,7 +224,7 @@ body {
     }
 }
 .cart-list{
-    background-color: #4BD79C;
+    background-color: #82cfab;
     grid-column: 1/-1;
     grid-row: 2/9;
     display: grid;
@@ -232,7 +237,7 @@ body {
 .generar-pago{
     grid-column: 1/-1;
     grid-row: 9/-1;
-    background-color: #D74E4E;
+    background-color: #df6363;
     font-family: 'Montserrat';
     font-weight: 700;
     font-size: 40px;
@@ -244,11 +249,14 @@ body {
     color: #212529;
     border: none;
 }
+.generar-pago:hover{
+    background-color: #af3333;
+}
 @media only screen and (max-height: 800px){
     .generar-pago{
         grid-column: 1/-1;
         grid-row: 9/-1;
-        background-color: #D74E4E;
+        background-color: #df6363;
         font-family: 'Montserrat';
         font-weight: 700;
         font-size: 20px;
@@ -261,16 +269,11 @@ body {
         border: none;
     }
 }
-
-
-
-
-
-
+    
 .user{
     width: 98.5%;
     height: 45px;
-    background-color: #4BD79C;
+    background-color: #82cfab;
     position: fixed;
     bottom: 1em;
     display: flex;
@@ -302,7 +305,7 @@ body {
 #cerrarsesion{
     height: fit-content;
     width: fit-content;
-    background-color: #D74E4E;
+    background-color: #df6363;
     margin: auto 0;
     color: black;
     border-radius: 15px;
@@ -310,7 +313,7 @@ body {
     padding-right: 20px;
   }
   #cerrarsesion:hover{
-    background-color: #aa4949;
+    background-color: #af3333;
     color: black;
   }
   
