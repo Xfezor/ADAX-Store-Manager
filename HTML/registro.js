@@ -1,20 +1,48 @@
-document.addEventListener('DOMContentLoaded', function () {
-const empleadoBtn = document.getElementById('empleadoBtn');
-const tiendaBtn = document.getElementById('tiendaBtn');
-const empleadoForm = document.getElementById('empleadoForm');
-const tiendaForm = document.getElementById('tiendaForm');
 
-empleadoBtn.addEventListener('click', () => {
-  empleadoBtn.classList.add('active');
-  tiendaBtn.classList.remove('active');
-  empleadoForm.style.display = 'block';
-  tiendaForm.style.display = 'none';
-});
+document.querySelector('#empleadoBtn').addEventListener('click', () => {
+  setTimeout(function() {
+    document.querySelector('#empleadoBtn').classList.remove('btn1');
+    document.querySelector('#empleadoBtn').classList.add('btn1-active');
+    document.querySelector('#tiendaBtn').classList.remove('btn2-active');
+    document.querySelector('#tiendaBtn').classList.add('btn2');
+    document.querySelector('#cont1').style.display = "none";
+    document.querySelector('#cont2').style.display = "block";
+  }, 0);
 
-tiendaBtn.addEventListener('click', () => {
-  tiendaBtn.classList.add('active');
-  empleadoBtn.classList.remove('active');
-  tiendaForm.style.display = 'block';
-  empleadoForm.style.display = 'none';
-});
-})
+}); 
+
+document.querySelector('#tiendaBtn').addEventListener('click', () => {
+
+  setTimeout(function() {
+    document.querySelector('#empleadoBtn').classList.remove('btn1-active');
+    document.querySelector('#empleadoBtn').classList.add('btn1');
+    document.querySelector('#tiendaBtn').classList.remove('btn2');
+    document.querySelector('#tiendaBtn').classList.add('btn2-active');
+    document.querySelector('#cont1').style.display = "none";
+    document.querySelector('#cont2').style.display = "block";
+  }, 0);
+}); 
+
+document.querySelector('#empleadoBtn1').addEventListener('click', () => {
+
+  setTimeout(function() {
+    document.querySelector('#empleadoBtn1').classList.remove('btn1');
+    document.querySelector('#empleadoBtn1').classList.add('btn1-active');
+    document.querySelector('#tiendaBtn1').classList.remove('btn2-active');
+    document.querySelector('#tiendaBtn1').classList.add('btn2');
+    document.querySelector('#cont2').style.display = "none";
+    document.querySelector('#cont1').style.display = "block";
+  }, 0);
+}); 
+
+document.querySelector('#tiendaBtn1').addEventListener('click', () => {
+
+  setTimeout(function() {
+    document.querySelector('#empleadoBtn1').classList.remove('btn1-active');
+    document.querySelector('#empleadoBtn1').classList.add('btn1');
+    document.querySelector('#tiendaBtn1').classList.remove('btn2');
+    document.querySelector('#tiendaBtn1').classList.add('btn2-active');
+    document.querySelector('#cont1').style.display = "none";
+    document.querySelector('#cont2').style.display = "block";
+  }, 0);
+}); 

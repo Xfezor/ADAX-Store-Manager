@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ADAX - Base</title>
+<title>ADAX - Registrarse</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://kit.fontawesome.com/436bc767b0.js" crossorigin="anonymous"></script>
@@ -26,46 +26,48 @@
   </div>
 </header>
 <body>
-    <form id="tienda">
-        <div class="conteiner">
-            <h1 class="Registrarse"><b>Registrarse</b></h1>
-            <div class="toggle-buttons">
-              <button id="empleadoBtn">Empleado</button>
-              <button id="tiendaBtn">Tienda</button>
-            </div>
-            <h1><b>Nombre Completo</b></h1>
-            <input type="text" placeholder="Ingrese su nombre completo">
-            <h1><b>Correo Electronico</b></h1>
-            <input type="text" placeholder="Ingrese su correo electronico">
-            <h1><b>Contraseña</b></h1>
-            <input type="password" placeholder="Ingrese su contraseña"><br>
-            <input type="password" placeholder="Ingrese su contraseña">
-            <h1><b>Nombre de la Tienda</b></h1>
-            <input type="text" placeholder="Ingrese el nombre de la tienda en la que trabaja">
-            <p>¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>
-            <button class="btn btn-danger" id="boton_regis">Registrarse</button>
-          </div>
-    </form>
-    <form id="empleado">
-      <div class="conteiner">
-        <h1 class="Registrarse"><b>Registrarse</b></h1>
-        <div class="toggle-buttons">
-          <button id="empleadoBtn">Empleado</button>
-          <button id="tiendaBtn">Tienda</button>
-        </div>
-        <h1><b>Nombre Completo</b></h1>
+  <div class="conteiner1" id="cont1" >
+    <h1 class="Registrarse"><b>Registrarse</b></h1>
+      <div class="toggle-buttons">
+        <button class="btn1-active" id="empleadoBtn" >Empleado</button>
+        <button class="btn2" id="tiendaBtn">Tienda</button>
+      </div>
+      <form id="tienda">
+        <h1 class="middel-text"><b>Nombre Completo</b></h1>
         <input type="text" placeholder="Ingrese su nombre completo">
-        <h1><b>Documento de Identidad</b></h1>
-        <input type="text" placeholder="Ingrese su documento de identidad">
-        <h1><b>Contraseña</b></h1>
+        <h1 class="middel-text"><b>Correo Electronico</b></h1>
+        <input type="text" placeholder="Ingrese su correo electronico">
+        <h1 class="middel-text"><b>Contraseña</b></h1>
         <input type="password" placeholder="Ingrese su contraseña"><br>
-        <input type="password" placeholder="Ingrese su contraseña">
-        <h1><b>Codigo de Invitación</b></h1>
-        <input type="text" placeholder="Ingrese el nombre de la tienda en la que trabaja">
+        <input type="password" placeholder="Repita su contraseña">
+        <h1 class="middel-text"><b>Codigo de Invitación </b></h1>
+        <input type="text" placeholder="Ingrese el codigo de invitación">
         <p>¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>
         <button class="btn btn-danger" id="boton_regis">Registrarse</button>
-      </div>
+      </form>
+  </div>
+  
+  <div class="conteiner2" id="cont2"  style="display: none;">
+    <h1 class="Registrarse"><b>Registrarse</b></h1>
+    <div class="toggle-buttons">
+      <button class="btn1" id="empleadoBtn1" >Empleado</button>
+      <button class="btn2-active" id="tiendaBtn1">Tienda</button>
+    </div>
+    <form id="empleado">
+      <h1 class="middel-text"><b>Nombre Completo</b></h1>
+      <input type="text" placeholder="Ingrese su nombre completo">
+      <h1 class="middel-text"><b>Documento de Identidad</b></h1>
+      <input type="text" placeholder="Ingrese su documento de identidad">
+      <h1 class="middel-text"><b>Contraseña</b></h1>
+      <input type="password" placeholder="Ingrese su contraseña"><br>
+      <input type="password" placeholder="Ingrese su contraseña">
+      <h1 class="middel-text"><b>Nombre de la Tienda</b></h1>
+      <input type="text" placeholder="Ingrese el nombre de la tienda">
+      <p>¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>
+      <button class="btn btn-danger" id="boton_regis">Registrarse</button>
     </form>
+  </div>
+    
     <script src="registro.js"></script>
 </body>
 </html>

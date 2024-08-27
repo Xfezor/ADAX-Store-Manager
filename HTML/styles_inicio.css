@@ -1,5 +1,5 @@
 body {
-    background-color: #56FFB8;
+    background-color: #a3f8d0;
 
 }
 .title{
@@ -21,7 +21,7 @@ body {
   
 }
 .adax{
-  background-color: #D74E4E;
+  background-color: #df6363;
   font-family: 'Montserrat';
   font-weight: 700;
   font-size: 20px;
@@ -92,7 +92,7 @@ transition: transform 0.3s ease;
 .btn{
   height: 150px;
   width: 450px;
-  background-color: #4BD79C;
+  background-color: #82cfab;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -101,7 +101,7 @@ transition: transform 0.3s ease;
   padding-left: 20px;
   padding-right: 20px;
   transition: 0.10s ease-in-out;
-  --bs-btn-hover-bg: #15c079;
+  --bs-btn-hover-bg: #36fabf;
 
 }
 .btn:hover{
@@ -121,7 +121,7 @@ transition: transform 0.3s ease;
 .user{
   width: 98.5%;
   height: 45px;
-  background-color: #4BD79C;
+  background-color: #82cfab;
   position: fixed;
   bottom: 1em;
   display: flex;
@@ -138,7 +138,7 @@ transition: transform 0.3s ease;
   .user{
       width: 98.5%;
       height: 45px;
-      background-color: #4BD79C;
+      background-color: #82cfab;
       position: fixed;
       bottom: 0;
       display: flex;
@@ -152,13 +152,13 @@ transition: transform 0.3s ease;
 #cerrarsesion{
   height: fit-content;
   width: fit-content;
-  background-color: #D74E4E;
+  background-color: #df6363;
   margin: auto 0;
   color: black;
   border-radius: 15px;
 }
 #cerrarsesion:hover{
-  background-color: #aa4949;
+  background-color: #af3333;
   color: black;
 }
 

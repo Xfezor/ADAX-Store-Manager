@@ -1,5 +1,5 @@
 body {
-  background-color: #56FFB8;
+  background-color: #a3f8d0;
 }
 
 .title {
@@ -15,7 +15,7 @@ body {
 }
 
 .adax {
-  background-color: #D74E4E;
+  background-color: #df6363;
   font-family: 'Montserrat';
   font-weight: 700;
   font-size: 20px;
@@ -60,7 +60,7 @@ body {
 
 .cuadradoverde {
   border-radius: 5px;
-  background-color: rgba(75, 215, 156, 255);
+  background-color: #82cfab;
   padding: 2%;
   width: 55%;
   height: 90%;
@@ -77,9 +77,10 @@ input {
   border-radius: 10px;
   padding-left: 10px;
   border-color: transparent;
+  padding: 5px 10px;
 }
 #button2 {
-  background-color: #D74E4E;
+  background-color: #df6363;
   display: flex;
   margin: auto;
   width: 30%;
@@ -89,7 +90,15 @@ input {
   border-radius: 10px;
   text-align: center;
   color: black;
+  transform: scale(1);
+  transition: transform 0.5s ease;
 
+}
+#button2:hover{
+  background-color: #af3333;
+  color: rgb(255, 255, 255);
+  transform: scale(1.05);
+  transition: transform 0.5s ease;
 }
 
 .contrasena {
@@ -103,4 +112,14 @@ a {
 
 p {
   margin-top: 15px;
+}
+.titulo-iniciar-sesion{
+  font-size: 35px; 
+  text-align: center;
+}
+.username-text{
+  font-size: 27px;
+}
+.contrasena{
+  font-size: 27px;
 }

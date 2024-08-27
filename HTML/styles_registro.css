@@ -1,127 +1,228 @@
 body {
-    background-color: #56FFB8;
-  }
-  .title{
-    font-weight: normal;
-    font-style: normal;
-  }
+  background-color: #a3f8d0;
+}
+.title{
+  font-weight: normal;
+  font-style: normal;
+}
+.contenedorarriba{
+  display: flex;
+  width: 100%;
+  margin: 0px auto;
+  margin-top: 3em;
+}
+@media only screen and (max-height: 800px){
   .contenedorarriba{
     display: flex;
     width: 100%;
     margin: 0px auto;
-    margin-top: 3em;
-  }
-  @media only screen and (max-height: 800px){
-    .contenedorarriba{
-      display: flex;
-      width: 100%;
-      margin: 0px auto;
-    }
-    
-  }
-  .adax{
-    background-color: #D74E4E;
-    font-family: 'Montserrat';
-    font-weight: 700;
-    font-size: 20px;
-    border-radius: 20px;
-    padding-left: 3%;
-    padding-right: 3%;
-    padding-top: 1.2em;
-    padding-bottom: 1.2em;
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    margin: auto;
-    margin-top: 10px;
-    text-align: center;
-  
-  }
-  .back{
-    font-size: 43px;
-    border-color: transparent;
-    background-color: transparent;
-    margin-left: 2em;
-    display: inline-block;
-    transition: transform 0.3s ease;
-  }
-  .back:hover{
-    transform: scale(1.2);
-  }
-  .exit{
-    font-size: 45px;
-    border-color: transparent;
-    background-color: transparent;
-    display: inline-block;
-    margin-right: 2em;
-    transition: transform 0.3s ease;
-  }
-  .exit:hover{
-    transform: scale(1.2);
-  }
-
-  form {
-    margin-top: 2%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .conteiner {
-    background-color:rgba(75, 215, 156, 255);
-    border-radius: 10px;
-    text-align: left;
-    width: 20%;
-    padding: 0.5%;
   }
   
-  input {
-    width: 100%;
-    margin-top: 2%;
-    border-radius: 10px;
-    height: 30px;
-    border: transparent;
-  }
-  .conteiner h1 {
-    margin-top: 10px;
-    font-size: 30px
-  }
-  .conteiner .Registrarse {
-    text-align: center;
-    margin-top: 0%;
-  }
+}
+.adax{
+  background-color: #df6363;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 20px;
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 1.2em;
+  padding-bottom: 1.2em;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  text-align: center;
 
-  .conteiner #boton_regis {
-    display: flex;
-    margin: 0 auto;
-    margin-top: 20px;
-  }
+}
+.back{
+  font-size: 43px;
+  border-color: transparent;
+  background-color: transparent;
+  margin-left: 2em;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.back:hover{
+  transform: scale(1.2);
+}
+.exit{
+  font-size: 45px;
+  border-color: transparent;
+  background-color: transparent;
+  display: inline-block;
+  margin-right: 2em;
+  transition: transform 0.3s ease;
+}
+.exit:hover{
+  transform: scale(1.2);
+}
 
-  .toggle-buttons {
-    display: flex;
-    background-color: rgba(75, 215, 156, 255);
-  }
-  
-  .toggle-buttons button {
-    flex: 1;
-    padding: 10px;
-    background-color: rgba(75, 215, 156, 255);
-    cursor: pointer;
-    border: 1px solid black;
-  }
-  .toggle-buttons button:hover {
-    background-color: #56FFB8;
-  }
-  #empleadoBtn {
-    border-radius: 20px 0 0 20px;
-  }
-  
-  #tiendaBtn{
-    border-radius: 0 20px 20px 0;
+.tienda {
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  }
-  
-  .toggle-buttons button.active {
-    background-color: rgba(75, 215, 156, 255);
-  }
+.conteiner1{
+  background-color:#82cfab;
+  border-radius: 2em;
+  text-align: left;
+  width: 30%;
+  padding-top: 1%;
+  padding-left: 2%; 
+  padding-right: 2%;
+  padding-bottom: 2%; 
+  margin: auto;
+  margin-top: 4%;
+}
+.conteiner2 {
+  background-color:#82cfab;
+  border-radius: 2em;
+  text-align: left;
+  width: 30%;
+  padding-top: 1%;
+  padding-left: 2%; 
+  padding-right: 2%;
+  padding-bottom: 2%; 
+  margin: auto;
+  margin-top: 4%;
+}
+.conteiner1-active{
+  background-color:#82cfab;
+  border-radius: 2em;
+  text-align: left;
+  width: 30%;
+  padding-top: 1%;
+  padding-left: 2%; 
+  padding-right: 2%;
+  padding-bottom: 2%; 
+  margin: auto;
+  margin-top: 4%;
+}
+.conteiner2-active {
+  background-color:#82cfab;
+  border-radius: 2em;
+  text-align: left;
+  width: 30%;
+  padding-top: 1%;
+  padding-left: 2%; 
+  padding-right: 2%;
+  padding-bottom: 2%; 
+  margin: auto;
+  margin-top: 4%;
+}
 
+input {
+  width: 100%;
+  border-radius: 10px;
+  padding-left: 10px;
+  border-color: transparent;
+  padding: 5px 10px;
+  margin-bottom: 4px;
+}
+
+.conteiner .Registrarse {
+  text-align: center;
+  margin-top: 0%;
+}
+
+.conteiner #boton_regis {
+  display: flex;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.toggle-buttons {
+  display: flex;
+  background-color: #82cfab;
+}
+
+.btn1 {
+  border-radius: 20px 0 0 20px;
+  border-right: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #a3f8d0;
+  cursor: pointer;
+  border: 1px solid black;
+}
+.btn1:hover{
+  background-color: #56FFB8;
+}
+.btn1-active{
+  border-radius: 20px 0 0 20px;
+  border-right: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #69a086;
+  cursor: pointer;
+  border: 1px solid black;
+}
+.btn2{
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #a3f8d0;
+  cursor: pointer;
+  border: 1px solid black;
+}
+.btn2:hover{
+  background-color: #56FFB8;
+}
+.btn2-active{
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #69a086;
+  cursor: pointer;
+  border: 1px solid black;
+}
+#empleadoBtn-active {
+  border-radius: 20px 0 0 20px;
+  background-color: #515251;
+  border-right: none;
+}
+
+#tiendaBtn-active{
+  border-radius: 0 20px 20px 0;
+  background-color: #69a086;
+  border-left: none;
+}
+.Registrarse{
+  font-size: 35px; 
+  text-align: center;
+}
+.middel-text{
+  font-size: 27px;
+}
+
+#boton_regis {
+  background-color: #df6363;
+  display: flex;
+  margin: auto;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+  transform: scale(1);
+  transition: transform 0.5s ease;
+}
+#boton_regis:hover{
+  background-color: #af3333;
+  color: rgb(255, 255, 255);
+  transform: scale(1.05);
+  transition: transform 0.5s ease;
+}
+a {
+  text-decoration:none;
+  color: red;
+}
