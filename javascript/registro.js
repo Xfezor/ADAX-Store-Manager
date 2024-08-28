@@ -29,3 +29,10 @@ function cambiarestadoBtn22(){
 
   }, 1);
 };
+
+function backbutton(){
+  window.location.href = "iniciar_sesion.html"
+};
+function exitbutton(){
+  window.location.href = "https://www.google.com";
+}

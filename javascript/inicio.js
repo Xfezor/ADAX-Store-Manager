@@ -10,3 +10,10 @@ document.getElementById('Vn').addEventListener('click', function() {
 document.getElementById('Gv').addEventListener('click', function() {
     window.location.href = 'gestionarVentas.html';
 });
+
+function backbutton(){
+    window.location.href = "iniciar_sesion.html"
+  };
+  function exitbutton(){
+    window.location.href = "https://www.google.com";
+  }
