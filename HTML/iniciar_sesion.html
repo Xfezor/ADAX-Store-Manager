@@ -17,7 +17,7 @@
     <div class="adax ">
       <h1 class="title">ADAX Store Manager</h1>
     </div>
-    <button class="exit ">
+    <button class="exit" onclick="exitbutton()">
       <i class="fa-solid fa-xmark"></i>
     </button>
   </div>
@@ -32,9 +32,10 @@
       <h1 class="contrasena"><b>Contraseña</b></h1>
       <input type="password" placeholder="Ingrese su Contraseña..." required>
       <div class="invalid-feedback">Por favor, ingrese su contraseña</div>
-      <p>¿Problemas para inicar sesion? <a href="https://www.google.com">Ingrese </a><br> ¿Olvidate tu contraseña?, entra <a href="">Aqui</a></p>
-      <button class= "btn btn-danger" id="button2" type="submit">Iniciar Sesion</button>
+      <p>¿Eres Usuario nuevo? Registrate <a href="registro.html">Aquí</a><br> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">Aqui</a></p>
+      <button class= "btn btn-danger" id="button2" type="submit" onclick="iniciarsesion()">Iniciar Sesion</button>
     </div>
   </form>
+  <script src="iniciarsesion.js"></script>
 </body>
 </html>
