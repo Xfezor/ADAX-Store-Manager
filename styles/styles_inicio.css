@@ -1,6 +1,5 @@
 body {
     background-color: #a3f8d0;
-
 }
 .title{
   font-weight: normal;
@@ -18,7 +17,6 @@ body {
     width: 100%;
     margin: 0px auto;
   }
-  
 }
 .adax{
   background-color: #df6363;
@@ -59,8 +57,6 @@ transition: transform 0.3s ease;
   transform: scale(1.2);
   cursor: pointer;
 }
-
-
 .big-button-container{
   display: flex;
   justify-content: center;
@@ -85,7 +81,6 @@ transition: transform 0.3s ease;
     position: absolute;
   }
 }
-
 .linea-big-button{
   margin: 20px;
 }
@@ -102,13 +97,11 @@ transition: transform 0.3s ease;
   padding-right: 20px;
   transition: 0.10s ease-in-out;
   --bs-btn-hover-bg: #36fabf;
-
 }
 .btn:hover{
   background-color: none;
   transform: scale(1.05);
   transition: transform 0.3s ease;
-
 }
 .textogrande{
   font-size: 40px;
@@ -117,7 +110,6 @@ transition: transform 0.3s ease;
 .textogrande :hover{
   background-color: transparent;
 }
-
 .user{
   width: 98.5%;
   height: 45px;
@@ -161,7 +153,6 @@ transition: transform 0.3s ease;
   background-color: #af3333;
   color: black;
 }
-
 .username{
   font-size: 25px;
   align-content: center;

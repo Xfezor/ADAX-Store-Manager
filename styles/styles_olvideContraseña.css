@@ -34,7 +34,6 @@ body {
     margin: auto;
     margin-top: 10px;
     text-align: center;
-
 }
 .back{
     font-size: 43px;
@@ -71,7 +70,6 @@ body {
     margin: auto;
     border-radius: 2em;
     margin-top: 5%;
-    
 }
 
 .Contenedorsesion {
@@ -104,7 +102,6 @@ input {
     color: black;
     transform: scale(1);
     transition: transform 0.5s ease;
-
 }
 #buttonSendCode:hover{
     background-color: #af3333;
@@ -112,7 +109,6 @@ input {
     transform: scale(1.05);
     transition: transform 0.5s ease;
 }
-
 #buttonConfirmCode {
     background-color: #df6363;
     display: flex;
@@ -126,7 +122,6 @@ input {
     color: black;
     transform: scale(1);
     transition: transform 0.5s ease;
-
 }
 #buttonConfirmCode:hover{
     background-color: #af3333;
@@ -134,8 +129,7 @@ input {
     transform: scale(1.05);
     transition: transform 0.5s ease;
 }
-
-#buttonChangePswd {
+#buttonChangePswd{
     background-color: #df6363;
     display: flex;
     margin: auto;
@@ -148,7 +142,6 @@ input {
     color: black;
     transform: scale(1);
     transition: transform 0.5s ease;
-
 }
 #buttonChangePswd:hover{
     background-color: #af3333;
@@ -156,17 +149,14 @@ input {
     transform: scale(1.05);
     transition: transform 0.5s ease;
 }
-
-.contrasena {
+.contrasena{
     margin-top: 5%;
 }
-
-a {
+a{
     text-decoration:none;
     color: red;
 }
-
-p {
+p{
     margin-top: 15px;
 }
 .titulo-olvide-mi-contraseña{

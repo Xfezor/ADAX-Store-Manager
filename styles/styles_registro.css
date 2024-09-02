@@ -7,8 +7,6 @@ body {
 }
 .contenedorarriba{
   display: flex;
-  width: 100%;
-  margin: 0px auto;
   margin-top: 3em;
 }
 @media only screen and (max-height: 800px){
@@ -17,7 +15,6 @@ body {
     width: 100%;
     margin: 0px auto;
   }
-  
 }
 .adax{
   background-color: #df6363;
@@ -35,7 +32,6 @@ body {
   margin: auto;
   margin-top: 10px;
   text-align: center;
-
 }
 .back{
   font-size: 43px;
@@ -59,14 +55,12 @@ body {
 .exit:hover{
   transform: scale(1.2);
 }
-
 .tienda {
   margin-top: 2%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .conteiner1{
   background-color:#82cfab;
   border-radius: 2em;
@@ -124,23 +118,19 @@ input {
   padding: 5px 10px;
   margin-bottom: 4px;
 }
-
 .conteiner .Registrarse {
   text-align: center;
   margin-top: 0%;
 }
-
 .conteiner #boton_regis {
   display: flex;
   margin: 0 auto;
   margin-top: 20px;
 }
-
 .toggle-buttons {
   display: flex;
   background-color: #82cfab;
 }
-
 .btn1 {
   border-radius: 20px 0 0 20px;
   border-right: none;
@@ -192,16 +182,12 @@ input {
   font-size: 20px;
   transition: opacity 0.5s ease;
   opacity: 1;
-
-
-
 }
 #empleadoBtn-active {
   border-radius: 20px 0 0 20px;
   background-color: #515251;
   border-right: none;
 }
-
 #tiendaBtn-active{
   border-radius: 0 20px 20px 0;
   background-color: #69a086;
@@ -214,7 +200,6 @@ input {
 .middel-text{
   font-size: 27px;
 }
-
 #boton_regis {
   background-color: #df6363;
   display: flex;

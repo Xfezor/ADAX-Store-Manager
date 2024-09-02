@@ -1,19 +1,16 @@
 body {
   background-color: #a3f8d0;
 }
-
 .title {
   font-weight: normal;
   font-style: normal;
 }
-
 .contenedorarriba {
   display: flex;
   width: 100%;
   margin: 0px auto;
   margin-top: 3em;
 }
-
 .adax {
   background-color: #df6363;
   font-family: 'Montserrat';
@@ -33,7 +30,6 @@ body {
   left: 50%;
   transform: translate(12%);
 }
-
 .exit {
   font-size: 45px;
   border-color: transparent;
@@ -43,11 +39,9 @@ body {
   transition: transform 0.3s ease;
   width: 90px;
 }
-
 .exit:hover {
   transform: scale(1.2);
 }
-
 .Contenedorsesion {
   margin: auto;
   margin-top: 2%;
@@ -57,21 +51,17 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .cuadradoverde {
   border-radius: 5px;
   background-color: #82cfab;
   padding: 2%;
   width: 55%;
   height: 90%;
-
   border-radius: 2em;
 }
-
 .cuadradoverde .titulo {
   text-align: center;
 }
-
 input {
   width: 100%;
   border-radius: 10px;
@@ -92,7 +82,6 @@ input {
   color: black;
   transform: scale(1);
   transition: transform 0.5s ease;
-
 }
 #button2:hover{
   background-color: #af3333;
@@ -100,17 +89,14 @@ input {
   transform: scale(1.05);
   transition: transform 0.5s ease;
 }
-
-.contrasena {
+.contrasena{
   margin-top: 5%;
 }
-
-a {
+a{
   text-decoration:none;
   color: red;
 }
-
-p {
+p{
   margin-top: 15px;
 }
 .titulo-iniciar-sesion{

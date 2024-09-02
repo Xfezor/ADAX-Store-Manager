@@ -18,7 +18,6 @@ body {
       height: 100px;
       margin: 0px auto;
     }
-
   }
 .adax{
     background-color: #df6363;
@@ -36,7 +35,6 @@ body {
     margin: auto;
     margin-top: 10px;
     text-align: center;
-
 }
 @media only screen and (max-height:800px){
     .adax{
@@ -55,7 +53,6 @@ body {
         margin: auto;
         margin-top: 10px;
         text-align: center;
-    
     }
 }
 .back{
@@ -80,7 +77,6 @@ body {
 .exit:hover{
     transform: scale(1.2);
 }
-
 .page{
     display: flex;
 }
@@ -108,7 +104,6 @@ body {
         gap: 10px;
     }
 }
-
 .big-text{
     grid-column: 1/-1;
 }
@@ -126,7 +121,6 @@ body {
 .search:hover{
     border: 1px solid black;
 }
-
 #search-button {
     height: 80%;
     width: 100%;
@@ -156,7 +150,6 @@ body {
     background-color: #af3333;
     color: black;
 }
-
 .product-list{
     background-color: #82cfab;
     grid-column: 1/-1;
@@ -196,8 +189,6 @@ body {
 #minus-button:hover{
     background-color: #af3333;
 }
-
-
 .right-container{
     /* border: 2px solid black; */
     display: grid;
@@ -268,8 +259,7 @@ body {
         color: #212529;
         border: none;
     }
-}
-    
+}  
 .user{
     width: 98.5%;
     height: 45px;
@@ -301,7 +291,6 @@ body {
         padding: 2px 20px;
     }
 }
-
 #cerrarsesion{
     height: fit-content;
     width: fit-content;
@@ -311,16 +300,15 @@ body {
     border-radius: 15px;
     padding-left: 20px;
     padding-right: 20px;
-  }
-  #cerrarsesion:hover{
+}
+#cerrarsesion:hover{
     background-color: #af3333;
     color: black;
-  }
-  
-  .username{
+}
+.username{
     font-size: 25px;
     align-content: center;
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
-  }
+}
