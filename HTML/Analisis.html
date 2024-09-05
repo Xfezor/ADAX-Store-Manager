@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: whitesmoke;
+            font-family: sans-serif;
+            margin-top: 110px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            background-color: #D2D7DF;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .header .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .search-bar input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .popularity {
+            margin-top: 20px;
+        }
+        .popularity label {
+            margin-right: 10px;
+        }
+        .popularity input[type="radio"] {
+            margin-right: 5px;
+        }
+        .data {
+            height: 200px;
+            background-color: #f2f2f2;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .user {
+            margin-top: 20px;
+        }
+        .user span {
+            font-weight: bold;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="#" class="back-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+            <h1>Análisis</h1>
+            <span class="close-btn">X</span>
+        </div>
+        <div class="row mt-3">
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Escriba un producto..." aria-label="Escriba un producto..." aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <select class="custom-select" id="inputGroupSelect01">
+                            <option selected>De mayor a menor</option>
+                            <option value="1">De menor a mayor</option>
+                        </select>
+                        <button class="btn btn-danger" type="button">Buscar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="popular" checked>
+                    <label class="form-check-label" for="inlineRadio1">Popular</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="medio">
+                    <label class="form-check-label" for="inlineRadio2">Medio popular</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="no-popular">
+                    <label class="form-check-label" for="inlineRadio3">No popular</label>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="popular" checked>
+                                    <label class="form-check-label" for="inlineRadio4">Medio popular</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Producto</th>
+                                                <th>Precio</th>
+                                                <th>Stock</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Monitor 24"</td>
+                                                <td>$120</td>
+                                                <td>10</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Teclado Mecánico</td>
+                                                <td>$50</td>
+                                                <td>20</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="card bg-light ">
+                    <div class="card-body d-flex align-items-stretch">
+                        <p class="card-text">Usuario: Pepito Perez</p>
+                        <button class="btn btn-danger " type="button">Cerrar sesión</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>
