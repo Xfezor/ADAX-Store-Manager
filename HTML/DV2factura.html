@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de la Venta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #67D9B7;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .info-title {
+            font-weight: bold;
+        }
+
+        .btn-red {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-red:hover {
+            background-color: #dc3545;
+        }
+
+        .factura-section {
+            margin-bottom: 20px;
+        }
+
+        .factura-title {
+            font-weight: bold;
+        }
+
+        .factura-content {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+            height: 200px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 20px;
+            }
+
+            .info-section,
+            .factura-section {
+                margin-bottom: 10px;
+            }
+
+            .factura-content {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Detalle de la Venta</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="info-section">
+                    <h3 class="info-title">Venta</h3>
+                    <p>Cantidad recibida: $ 50.000</p>
+                    <p>Total a pagar: $ 25.700</p>
+                    <p>Devuelto: $ 22.300</p>
+                    <p>Estado: Ok</p>
+                </div>
+                <button class="btn-red" style="width: 100%">Salir</button>
+            </div>
+            <div class="col-md-6">
+                <div class="factura-section">
+                    <h3 class="factura-title">Factura</h3>
+                    <div class="factura-content"></div>
+                </div>
+                <button class="btn-red" style="width: 100%">Cerrar sesión</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
