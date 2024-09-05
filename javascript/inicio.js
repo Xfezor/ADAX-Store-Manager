@@ -8,7 +8,7 @@ document.getElementById('Vn').addEventListener('click', function() {
     window.location.href = 'ventas.html';
 });
 document.getElementById('Gv').addEventListener('click', function() {
-    window.location.href = 'gestionarVentas.html';
+    window.location.href = 'gestionar_ventas.html';
 });
 
 function backbutton(){

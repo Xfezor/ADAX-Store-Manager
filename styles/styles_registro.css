@@ -1,5 +1,5 @@
 body {
-  background-color: #a3f8d0;
+  background-color: #fcedc0;
 }
 .title{
   font-weight: normal;
@@ -62,7 +62,7 @@ body {
   justify-content: center;
 }
 .conteiner1{
-  background-color:#82cfab;
+  background-color:#ebd8a0;
   border-radius: 2em;
   text-align: left;
   width: 30%;
@@ -74,7 +74,7 @@ body {
   margin-top: 4%;
 }
 .conteiner2 {
-  background-color:#82cfab;
+  background-color:#ebd8a0;
   border-radius: 2em;
   text-align: left;
   width: 30%;
@@ -86,7 +86,7 @@ body {
   margin-top: 4%;
 }
 .conteiner1 active{
-  background-color:#82cfab;
+  background-color:#ebd8a0;
   border-radius: 2em;
   text-align: left;
   width: 30%;
@@ -98,7 +98,7 @@ body {
   margin-top: 4%;
 }
 .conteiner2 active {
-  background-color:#82cfab;
+  background-color:#ebd8a0;
   border-radius: 2em;
   text-align: left;
   width: 30%;
@@ -129,28 +129,28 @@ input {
 }
 .toggle-buttons {
   display: flex;
-  background-color: #82cfab;
+  background-color: #ebd8a0;
 }
 .btn1 {
   border-radius: 20px 0 0 20px;
   border-right: none;
   flex: 1;
   padding: 10px;
-  background-color: #a3f8d0;
+  background-color: #ebd8a0;
   cursor: pointer;
   border: 1px solid black;
   transition: opacity 0.5s ease;
   opacity: 0.5;
 }
 .btn1:hover{
-  background-color: #56FFB8;
+  background-color: #ebd8a0;
 }
 .btn1-active{
   border-radius: 20px 0 0 20px;
   border-right: none;
   flex: 1;
   padding: 10px;
-  background-color: #69a086;
+  background-color: #ebd8a0;
   cursor: pointer;
   border: 1px solid black;
   font-size: 20px;
@@ -162,21 +162,21 @@ input {
   border-left: none;
   flex: 1;
   padding: 10px;
-  background-color: #a3f8d0;
+  background-color: #ebd8a0;
   cursor: pointer;
   border: 1px solid black;
   transition: opacity 0.5s ease;
   opacity: 0.5;
 }
 .btn2:hover{
-  background-color: #56FFB8;
+  background-color: #ebd8a0;
 }
 .btn2-active{
   border-radius: 0 20px 20px 0;
   border-left: none;
   flex: 1;
   padding: 10px;
-  background-color: #69a086;
+  background-color: #ebd8a0;
   cursor: pointer;
   border: 1px solid black;
   font-size: 20px;
@@ -190,7 +190,7 @@ input {
 }
 #tiendaBtn-active{
   border-radius: 0 20px 20px 0;
-  background-color: #69a086;
+  background-color: #ebd8a0;
   border-left: none;
 }
 .Registrarse{

@@ -1,5 +1,5 @@
 body {
-    background-color: #a3f8d0;
+    background-color: #fcedc0;
   }
 .title{
     font-weight: normal;
@@ -151,7 +151,7 @@ body {
     color: black;
 }
 .cash-list{
-    background-color: #82cfab;
+    background-color: #ebd8a0;
     grid-column: 1/-1;
     grid-row: 2/9;
     display: grid;
@@ -251,7 +251,7 @@ body {
     }
 }
 .cart-list{
-    background-color: #82cfab;
+    background-color: #ebd8a0;
     grid-column: 1/-1;
     grid-row: 2/-1;
     display: grid;
@@ -299,7 +299,7 @@ body {
 .user{
     width: 98.5%;
     height: 45px;
-    background-color: #82cfab;
+    background-color: #ebd8a0;
     position: fixed;
     bottom: 1em;
     display: flex;
@@ -316,7 +316,7 @@ body {
     .user{
         width: 98.5%;
         height: 45px;
-        background-color: #4BD79C;
+        background-color: #ebd8a0;
         position: fixed;
         bottom: 0;
         display: flex;

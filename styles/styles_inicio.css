@@ -1,5 +1,5 @@
 body {
-    background-color: #a3f8d0;
+    background-color: #fcedc0;
 }
 .title{
   font-weight: normal;
@@ -87,7 +87,7 @@ transition: transform 0.3s ease;
 .btn{
   height: 150px;
   width: 450px;
-  background-color: #82cfab;
+  background-color: #ebd8a0;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
@@ -96,7 +96,7 @@ transition: transform 0.3s ease;
   padding-left: 20px;
   padding-right: 20px;
   transition: 0.10s ease-in-out;
-  --bs-btn-hover-bg: #36fabf;
+  --bs-btn-hover-bg: #dbc993;
 }
 .btn:hover{
   background-color: none;
@@ -113,7 +113,7 @@ transition: transform 0.3s ease;
 .user{
   width: 98.5%;
   height: 45px;
-  background-color: #82cfab;
+  background-color: #f1dfa6;
   position: fixed;
   bottom: 1em;
   display: flex;
@@ -130,7 +130,7 @@ transition: transform 0.3s ease;
   .user{
       width: 98.5%;
       height: 45px;
-      background-color: #82cfab;
+      background-color: #ecd89c;
       position: fixed;
       bottom: 0;
       display: flex;
