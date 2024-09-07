@@ -1,5 +1,5 @@
 document.getElementById('Gp').addEventListener('click', function() {
-    window.location.href = 'gestionarPoductos.html';
+    window.location.href = 'gestionar_productos.html';
 });
 document.getElementById('An').addEventListener('click', function() {
     window.location.href = 'Analisis.html';
