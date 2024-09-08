@@ -67,33 +67,17 @@ body {
 .exit:hover {
     transform: scale(1.2);
 }
-.txt-arriba{
-    display: flex;
-    justify-content: space-between;
-}
-#movimientos {
-    height: fit-content;
-    width: fit-content;
-    background-color: #df6363;
-    margin: auto 0;
-    color: black;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    justify-self: end;
-    text-align: center;
-}
+
 .container{
     width: 100%;
     max-width: 85%;
 }
 .form-control{
-    max-width: 80%;
+    max-width: 90%;
     display: inline-block;
     margin-top: 10px;
     height: 40px;
     border-radius: 15px;
-    margin-right: 10px;
 }
 
 #buscar{
@@ -104,7 +88,7 @@ body {
     color: black;
     border-radius: 15px;
     vertical-align: 1px;
-    margin-left: 1em;
+    margin-left: 1.4em;
 }
 #buscar:hover {
     background-color: #af3333;

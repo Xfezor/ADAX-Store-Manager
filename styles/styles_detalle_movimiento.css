@@ -67,51 +67,25 @@ body {
 .exit:hover {
     transform: scale(1.2);
 }
-.txt-arriba{
-    display: flex;
-    justify-content: space-between;
-}
-#movimientos {
-    height: fit-content;
-    width: fit-content;
-    background-color: #df6363;
-    margin: auto 0;
-    color: black;
-    border-radius: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
-    justify-self: end;
-    text-align: center;
-}
+
 .container{
     width: 100%;
     max-width: 85%;
+    display: grid;
+    grid-template-columns: 10fr 2fr 1fr 2fr 1fr;
+    grid-row: 1fr;
 }
 .form-control{
-    max-width: 80%;
+    max-width: 90%;
     display: inline-block;
     margin-top: 10px;
     height: 40px;
     border-radius: 15px;
-    margin-right: 10px;
 }
-
-#buscar{
-    background-color: #df6363;
-    margin: 0 0;
-    margin-top: 0;
-    padding: 5px 40px;
-    color: black;
-    border-radius: 15px;
-    vertical-align: 1px;
-    margin-left: 1em;
+.form-check-input:checked{
+    background-color: black;
+    border-color: black;
 }
-#buscar:hover {
-    background-color: #af3333;
-    color: black;
-}
-
-
 .cuadradoverde {
     border-radius: 5px;
     background-color: #ebd8a0;
@@ -122,30 +96,46 @@ body {
     border-radius: 2em;
     margin-top: 2%;
 }
+.fecha-input{
+    height: 70%;
+    width: 100%;
+    border: none;
+    margin: auto 0;
+    color: black;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    grid-column: 2/2;
+}
+.fecha2-input{
+    height: 70%;
+    width: 100%;
+    border: none;
+    margin: auto 0;
+    color: black;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    grid-column: 4/4;
+    justify-self: end;
 
-#detalle{
+}
+#search-button {
+    height: 80%;
+    width: 90%;
     background-color: #df6363;
-    margin: 0 0;
-    margin-top: 0;
-    padding: 5px 40px;
+    margin: auto 0;
     color: black;
     border-radius: 15px;
-    vertical-align: 1px;
-    margin-left: 1.4em;
-    display: blox;
-    float: inline-end;
-    margin-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-self: end;
+    text-align: center;
 }
-#detalle:hover{
-    background-color: #af3333;
-    color: black;
-}
-
-
-.user {
+.user{
     width: 98.5%;
     height: 45px;
-    background-color: #f1dfa6;
+    background-color: #ebd8a0;
     position: fixed;
     bottom: 1em;
     display: flex;
@@ -157,8 +147,7 @@ body {
     transform: translateX(0.8%);
     align-content: center;
     text-align: center;
-}
-
+  }
 @media only screen and (max-height: 768px) {
     .user {
         width: 98.5%;

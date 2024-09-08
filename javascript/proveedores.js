@@ -4,6 +4,3 @@ function exitbutton(){
 function backbutton(){
     window.location.href = "inicio.html";
 }
-function vermovimientos(){
-    window.location.href = "detalle_movimiento.html";
-}
