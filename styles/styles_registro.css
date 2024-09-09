@@ -86,7 +86,7 @@ body {
   margin-top: 4%;
 }
 .conteiner1 active{
-  background-color:#ebd8a0;
+  background-color:#e2c673;
   border-radius: 2em;
   text-align: left;
   width: 30%;
@@ -98,7 +98,7 @@ body {
   margin-top: 4%;
 }
 .conteiner2 active {
-  background-color:#ebd8a0;
+  background-color:#e2c673;
   border-radius: 2em;
   text-align: left;
   width: 30%;
@@ -150,7 +150,7 @@ input {
   border-right: none;
   flex: 1;
   padding: 10px;
-  background-color: #ebd8a0;
+  background-color: #e2c673;
   cursor: pointer;
   border: 1px solid black;
   font-size: 20px;
@@ -176,7 +176,7 @@ input {
   border-left: none;
   flex: 1;
   padding: 10px;
-  background-color: #ebd8a0;
+  background-color: #e2c673;
   cursor: pointer;
   border: 1px solid black;
   font-size: 20px;
