@@ -1,22 +1,26 @@
 body {
   background-color: #fcedc0;
 }
-.title{
+
+.title {
   font-weight: normal;
   font-style: normal;
 }
-.contenedorarriba{
+
+.contenedorarriba {
   display: flex;
   margin-top: 3em;
 }
-@media only screen and (max-height: 800px){
-  .contenedorarriba{
+
+@media only screen and (max-height: 800px) {
+  .contenedorarriba {
     display: flex;
     width: 100%;
     margin: 0px auto;
   }
 }
-.adax{
+
+.adax {
   background-color: #df6363;
   font-family: 'Montserrat';
   font-weight: 700;
@@ -33,7 +37,8 @@ body {
   margin-top: 10px;
   text-align: center;
 }
-.back{
+
+.back {
   font-size: 43px;
   border-color: transparent;
   background-color: transparent;
@@ -41,10 +46,12 @@ body {
   display: inline-block;
   transition: transform 0.3s ease;
 }
-.back:hover{
+
+.back:hover {
   transform: scale(1.2);
 }
-.exit{
+
+.exit {
   font-size: 45px;
   border-color: transparent;
   background-color: transparent;
@@ -52,88 +59,104 @@ body {
   margin-right: 2em;
   transition: transform 0.3s ease;
 }
-.exit:hover{
+
+.exit:hover {
   transform: scale(1.2);
 }
-.tienda {
-  margin-top: 2%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.conteiner1{
-  background-color:#ebd8a0;
+
+.conteiner1 {
+  background-color: #ebd8a0;
   border-radius: 2em;
-  text-align: left;
-  width: 30%;
+  width: 50%;
   padding-top: 1%;
-  padding-left: 2%; 
+  padding-left: 2%;
   padding-right: 2%;
-  padding-bottom: 2%; 
+  padding-bottom: 2%;
   margin: auto;
   margin-top: 4%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 10% 10% 80%;
 }
+
 .conteiner2 {
-  background-color:#ebd8a0;
+  background-color: #ebd8a0;
+  border-radius: 2em;
+  width: 50%;
+  padding-top: 1%;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-bottom: 2%;
+  margin: auto;
+  margin-top: 4%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 10% 10% 80%;
+}
+
+.conteiner1 active {
+  background-color: #e2c673;
   border-radius: 2em;
   text-align: left;
   width: 30%;
   padding-top: 1%;
-  padding-left: 2%; 
+  padding-left: 2%;
   padding-right: 2%;
-  padding-bottom: 2%; 
+  padding-bottom: 2%;
   margin: auto;
   margin-top: 4%;
 }
-.conteiner1 active{
-  background-color:#e2c673;
-  border-radius: 2em;
-  text-align: left;
-  width: 30%;
-  padding-top: 1%;
-  padding-left: 2%; 
-  padding-right: 2%;
-  padding-bottom: 2%; 
-  margin: auto;
-  margin-top: 4%;
-}
+
 .conteiner2 active {
-  background-color:#e2c673;
+  background-color: #e2c673;
   border-radius: 2em;
   text-align: left;
   width: 30%;
   padding-top: 1%;
-  padding-left: 2%; 
+  padding-left: 2%;
   padding-right: 2%;
-  padding-bottom: 2%; 
+  padding-bottom: 2%;
   margin: auto;
   margin-top: 4%;
 }
 
 input {
-  width: 100%;
+  width: 90%;
+  height: 90%;
+  border-radius: 10px;
+  padding-left: 5px;
+  border-color: transparent;
+  padding: 5px 5px;
+  font-size: 15px;
+}
+
+select {
+  width: 90%;
+  height: 90%;
   border-radius: 10px;
   padding-left: 10px;
   border-color: transparent;
   padding: 5px 10px;
-  margin-bottom: 4px;
+  font-size: 15px;
+  background-color: white;
+  color: #7c7c7c;
 }
-.conteiner .Registrarse {
-  text-align: center;
-  margin-top: 0%;
-}
-.conteiner #boton_regis {
-  display: flex;
-  margin: 0 auto;
-  margin-top: 20px;
-}
+
 .toggle-buttons {
-  display: flex;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
   background-color: #ebd8a0;
+  text-align: center;
+  grid-column: 1/-1;
+  grid-row: 2/2;
+  justify-self: center;
+  margin-top: 10px;
 }
+
 .btn1 {
   border-radius: 20px 0 0 20px;
-  border-right: none;
+  border-left: none;
   flex: 1;
   padding: 10px;
   background-color: #ebd8a0;
@@ -142,13 +165,14 @@ input {
   transition: opacity 0.5s ease;
   opacity: 0.5;
 }
-.btn1:hover{
+
+.btn1:hover {
   background-color: #ebd8a0;
 }
-.btn1-active{
+
+.btn1-active {
   border-radius: 20px 0 0 20px;
   border-right: none;
-  flex: 1;
   padding: 10px;
   background-color: #e2c673;
   cursor: pointer;
@@ -157,7 +181,8 @@ input {
   transition: opacity 0.5s ease;
   opacity: 1;
 }
-.btn2{
+
+.btn2 {
   border-radius: 0 20px 20px 0;
   border-left: none;
   flex: 1;
@@ -168,10 +193,12 @@ input {
   transition: opacity 0.5s ease;
   opacity: 0.5;
 }
-.btn2:hover{
+
+.btn2:hover {
   background-color: #ebd8a0;
 }
-.btn2-active{
+
+.btn2-active {
   border-radius: 0 20px 20px 0;
   border-left: none;
   flex: 1;
@@ -183,44 +210,262 @@ input {
   transition: opacity 0.5s ease;
   opacity: 1;
 }
+
 #empleadoBtn-active {
   border-radius: 20px 0 0 20px;
   background-color: #515251;
   border-right: none;
 }
-#tiendaBtn-active{
+
+#tiendaBtn-active {
   border-radius: 0 20px 20px 0;
   background-color: #ebd8a0;
   border-left: none;
 }
-.Registrarse{
-  font-size: 35px; 
+
+.Registrarse {
+  font-size: 35px;
   text-align: center;
+  grid-column: 1/-1;
+  grid-row: 1/1;
+  font-weight: 700;
+  margin: 0 auto;
+  width: 100%;
+
 }
-.middel-text{
-  font-size: 27px;
+
+.Registrarse-txt {
+  grid-template-columns: 1/-4;
+  grid-template-rows: 3/3;
 }
+
 #boton_regis {
   background-color: #df6363;
-  display: flex;
-  margin: auto;
+  margin: 0 auto;
   width: 30%;
   justify-content: center;
   align-items: center;
-  margin-top: 10%;
   border-radius: 10px;
   text-align: center;
   color: black;
   transform: scale(1);
   transition: transform 0.5s ease;
+  grid-row: 8/8;
+  grid-column: 2/4;
 }
-#boton_regis:hover{
+
+#boton_regis:hover {
   background-color: #af3333;
   color: rgb(255, 255, 255);
   transform: scale(1.05);
   transition: transform 0.5s ease;
 }
+
 a {
-  text-decoration:none;
+  text-decoration: none;
   color: red;
+}
+
+#tienda {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(8, 1fr);
+  grid-column: 1/-1;
+  column-gap: 20px;
+}
+
+.documento-txt {
+  grid-row: 1/1;
+  grid-column: 1/3;
+}
+
+.documento {
+  grid-row: 2/2;
+  grid-column: 1/3;
+  width: 49%;
+}
+
+.documento-type {
+  grid-row: 2/2;
+  grid-column: 1/3;
+  width: 49%;
+  justify-self: end;
+}
+
+.nombre-txt {
+  grid-row: 1/1;
+  grid-column: 3/5;
+}
+
+.nombre {
+  grid-row: 2/2;
+  grid-column: 3/5;
+  width: 49%;
+}
+
+.nombre2 {
+  grid-row: 2/2;
+  grid-column: 3/5;
+  width: 49%;
+  justify-self: end;
+}
+
+.apellido-txt {
+  grid-row: 3/3;
+  grid-column: 1/3;
+}
+
+.apellido {
+  grid-row: 4/4;
+  grid-column: 1/3;
+  width: 49%;
+}
+
+.apellido2 {
+  grid-row: 4/4;
+  grid-column: 1/3;
+  width: 49%;
+  justify-self: end;
+}
+
+.email-txt {
+  grid-row: 3/3;
+  grid-column: 3/5;
+}
+
+.email {
+  grid-row: 4/4;
+  grid-column: 3/5;
+  width: 100%;
+}
+
+.password-txt {
+  grid-row: 5/5;
+  grid-column: 1/3;
+}
+
+.password {
+  grid-row: 6/6;
+  grid-column: 1/3;
+  width: 49%;
+}
+
+.password2 {
+  grid-row: 6/6;
+  grid-column: 1/3;
+  width: 49%;
+  justify-self: end;
+}
+
+.codigo-txt {
+  grid-row: 5/5;
+  grid-column: 3/5;
+}
+
+.codigo {
+  grid-row: 6/6;
+  grid-column: 3/5;
+  width: 100%;
+}
+
+.iniciar-sesion {
+  grid-row: 7/7;
+  grid-column: 2/4;
+  text-align: center;
+}
+
+/* tienda */
+
+.documento-txt {
+  grid-row: 1/1;
+  grid-column: 1/3;
+}
+
+.documento {
+  grid-row: 2/2;
+  grid-column: 1/3;
+  width: 49%;
+}
+
+.documento-type {
+  grid-row: 2/2;
+  grid-column: 1/3;
+  width: 49%;
+  justify-self: end;
+}
+
+.nombretienda-txt {
+  grid-row: 1/1;
+  grid-column: 3/5;
+}
+
+.nombretienda {
+  grid-row: 2/2;
+  grid-column: 3/5;
+  width: 100%;
+}
+
+.telefono-txt {
+  grid-row: 3/3;
+  grid-column: 1/3;
+}
+
+.telefono {
+  grid-row: 4/4;
+  grid-column: 1/3;
+  width: 100%;
+}
+
+.apellido2 {
+  grid-row: 4/4;
+  grid-column: 1/3;
+  width: 49%;
+  justify-self: end;
+}
+
+.email-txt {
+  grid-row: 3/3;
+  grid-column: 3/5;
+}
+
+.email {
+  grid-row: 4/4;
+  grid-column: 3/5;
+  width: 100%;
+}
+
+.password-txt {
+  grid-row: 5/5;
+  grid-column: 1/3;
+}
+
+.password {
+  grid-row: 6/6;
+  grid-column: 1/3;
+  width: 49%;
+}
+
+.password2 {
+  grid-row: 6/6;
+  grid-column: 1/3;
+  width: 49%;
+  justify-self: end;
+}
+
+.direccion-txt {
+  grid-row: 5/5;
+  grid-column: 3/5;
+}
+
+.direccion {
+  grid-row: 6/6;
+  grid-column: 3/5;
+  width: 100%;
+}
+
+.iniciar-sesion {
+  grid-row: 7/7;
+  grid-column: 2/4;
+  text-align: center;
 }
