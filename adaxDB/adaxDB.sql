@@ -312,8 +312,8 @@ CREATE TABLE `tienda` (
   `telefono` bigint(20) DEFAULT NULL,
   `email` varchar(45) NOT NULL,
   `documento` int(11) NOT NULL,
-  `tipo_documento` smallint(2) NOT NULL,
-  `contrasena` varchar(45) NOT NULL,
+  `tipo_documento` varchar(2) NOT NULL,
+  `contrasena` varbinary(255) NOT NULL,
   PRIMARY KEY (`idtienda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -324,9 +324,49 @@ CREATE TABLE `tienda` (
 
 LOCK TABLES `tienda` WRITE;
 /*!40000 ALTER TABLE `tienda` DISABLE KEYS */;
-INSERT INTO `tienda` VALUES (1,'Supermercado El Barrio','Cra 45 # 19-12',3157894560,'contacto@elbarrio.com',0,0,''),(2,'ElectroShop Bogotá','Av. Boyacá # 71-45',3123456789,'info@electroshopbogota.com',0,0,''),(3,'Librería El Saber','Calle 72 # 6-14',3145678901,'ventas@libreriaelsaber.com',0,0,''),(4,'Farmacia La Salud','Carrera 15 # 101-34',3178901234,'atencion@farmacialasalud.com',0,0,''),(5,'Moda y Estilo','Calle 85 # 10-20',3189012345,'info@modayestilo.com',0,0,''),(6,'Deportes y Más','Calle 53 # 21-12',3190123456,'contacto@deportesymas.com',0,0,''),(7,'Tienda de Abarrotes La Familia','Cra 19 # 32-15',3201234567,'ventas@tiendafamilia.com',0,0,''),(8,'Muebles y Decoración','Av. Jiménez # 5-60',3212345678,'info@mueblesdecoracion.com',0,0,''),(9,'Juguetería Divertida','Cra 10 # 22-30',3223456789,'contacto@jugueteriadivertida.com',0,0,''),(10,'Panadería El Trigo','Calle 50 # 8-90',3234567890,'info@panaderiaeltrigo.com',0,0,''),(11,'Café Gourmet','Cra 9 # 45-67',3245678901,'contacto@cafegourmet.com',0,0,''),(12,'Ropa y Moda','Av. Caracas # 48-20',3256789012,'info@ropaymoda.com',0,0,''),(13,'Tecnología al Día','Calle 26 # 11-25',3267890123,'ventas@tecnologiaaldia.com',0,0,''),(14,'Lácteos y Más','Cra 7 # 10-45',3278901234,'info@lacteosymas.com',0,0,''),(15,'Tienda de Vinos','Calle 94 # 17-30',3289012345,'contacto@tiendadevinos.com',0,0,''),(16,'Zapatería El Paso','Cra 22 # 5-90',3290123456,'info@zapateriaalpaso.com',0,0,''),(17,'Delicatessen Gourmet','Calle 55 # 12-65',3301234567,'ventas@delicatessengourmet.com',0,0,''),(18,'Electrodomésticos Centro','Av. El Dorado # 20-40',3312345678,'contacto@electrodomesticoscentro.com',0,0,''),(19,'Floristería Elegante','Cra 3 # 21-75',3323456789,'info@floristeriaelegante.com',0,0,''),(20,'Tienda de Deportes','Calle 17 # 3-60',3334567890,'contacto@tiendadeportes.com',0,0,''),(21,'Pastelería La Dulce Vida','Cra 12 # 45-89',3345678901,'info@pastelerialadulcevida.com',0,0,''),(22,'Centro de Belleza','Av. Chile # 25-40',3356789012,'contacto@centrobelleza.com',0,0,''),(23,'Muebles Modernos','Calle 8 # 18-90',3367890123,'ventas@mueblesmodernos.com',0,0,''),(24,'Juguetes para Todos','Cra 11 # 25-15',3378901234,'info@juguetesparatodos.com',0,0,''),(25,'Farmacia San Juan','Calle 77 # 5-20',3389012345,'atencion@farmaciasanjuan.com',0,0,''),(26,'Perfumería y Cosméticos','Cra 16 # 30-45',3390123456,'info@perfumeriaycosmeticos.com',0,0,''),(27,'Tiendas El Ahorro','Calle 32 # 22-90',3401234567,'contacto@tiendaselahorro.com',0,0,''),(28,'Tienda de Tecnología','Av. San Martín # 50-60',3412345678,'ventas@tiendatecnologia.com',0,0,''),(29,'Librería y Papelería','Cra 8 # 15-70',3423456789,'info@libreriaypapeleria.com',0,0,''),(30,'Ropa y Calzado','Calle 46 # 22-80',3434567890,'contacto@ropaycalzado.com',0,0,'');
+INSERT INTO `tienda` VALUES (1,'Supermercado El Barrio','Cra 45 # 19-12',3157894560,'contacto@elbarrio.com',0,'0',''),(2,'ElectroShop Bogotá','Av. Boyacá # 71-45',3123456789,'info@electroshopbogota.com',0,'0',''),(3,'Librería El Saber','Calle 72 # 6-14',3145678901,'ventas@libreriaelsaber.com',0,'0',''),(4,'Farmacia La Salud','Carrera 15 # 101-34',3178901234,'atencion@farmacialasalud.com',0,'0',''),(5,'Moda y Estilo','Calle 85 # 10-20',3189012345,'info@modayestilo.com',0,'0',''),(6,'Deportes y Más','Calle 53 # 21-12',3190123456,'contacto@deportesymas.com',0,'0',''),(7,'Tienda de Abarrotes La Familia','Cra 19 # 32-15',3201234567,'ventas@tiendafamilia.com',0,'0',''),(8,'Muebles y Decoración','Av. Jiménez # 5-60',3212345678,'info@mueblesdecoracion.com',0,'0',''),(9,'Juguetería Divertida','Cra 10 # 22-30',3223456789,'contacto@jugueteriadivertida.com',0,'0',''),(10,'Panadería El Trigo','Calle 50 # 8-90',3234567890,'info@panaderiaeltrigo.com',0,'0',''),(11,'Café Gourmet','Cra 9 # 45-67',3245678901,'contacto@cafegourmet.com',0,'0',''),(12,'Ropa y Moda','Av. Caracas # 48-20',3256789012,'info@ropaymoda.com',0,'0',''),(13,'Tecnología al Día','Calle 26 # 11-25',3267890123,'ventas@tecnologiaaldia.com',0,'0',''),(14,'Lácteos y Más','Cra 7 # 10-45',3278901234,'info@lacteosymas.com',0,'0',''),(15,'Tienda de Vinos','Calle 94 # 17-30',3289012345,'contacto@tiendadevinos.com',0,'0',''),(16,'Zapatería El Paso','Cra 22 # 5-90',3290123456,'info@zapateriaalpaso.com',0,'0',''),(17,'Delicatessen Gourmet','Calle 55 # 12-65',3301234567,'ventas@delicatessengourmet.com',0,'0',''),(18,'Electrodomésticos Centro','Av. El Dorado # 20-40',3312345678,'contacto@electrodomesticoscentro.com',0,'0',''),(19,'Floristería Elegante','Cra 3 # 21-75',3323456789,'info@floristeriaelegante.com',0,'0',''),(20,'Tienda de Deportes','Calle 17 # 3-60',3334567890,'contacto@tiendadeportes.com',0,'0',''),(21,'Pastelería La Dulce Vida','Cra 12 # 45-89',3345678901,'info@pastelerialadulcevida.com',0,'0',''),(22,'Centro de Belleza','Av. Chile # 25-40',3356789012,'contacto@centrobelleza.com',0,'0',''),(23,'Muebles Modernos','Calle 8 # 18-90',3367890123,'ventas@mueblesmodernos.com',0,'0',''),(24,'Juguetes para Todos','Cra 11 # 25-15',3378901234,'info@juguetesparatodos.com',0,'0',''),(25,'Farmacia San Juan','Calle 77 # 5-20',3389012345,'atencion@farmaciasanjuan.com',0,'0',''),(26,'Perfumería y Cosméticos','Cra 16 # 30-45',3390123456,'info@perfumeriaycosmeticos.com',0,'0',''),(27,'Tiendas El Ahorro','Calle 32 # 22-90',3401234567,'contacto@tiendaselahorro.com',0,'0',''),(28,'Tienda de Tecnología','Av. San Martín # 50-60',3412345678,'ventas@tiendatecnologia.com',0,'0',''),(29,'Librería y Papelería','Cra 8 # 15-70',3423456789,'info@libreriaypapeleria.com',0,'0',''),(30,'Ropa y Calzado','Calle 46 # 22-80',3434567890,'contacto@ropaycalzado.com',0,'0',''),(80,'Margaritas','calle 32',123412,'tienda@gmail.com',10148648,'0',_binary '݂(J�\�?\�\�_֦٥');
 /*!40000 ALTER TABLE `tienda` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger encriptarContrasenasTienda
+before insert on tienda
+for each row
+begin
+set new.contrasena = AES_ENCRYPT(new.contrasena, @contrasenaEncriptado);
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger actualizarContrasenaEncriptadaTienda
+before update on tienda
+for each row
+begin
+set new.contrasena = aes_encrypt(new.contrasena, @contrasenaEncriptado);
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `usuarios`
@@ -338,7 +378,7 @@ DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE `usuarios` (
   `documento` bigint(20) NOT NULL,
   `tipo_doc` text NOT NULL,
-  `contraseña` varchar(45) NOT NULL,
+  `contrasena` varbinary(255) NOT NULL,
   `nombre1` text NOT NULL,
   `nombre2` text DEFAULT NULL,
   `apellido1` varchar(45) NOT NULL,
@@ -358,9 +398,49 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1000123456,'CC','','Juan','Pablo','Gonzalez','Martinez','juan.gonzalez@example.com',1),(1000234567,'CC','','Maria','Fernanda','Lopez','Castro','maria.lopez@example.com',2),(1000345678,'CC','','Andres','Felipe','Rodriguez','Sierra','andres.rodriguez@example.com',3),(1000456789,'CC','','Laura','Isabel','Hernandez','Martinez','laura.hernandez@example.com',1),(1000567890,'CC','','Carlos','Andres','Mendoza','Valencia','carlos.mendoza@example.com',2),(1000678901,'CC','','Valentina','Paredes','Cruz','García','valentina.paredes@example.com',3),(1000789012,'CC','','Sebastian','Gonzalez','Ardila','Ospina','sebastian.gonzalez@example.com',1),(1000890123,'CC','','Catalina','Cruz','Cardenas','Rodriguez','catalina.cruz@example.com',2),(1000901234,'CC','','Nicolas','Sanchez','Henao','Rivas','nicolas.sanchez@example.com',3),(1001012345,'CC','','Sofia','Torres','Morales','Suárez','sofia.torres@example.com',1),(1001123456,'CC','','Daniela','Ramirez','Cano','Loaiza','daniela.ramirez@example.com',2),(1001234567,'CC','','Alejandro','Hernandez','Mora','Hurtado','alejandro.hernandez@example.com',3),(1001345678,'CC','','Isabella','Mendoza','Pérez','Orjuela','isabella.mendoza@example.com',1),(1001456789,'CC','','Jorge','Martinez','Gómez','Méndez','jorge.martinez@example.com',2),(1001567890,'CC','','Camila','Guerra','Patiño','García','camila.guerra@example.com',3),(1001678901,'CC','','Felipe','Castro','Bermudez','García','felipe.castro@example.com',1),(1001789012,'CC','','Mariana','Pineda','Pineda','Arboleda','mariana.pineda@example.com',2),(1001890123,'CC','','David','Gomez','Arias','Correa','david.gomez@example.com',3),(1001901234,'CC','','Juliana','Ospina','Bermudez','Jaramillo','juliana.ospina@example.com',1),(1002012345,'CC','','Mateo','Guerrero','Reyes','Patiño','mateo.guerrero@example.com',2),(1002123456,'CC','','Valeria','Rojas','Martinez','Vargas','valeria.rojas@example.com',3),(1002234567,'CC','','Lucas','Vega','Ospina','Castro','lucas.vega@example.com',1),(1002345678,'CC','','Natalia','Cano','Guzmán','García','natalia.cano@example.com',2),(1002456789,'CC','','Juanita','Jaramillo','Mendoza','Ardila','juanita.jaramillo@example.com',3),(1002567890,'CC','','Mateo','Vargas','Pineda','Cano','mateo.vargas@example.com',1),(1002678901,'CC','','Emilia','Cordero','Gómez','Cano','emilia.cordero@example.com',2),(1002789012,'CC','','Samir','Alvarez','Rincón','Mora','samir.alvarez@example.com',3),(1002890123,'CC','','Paola','Martinez','Patiño','Ospina','paola.martinez@example.com',1),(1002901234,'CC','','Julián','Rincón','Guzmán','Rivas','julian.rincon@example.com',2),(1003012345,'CC','','Diana','Uribe','Salazar','Sánchez','diana.uribe@example.com',3),(1003123456,'CC','','Felipe','Ortega','Arce','García','felipe.ortega@example.com',1),(1003234567,'CC','','Carolina','Sierra','López','Castaño','carolina.sierra@example.com',2),(1003345678,'CC','','Sebastián','Martínez','Ospina','Méndez','sebastian.martinez@example.com',3);
+INSERT INTO `usuarios` VALUES (10108890,'CC',_binary 'v{��Ǐ�OCD\�va�>','Santiago','','Martinez','','matinotes95@gmail.com',1),(101088908,'CC',_binary '\���\"@��\�\�p�*S','Santiago','','Martinez','','matinotes95@gmail.com',1),(1000123456,'CC','','Juan','Pablo','Gonzalez','Martinez','juan.gonzalez@example.com',1),(1000234567,'CC','','Maria','Fernanda','Lopez','Castro','maria.lopez@example.com',2),(1000345678,'CC','','Andres','Felipe','Rodriguez','Sierra','andres.rodriguez@example.com',3),(1000456789,'CC','','Laura','Isabel','Hernandez','Martinez','laura.hernandez@example.com',1),(1000567890,'CC','','Carlos','Andres','Mendoza','Valencia','carlos.mendoza@example.com',2),(1000678901,'CC','','Valentina','Paredes','Cruz','García','valentina.paredes@example.com',3),(1000789012,'CC','','Sebastian','Gonzalez','Ardila','Ospina','sebastian.gonzalez@example.com',1),(1000890123,'CC','','Catalina','Cruz','Cardenas','Rodriguez','catalina.cruz@example.com',2),(1000901234,'CC','','Nicolas','Sanchez','Henao','Rivas','nicolas.sanchez@example.com',3),(1001012345,'CC','','Sofia','Torres','Morales','Suárez','sofia.torres@example.com',1),(1001123456,'CC','','Daniela','Ramirez','Cano','Loaiza','daniela.ramirez@example.com',2),(1001234567,'CC','','Alejandro','Hernandez','Mora','Hurtado','alejandro.hernandez@example.com',3),(1001345678,'CC','','Isabella','Mendoza','Pérez','Orjuela','isabella.mendoza@example.com',1),(1001456789,'CC','','Jorge','Martinez','Gómez','Méndez','jorge.martinez@example.com',2),(1001567890,'CC','','Camila','Guerra','Patiño','García','camila.guerra@example.com',3),(1001678901,'CC','','Felipe','Castro','Bermudez','García','felipe.castro@example.com',1),(1001789012,'CC','','Mariana','Pineda','Pineda','Arboleda','mariana.pineda@example.com',2),(1001890123,'CC','','David','Gomez','Arias','Correa','david.gomez@example.com',3),(1001901234,'CC','','Juliana','Ospina','Bermudez','Jaramillo','juliana.ospina@example.com',1),(1002012345,'CC','','Mateo','Guerrero','Reyes','Patiño','mateo.guerrero@example.com',2),(1002123456,'CC','','Valeria','Rojas','Martinez','Vargas','valeria.rojas@example.com',3),(1002234567,'CC','','Lucas','Vega','Ospina','Castro','lucas.vega@example.com',1),(1002345678,'CC','','Natalia','Cano','Guzmán','García','natalia.cano@example.com',2),(1002456789,'CC','','Juanita','Jaramillo','Mendoza','Ardila','juanita.jaramillo@example.com',3),(1002567890,'CC','','Mateo','Vargas','Pineda','Cano','mateo.vargas@example.com',1),(1002678901,'CC','','Emilia','Cordero','Gómez','Cano','emilia.cordero@example.com',2),(1002789012,'CC','','Samir','Alvarez','Rincón','Mora','samir.alvarez@example.com',3),(1002890123,'CC','','Paola','Martinez','Patiño','Ospina','paola.martinez@example.com',1),(1002901234,'CC','','Julián','Rincón','Guzmán','Rivas','julian.rincon@example.com',2),(1003012345,'CC','','Diana','Uribe','Salazar','Sánchez','diana.uribe@example.com',3),(1003123456,'CC','','Felipe','Ortega','Arce','García','felipe.ortega@example.com',1),(1003234567,'CC','','Carolina','Sierra','López','Castaño','carolina.sierra@example.com',2),(1003345678,'CC','','Sebastián','Martínez','Ospina','Méndez','sebastian.martinez@example.com',3);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger encriptarContrasenas
+before insert on usuarios
+for each row
+begin
+set new.contrasena = AES_ENCRYPT(new.contrasena, @contrasenaEncriptado);
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger actualizarContrasenaEncriptada
+before update on usuarios
+for each row
+begin
+set new.contrasena = aes_encrypt(new.contrasena, @contrasenaEncriptado);
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `venta`
@@ -414,4 +494,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-11 13:37:26
+-- Dump completed on 2024-09-12 16:22:52
