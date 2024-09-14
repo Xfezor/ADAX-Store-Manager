@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-09-2024 a las 03:42:36
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Tiempo de generación: 14-09-2024 a las 05:33:09
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,7 +25,58 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `1monstrar_proveedor_de_producto` (IN `p_id_Producto` INT(11))   BEGIN 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BucarProductospopularidad` (IN `Nivel_popu` VARCHAR(20))   BEGIN
+    SELECT p.id_Producto, p.nombre, SUM(f.cantidad) AS cantidad,
+    CASE
+        WHEN cantidad > 20 THEN "popular"
+        WHEN cantidad BETWEEN 10 AND 20 THEN'Medio Popular'
+        ELSE 'No Popular'
+    END AS categoria_popularidad
+    FROM factura f
+    JOIN producto p ON f.producto_id_Producto = p.id_Producto
+    GROUP BY p.id_Producto, p.nombre
+    HAVING categoria_popularidad = Nivel_popu
+    ORDER BY cantidad DESC;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscarFactura` (IN `id_fac` INT(11))   BEGIN
+SELECT venta_id_Venta, producto_id_producto, estado FROM factura
+WHERE venta_id_Venta=id_fac;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Fechasdesdehasta` (IN `fecha1` DATE, IN `fecha2` DATE)   BEGIN
+SELECT fecha1,fecha2
+FROM venta 
+WHERE FechaVenta between fecha1 AND fecha2;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarProducto` (IN `id_Producto` INT(11), IN `Nombre varchar` VARCHAR(100), IN `Precio_unit` DOUBLE, IN `Cantidad ` INT(11))   BEGIN
+Insert into producto (id_Producto, Nombre, Precio_unit)
+values (id_Producto ,Nombre, Precio_unit);
+
+
+Insert into factura (producto_id_Producto, Cantidad)
+values (producto_id_Producto,Cantidad);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ModificarProducto` (IN `id_Producto ` INT(11), IN `NuevoNombre` VARCHAR(100), IN `NuevaCantidad ` INT(11), IN `NuevoPrecio` DOUBLE, IN `NuevoStockMinimo` INT(11), IN `NuevaPresentacion ` VARCHAR(100), IN `NuevaMarca` VARCHAR(100), IN `PromocionActual ` VARCHAR(100), IN `NuevaCategoria ` VARCHAR(50), IN `NuevaFechaVencimiento` DATE)   BEGIN
+    UPDATE producto AS p
+    SET p.Nombre = NuevoNombre,
+        p.Precio_unit= NuevoPrecio,
+        p.Stock_Min = NuevoStockMinimo,
+        p.Presentacion = NuevaPresentacion,
+        p.Marca = NuevaMarca,
+        p.Categoría = NuevaCategoria,
+        p.Fecha_vencimiento = NuevaFechaVencimiento
+    WHERE p.id_Producto = id_Producto;
+
+
+    UPDATE factura AS f
+    SET f.Cantidad = NuevaCantidad
+    WHERE f.producto_id_Producto = id_Producto;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `monstrar_proveedor_de_producto` (IN `p_id_Producto` INT(11))   BEGIN 
 select producto.nombre as nombre_producto,
 proveedor.nombre as nombre_proveedor
 from producto
@@ -34,7 +85,7 @@ join proveedor on entregaproductos.proveedor_idproveedor = proveedor.idproveedor
 where id_producto = p_id_producto;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RecuperarContrasenaUsuario` (IN `p_correo` VARCHAR(100))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RecuperarContrasenaUsuario` (IN `p_correo ` VARCHAR(100))   BEGIN
     DECLARE v_contrasena VARBINARY(255);
     
     SELECT contrasena INTO v_contrasena
@@ -52,6 +103,14 @@ END$$
 --
 -- Funciones
 --
+CREATE DEFINER=`root`@`localhost` FUNCTION `obtener_historial_movimientos` (`id_Venta` INT(11)) RETURNS DECIMAL(10,2)  BEGIN
+    DECLARE costo_total DECIMAL(10,2);
+    SELECT SUM(Cantidad * Precio) INTO costo_total
+    FROM Factura
+    WHERE venta_id_Venta = id_Venta;
+    RETURN costo_total;
+END$$
+
 CREATE DEFINER=`root`@`localhost` FUNCTION `obtener_stock_producto` (`p_id_producto` INT(11)) RETURNS INT(11)  BEGIN
     DECLARE p_stock INT;
     SELECT stock INTO p_stock FROM producto WHERE id_producto = p_id_producto;
@@ -59,7 +118,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `obtener_stock_producto` (`p_id_produ
 RETURN p_stock;
 END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `producto_mas_vendido` () RETURNS INT(11) DETERMINISTIC BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `producto_mas_vendido` () RETURNS INT(11)  BEGIN
     DECLARE id INT;
     
     SELECT 
@@ -75,6 +134,28 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `producto_mas_vendido` () RETURNS INT
     LIMIT 1;
     
     RETURN id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `total_cliente` () RETURNS INT(11)  BEGIN  
+DECLARE total_clientes INT; 
+SELECT COUNT(id_cliente) INTO total_clientes 
+FROM cliente;
+RETURN total_clientes;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Total_venta` (`dia_venta` DATE) RETURNS DECIMAL(10,2)  BEGIN
+DECLARE total_ventas DECIMAL(10, 2);
+DECLARE mensaje VARCHAR(30);
+SELECT SUM(factura.Precio) INTO total_ventas
+FROM factura
+JOIN venta on factura.venta_id_Venta=venta.id_Venta
+WHERE DATE(venta.FechaVenta)= dia_venta;
+ IF total_ventas IS NULL THEN 
+ SET mensaje = 'no se hicieron ventas ese dia'; 
+ RETURN 0; 
+    ELSE
+RETURN total_ventas;
+END IF;
 END$$
 
 DELIMITER ;
