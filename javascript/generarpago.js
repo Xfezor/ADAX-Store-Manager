@@ -1,5 +1,5 @@
 function exitbutton(){
-    window.location.href = "https://www.google.com";
+    window.location.href = "index.html";
 }
 function backbutton(){
     window.location.href = "ventas.html";

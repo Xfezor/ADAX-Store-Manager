@@ -56,7 +56,7 @@ body {
   background-color: #ebd8a0;
   padding: 2%;
   width: 55%;
-  height: 90%;
+  height: 100%;
   border-radius: 2em;
 }
 .cuadradoverde .titulo {
@@ -108,4 +108,85 @@ p{
 }
 .contrasena{
   font-size: 27px;
+}
+
+.toggle-buttons {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  background-color: #ebd8a0;
+  text-align: center;
+  grid-column: 1/-1;
+  grid-row: 2/2;
+  justify-self: center;
+  margin-top: 10px;
+}
+
+.btn1 {
+  border-radius: 20px 0 0 20px;
+  border-left: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #ebd8a0;
+  cursor: pointer;
+  border: 1px solid black;
+  transition: opacity 0.5s ease;
+  opacity: 0.5;
+}
+
+.btn1:hover {
+  background-color: #ebd8a0;
+}
+
+.btn1-active {
+  border-radius: 20px 0 0 20px;
+  border-right: none;
+  padding: 10px;
+  background-color: #e2c673;
+  cursor: pointer;
+  border: 1px solid black;
+  font-size: 20px;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+.btn2 {
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #ebd8a0;
+  cursor: pointer;
+  border: 1px solid black;
+  transition: opacity 0.5s ease;
+  opacity: 0.5;
+}
+
+.btn2:hover {
+  background-color: #ebd8a0;
+}
+
+.btn2-active {
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+  flex: 1;
+  padding: 10px;
+  background-color: #e2c673;
+  cursor: pointer;
+  border: 1px solid black;
+  font-size: 20px;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+#empleadoBtn-active {
+  border-radius: 20px 0 0 20px;
+  background-color: #515251;
+  border-right: none;
+}
+
+#tiendaBtn-active {
+  border-radius: 0 20px 20px 0;
+  background-color: #ebd8a0;
+  border-left: none;
 }

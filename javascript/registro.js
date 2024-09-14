@@ -31,8 +31,20 @@ function cambiarestadoBtn22(){
 };
 
 function backbutton(){
-  window.location.href = "iniciar_sesion.html"
+  window.location.href = "iniciar_sesion.php"
 };
 function exitbutton(){
-  window.location.href = "https://www.google.com";
+  window.location.href = "index.html";
+}
+
+function validarContraseñas() {
+  var password1 = document.getElementById("pass1").value;
+  var password2 = document.getElementById("pass2").value;
+
+  if (password1 !== password2) {
+      alert("Las contraseñas no coinciden");
+      return false; // Prevent form submission
+  }
+
+  return true; // Allow form submission
 }

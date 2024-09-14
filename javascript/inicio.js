@@ -12,8 +12,8 @@ document.getElementById('Gv').addEventListener('click', function() {
 });
 
 function backbutton(){
-    window.location.href = "iniciar_sesion.html"
+    window.location.href = "aa.html"
   };
   function exitbutton(){
-    window.location.href = "https://www.google.com";
+    window.location.href = "index.html";
   }
