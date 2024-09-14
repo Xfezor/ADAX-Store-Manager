@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-09-2024 a las 14:29:59
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Tiempo de generación: 14-09-2024 a las 03:04:51
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,36 +25,48 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `punto1` (IN `p_id_Producto` INT(11))   BEGIN 
-select producto.nombre as nombre_producto,
-proveedor.nombre as nombre_proveedor
-from producto
-join entregaproductos on producto.id_Producto = entregaproductos.producto_id_Producto
-join proveedor on entregaproductos.proveedor_idproveedor = proveedor.idproveedor
-where id_producto = p_id_producto;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BucarProductospopularidad` (IN `Nivel_popu` VARCHAR(20))   BEGIN
+    SELECT p.id_Producto, p.nombre, SUM(f.cantidad) AS cantidad,
+    CASE
+        WHEN cantidad > 20 THEN "popular"
+        WHEN cantidad BETWEEN 10 AND 20 THEN'Medio Popular'
+        ELSE 'No Popular'
+    END AS categoria_popularidad
+    FROM factura f
+    JOIN producto p ON f.producto_id_Producto = p.id_Producto
+    GROUP BY p.id_Producto, p.nombre
+    HAVING categoria_popularidad = Nivel_popu
+    ORDER BY cantidad DESC;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `punto5` (IN `p_accion` VARCHAR(20), IN `p_documento` BIGINT(20), IN `p_tipo_doc` TEXT, IN `p_contrasena` VARBINARY(255), IN `p_nombre1` TEXT, IN `p_nombre2` TEXT, IN `p_apellido1` VARCHAR(45), IN `p_apellido2` VARCHAR(45), IN `p_correo` VARCHAR(50))   BEGIN
-CASE
-        WHEN p_accion = 'insertar' THEN
-        INSERT INTO usuarios (documento, tipo_doc, contrasena, nombre1, nombre2, apellido1, apellido2, correo)
-        VALUES (p_documento, p_tipo_doc, p_contrasena, p_nombre1, p_nombre2, p_apellido1, p_apellido2, p_correo);
-    WHEN p_accion = 'actualizar' THEN
-        UPDATE usuarios
-        SET tipo_doc = p_tipo_doc,
-            contrasena = p_contrasena,
-            nombre1 = p_nombre1,
-            nombre2 = p_nombre2,
-            apellido1 = p_apellido1,
-            apellido2 = p_apellido2,
-            correo = p_correo
-        WHERE usuarios.documento = p_documento;
-    WHEN p_accion = 'eliminar' THEN
-        DELETE FROM usuarios
-        WHERE usuarios.documento = p_documento;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscarFactura` (IN `id_fac` INT(11))   BEGIN
+SELECT venta_id_Venta, producto_id_producto, estado FROM factura
+WHERE venta_id_Venta=id_fac;
+END$$
+
+--
+-- Funciones
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `total_cliente` () RETURNS INT(11)  BEGIN  
+DECLARE total_clientes INT; 
+SELECT COUNT(id_cliente) INTO total_clientes 
+FROM cliente;
+RETURN total_clientes;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `Total_venta` (`dia_venta` DATE) RETURNS DECIMAL(10,2)  BEGIN
+DECLARE total_ventas DECIMAL(10, 2);
+DECLARE mensaje VARCHAR(30);
+SELECT SUM(factura.Precio) INTO total_ventas
+FROM factura
+JOIN venta on factura.venta_id_Venta=venta.id_Venta
+WHERE DATE(venta.FechaVenta)= dia_venta;
+ IF total_ventas IS NULL THEN 
+ SET mensaje = 'no se hicieron ventas ese dia'; 
+ RETURN 0; 
     ELSE
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Acción no válida';
-   END CASE;
+RETURN total_ventas;
+END IF;
 END$$
 
 DELIMITER ;
@@ -570,7 +582,7 @@ DELIMITER ;
 CREATE TABLE `usuarios` (
   `documento` bigint(20) NOT NULL,
   `tipo_doc` text NOT NULL,
-  `contrasena` varchar(255) DEFAULT NULL,
+  `contrasena` varbinary(255) NOT NULL,
   `nombre1` text NOT NULL,
   `nombre2` text DEFAULT NULL,
   `apellido1` varchar(45) NOT NULL,
@@ -584,7 +596,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`documento`, `tipo_doc`, `contrasena`, `nombre1`, `nombre2`, `apellido1`, `apellido2`, `correo`, `rol_id_Rol`) VALUES
-(101088908, 'CC', '???\"@????p?*S', 'Santiago', '', 'Martinez', '', 'matinotes95@gmail.com', 1),
+(10108890, 'CC', 0x767baa97c78fb94f4344d076618f163e, 'Santiago', '', 'Martinez', '', 'matinotes95@gmail.com', 1),
+(101088908, 'CC', 0xcf0f81b722021640a2a4eada70832a53, 'Santiago', '', 'Martinez', '', 'matinotes95@gmail.com', 1),
 (1000123456, 'CC', '', 'Juan', 'Pablo', 'Gonzalez', 'Martinez', 'juan.gonzalez@example.com', 1),
 (1000234567, 'CC', '', 'Maria', 'Fernanda', 'Lopez', 'Castro', 'maria.lopez@example.com', 2),
 (1000345678, 'CC', '', 'Andres', 'Felipe', 'Rodriguez', 'Sierra', 'andres.rodriguez@example.com', 3),
