@@ -1,0 +1,62 @@
+<?php
+class UsuarioDao
+{
+    
+    public function registrarUsuario(UsuarioDto $usuarioDto)
+    {
+        $conn = Conexion::getConexion();
+        $mensaje = "";
+        $documento = $usuarioDto->getDocumento();
+        $tipodoc = $usuarioDto->getTipo_doc();
+        $contrasena = $usuarioDto->getContrasena();
+        $nombre1 = $usuarioDto->getNombre1();
+        $nombre2 = $usuarioDto->getNombre2();
+        $apellido1 = $usuarioDto->getApellido1();
+        $apellido2 = $usuarioDto->getApellido2();
+        $correo = $usuarioDto->getCorreo();
+        $rol = $usuarioDto->getRol_id_Rol();
+        $codinv= $usuarioDto->getCodigoInvitacion();
+        try {
+            $query = $conn->prepare("select codigo_invitacion from tienda where codigo_invitacion = '$codinv'");
+            $query->execute();
+            $resultado = $query->fetch();
+            $mensaje = "Registrado Exitosamente";
+            if ($resultado === false) {
+                $mensaje = "la query no fue exitosa, o el codigo de invitacion no existe";
+                // header("Location:../../HTML/registro.php?error=3");
+                // exit; // Add this to stop the script execution
+            } else {
+                echo "se realizo la primera query";
+                try {
+                    $query = $conn->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,?)");
+                    $query->bindParam(1,$documento);
+                    $query->bindParam(2,$tipodoc);
+                    $query->bindParam(3,$contrasena);
+                    $query->bindParam(4,$nombre1);
+                    $query->bindParam(5,$nombre2);
+                    $query->bindParam(6,$apellido1);
+                    $query->bindParam(7,$apellido2);
+                    $query->bindParam(8,$correo);
+                    $query->bindParam(9,$rol);
+                    $query->bindParam(10,$codinv);
+    
+                    $query->execute();
+                    $mensaje = "Registrado Exitosamente";
+                } catch (Exception $ex) {
+                    $mensaje = $ex->getMessage();
+                }
+            }
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        }
+
+        $cnn = null;
+        return $mensaje;
+    }
+
+    // modificar usuario
+
+
+
+}
+?>
