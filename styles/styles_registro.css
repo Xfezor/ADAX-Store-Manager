@@ -76,7 +76,7 @@ body {
   margin-top: 4%;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 10% 10% 80%;
+  grid-template-rows: 10% 15% 80%;
 }
 
 .conteiner2 {
@@ -91,7 +91,7 @@ body {
   margin-top: 4%;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
-  grid-template-rows: 10% 10% 80%;
+  grid-template-rows: 10% 15% 80%;
 }
 
 .conteiner1 active {

@@ -52,5 +52,5 @@ function exitbutton(){
 }
 
 function backbutton(){
-    window.location.href = "iniciar_sesion.html";
+    window.location.href = "iniciar_sesion.php";
 }

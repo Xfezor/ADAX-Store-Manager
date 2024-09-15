@@ -7,6 +7,8 @@ echo "no esta iniciando la sesion";
 }elseif(isset($_SESSION['nombre1'])){
     require '../Crud/Dao/usuariosDao.php';
     require '../Crud/Dto/usuariosDto.php';
+    require '../Crud/Dao/tiendaDao.php';
+    require '../Crud/Dto/tiendaDto.php';
     require '../Crud/utilidades/conexion.php';
 }else {
      echo 'ocurrio un error'; 

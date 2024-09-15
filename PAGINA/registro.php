@@ -76,35 +76,35 @@
       <button class="btn1" id="empleadoBtn" onclick="cambiarestadoBtn11(this)">Empleado</button>
       <button class="btn2-active" id="tiendaBtn" onclick="cambiarestadoBtn22(this)">Tienda</button>
     </div>
-    <form id="tienda" onsubmit="return validarContraseñas()">
+    <form id="tienda" onsubmit="return validarContraseñas()" action="../Crud/controlador/controlador.tienda.php" method="POST">
       <h3 class="documento-txt">Documento *</h3>
-      <input class="documento" type="number" placeholder="* Número de documento">
-      <select class="documento-type" type="number">
-        <option default value="C.C">Cedula de cuidadania</option>
-        <option value="T.I">Tarjeta de identidad</option>
-        <option value="C.E">Cedula de extranjeria</option>
-        <option value="R.C">Registro civil</option>
+      <input name="documento" class="documento" type="number" placeholder="* Número de documento">
+      <select name="tipodoc" class="documento-type" type="number">
+        <option default value="CC">Cedula de cuidadania</option>
+        <option value="TI">Tarjeta de identidad</option>
+        <option value="CE">Cedula de extranjeria</option>
+        <option value="RC">Registro civil</option>
       </select>
 
       <h3 class="nombretienda-txt">Nombre Tienda *</h3>
-      <input class="nombretienda" type="text" placeholder="* Nombre completo de la tienda">
+      <input name="nombreTienda" class="nombretienda" type="text" placeholder="* Nombre completo de la tienda">
 
       <h3 class="telefono-txt">Telefono</h3>
-      <input class="telefono" type="text" placeholder="Telefono (opcional)">
+      <input name="telefono" class="telefono" type="text" placeholder="Telefono (opcional)">
 
 
       <h3 class="email-txt">Correo Electronico *</h3>
-      <input class="email" type="text" placeholder="* Correo electronico (example@example.com)">
+      <input name="correo" class="email" type="text" placeholder="* Correo electronico (example@example.com)">
 
       <h3 class="password-txt">Contraseña *</h3>
-      <input class="password" type="password" placeholder="* Ingrese su contraseña">
+      <input name="contrasena" class="password" type="password" placeholder="* Ingrese su contraseña">
       <input class="password2" type="password" placeholder="* Repita su contraseña">
 
       <h3 class="direccion-txt">Dirección tienda</h3>
-      <input class="direccion" type="text" placeholder="Dirección de la tienda (opcional)">
+      <input name="direccion" class="direccion" type="text" placeholder="Dirección de la tienda (opcional)">
 
       <p class="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>
-      <button name="registro" value="registro" class="btn btn-danger" id="boton_regis">Registrarse</button>
+      <button name="registroTienda" value="registroTienda" class="btn btn-danger" id="boton_regis">Registrarse</button>
     </form>
   </div>
   <script src="../javascript/registro.js"></script>

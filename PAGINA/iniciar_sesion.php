@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['nombre1'])) {
-  header('Location:index.php');
+  header('Location:inicio.php');
 }
 // Deshabilitar el caché
 header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
