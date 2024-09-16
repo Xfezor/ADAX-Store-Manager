@@ -3,7 +3,7 @@ function exitbutton(){
 }
 
 function iniciarsesion(){
-    window.location.href = "inicio.html";
+    window.location.href = "inicio.php";
 }
 
 function cambiarestadoBtn1(){

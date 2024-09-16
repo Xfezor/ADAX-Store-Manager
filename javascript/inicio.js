@@ -12,7 +12,7 @@ document.getElementById('Gv').addEventListener('click', function() {
 });
 
 function backbutton(){
-    window.location.href = "aa.html"
+    window.location.href = "index.html"
   };
   function exitbutton(){
     window.location.href = "index.html";
