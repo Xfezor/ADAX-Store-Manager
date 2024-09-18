@@ -43,9 +43,9 @@ else if (isset($_POST['registrocrud'])){
         exit;
     }
 }
-else if ($_GET['idtiend']!=null){
+else if ($_GET['idtienda']!=null){
     $tDao = new tiendaDao();
-    $mensaje = $tDao->eliminarUsuario($_GET['idtiend']);
+    $mensaje = $tDao->eliminarTienda($_GET['idtienda']);
     header("Location:../tablas/tienda/listartienda.php?mensaje=".$mensaje);
     exit();
 }
@@ -62,6 +62,6 @@ else if (isset($_POST['modificar'])){
     $tDto->setContrasena($_POST['contrasena']);
     $tDto->setCodigo_invitacion($_POST['codigo_invitacion']);
 
-    $mensaje =$tDao->modificarUsuario($tDto);
+    $mensaje =$tDao->modificarTienda($tDto);
     header("Location:../tablas/tienda/listartienda.php?mensaje=".$mensaje);
 }

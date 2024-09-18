@@ -76,7 +76,7 @@ class tiendaDao{
         }
     }
 
-    public function modificarUsuario(tiendaDto $tiendaDto){
+    public function modificarTienda(tiendaDto $tiendaDto){
         $cnn = Conexion::getConexion();
         $mensaje = "";
         $idtienda= $tiendaDto->getIdtienda();
@@ -108,7 +108,7 @@ class tiendaDao{
         $cnn= null;
         return $mensaje;
         }
-        // obtener usuario
+        // obtener Tienda
     public function obtenerTienda($idtienda){
         $cnn = Conexion::getConexion();
         $mensaje = "";
@@ -125,8 +125,8 @@ class tiendaDao{
     return $mensaje;
     }
     
-    //eliminar Usuario
-    public function eliminarUsuario($idtienda){
+    //eliminar Tienda 
+    public function eliminarTienda($idtienda){
         $cnn = Conexion::getConexion();
         $mensaje = "";
         try {

@@ -47,6 +47,8 @@ if (!isset($_SESSION['nombre1'])) {
                             aria-expanded="false">
                             Usuarios
                         </a>
+                    
+                    
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
                             <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
@@ -66,14 +68,17 @@ if (!isset($_SESSION['nombre1'])) {
                             Producto
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
+                            <li><a class="dropdown-item" href="listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Factura
                         </a>
+                        </li>
+                    </ul>
+                    </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">lista</a></li>
                             <li><a class="dropdown-item" href="#">registrar</a></li>
@@ -105,45 +110,49 @@ if (!isset($_SESSION['nombre1'])) {
         class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
         <thead class="table-dark light-header">
             <tr class="text-center">
-                <th style="font-weight:normal">idtienda</th>
-                <th style="font-weight:normal">nombreTienda</th>
-                <th style="font-weight :normal">direccion</th>
-                <th style="font-weight :normal">telefono</th>
-                <th style="font-weight :normal">correo</th>
-                <th style="font-weight :normal">documento</th>
-                <th style="font-weight :normal">tipo_documento</th>
-                <th style="font-weight :normal">contrasena</th>
-                <th style="font-weight :normal">codigo_invitacion</th>
+                <th style="font-weight:normal">id_Producto</th>
+                <th style="font-weight:normal">Nombre</th>
+                <th style="font-weight :normal">Precio_unit</th>
+                <th style="font-weight :normal">Descripción</th>
+                <th style="font-weight :normal">Marca</th>
+                <th style="font-weight :normal">Categoría</th>
+                <th style="font-weight :normal">Presentacion</th>
+                <th style="font-weight :normal">Fecha_vencimiento</th>
+                <th style="font-weight :normal">Stock</th>
+                <th style="font-weight :normal">Stock_Min</th>
+                <th style="font-weight :normal">inventario_id_Inventario</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            require '../../Dao/tiendaDao.php';
-            require '../../Dto/tiendaDto.php';
+            require '../../Dao/productoDao.php';
+            require '../../Dto/productoDto.php';
 
-            $tDao = new tiendaDao();
-            $allUsers = $tDao->listarTodos();
+            $pDao = new productoDao();
+            $allUsers = $pDao->listarTodos();
             foreach ($allUsers as $user) { ?>
                 <tr class="text-center">
-                    <td><?php echo $user['idtienda']; ?></td>
-                    <td><?php echo $user['nombreTienda']; ?></td>
-                    <td><?php echo $user['direccion']; ?></td>
-                    <td><?php echo $user['telefono']; ?></td>
-                    <td><?php echo $user['correo']; ?></td>
-                    <td><?php echo $user['documento']; ?></td>
-                    <td><?php echo $user['tipo_documento']; ?></td>
-                    <td><?php echo $user['contrasena']; ?></td>
-                    <td><?php echo $user['codigo_invitacion']; ?></td>
+                    <td><?php echo $user['id_Producto']; ?></td>
+                    <td><?php echo $user['Nombre']; ?></td>
+                    <td><?php echo $user['Precio_unit']; ?></td>
+                    <td><?php echo $user['Descripción']; ?></td>
+                    <td><?php echo $user['Marca']; ?></td>
+                    <td><?php echo $user['Categoría']; ?></td>
+                    <td><?php echo $user['Presentacion']; ?></td>
+                    <td><?php echo $user['Fecha_vencimiento']; ?></td>
+                    <td><?php echo $user['Stock']; ?></td>
+                    <td><?php echo $user['Stock_Min']; ?></td>
+                    <td><?php echo $user['inventario_id_Inventario']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="idtiend" value="<?php echo $user['idtienda']; ?>">
+                            <input type="hidden" name="id_Producto" value="<?php echo $user['id_Producto']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.tienda.php?idtiend=<?php echo $user['idtienda']; ?>
-                    " onclick=" return confirmar(event);">Eliminar</a>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.producto.php?id_Producto=<?php echo $user['id_Producto']; ?>
+                    "onclick=" return confirmar(event);">Eliminar</a>
                     </td>
                 </tr>
                 <?php

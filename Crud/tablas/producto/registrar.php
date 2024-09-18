@@ -29,63 +29,61 @@ session_start();
         require '../../Dao/productoDao.php';
         require '../../Dto/productoDto.php';
         require '../../utilidades/conexion.php';
-
         ?>
 
         <section class="get-in-touch">
             <h1 class="title">Registrar</h1>
             <form class="contact-form row" action="../../controlador/controlador.producto.php" method="POST">
                 <div class="form-field col-lg-6">
-                    <input name="id_Producto" id="name" class="input-text js-input" type="text" required>
-                    <label class="label" for="name">id Producto</label>
+                <input name="id_Producto" id="name" class="input-text js-input" type="text" required>
+                <label class="label" for="name">id Producto</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Nombre" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="email">Nombre producto</label>
+                <input name="Nombre" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="name">Nombre producto</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Precio_unit" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="company">Precio unitario</label>
+                <input name="Precio_unit" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="company">Precio unitario</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Descripción" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">Descripción</label>
+                <input name="Descripción" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">Descripción</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Marca" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">Marca </label>
+                <input name="Marca" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">Marca </label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Categoría" id="text" class="input-text js-input" type="text">
-                    <label class="label" for="company">Categoría</label>
+                <input name="Categoría" id="text" class="input-text js-input" type="text">
+                <label class="label" for="company">Categoría</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Presentacion" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">Presentacion</label>
+                <input name="Presentacion" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">Presentacion</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Fecha_vencimiento" id="text" class="input-text js-input" type="text">
-                    <label class="label" for="company">Fecha vencimiento</label>
+                <input name="Fecha_vencimiento" id="text" class="input-text js-input" type="text">
+                <label class="label" for="company">Fecha vencimiento</label>
                 </div>
                 <div class="form-field col-lg-12 ">
-                    <input name="Stock" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">Stock</label>
-                </div>
+                <input name="Stock" id="text" class="input-text js-input" type="text">
+                <label class="label" for="company">Stock </label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Stock_Min" id="text" class="input-text js-input" type="text">
-                    <label class="label" for="company">Stock Minimo</label>
+                <input name="Stock_Min" id="text" class="input-text js-input" type="text">
+                <label class="label" for="company">Stock Minimo</label>
                 </div>
-                <div class="form-field col-lg-12 ">
-                    <input name="inventario_id_Inventario" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">inventario_id_Inventario</label>
+                <div class="form-field col-lg-6 ">
+                <input name="inventario_id_Inventario" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">inventario_id_Inventario</label>
                 </div>
 
                 <div class="form-field col-lg-6">
                     <a href="listarproducto.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input name="registrocrud" class="submit-btn" type="submit" value="Actualizar">
+                    <input name="modificar" class="submit-btn" type="submit" value="Registrar">
                 </div>
 
             </form>

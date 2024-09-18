@@ -3,21 +3,20 @@
     require '../Dto/productoDto.php';
     require '../utilidades/conexion.php';
 
-if (isset($_POST['registroProducto'])){
-    $tDao = new productoDao();
-    $tDto = new productoDto();
-    $tDto->getId_Producto($_POST['id_Producto']);
-    $tDto->getNombre($_POST['Nombre']);
-    $tDto->getPrecio_unit($_POST['Precio_unit']);
-    $tDto->getDescripción($_POST['Descripción']);
-    $tDto->getMarca($_POST['Marca']);
-    $tDto->getCategoría($_POST['Categoría']);
-    $tDto->getPresentacion($_POST['Presentacion']);
-    $tDto->getFecha_vencimiento($_POST['Fecha_vencimiento']);
-    $tDto->getStock($_POST['Stock']);
-    $tDto->getStock_Min($_POST['Stock_Min']);
-    $tDto->getinventario_id_Inventario($_POST['inventario_id_Inventario']);
-    $mensaje = $tDao->registrarProducto($tDto);
+if (isset($_POST['registrarProductoCrud'])){
+    $pDao = new productoDao();
+    $pDto = new productoDto();
+    $pDto->setNombre( $_POST['Nombre']);
+    $pDto->setPrecio_unit($_POST['Precio_unit']);
+    $pDto->setDescripción($_POST['Descripción']);
+    $pDto->setMarca($_POST['Marca']);
+    $pDto->setCategoría($_POST['Categoría']);
+    $pDto->setPresentacion($_POST['Presentacion']);
+    $pDto->setFecha_vencimiento($_POST['Fecha_vencimiento']);
+    $pDto->setStock($_POST['Stock']);
+    $pDto->setStock_Min($_POST['Stock_Min']);
+    $pDto->setinventario_id_Inventario($_POST['inventario_id_Inventario']);
+    $mensaje = $pDao->registrarProducto($pDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
         // Registration successful, redirect to login page or success page
@@ -26,49 +25,49 @@ if (isset($_POST['registroProducto'])){
     }
 
 }
-else if (isset($_POST['registrocrud'])){
-    $tDao = new productoDao();
-    $tDto = new productoDto();
-    $tDto->getId_Producto($_POST['id_Producto']);
-    $tDto->getNombre($_POST['Nombre']);
-    $tDto->getPrecio_unit($_POST['Precio_unit']);
-    $tDto->getDescripción($_POST['Descripción']);
-    $tDto->getMarca($_POST['Marca']);
-    $tDto->getCategoría($_POST['Categoría']);
-    $tDto->getPresentacion($_POST['Presentacion']);
-    $tDto->getFecha_vencimiento($_POST['Fecha_vencimiento']);
-    $tDto->getStock($_POST['Stock']);
-    $tDto->getStock_Min($_POST['Stock_Min']);
-    $tDto->getinventario_id_Inventario($_POST['inventario_id_Inventario']);
+else if (isset($_POST['registrarProductoCrud'])){
+    $pDao = new productoDao();
+    $pDto = new productoDto();
+    $pDto->setId_Producto($_POST['id_Producto']);
+    $pDto->setNombre($_POST['Nombre']);
+    $pDto->setPrecio_unit($_POST['Precio_unit']);
+    $pDto->setDescripción($_POST['Descripción']);
+    $pDto->setMarca($_POST['Marca']);
+    $pDto->setCategoría($_POST['Categoría']);
+    $pDto->setPresentacion($_POST['Presentacion']);
+    $pDto->setFecha_vencimiento($_POST['Fecha_vencimiento']);
+    $pDto->setStock($_POST['Stock']);
+    $pDto->setStock_Min($_POST['Stock_Min']);
+    $pDto->setinventario_id_Inventario($_POST['inventario_id_Inventario']);
 
-    $mensaje = $tDao->registrarProductoCrud($tDto);
+    $mensaje = $pDao->registrarProductoCrud($pDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        header("Location:../tablas/tienda/listartienda.php?mensaje=registro exitoso");
+        header("Location:../tablas/tienda/listarproducto.php?mensaje=registro exitoso");
         exit;
     }
 }
 else if ($_GET['id_Producto']!=null){
-    $tDao = new productoDao();
-    $mensaje = $tDao->eliminarUsuario($_GET['id_Producto']);
-    header("Location:../tablas/tienda/listartienda.php?mensaje=".$mensaje);
+    $pDao = new productoDao();
+    $mensaje = $pDao->eliminarProducto($_GET['id_Producto']);
+    header("Location:../tablas/producto/listarproducto.php?mensaje=".$mensaje);
     exit();
 }
-else if (isset($_POST['modificar'])){
-    $tDao = new productoDao();
-    $tDto = new productoDto();
-    $tDto->getId_Producto($_POST['id_Producto']);
-    $tDto->getNombre($_POST['Nombre']);
-    $tDto->getPrecio_unit($_POST['Precio_unit']);
-    $tDto->getDescripción($_POST['Descripción']);
-    $tDto->getMarca($_POST['Marca']);
-    $tDto->getCategoría($_POST['Categoría']);
-    $tDto->getPresentacion($_POST['Presentacion']);
-    $tDto->getFecha_vencimiento($_POST['Fecha_vencimiento']);
-    $tDto->getStock($_POST['Stock']);
-    $tDto->getStock_Min($_POST['Stock_Min']);
-    $tDto->getinventario_id_Inventario($_POST['inventario_id_Inventario']);
+else if (isset($_POST['modificarProducto'])){
+    $pDao = new productoDao();
+    $pDto = new productoDto();
+    $pDto->setId_Producto($_POST['id_Producto']);
+    $pDto->setNombre($_POST['Nombre']);
+    $pDto->setPrecio_unit($_POST['Precio_unit']);
+    $pDto->setDescripción($_POST['Descripción']);
+    $pDto->setMarca($_POST['Marca']);
+    $pDto->setCategoría($_POST['Categoría']);
+    $pDto->setPresentacion($_POST['Presentacion']);
+    $pDto->setFecha_vencimiento($_POST['Fecha_vencimiento']);
+    $pDto->setStock($_POST['Stock']);
+    $pDto->setStock_Min($_POST['Stock_Min']);
+    $pDto->setinventario_id_Inventario($_POST['inventario_id_Inventario']);
 
-    $mensaje =$tDao->modificarUsuario($tDto);
-    header("Location:../tablas/tienda/listartienda.php?mensaje=".$mensaje);
+    $mensaje =$pDao->modificarProducto($pDto);
+    header("Location:../tablas/producto/listarproducto.php?mensaje=".$mensaje);
 }
