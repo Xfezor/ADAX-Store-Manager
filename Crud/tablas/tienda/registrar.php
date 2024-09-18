@@ -33,7 +33,7 @@ session_start();
         ?>
 
         <section class="get-in-touch">
-            <h1 class="title">Actualizar</h1>
+            <h1 class="title">Registrar</h1>
             <form class="contact-form row" action="../../controlador/controlador.tienda.php" method="POST">
                 <div class="form-field col-lg-6">
                     <input name="idtienda" id="name" class="input-text js-input" type="text" required>
