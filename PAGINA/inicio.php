@@ -11,8 +11,9 @@ echo "no esta iniciando la sesion";
     require '../Crud/Dto/tiendaDto.php';
     require '../Crud/utilidades/conexion.php';
 }else {
-     echo 'ocurrio un error'; 
- }
+    echo 'ocurrio un error'; 
+}
+include('../PAGINA/alerta.php');
 ?>
 <html lang="en">
 <head>

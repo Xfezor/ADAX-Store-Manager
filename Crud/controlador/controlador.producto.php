@@ -40,10 +40,10 @@ else if (isset($_POST['registrarProductoCrud'])){
     $pDto->setStock_Min($_POST['Stock_Min']);
     $pDto->setinventario_id_Inventario($_POST['inventario_id_Inventario']);
 
-    $mensaje = $pDao->registrarProductoCrud($pDto);
+    $mensaje = $pDao->registrarProducto($pDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        header("Location:../tablas/tienda/listarproducto.php?mensaje=registro exitoso");
+        header("Location:../tablas/producto/listarproducto.php?mensaje=registro exitoso");
         exit;
     }
 }

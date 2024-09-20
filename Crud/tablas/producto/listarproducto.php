@@ -47,23 +47,25 @@ if (!isset($_SESSION['nombre1'])) {
                             aria-expanded="false">
                             Usuarios
                         </a>
-                    
-                    
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
                             <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
                         </ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
+
+                    
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Tienda
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                        <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
+                        <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
                         </ul>
+                        
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Producto
                         </a>
@@ -71,14 +73,12 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="listarproducto.php">lista</a></li>
                             <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Factura
                         </a>
-                        </li>
-                    </ul>
-                    </div>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">lista</a></li>
                             <li><a class="dropdown-item" href="#">registrar</a></li>

@@ -51,6 +51,7 @@ if (!isset($_SESSION['nombre1'])) {
                         <li><a class="dropdown-item" href="listarusuarios.php">lista</a></li>
                         <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -60,6 +61,7 @@ if (!isset($_SESSION['nombre1'])) {
                         <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
                         <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
                         </ul>
+                        
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">

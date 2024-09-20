@@ -16,4 +16,5 @@ function backbutton(){
   };
   function exitbutton(){
     window.location.href = "index.html";
-  }
+}
+       
