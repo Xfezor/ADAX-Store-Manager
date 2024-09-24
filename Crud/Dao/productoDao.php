@@ -76,8 +76,8 @@ class productoDao{
     public function listarTodos(){
         $conn = Conexion::getConexion();
         try {
-            $listarUsuarios = 'SELECT * from producto';
-            $query = $conn->prepare($listarUsuarios);
+            $listarProducto = 'SELECT * from producto';
+            $query = $conn->prepare($listarProducto);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception  $ex) {
