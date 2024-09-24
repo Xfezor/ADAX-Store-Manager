@@ -3,7 +3,7 @@
     require '../Dto/productoDto.php';
     require '../utilidades/conexion.php';
 
-if (isset($_POST['registrarProductoCrud'])){
+if (isset($_POST['registrarProducto'])){
     $pDao = new productoDao();
     $pDto = new productoDto();
     $pDto->setNombre( $_POST['Nombre']);
@@ -25,7 +25,7 @@ if (isset($_POST['registrarProductoCrud'])){
     }
 
 }
-else if (isset($_POST['registrarProductoCrud'])){
+else if (isset($_POST['registrarProducto'])){
     $pDao = new productoDao();
     $pDto = new productoDto();
     $pDto->setId_Producto($_POST['id_Producto']);
