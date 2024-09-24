@@ -17,7 +17,7 @@
     var l =document.getElementById("numero");
     var id=window.setInterval(function(){
        document.onmousemove =function(){
-        n= 60
+        n= 1500
        };
 
        l.innerText= n;

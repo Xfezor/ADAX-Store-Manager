@@ -1,86 +1,36 @@
 <?php
 
-class productoDto {
-    private $id_Producto;
-    private $Nombre;
-    private $Precio_unit;
-    private $Descripción;
-    private $Marca;
-    private $Categoría;
-    private $Presentacion;
-    private $Fecha_vencimiento;
-    private $Stock;
-    private $Stock_Min;
-    private $inventario_id_Inventario;
-
+class facturaDto {
+    private $venta_id_Venta;
+    private $producto_id_Producto;
+    private $Cantidad;
+    private $Precio;
+    private $Estado;
 
     //GETTERS
-    public function getId_Producto() {
-        return $this->id_Producto;
+    public function getventa_id_Venta() {
+        return $this->venta_id_Venta;
     }
-    public function getNombre() {
-        return $this->Nombre;
+    public function getproducto_id_Producto() {
+        return $this->producto_id_Producto;
     }
-    public function getPrecio_unit() {
-        return $this->Precio_unit;
+    public function getCantidad() {
+        return $this->Cantidad;
     }
-    public function getDescripción() {
-        return $this->Descripción;
+    public function getEstado() {
+        return $this->Estado;
     }
-    public function getMarca() {
-        return $this->Marca;
-    }
-    public function getCategoría() {
-        return $this->Categoría;
-    }
-    public function getPresentacion() {
-        return $this->Presentacion;
-    }
-    public function getFecha_vencimiento() {
-        return $this->Fecha_vencimiento;
-    }
-    public function getStock() {
-        return $this->Stock;
-    }
-    public function getStock_Min() {
-        return $this->Stock_Min;
-    }
-    public function getinventario_id_Inventario() {
-        return $this->inventario_id_Inventario;
-    }
-
     //SETTERS
-    public function setId_Producto($id_Producto) {
-        $this->id_Producto = $id_Producto;
+    public function setventa_id_Venta($venta_id_Venta) {
+        $this->venta_id_Venta = $venta_id_Venta;
     }
-    public function setNombre($Nombre) {
-        $this->Nombre = $Nombre;
+    public function setproducto_id_Producto($producto_id_Producto) {
+        $this->producto_id_Producto = $producto_id_Producto;
     }
-    public function setPrecio_unit($Precio_unit) {
-        $this->Precio_unit = $Precio_unit;
+    public function setCantidad($Cantidad) {
+        $this->Cantidad = $Cantidad;
     }
-    public function setDescripción($Descripción) {
-        $this->Descripción = $Descripción;
-    }
-    public function setMarca($Marca) {
-        $this->Marca = $Marca;
-    }
-    public function setCategoría($Categoría) {
-        $this->Categoría = $Categoría;
-    }
-    public function setPresentacion($Presentacion) {
-        $this->Presentacion = $Presentacion;
-    }
-    public function setFecha_vencimiento($Fecha_vencimiento) {
-        $this->Fecha_vencimiento = $Fecha_vencimiento;
-    }
-    public function setStock($Stock) {
-        $this->Stock = $Stock;
-    }
-    public function setStock_Min($Stock_Min) {
-        $this->Stock_Min = $Stock_Min;
-    }
-    public function setinventario_id_Inventario($inventario_id_Inventario) {
-        $this->inventario_id_Inventario = $inventario_id_Inventario;
+    public function setEstado($Estado) {
+        $this->Estado = $Estado;
     }
 }

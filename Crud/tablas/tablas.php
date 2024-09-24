@@ -63,8 +63,8 @@ echo "no esta iniciando la sesion";
                             Producto
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
+                            <li><a class="dropdown-item" href="producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"

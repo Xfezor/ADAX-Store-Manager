@@ -70,8 +70,8 @@ if (!isset($_SESSION['nombre1'])) {
                             Producto
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarproducto.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
 
                     <li class="nav-item dropdown">
