@@ -25,7 +25,15 @@ if ($_GET["tipo"] === "empleado") {
         header('Location:../../PAGINA/iniciar_sesion.php?error=1');
         exit();
     } elseif ($sentencia->rowcount() == 1) {
+        $sentencia = $cnn->prepare("SELECT nombreTienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
+        $sentencia->execute();
+        $valor2 = $sentencia->fetch(PDO::FETCH_OBJ);
         $_SESSION['nombre1'] = $valor->nombre1;
+        $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
+        $_SESSION['nombreTienda'] = $valor2->nombreTienda;
+        if ($valor->rol_id_Rol === 1) {
+            $_SESSION['rol_id_Rol'] = $valor->rol_id_Rol;
+        }
         header('Location:../../PAGINA/inicio.php');
         exit(); 
     }
@@ -38,8 +46,10 @@ if ($_GET["tipo"] === "empleado") {
         exit(); 
     } elseif ($sentencia->rowcount() == 1) {
         $_SESSION['nombre1'] = $valor->correo;
+        $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
+        $_SESSION['nombreTienda'] = $valor->nombreTienda;
         header('Location:../../PAGINA/inicio.php');
-        exit();
+        exit(); 
     }
 }
 if ($_POST["tipo"] === "empleado") {
@@ -50,7 +60,15 @@ if ($_POST["tipo"] === "empleado") {
         header('Location:../../PAGINA/iniciar_sesion.php?error=1');
         exit(); 
     } elseif ($sentencia->rowcount() == 1) {
+        $sentencia = $cnn->prepare("SELECT nombreTienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
+        $sentencia->execute();
+        $valor2 = $sentencia->fetch(PDO::FETCH_OBJ);
         $_SESSION['nombre1'] = $valor->nombre1;
+        $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
+        $_SESSION['nombreTienda'] = $valor2->nombreTienda;
+        if ($valor->rol_id_Rol === 1) {
+            $_SESSION['rol_id_Rol'] = $valor->rol_id_Rol;
+        }
         header('Location:../../PAGINA/inicio.php');
         exit(); 
     }
@@ -63,6 +81,8 @@ if ($_POST["tipo"] === "empleado") {
         exit(); 
     } elseif ($sentencia->rowcount() == 1) {
         $_SESSION['nombre1'] = $valor->correo;
+        $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
+        $_SESSION['nombreTienda'] = $valor->nombreTienda;
         header('Location:../../PAGINA/inicio.php');
         exit(); 
     }

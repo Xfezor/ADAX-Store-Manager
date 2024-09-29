@@ -10,19 +10,15 @@ class tiendaDao{
         $direccion = $tiendaDto->getDireccion();
         $telefono = $tiendaDto->getTelefono();
         $correo = $tiendaDto->getCorreo();
-        $documento = $tiendaDto->getDocumento();
-        $tipo_documento = $tiendaDto->getTipoDocumento();
         $contrasena = $tiendaDto->getContrasena();
         $codigo_inv = $tiendaDto->getCodigo_invitacion();
         try {
-            $query = $conn->prepare("INSERT INTO tienda(nombreTienda,direccion,telefono,correo,documento,tipo_documento,contrasena) values (?,?,?,?,?,?,?);");
+            $query = $conn->prepare("INSERT INTO tienda(nombreTienda,direccion,telefono,correo,contrasena) values (?,?,?,?,?);");
             $query->bindParam(1,$nombreTienda);
             $query->bindParam(2,$direccion);
             $query->bindParam(3,$telefono);
             $query->bindParam(4,$correo);
-            $query->bindParam(5,$documento);
-            $query->bindParam(6,$tipo_documento);
-            $query->bindParam(7,$contrasena);
+            $query->bindParam(5,$contrasena);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -40,21 +36,17 @@ class tiendaDao{
         $direccion = $tiendaDto->getDireccion();
         $telefono = $tiendaDto->getTelefono();
         $correo = $tiendaDto->getCorreo();
-        $documento = $tiendaDto->getDocumento();
-        $tipo_documento = $tiendaDto->getTipoDocumento();
         $contrasena = $tiendaDto->getContrasena();
         $codigo_inv = $tiendaDto->getCodigo_invitacion();
         try {
-            $query = $conn->prepare("INSERT INTO tienda values (?,?,?,?,?,?,?,?,?);");
+            $query = $conn->prepare("INSERT INTO tienda values (?,?,?,?,?,?,?);");
             $query->bindParam(1,$idtienda);
             $query->bindParam(2,$nombreTienda);
             $query->bindParam(3,$direccion);
             $query->bindParam(4,$telefono);
             $query->bindParam(5,$correo);
-            $query->bindParam(6,$documento);
-            $query->bindParam(7,$tipo_documento);
-            $query->bindParam(8,$contrasena);
-            $query->bindParam(9,$codigo_inv);
+            $query->bindParam(6,$contrasena);
+            $query->bindParam(7,$codigo_inv);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -84,22 +76,18 @@ class tiendaDao{
         $direccion = $tiendaDto->getDireccion();
         $telefono = $tiendaDto->getTelefono();
         $correo = $tiendaDto->getCorreo();
-        $documento = $tiendaDto->getDocumento();
-        $tipo_documento = $tiendaDto->getTipoDocumento();
         $contrasena = $tiendaDto->getContrasena();
         $codigo_inv = $tiendaDto->getCodigo_invitacion();
         try {
-            $query = $cnn->prepare("UPDATE tienda SET idtienda=?, nombreTienda=?, direccion=?, telefono=?, correo=?, documento=?, tipo_documento=?, contrasena=?, codigo_invitacion=? WHERE idtienda=?");
+            $query = $cnn->prepare("UPDATE tienda SET idtienda=?, nombreTienda=?, direccion=?, telefono=?, correo=?, contrasena=?, codigo_invitacion=? WHERE idtienda=?");
             $query->bindParam(1,$idtienda);
             $query->bindParam(2,$nombreTienda);
             $query->bindParam(3,$direccion);
             $query->bindParam(4,$telefono);
             $query->bindParam(5,$correo);
-            $query->bindParam(6,$documento);
-            $query->bindParam(7,$tipo_documento);
-            $query->bindParam(8,$contrasena);
-            $query->bindParam(9,$codigo_inv);
-            $query->bindParam(10,$idtienda);
+            $query->bindParam(6,$contrasena);
+            $query->bindParam(7,$codigo_inv);
+            $query->bindParam(8,$idtienda);
             $query->execute();
             $mensaje= "Registro actualizado";
         } catch (Exception  $ex) {

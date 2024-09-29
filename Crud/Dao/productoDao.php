@@ -1,5 +1,5 @@
 <?php
-
+include_once __DIR__ . '/../utilidades/conexion.php';
 class productoDao{
 
     public function registrarProducto(productoDto $productoDto){ 

@@ -32,7 +32,7 @@ echo "no esta iniciando la sesion";
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ADAX - CRUD</a>
+            <a class="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -72,8 +72,8 @@ echo "no esta iniciando la sesion";
                             Factura
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
+                        <li><a class="dropdown-item" href="factura/listarfactura.php">lista</a></li>
+                        <li><a class="dropdown-item" href="factura/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                 </ul>

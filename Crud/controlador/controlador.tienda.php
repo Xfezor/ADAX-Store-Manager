@@ -10,8 +10,6 @@ if (isset($_POST['registroTienda'])){
     $tDto->setDireccion($_POST['direccion']);
     $tDto->setTelefono($_POST['telefono']);
     $tDto->setCorreo($_POST['correo']);
-    $tDto->setDocumento($_POST['documento']);
-    $tDto->setTipoDocumento($_POST['tipodoc']);
     $tDto->setContrasena($_POST['contrasena']);
     
     $mensaje = $tDao->registrarTienda($tDto);
@@ -31,8 +29,6 @@ else if (isset($_POST['registrocrud'])){
     $tDto->setDireccion($_POST['direccion']);
     $tDto->setTelefono($_POST['telefono']);
     $tDto->setCorreo($_POST['correo']);
-    $tDto->setDocumento($_POST['documento']);
-    $tDto->setTipoDocumento($_POST['tipodoc']);
     $tDto->setContrasena($_POST['contrasena']);
     $tDto->setCodigo_invitacion($_POST['codigo_invitacion']);
 
@@ -57,8 +53,6 @@ else if (isset($_POST['modificar'])){
     $tDto->setDireccion($_POST['direccion']);
     $tDto->setTelefono($_POST['telefono']);
     $tDto->setCorreo($_POST['correo']);
-    $tDto->setDocumento($_POST['documento']);
-    $tDto->setTipoDocumento($_POST['tipodoc']);
     $tDto->setContrasena($_POST['contrasena']);
     $tDto->setCodigo_invitacion($_POST['codigo_invitacion']);
 

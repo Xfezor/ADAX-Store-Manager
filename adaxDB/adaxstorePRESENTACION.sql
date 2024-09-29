@@ -62,7 +62,7 @@ DROP TABLE IF EXISTS `tienda`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tienda` (
-  `idtienda` int(11) NOT NULL,
+  `idtienda` int(11) NOT NULL AUTO_INCREMENT,
   `nombreTienda` varchar(45) NOT NULL,
   `direccion` varchar(45) DEFAULT NULL,
   `telefono` bigint(20) DEFAULT NULL,
@@ -116,9 +116,9 @@ CREATE TABLE `producto` (
   `id_Producto` int(11) NOT NULL,
   `Nombre` varchar(100) DEFAULT NULL,
   `Precio_unit` double DEFAULT NULL,
-  `Descripción` varchar(100) NOT NULL,
+  `Descripcion` varchar(100) NOT NULL,
   `Marca` varchar(100) NOT NULL,
-  `Categoría` varchar(100) NOT NULL,
+  `Categoria` varchar(100) NOT NULL,
   `Presentacion` varchar(100) DEFAULT NULL,
   `Fecha_vencimiento` date DEFAULT NULL,
   `Stock` int(11) DEFAULT NULL,

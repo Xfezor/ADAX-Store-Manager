@@ -8,13 +8,13 @@
     <title>Perfil</title>   
 </head>
 <body>
-<div class="alert alert-danger position-absolute d-inline-flex p-2" role="alert" style="margin-top:-45px;">
+<div class="alert alert-danger position-absolute p-2" role="alert" style="margin-top:-45px; display: none;">
     <p>La sesion expira en:&nbsp</p><div id="numero" class="text-danger"></div>
 </div>
 
 <script type="text/javascript">
-    n = 10
-    var l =document.getElementById("numero");
+    n = 30
+    var l=document.getElementById("numero");
     var id=window.setInterval(function(){
        document.onmousemove =function(){
         n= 1500

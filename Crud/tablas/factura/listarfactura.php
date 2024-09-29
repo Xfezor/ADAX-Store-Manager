@@ -27,7 +27,6 @@ if (!isset($_SESSION['nombre1'])) {
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.css" />
-
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
 </head>
@@ -35,7 +34,7 @@ if (!isset($_SESSION['nombre1'])) {
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ADAX - CRUD</a>
+            <a class="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -52,7 +51,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Tienda
                         </a>
@@ -70,7 +69,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="#">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Factura
                         </a>
@@ -78,10 +77,6 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="#">lista</a></li>
                             <li><a class="dropdown-item" href="#">registrar</a></li>
                         </ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                    </li>
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
@@ -104,7 +99,8 @@ if (!isset($_SESSION['nombre1'])) {
             </div>
         </div>
     </nav>
-    <table id="usrtable"
+    <div style="width: 99.9%">
+    <table id="usrtables"
         class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
         <thead class="table-dark light-header">
             <tr class="text-center">
@@ -113,7 +109,9 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight:normal">Cantidad</th>
                 <th style="font-weight:normal">Precio</th>
                 <th style="font-weight:normal">Estado</th>
-        
+                <th style="font-weight:normal">Modificar</th>
+                <th style="font-weight:normal">Eliminar</th>
+
             </tr>
         </thead>
         <tbody>
@@ -130,7 +128,7 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['Cantidad']; ?></td>
                     <td><?php echo $user['Precio']; ?></td>
                     <td><?php echo $user['Estado']; ?></td>
-                    
+
                     <td>
                         <form action="actualizar.php" method="post">
                             <input type="hidden" name="venta_id_Venta" value="<?php echo $user['venta_id_Venta']; ?>">
@@ -145,7 +143,8 @@ if (!isset($_SESSION['nombre1'])) {
             } ?>
         </tbody>
     </table>
-    <script src="tablejs.js"></script>
+    </div>
+    <script src="tablesjs.js"></script>
 </body>
 
 </html>

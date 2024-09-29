@@ -15,6 +15,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../styles/styles_registro.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <header>
   <div class="contenedorarriba">
@@ -31,6 +32,40 @@
 </header>
 
 <body>
+  <?php
+  if (isset($_GET["registro"])){
+    echo "<script>
+    Swal.fire({
+    title: 'Registro exitoso',
+    text: 'El registro fue exitoso, puede iniciar sesión ahora',
+    icon: 'success',
+    confirmButtonText: 'Iniciar sesión'
+    }).then((result) => {
+    if (result.isConfirmed) {
+    window.location.href = 'iniciar_sesion.php';
+    }
+    });</script>";
+  }
+  if (isset($_GET['error'])){
+    if ($_GET["error"] == 3){
+      echo "<script>
+      Swal.fire({
+      title: 'ERROR',
+      text: 'El codigo de invitacion es invalido, ingrese uno valido proporcionado por el administrador de la tienda',
+      icon: 'error'
+      });</script>";
+    }
+    if ($_GET["error"] == 4){
+      echo "<script>
+      Swal.fire({
+      title: 'ERROR',
+      text: 'No fue posible ingresar los datos, por favor, intente de nuevo.',
+      icon: 'error'
+      });</script>";
+    }
+  }
+
+  ?>
   <div class="conteiner1" id="cont1">
     <h1 class="Registrarse">Registrarse</h1>
     <div class="toggle-buttons">
@@ -65,7 +100,7 @@
       <h3 class="codigo-txt">Codigo de Invitación *</h3>
       <input name="codigoinv" class="codigo" type="text" placeholder="* Ingrese el codigo de invitación">
 
-      <p class="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>
+      <p class="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.php">Aqui</a></p>
       <button name="registro" value="registro" class="btn btn-danger" type="submit" id="boton_regis">Registrarse</button>
     </form>
   </div>
@@ -77,15 +112,6 @@
       <button class="btn2-active" id="tiendaBtn" onclick="cambiarestadoBtn22(this)">Tienda</button>
     </div>
     <form id="tienda" onsubmit="return validarContraseñas()" action="../Crud/controlador/controlador.tienda.php" method="POST">
-      <h3 class="documento-txt">Documento *</h3>
-      <input name="documento" class="documento" type="number" placeholder="* Número de documento">
-      <select name="tipodoc" class="documento-type" type="number">
-        <option default value="CC">Cedula de cuidadania</option>
-        <option value="TI">Tarjeta de identidad</option>
-        <option value="CE">Cedula de extranjeria</option>
-        <option value="RC">Registro civil</option>
-      </select>
-
       <h3 class="nombretienda-txt">Nombre Tienda *</h3>
       <input name="nombreTienda" class="nombretienda" type="text" placeholder="* Nombre completo de la tienda">
 
@@ -93,17 +119,17 @@
       <input name="telefono" class="telefono" type="text" placeholder="Telefono (opcional)">
 
 
-      <h3 class="email-txt">Correo Electronico *</h3>
-      <input name="correo" class="email" type="text" placeholder="* Correo electronico (example@example.com)">
+      <h3 class="emailtienda-txt">Correo Electronico *</h3>
+      <input name="correo" class="emailtienda" type="text" placeholder="* Correo electronico (example@example.com)">
 
-      <h3 class="password-txt">Contraseña *</h3>
-      <input name="contrasena" class="password" type="password" placeholder="* Ingrese su contraseña">
-      <input class="password2" type="password" placeholder="* Repita su contraseña">
+      <h3 class="passwordtienda-txt">Contraseña *</h3>
+      <input name="contrasena" class="passwordtienda" type="password" placeholder="* Ingrese su contraseña">
+      <input class="passwordtienda2" type="password" placeholder="* Repita su contraseña">
 
       <h3 class="direccion-txt">Dirección tienda</h3>
       <input name="direccion" class="direccion" type="text" placeholder="Dirección de la tienda (opcional)">
 
-      <p class="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.html">Aqui</a></p>
+      <p class="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.php">Aqui</a></p>
       <button name="registroTienda" value="registroTienda" class="btn btn-danger" id="boton_regis">Registrarse</button>
     </form>
   </div>

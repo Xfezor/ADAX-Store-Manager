@@ -56,14 +56,6 @@ session_start();
                     <label class="label" for="phone">correo </label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="documento" id="text" class="input-text js-input" type="text">
-                    <label class="label" for="company">documento</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="tipodoc" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">Tipo de documento</label>
-                </div>
-                <div class="form-field col-lg-6 ">
                     <input name="contrasena" id="text" class="input-text js-input" type="text">
                     <label class="label" for="company">Contraseña</label>
                 </div>

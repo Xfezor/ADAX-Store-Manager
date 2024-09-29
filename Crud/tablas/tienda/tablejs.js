@@ -1,1 +1,3 @@
-new DataTable('#usrtable');
+new DataTable('#usrtable',{
+    scrollX: true
+});

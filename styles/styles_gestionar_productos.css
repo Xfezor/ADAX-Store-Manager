@@ -88,7 +88,7 @@ body {
   height: 100%;
   width: 40%;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-rows: 1fr 1fr 10fr;
   grid-auto-rows: auto;
   gap: 10px;
 }
@@ -155,20 +155,17 @@ body {
   background-color: #ebd8a0;
   grid-column: 1/-1;
   grid-row: 3/-1;
-  display: grid;
-  grid-template-columns: 6fr 1fr 1fr;
-  grid-auto-rows: auto;
   border-radius: 15px;
   align-items: center;
-  grid-template-rows: repeat(10, 1fr);
+
 }
 #detalle{
   background-color: #df6363;
   padding: 5px 40px;
   color: black;
   border-radius: 15px;
-  vertical-align: 1px;
-  float: inline-end;
+  margin: 0 auto;
+  display: block;
   grid-column: 2/4;
   grid-row: 1/1;
   height: fit-content;
@@ -377,4 +374,20 @@ body {
   text-align: center;
   margin-top: auto;
   margin-bottom: auto;
+}
+table{
+  width: 95% !important;
+}
+.product-table{
+  margin: 10px 10px;
+  width: 90%;
+}
+.table-head th{
+  text-align: center;
+  justify-content: center;
+  border-left: 1px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.table-body tr{
 }

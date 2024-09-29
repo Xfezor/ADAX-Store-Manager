@@ -25,6 +25,7 @@ header("Expires: 0"); // Proxies
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../styles/styles_iniciar_sesion.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <header>
   <div class="contenedorarriba ">
@@ -38,6 +39,16 @@ header("Expires: 0"); // Proxies
 </header>
 
 <body class="container-fluid">
+  <?php
+  if (isset($_GET["error"])){
+    echo "<script>
+    Swal.fire({
+    title: 'ERROR',
+    text: 'Los datos ingresados no son validos o no existen',
+    icon: 'error'
+    });</script>";
+  }
+  ?>
   <form id="cont1" class="Contenedorsesion" action="../Crud/login/procesologin.php?tipo=empleado" method="POST">
     <div class="cuadradoverde">
       <h1 class="titulo-iniciar-sesion"><b>Iniciar Sesión</b></h1>

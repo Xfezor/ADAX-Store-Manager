@@ -6,8 +6,6 @@ class tiendaDto {
     private $direccion;
     private $telefono;
     private $correo;
-    private $documento;
-    private $tipo_documento;
     private $contrasena;
     private $codigo_invitacion;
 
@@ -26,12 +24,6 @@ class tiendaDto {
     }
     public function getCorreo() {
         return $this->correo;
-    }
-    public function getdocumento() {
-        return $this->documento;
-    }
-    public function getTipoDocumento() {
-        return $this->tipo_documento;
     }
     public function getContrasena() {
         return $this->contrasena;
@@ -55,12 +47,6 @@ class tiendaDto {
     }
     public function setCorreo($correo) {
         $this->correo = $correo;
-    }
-    public function setDocumento($documento) {
-        $this->documento = $documento;
-    }
-    public function setTipoDocumento($tipo_documento) {
-        $this->tipo_documento = $tipo_documento;
     }
     public function setContrasena($contrasena) {
         $this->contrasena = $contrasena;

@@ -35,7 +35,7 @@ if (!isset($_SESSION['nombre1'])) {
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ADAX - CRUD</a>
+            <a class="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -103,6 +103,7 @@ if (!isset($_SESSION['nombre1'])) {
             </div>
         </div>
     </nav>
+    <div style="width: 99.9%">
     <table id="usrtable" class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
         <thead class="table-dark light-header">
             <tr class="text-center">
@@ -116,6 +117,7 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight :normal">correo</th>
                 <th style="font-weight :normal">rol_id_Rol</th>
                 <th style="font-weight :normal">codigo_invitacion</th>
+                <th style="font-weight :normal">tienda_idtienda</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
@@ -139,6 +141,7 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['correo']; ?></td>
                     <td><?php echo $user['rol_id_Rol']; ?></td>
                     <td><?php echo $user['codigo_invitacion']; ?></td>
+                    <td><?php echo $user['tienda_idtienda']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
                             <input type="hidden" name="doc" value="<?php echo $user['documento']; ?>">
@@ -153,7 +156,8 @@ if (!isset($_SESSION['nombre1'])) {
             } ?>
         </tbody>
     </table>
-            <script src="tablejs.js"></script>
+    </div>
+    <script src="tablejs.js"></script>
 </body>
 
 </html>

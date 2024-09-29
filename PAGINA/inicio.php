@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
+
 if (!isset($_SESSION['nombre1'])){
 header('Location:iniciar_sesion.php?error=2');
 echo "no esta iniciando la sesion";
@@ -10,6 +11,11 @@ echo "no esta iniciando la sesion";
     require '../Crud/Dao/tiendaDao.php';
     require '../Crud/Dto/tiendaDto.php';
     require '../Crud/utilidades/conexion.php';
+    if (isset($_SESSION["rol_id_Rol"])){
+        $rol_id_Rol = $_SESSION["rol_id_Rol"];
+    }
+    $nombreTienda = $_SESSION["nombreTienda"];
+    $codigo_invitacion = $_SESSION["codigo_invitacion"];
 }else {
     echo 'ocurrio un error'; 
 }
@@ -64,9 +70,29 @@ include('../PAGINA/alerta.php');
 <script src="../javascript/inicio.js"></script>
 <footer>
     <div class="user">
-        <h1 class="username">Usuario: " <?php echo $_SESSION['nombre1']?> "</h1>
-        <h1 class="username">Tienda: "Los peregrinos"</h1>
-        <h1 class="username">Codigo invitacion: "TX435SX"</h1>
+        <h1 class="username">Usuario: "<?php echo $_SESSION['nombre1']?>"</h1>
+        <h1 class="username">Tienda: "<?php echo $_SESSION['nombreTienda']?>"</h1>
+        <?php
+        if (isset($rol_id_Rol)){
+        ?>
+        <h1 class="username">Codigo invitacion: "<?php echo "?"?>"</h1>
+        <?php
+        } else {
+        ?>
+        <h1 class="username">Codigo invitacion: "<?php echo $_SESSION['codigo_invitacion']?>"</h1>
+        <?php
+        }
+        ?>
+        <?php
+        if (isset($rol_id_Rol)){
+            if ($rol_id_Rol === 1){
+        
+        ?>
+        <a href="../Crud/tablas/tablas.php" class="btn btn-danger" id="cerrarsesion">CRUD</a>
+        <?php
+        }
+        }
+        ?>
         <a href="cerrarsesion.php" class="btn btn-danger" id="cerrarsesion">cerrar sesion</a>
     </div>
 </footer>

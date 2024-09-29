@@ -17,18 +17,24 @@ class facturaDto {
     public function getCantidad() {
         return $this->Cantidad;
     }
+    public function getPrecio(){
+        return $this->Precio;
+    }
     public function getEstado() {
         return $this->Estado;
     }
     //SETTERS
-    public function setventa_id_Venta($venta_id_Venta) {
+    public function setVenta_id_Venta($venta_id_Venta) {
         $this->venta_id_Venta = $venta_id_Venta;
     }
-    public function setproducto_id_Producto($producto_id_Producto) {
+    public function setProducto_id_Producto($producto_id_Producto) {
         $this->producto_id_Producto = $producto_id_Producto;
     }
     public function setCantidad($Cantidad) {
         $this->Cantidad = $Cantidad;
+    }
+    public function setPrecion($Precio) {
+        $this->Precio = $Precio;
     }
     public function setEstado($Estado) {
         $this->Estado = $Estado;

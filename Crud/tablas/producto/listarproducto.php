@@ -32,7 +32,7 @@ if (!isset($_SESSION['nombre1'])) {
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ADAX - CRUD</a>
+            <a class="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,7 +40,7 @@ if (!isset($_SESSION['nombre1'])) {
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="../tablas.php" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Usuarios
                         </a>
@@ -49,16 +49,16 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Tienda
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Producto
                         </a>
@@ -95,47 +95,52 @@ if (!isset($_SESSION['nombre1'])) {
             </div>
         </div>
     </nav>
+    <div style="width: 99.9%">
     <table id="usrtable"
         class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
         <thead class="table-dark light-header">
             <tr class="text-center">
-                <th style="font-weight:normal">idtienda</th>
-                <th style="font-weight:normal">nombreTienda</th>
-                <th style="font-weight :normal">direccion</th>
-                <th style="font-weight :normal">telefono</th>
-                <th style="font-weight :normal">correo</th>
-                <th style="font-weight :normal">documento</th>
-                <th style="font-weight :normal">tipo_documento</th>
-                <th style="font-weight :normal">contrasena</th>
-                <th style="font-weight :normal">codigo_invitacion</th>
+                <th style="font-weight:normal">id_producto</th>
+                <th style="font-weight:normal">Nombre</th>
+                <th style="font-weight :normal">Precio_unit</th>
+                <th style="font-weight :normal">Descripcion</th>
+                <th style="font-weight :normal">Marca</th>
+                <th style="font-weight :normal">Categoria</th>
+                <th style="font-weight :normal">Presentacion</th>
+                <th style="font-weight :normal">Fecha_vencimiento</th>
+                <th style="font-weight :normal">Stock</th>
+                <th style="font-weight :normal">Stock_Min</th>
+                <th style="font-weight :normal">inventario_id_Inventario</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            require '../../Dao/tiendaDao.php';
-            require '../../Dto/tiendaDto.php';
-            $tDao = new tiendaDao();
-            $allUsers = $tDao->listarTodos();
+            require '../../Dao/productoDao.php';
+            require '../../Dto/productoDto.php';
+            $pDao = new productoDao();
+            $allUsers = $pDao->listarTodos();
             foreach ($allUsers as $user) { ?>
                 <tr class="text-center">
-                    <td><?php echo $user['idtienda']; ?></td>
-                    <td><?php echo $user['nombreTienda']; ?></td>
-                    <td><?php echo $user['direccion']; ?></td>
-                    <td><?php echo $user['telefono']; ?></td>
-                    <td><?php echo $user['correo']; ?></td>
-                    <td><?php echo $user['documento']; ?></td>
-                    <td><?php echo $user['tipo_documento']; ?></td>
-                    <td><?php echo $user['contrasena']; ?></td>
-                    <td><?php echo $user['codigo_invitacion']; ?></td>
+                    <td><?php echo $user['id_Producto']; ?></td>
+                    <td><?php echo $user['Nombre']; ?></td>
+                    <td><?php echo $user['Precio_unit']; ?></td>
+                    <td><?php echo $user['Descripcion']; ?></td>
+                    <td><?php echo $user['Marca']; ?></td>
+                    <td><?php echo $user['Categoria']; ?></td>
+                    <td><?php echo $user['Presentacion']; ?></td>
+                    <td><?php echo $user['Fecha_vencimiento']; ?></td>
+                    <td><?php echo $user['Stock']; ?></td>
+                    <td><?php echo $user['Stock_Min']; ?></td>
+                    <td><?php echo $user['inventario_id_Inventario']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="idtiend" value="<?php echo $user['idtienda']; ?>">
+                            <input type="hidden" name="idtiend" value="<?php echo $user['id_Producto']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.tienda.php?idtiend=<?php echo $user['idtienda']; ?>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.producto.php?id_Producto=<?php echo $user['id_Producto']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                     </td>
                 </tr>
@@ -143,6 +148,7 @@ if (!isset($_SESSION['nombre1'])) {
             } ?>
         </tbody>
     </table>
-    <script src="tablejs.js"></script>
+    </div>
+    <script src="tablesjs.js"></script>
 </body>
 </html>

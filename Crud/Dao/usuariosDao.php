@@ -22,29 +22,49 @@ class UsuarioDao
             $resultado = $query->fetch();
             $mensaje = "Registrado Exitosamente";
             if ($resultado === false) {
-                $mensaje = "la query no fue exitosa, o el codigo de invitacion no existe";
-                // header("Location:../../HTML/registro.php?error=3");
-                // exit; // Add this to stop the script execution
+                $mensaje = "El codigo de invitacion es invalido";
+                header("Location:../../PAGINA/registro.php?error=3");
+                exit; 
             } else {
                 echo "se realizo la primera query";
                 try {
-                    $query = $conn->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,?)");
-                    $query->bindParam(1,$documento);
-                    $query->bindParam(2,$tipodoc);
-                    $query->bindParam(3,$contrasena);
-                    $query->bindParam(4,$nombre1);
-                    $query->bindParam(5,$nombre2);
-                    $query->bindParam(6,$apellido1);
-                    $query->bindParam(7,$apellido2);
-                    $query->bindParam(8,$correo);
-                    $query->bindParam(9,$rol);
-                    $query->bindParam(10,$codinv);
-    
+                    $query = $conn->prepare("select idtienda from tienda where codigo_invitacion = '$codinv'");
                     $query->execute();
+                    $resultado = $query->fetch();
                     $mensaje = "Registrado Exitosamente";
+                    $idtienda = $resultado['idtienda'];
+                    if ($resultado === false) {
+                        $mensaje = "la query no fue exitosa, o el codigo de invitacion no existe";
+                        // header("Location:../../HTML/registro.php?error=3");
+                        // exit; // Add this to stop the script execution
+                    } else {
+                        echo "se realizo la segunda query";
+                        try {
+                            $query = $conn->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,?,?)");
+                            $query->bindParam(1,$documento);
+                            $query->bindParam(2,$tipodoc);
+                            $query->bindParam(3,$contrasena);
+                            $query->bindParam(4,$nombre1);
+                            $query->bindParam(5,$nombre2);
+                            $query->bindParam(6,$apellido1);
+                            $query->bindParam(7,$apellido2);
+                            $query->bindParam(8,$correo);
+                            $query->bindParam(9,$rol);
+                            $query->bindParam(10,$codinv);
+                            $query->bindParam(11, $idtienda);
+            
+                            $query->execute();
+                            $mensaje = "Registrado Exitosamente";
+                        } catch (Exception $ex) {
+                            $mensaje = $ex->getMessage();
+                            header("Location:../../PAGINA/registro.php?error=4");
+                        }
+                    }
+
                 } catch (Exception $ex) {
                     $mensaje = $ex->getMessage();
                 }
+
             }
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
