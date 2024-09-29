@@ -41,65 +41,51 @@ if (!isset($_SESSION['nombre1'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Usuarios
-                        </a>
+            <ul class="navbar-nav">
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
                             <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
                         </ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Tienda
-                        </a>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="tienda//listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Producto</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Producto
-                        </a>
+                            aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
+                            <li><a class="dropdown-item" href="../factura/listarfactura.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../factura/registrar.php">registrar</a></li>
                         </ul>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Factura
-                            </a>
+                            aria-expanded="false">Venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../venta/registrar.php">registrar</a></li>
                         </ul>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            
-                            Proveedor
-                        </a>
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            rol
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
-                        </ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
                     </li>
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:

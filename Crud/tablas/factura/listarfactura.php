@@ -40,43 +40,52 @@ if (!isset($_SESSION['nombre1'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Usuarios
-                        </a>
+            <ul class="navbar-nav">
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
                             <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
                         </ul>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Tienda
-                        </a>
+                    </li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
                         </ul>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Producto
-                        </a>
+                            aria-expanded="false">Producto</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
+                            <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Factura
-                        </a>
+                            aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">lista</a></li>
-                            <li><a class="dropdown-item" href="#">registrar</a></li>
+                            <li><a class="dropdown-item" href="listarfactura.php">lista</a></li>
+                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Venta</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../venta/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Proveedor</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../proveedor/listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
@@ -100,49 +109,49 @@ if (!isset($_SESSION['nombre1'])) {
         </div>
     </nav>
     <div style="width: 99.9%">
-    <table id="usrtables"
-        class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
-        <thead class="table-dark light-header">
-            <tr class="text-center">
-                <th style="font-weight:normal">venta_id_Venta</th>
-                <th style="font-weight:normal">producto_id_Producto</th>
-                <th style="font-weight:normal">Cantidad</th>
-                <th style="font-weight:normal">Precio</th>
-                <th style="font-weight:normal">Estado</th>
-                <th style="font-weight:normal">Modificar</th>
-                <th style="font-weight:normal">Eliminar</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            require '../../Dao/facturaDao.php';
-            require '../../Dto/facturaDto.php';
-
-            $fDao = new facturaDao();
-            $allUsers = $fDao->listarTodos();
-            foreach ($allUsers as $user) { ?>
+        <table id="usrtables"
+            class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
+            <thead class="table-dark light-header">
                 <tr class="text-center">
-                    <td><?php echo $user['venta_id_Venta']; ?></td>
-                    <td><?php echo $user['producto_id_Producto']; ?></td>
-                    <td><?php echo $user['Cantidad']; ?></td>
-                    <td><?php echo $user['Precio']; ?></td>
-                    <td><?php echo $user['Estado']; ?></td>
+                    <th style="font-weight:normal">venta_id_Venta</th>
+                    <th style="font-weight:normal">producto_id_Producto</th>
+                    <th style="font-weight:normal">Cantidad</th>
+                    <th style="font-weight:normal">Precio</th>
+                    <th style="font-weight:normal">Estado</th>
+                    <th style="font-weight:normal">Modificar</th>
+                    <th style="font-weight:normal">Eliminar</th>
 
-                    <td>
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="venta_id_Venta" value="<?php echo $user['venta_id_Venta']; ?>">
-                            <button type="submit" class="btn btn-warning">Modificar</button>
-                        </form>
-                    </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.factura.php?idtiend=<?php echo $user['venta_id_Venta']; ?>
-                    " onclick=" return confirmar(event);">Eliminar</a>
-                    </td>
                 </tr>
+            </thead>
+            <tbody>
                 <?php
-            } ?>
-        </tbody>
-    </table>
+                require '../../Dao/facturaDao.php';
+                require '../../Dto/facturaDto.php';
+
+                $fDao = new facturaDao();
+                $allUsers = $fDao->listarTodos();
+                foreach ($allUsers as $user) { ?>
+                    <tr class="text-center">
+                        <td><?php echo $user['venta_id_Venta']; ?></td>
+                        <td><?php echo $user['producto_id_Producto']; ?></td>
+                        <td><?php echo $user['Cantidad']; ?></td>
+                        <td><?php echo $user['Precio']; ?></td>
+                        <td><?php echo $user['Estado']; ?></td>
+
+                        <td>
+                            <form action="actualizar.php" method="post">
+                                <input type="hidden" name="venta_id_Venta" value="<?php echo $user['venta_id_Venta']; ?>">
+                                <button type="submit" class="btn btn-warning">Modificar</button>
+                            </form>
+                        </td>
+                        <td><a class="btn btn-danger" href="../../controlador/controlador.factura.php?idtiend=<?php echo $user['venta_id_Venta']; ?>
+                    " onclick=" return confirmar(event);">Eliminar</a>
+                        </td>
+                    </tr>
+                    <?php
+                } ?>
+            </tbody>
+        </table>
     </div>
     <script src="tablesjs.js"></script>
 </body>
