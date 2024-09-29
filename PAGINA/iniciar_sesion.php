@@ -41,12 +41,21 @@ header("Expires: 0"); // Proxies
 <body class="container-fluid">
   <?php
   if (isset($_GET["error"])){
-    echo "<script>
-    Swal.fire({
-    title: 'ERROR',
-    text: 'Los datos ingresados no son validos o no existen',
-    icon: 'error'
-    });</script>";
+    if ($_GET["error"] == 1) {
+      echo "<script>
+      Swal.fire({
+      title: 'ERROR',
+      text: 'Los datos ingresados no son validos o no existen',
+      icon: 'error'
+      });</script>";
+    } elseif ($_GET["error"] == 2) {
+      echo "<script>
+      Swal.fire({
+      title: 'ERROR',
+      text: 'Ha ocurrido un error, vuelva a iniciar sesion',
+      icon: 'error'
+      });</script>";
+    }
   }
   ?>
   <form id="cont1" class="Contenedorsesion" action="../Crud/login/procesologin.php?tipo=empleado" method="POST">

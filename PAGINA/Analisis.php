@@ -1,6 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
 
+if (!isset($_SESSION['nombre1'])){
+header('Location:iniciar_sesion.php?error=2');
+echo "no esta iniciando la sesion";
+}elseif(isset($_SESSION['nombre1'])){
+    require '../Crud/Dao/usuariosDao.php';
+    require '../Crud/Dto/usuariosDto.php';
+    require '../Crud/Dao/tiendaDao.php';
+    require '../Crud/Dto/tiendaDto.php';
+    require '../Crud/utilidades/conexion.php';
+    if (isset($_SESSION["rol_id_Rol"])){
+        $rol_id_Rol = $_SESSION["rol_id_Rol"];
+    }
+    $nombreTienda = $_SESSION["nombreTienda"];
+    $codigo_invitacion = $_SESSION["codigo_invitacion"];
+}else {
+    echo 'ocurrio un error'; 
+}
+include('../PAGINA/alerta.php');
+?>
 <head>
   <title>ADAX - Analisis</title>
   <meta charset="utf-8">
