@@ -79,7 +79,7 @@ include('../PAGINA/alerta.php');
             require '../Crud/Dao/productoDao.php';
             require '../Crud/Dto/productoDto.php';
             $pDao = new productoDao();
-            $allUsers = $pDao->listarTodos();
+            $allUsers = $pDao->listarProductos($_SESSION["codigo_invitacion"]);
             foreach ($allUsers as $user) { ?>
               <tr>
                 <td><?php echo $user['Nombre']; ?></td>

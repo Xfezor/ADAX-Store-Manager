@@ -84,7 +84,26 @@ class productoDao{
             echo 'Error'. $ex->getMessage();
         }
     }
-
+    public function listarProductos($codigo_invitacion){
+        $conn = Conexion::getConexion();
+        $sentencia = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = $codigo_invitacion;");
+        $sentencia->execute();
+        $valor = $sentencia->fetch(PDO::FETCH_OBJ);
+        $idtienda = $valor->idtienda;
+        if ($valor === FALSE) {
+            header('Location:../../PAGINA/inicio.php?error=1');
+            exit();
+        } elseif ($sentencia->rowcount() == 1) {
+        try {
+            $query = $conn->prepare('SELECT p.Nombre,p.Marca from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
+            $query->bindParam(1, $idtienda);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception  $ex) {
+            echo 'Error'. $ex->getMessage();
+        }
+    }
+    }
     public function modificarProducto(productoDto $productoDto){
         $cnn = Conexion::getConexion();
         $mensaje = "";

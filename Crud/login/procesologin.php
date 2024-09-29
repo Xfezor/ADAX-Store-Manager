@@ -25,12 +25,13 @@ if ($_GET["tipo"] === "empleado") {
         header('Location:../../PAGINA/iniciar_sesion.php?error=1');
         exit();
     } elseif ($sentencia->rowcount() == 1) {
-        $sentencia = $cnn->prepare("SELECT nombreTienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
+        $sentencia = $cnn->prepare("SELECT nombreTienda,idtienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
         $sentencia->execute();
         $valor2 = $sentencia->fetch(PDO::FETCH_OBJ);
         $_SESSION['nombre1'] = $valor->nombre1;
         $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
         $_SESSION['nombreTienda'] = $valor2->nombreTienda;
+        $_SESSION['idtienda'] = $valor2->idtienda;
         if ($valor->rol_id_Rol === 1) {
             $_SESSION['rol_id_Rol'] = $valor->rol_id_Rol;
         }
