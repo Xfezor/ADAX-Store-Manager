@@ -26,8 +26,8 @@ session_start();
 <body>
     <div class="form-box">
         <?php
-        require '../../Dao/inventarioDao.php';
-        require '../../Dto/inventarioDto.php';
+        require '../../Dao/facturaDao.php';
+        require '../../Dto/facturaDto.php';
         require '../../utilidades/conexion.php';
         ?>
 
@@ -56,7 +56,7 @@ session_start();
                 </div>
 
                 <div class="form-field col-lg-6">
-                    <a href="listarproducto.php"><input class="submit-btn" value="cancelar" ></a>
+                    <a href="listarfactura.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
                     <input name="modificar" class="submit-btn" type="submit" value="Registrar">
