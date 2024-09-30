@@ -26,8 +26,8 @@ session_start();
 <body>
     <div class="form-box">
         <?php
-        require '../../Dao/inventarioDao.php';
-        require '../../Dto/inventarioDto.php';
+        require '../../Dao/productoDao.php';
+        require '../../Dto/productoDto.php';
         require '../../utilidades/conexion.php';
         ?>
 
