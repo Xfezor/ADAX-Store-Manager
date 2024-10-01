@@ -37,16 +37,16 @@ else if (isset($_POST['registrocrud'])){
         exit;
     }
 }
-else if ($_GET['id_inventario']!=null){
+else if ($_GET['id_Inventario']!=null){
     $iDao = new InventarioDao();
-    $mensaje = $iDao->eliminarInventario($_GET['id_inventario']);
+    $mensaje = $iDao->eliminarInventario($_GET['id_Inventario']);
     header("Location:../tablas/Inventario/listarInventario.php?mensaje=".$mensaje);
     exit();
 }
 else if (isset($_POST['modificar'])){
     $iDao = new InventarioDao();
     $iDto = new InventarioDto();
-    $iDto->setid_inventario($_POST['id_inventario']);
+    $iDto->setid_inventario($_POST['id_Inventario']);
     $iDto->setCantidadInventario($_POST['CantidadInventario']);
     $iDto->setfechaModificacion($_POST['fechaModificacion']);
     $iDto->setestado_revision($_POST['estado_revision']);
