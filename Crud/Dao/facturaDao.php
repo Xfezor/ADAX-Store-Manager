@@ -17,7 +17,6 @@ class facturaDao{
             $query->bindParam(3,$cantidad);
             $query->bindParam(4,$precio);
             $query->bindParam(5,$estado);
-
             $query->execute();
             $mensaje = "Registrado Exitosamente";
         } catch (Exception $ex) {
@@ -83,7 +82,7 @@ class facturaDao{
     }
     }
 
-    public function modificarfactura(facturaDto $facturaDto){
+    public function modificarFactura(facturaDto $facturaDto){
         $cnn = Conexion::getConexion();
         $mensaje = "";
         $venta_id_Venta= $facturaDto->getventa_id_Venta();
@@ -124,7 +123,7 @@ class facturaDao{
     }
     
     //eliminar factura
-    public function eliminarfactura($venta_id_Venta){
+    public function eliminarFactura($venta_id_Venta){
         $cnn = Conexion::getConexion();
         $mensaje = "";
         try {
@@ -138,7 +137,32 @@ class facturaDao{
         $cnn=null;
         return $mensaje;
     }
-    
+    public function detalleFactura($venta_id_Venta){
+        $conn = Conexion::getConexion();
+        try {
+            $conn->query('RESET QUERY CACHE');
+            $query = $conn->prepare('SELECT f.venta_id_Venta,sum(f.precio) as precio,v.FechaVenta,v.HoraVenta,v.EstadoVenta,sum(f.Cantidad) as cantidadProductos from  factura f inner join venta v on f.venta_id_Venta = v.id_Venta where venta_id_Venta = ? group by venta_id_Venta;');
+            $query->bindParam(1, $venta_id_Venta);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception  $ex) {
+            echo 'Error'. $ex->getMessage();
+        }
+        $conn = null;
+    }
+    public function listaProductos($venta_id_Venta){
+        $conn = Conexion::getConexion();
+        try {
+            $conn->query('RESET QUERY CACHE');
+            $query = $conn->prepare('SELECT f.producto_id_Producto,p.Nombre,f.cantidad from factura f inner join producto p on p.id_Producto = f.producto_id_Producto where venta_id_Venta = ?;');
+            $query->bindParam(1, $venta_id_Venta);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception  $ex) {
+            echo 'Error'. $ex->getMessage();
+        }
+        $conn = null;
+    }
     
 
 }

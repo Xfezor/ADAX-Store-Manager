@@ -8,10 +8,10 @@ class facturaDto {
     private $Estado;
 
     //GETTERS
-    public function getventa_id_Venta() {
+    public function getVenta_id_Venta() {
         return $this->venta_id_Venta;
     }
-    public function getproducto_id_Producto() {
+    public function getProducto_id_Producto() {
         return $this->producto_id_Producto;
     }
     public function getCantidad() {
@@ -33,7 +33,7 @@ class facturaDto {
     public function setCantidad($Cantidad) {
         $this->Cantidad = $Cantidad;
     }
-    public function setPrecion($Precio) {
+    public function setPrecio($Precio) {
         $this->Precio = $Precio;
     }
     public function setEstado($Estado) {

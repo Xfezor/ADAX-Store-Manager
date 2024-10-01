@@ -11,7 +11,7 @@ if (isset($_POST['registrarFacturasCrud'])){
     $fDto->setPrecio($_POST['Precio']);
     $fDto->setEstado($_POST['Estado']);
     
-    $mensaje = $fDto->registrarfactura($fDto);
+    $mensaje = $fDao->registrarFactura($fDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
         // Registration successful, redirect to login page or success page
@@ -21,7 +21,7 @@ if (isset($_POST['registrarFacturasCrud'])){
 
 }
 else if (isset($_POST['registrarfacturaCrud'])){
-    $fDto = new facturaDao();
+    $fDao = new facturaDao();
     $fDto = new facturaDto();
     $fDto->setventa_id_Venta($_POST['venta_id_Venta']);
     $fDto->setproducto_id_Producto($_POST['producto_id_Producto']);
@@ -29,7 +29,7 @@ else if (isset($_POST['registrarfacturaCrud'])){
     $fDto->setPrecio($_POST['Precio']);
     $fDto->setEstado($_POST['Estado']);
     
-    $mensaje = $fDto->registrarfactura($fDto);
+    $mensaje = $fDao->registrarFactura($fDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
         header("Location:../tablas/factura/listarfactura.php?mensaje=registro exitoso");
@@ -37,13 +37,13 @@ else if (isset($_POST['registrarfacturaCrud'])){
     }
 }
 else if ($_GET['venta_id_Venta']!=null){
-    $fDto = new facturaDao();
-    $mensaje = $fDto->eliminarfactura($_GET['venta_id_Venta']);
+    $fDao = new facturaDao();
+    $mensaje = $fDao->eliminarFactura($_GET['venta_id_Venta']);
     header("Location:../tablas/factura/listarfactura.php?mensaje=".$mensaje);
     exit();
 }
 else if (isset($_POST['modificarfactura'])){
-    $fDto = new facturaDao();
+    $fDao = new facturaDao();
     $fDto = new facturaDto();
     $fDto->setventa_id_Venta($_POST['venta_id_Venta']);
     $fDto->setproducto_id_Producto($_POST['producto_id_Producto']);
@@ -51,6 +51,6 @@ else if (isset($_POST['modificarfactura'])){
     $fDto->setPrecio($_POST['Precio']);
     $fDto->setEstado($_POST['Estado']);
     
-    $mensaje =$fDto->modificarfactura($fDto);
+    $mensaje =$fDao->modificarFactura($fDto);
     header("Location:../tablas/factura/listarfactura.php?mensaje=".$mensaje);
 }

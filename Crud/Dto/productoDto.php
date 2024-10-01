@@ -4,9 +4,9 @@ class productoDto {
     private $id_Producto;
     private $Nombre;
     private $Precio_unit;
-    private $Descripción;
+    private $Descripcion;
     private $Marca;
-    private $Categoría;
+    private $Categoria;
     private $Presentacion;
     private $Fecha_vencimiento;
     private $Stock;
@@ -24,14 +24,14 @@ class productoDto {
     public function getPrecio_unit() {
         return $this->Precio_unit;
     }
-    public function getDescripción() {
-        return $this->Descripción;
+    public function getDescripcion() {
+        return $this->Descripcion;
     }
     public function getMarca() {
         return $this->Marca;
     }
-    public function getCategoría() {
-        return $this->Categoría;
+    public function getCategoria() {
+        return $this->Categoria;
     }
     public function getPresentacion() {
         return $this->Presentacion;

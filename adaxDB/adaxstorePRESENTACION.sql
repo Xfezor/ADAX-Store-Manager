@@ -113,17 +113,17 @@ DROP TABLE IF EXISTS `producto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `producto` (
-  `id_Producto` int(11) NOT NULL,
-  `Nombre` varchar(100) DEFAULT NULL,
-  `Precio_unit` double DEFAULT NULL,
-  `Descripcion` varchar(100) NOT NULL,
-  `Marca` varchar(100) NOT NULL,
-  `Categoria` varchar(100) NOT NULL,
+  `id_Producto` int(11) NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(100) NOT NULL,
+  `Precio_unit` double NOT NULL,
+  `Descripcion` varchar(100) DEFAULT NULL,
+  `Marca` varchar(100) DEFAULT NULL,
+  `Categoria` varchar(100) DEFAULT NULL,
   `Presentacion` varchar(100) DEFAULT NULL,
   `Fecha_vencimiento` date DEFAULT NULL,
-  `Stock` int(11) DEFAULT NULL,
+  `Stock` int(11) NOT NULL,
   `Stock_Min` int(11) DEFAULT NULL,
-  `inventario_id_Inventario` int(11) DEFAULT NULL,
+  `inventario_id_Inventario` int(11) NOT NULL,
   PRIMARY KEY (`id_Producto`),
   KEY `fk_producto_inventario1_idx` (`inventario_id_Inventario`),
   CONSTRAINT `fk_producto_inventario1` FOREIGN KEY (`inventario_id_Inventario`) REFERENCES `inventario` (`id_Inventario`) ON DELETE CASCADE ON UPDATE CASCADE

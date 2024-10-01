@@ -50,7 +50,7 @@ include('../PAGINA/alerta.php');
 <body>
     <div class="container">
         <h1 class="text-left">Factura</h1>
-        <input type="text" class="form-control" placeholder="Escriba un numero de factura">
+        <input type="text" class="form-control" placeholder="Escriba un numero de venta o de producto">
         <button class="btn btn-danger" id="buscar">Buscar</button>
     </div>
     <div class="cuadradoverde">
@@ -78,7 +78,7 @@ include('../PAGINA/alerta.php');
                   <td><?php echo $user['Cantidad']; ?></td>
                   <td><?php echo $user['Precio']; ?></td>
                   <td><?php echo $user['Estado']; ?></td>
-                  <td><button class="btn btn-danger" id="detalle" onclick="verdetalle()">Ver detalle</button></td>
+                  <td><form action="detalle_factura.php" method="POST"><input type="hidden" name="venta_ID" value="<?php echo $user['venta_id_Venta']; ?>"><button type="submit" class="btn btn-danger" id="detalle">Ver detalle</button></form></td>
                 </tr>
               <?php } ?>
             </tbody>

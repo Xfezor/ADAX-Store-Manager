@@ -5,7 +5,7 @@ function backbutton(){
     window.location.href = "inicio.php";
 }
 function verdetalle(){
-    window.location.href = "detalle_factura.html"
+    window.location.href = "detalle_factura.php"
 }
 
 const search = document.querySelector('.container input'),
