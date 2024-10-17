@@ -43,8 +43,8 @@ function validarContraseñas() {
 
   if (password1 !== password2) {
       alert("Las contraseñas no coinciden");
-      return false; // Prevent form submission
+      return false;
   }
 
-  return true; // Allow form submission
+  return true;
 }

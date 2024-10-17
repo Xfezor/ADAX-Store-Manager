@@ -58,7 +58,7 @@ header("Expires: 0"); // Proxies
     }
   }
   ?>
-  <form id="cont1" class="Contenedorsesion" action="../Crud/login/procesologin.php?tipo=empleado" method="POST">
+  <form id="cont1" class="Contenedorsesion" action="../Crud/login/procesologin.php?tipo=empleado" method="POST" novalidate>
     <div class="cuadradoverde">
       <h1 class="titulo-iniciar-sesion"><b>Iniciar Sesión</b></h1>
       <div class="toggle-buttons">
@@ -66,11 +66,9 @@ header("Expires: 0"); // Proxies
         <button class="btn2" id="tiendaBtn" onclick="cambiarestadoBtn2(this)">Tienda</button>
       </div>
       <h1 class="username-text"><b>Correo electronico</b></h1>
-      <input id="email" name="email" type="email" placeholder="Ingrese su correo electronico..." required>
-      <div class="invalid-feedback">Por favor, ingrese su correo electronico</div>
-      <h1 class="contrasena" required><b>Contraseña</b></h1>
-      <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required>
-      <div class="invalid-feedback">Por favor, ingrese su contraseña</div>
+      <input id="email" name="email" type="email" placeholder="Ingrese su correo electronico..." >
+      <h1 class="contrasena"><b>Contraseña</b></h1>
+      <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña...">
       <p>¿Eres Usuario nuevo? Registrate <a href="registro.php">Aquí</a><br> ¿Olvidaste tu contraseña? Entra <a
           href="olvideContraseña.html">Aqui</a></p>
       <button class="btn btn-danger" id="button2" type="submit">Iniciar Sesion</button>
@@ -84,10 +82,10 @@ header("Expires: 0"); // Proxies
         <button class="btn2-active" id="tiendaBtn" onclick="cambiarestadoBtn22(this)">Tienda</button>
       </div>
       <h1 class="username-text"><b>Correo electronico</b></h1>
-      <input id="email" name="email" type="email" placeholder="Ingrese su correo electronico..." required>
+      <input id="email" name="email" type="email" placeholder="Ingrese su correo electronico..." >
       <div class="invalid-feedback">Por favor, ingrese su correo electronico</div>
-      <h1 class="contrasena" required><b>Contraseña</b></h1>
-      <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required>
+      <h1 class="contrasena"><b>Contraseña</b></h1>
+      <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña...">
       <div class="invalid-feedback">Por favor, ingrese su contraseña</div>
       <p>¿Eres Usuario nuevo? Registrate <a href="registro.php">Aquí</a><br> ¿Olvidaste tu contraseña? Entra <a
           href="olvideContraseña.html">Aqui</a></p>
