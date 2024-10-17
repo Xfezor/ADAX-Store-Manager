@@ -16,6 +16,7 @@
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../styles/styles_registro.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <header>
   <div class="contenedorarriba">
@@ -72,10 +73,10 @@
       <button class="btn1-active" id="empleadoBtn" onclick="cambiarestadoBtn1(this)">Empleado</button>
       <button class="btn2" id="tiendaBtn" onclick="cambiarestadoBtn2(this)">Tienda</button>
     </div>
-    <form id="tienda" onsubmit="return validarContraseñas()" action="../Crud/controlador/controlador.usuarios.php" method="POST">
+    <form id="tienda" onsubmit="return validarformulario()" action="../Crud/controlador/controlador.usuarios.php" method="POST">
       <h3 class="documento-txt">Documento *</h3>
-      <input name="documento" class="documento" type="number" placeholder="* Número de documento">
-      <select name="tipodoc" class="documento-type" type="number">
+      <input name="documento" class="documento" type="number" placeholder="* Número de documento" id="documento">
+      <select name="tipodoc" class="documento-type" type="number" id="tp">
         <option default value="CC">Cedula de cuidadania</option>
         <option value="TI">Tarjeta de identidad</option>
         <option value="CE">Cedula de extranjeria</option>
@@ -83,22 +84,22 @@
       </select>
 
       <h3 class="nombre-txt">Nombre *</h3>
-      <input name="nombre1" class="nombre" type="text" placeholder="* Nombre completo">
-      <input name="nombre2" class="nombre2" type="text" placeholder="Segundo nombre (opcional)">
+      <input name="nombre1" class="nombre" type="text" placeholder="* Nombre completo" id="nomcom">
+      <input name="nombre2" class="nombre2" type="text" placeholder="Segundo nombre (opcional)" id="segnom">
 
       <h3 class="apellido-txt">Apellido *</h3>
-      <input name="apellido1" class="apellido" type="apellido" placeholder="* Apellido">
-      <input name="apellido2" class="apellido2" type="apellido" placeholder="Segundo apellido (opcional)">
+      <input name="apellido1" class="apellido" type="apellido" placeholder="* Apellido" id="ape1">
+      <input name="apellido2" class="apellido2" type="apellido" placeholder="Segundo apellido (opcional)" id="ape2">
 
       <h3 class="email-txt">Correo Electronico *</h3>
-      <input name="correo" class="email" type="text" placeholder="* Correo electronico (example@example.com)">
+      <input name="correo" class="email" type="text" placeholder="* Correo electronico (example@example.com)" id="correo">
 
       <h3 class="password-txt">Contraseña *</h3>
       <input name="contrasena" id="pass1" class="password" type="password" placeholder="* Ingrese su contraseña">
       <input id="pass2" class="password2" type="password" placeholder="* Repita su contraseña">
 
       <h3 class="codigo-txt">Codigo de Invitación *</h3>
-      <input name="codigoinv" class="codigo" type="text" placeholder="* Ingrese el codigo de invitación">
+      <input name="codigoinv" class="codigo" type="text" placeholder="* Ingrese el codigo de invitación"  id="codinv">
 
       <p class="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.php">Aqui</a></p>
       <button name="registro" value="registro" class="btn btn-danger" type="submit" id="boton_regis">Registrarse</button>

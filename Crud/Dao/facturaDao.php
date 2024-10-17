@@ -61,9 +61,9 @@ class facturaDao{
             echo 'Error'. $ex->getMessage();
         }
     }
-    public function listarFacturas($codigo_invitacion){
+    public function listarFacturas($venta_id_Venta){
         $conn = Conexion::getConexion();
-        $sentencia = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = $codigo_invitacion;");
+        $sentencia = $conn->prepare("SELECT venta_id_Venta from factura where venta_id_Venta = $venta_id_Venta;");
         $sentencia->execute();
         $valor = $sentencia->fetch(PDO::FETCH_OBJ);
         $idtienda = $valor->idtienda;
@@ -72,15 +72,15 @@ class facturaDao{
             exit();
         } elseif ($sentencia->rowcount() == 1) {
         try {
-            $query = $conn->prepare('SELECT f.venta_id_Venta,f.producto_id_Producto,f.Cantidad,f.Precio,f.Estado from venta v inner join factura f on v.id_Venta = f.venta_id_Venta where v.tienda_idtienda = ?;');
-            $query->bindParam(1, $idtienda);
+            $query = $conn->prepare('SELECT f.venta_id_Venta,f.producto_id_Producto,f.Cantidad,f.Precio,f.Estado from venta v inner join factura f on v.id_Venta = f.venta_id_Venta where f.venta_id_Venta = (SELECT venta_id_Venta from factura where venta_id_Venta = :venta_id_Venta);');
+            $query->bindParam(':venta_id_Venta', $venta_id_Venta);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception  $ex) {
             echo 'Error'. $ex->getMessage();
-        }
-    }
-    }
+                    }
+                }
+            }
 
     public function modificarFactura(facturaDto $facturaDto){
         $cnn = Conexion::getConexion();

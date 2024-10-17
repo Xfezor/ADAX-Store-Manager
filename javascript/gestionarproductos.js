@@ -8,7 +8,7 @@ function añadirproducto(){
     window.location.href = ""
 }
 function gestionarproveedores(){
-    window.location.href = "proveedores.html"
+    window.location.href = "proveedores.php"
 }
 function verdetalle(){
     window.location.href = "detalle_producto.html"

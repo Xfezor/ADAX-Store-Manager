@@ -30,15 +30,15 @@ session_start();
         require '../../Dto/proveedorDto.php';
         require '../../utilidades/conexion.php';
 
-        if ($_POST['idprovedo']!= NULL) {
-            $tDao = new proveedorDao();
-            $tienda = $tDao->obtenerProveedor($_POST['idprovedo']);
+        if(isset($_POST['idproveedor']) && $_POST['idproveedor'] != NULL) {
+            $prDao = new proveedorDao();
+            $proveedor = $prDao->obtenerProveedor($_POST['idprovedor']);
         }
         ?>
 
 <section class="get-in-touch">
     <h1 class="title">Actualizar</h1>
-    <form class="contact-form row" action="../../controlador/controlador.provedor.php" method="POST">
+    <form class="contact-form row" action="../../controlador/controlador.proveedor.php" method="POST">
     <div class="form-field col-lg-6">
                     <input name="idproveedor" id="name" class="input-text js-input" type="text" required>
                     <label class="label" for="name">Id proveedor </label>
@@ -67,7 +67,7 @@ session_start();
                     <a href="listarventa.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input name="registrocrud" class="submit-btn" type="submit" value="Actualizar">
+                    <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
                 </div>
             </form>
         </section>

@@ -17,7 +17,7 @@ class proveedorDto {
     public function getTelefono() {
         return $this->telefono;
     }
-    public function geteEmail() {
+    public function getEmail() {
         return $this->email;
     }
     public function getId_tienda() {

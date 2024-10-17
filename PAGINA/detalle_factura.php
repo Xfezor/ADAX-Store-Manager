@@ -92,7 +92,7 @@ if (!isset($_SESSION['nombre1'])) {
             <div>
                 <h3 class="cantidadtxt d-inline-block">Cantidad productos: </h3>
                 <h3 class="cantidad d-inline-block"><?php echo $user['cantidadProductos']; ?></h3>
-            </div>
+            </div>|
         </div>
     <?php } ?>
     <div class="container">

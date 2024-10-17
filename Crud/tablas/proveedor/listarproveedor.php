@@ -87,6 +87,13 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
@@ -142,7 +149,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.tienda.php?idproveedo=<?php echo $user['idproveedor']; ?>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.proveedor.php?idproveedo=<?php echo $user['idproveedor']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                     </td>
                 </tr>

@@ -99,8 +99,8 @@ class ventaDao{
       
 
         try {
-            $query = $cnn->prepare("UPDATE tienda SET id_Venta=?, FechaVenta=?, HoraVenta=?, EstadoVenta=?, cliente_id_Cliente=? , tienda_idtienda=?, metododepago_ID_Met_pago=?, usuarios_documento=?, usuarios_tienda_idtienda =? WHERE id_Venta=?");
-
+            $query = $cnn->prepare("UPDATE venta SET id_Venta=?, FechaVenta=?, HoraVenta=?, EstadoVenta=?, cliente_id_Cliente=? , tienda_idtienda=?, metododepago_ID_Met_pago=?, usuarios_documento=? ,usuarios_tienda_idtienda=? WHERE id_Venta=?");
+            
             $query->bindParam(1,$id_Venta);
             $query->bindParam(2,$FechaVenta);
             $query->bindParam(3,$HoraVenta);
@@ -110,7 +110,10 @@ class ventaDao{
             $query->bindParam(7,$metododepago_ID_Met_pago);
             $query->bindParam(8,$usuarios_documento);
             $query->bindParam(9,$usuarios_tienda_idtienda);
-
+            $query->bindParam(10,$id_Venta);
+            
+            $query->execute();
+            
             $mensaje= "Registro actualizado";
         } catch (Exception  $ex) {
             $mensaje= $ex->getMessage();

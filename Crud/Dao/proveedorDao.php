@@ -12,11 +12,12 @@ class proveedorDao{
         $id_tienda = $proveedorDto->getId_tienda();
        
         try {
-            $query = $conn->prepare("INSERT INTO proveedor(nombre,telefono,email,id_tienda) values (?,?,?,?,?,);");
-            $query->bindParam(1,$nombre);
-            $query->bindParam(2,$telefono);
-            $query->bindParam(3,$email);
-            $query->bindParam(4,$id_tienda);
+            $query = $conn->prepare("INSERT INTO proveedor(nombre,telefono,email,id_tienda) values (?,?,?,?,?);");
+            $query->bindParam(1,$idproveedor);
+            $query->bindParam(2,$nombre);
+            $query->bindParam(3,$telefono);
+            $query->bindParam(4,$email);
+            $query->bindParam(5,$id_tienda);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -36,7 +37,7 @@ class proveedorDao{
         $id_tienda = $proveedorDto->getId_tienda();
        
         try {
-            $query = $conn->prepare("INSERT INTO proveedor values (?,?,?,?,?,);");
+            $query = $conn->prepare("INSERT INTO proveedor values (?,?,?,?,?);");
             $query->bindParam(1,$idproveedor);
             $query->bindParam(2,$nombre);
             $query->bindParam(3,$telefono);
@@ -55,8 +56,8 @@ class proveedorDao{
     public function listarTodos(){
         $conn = Conexion::getConexion();
         try {
-            $listarUsuarios = 'SELECT * from proveedor';
-            $query = $conn->prepare($listarUsuarios);
+            $listarProveedor = 'SELECT * from proveedor';
+            $query = $conn->prepare($listarProveedor);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception  $ex) {
@@ -64,7 +65,7 @@ class proveedorDao{
         }
     }
 
-    public function modificarTienda(proveedorDto $proveedorDto){
+    public function modificarProveedor(proveedorDto $proveedorDto){
         $cnn = Conexion::getConexion();
         $mensaje = "";
         $idproveedor = $proveedorDto->getIdproveedor();
@@ -89,7 +90,7 @@ class proveedorDao{
         $cnn= null;
         return $mensaje;
         }
-        // obtener Tienda
+        // obtener Proveedor
     public function obtenerProveedor($idproveedor){
         $cnn = Conexion::getConexion();
         $mensaje = "";
@@ -106,7 +107,7 @@ class proveedorDao{
     return $mensaje;
     }
     
-    //eliminar Tienda 
+    //eliminar Proveedor
     public function eliminarProveedor($idproveedor){
         $cnn = Conexion::getConexion();
         $mensaje = "";

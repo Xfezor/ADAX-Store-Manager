@@ -8,11 +8,11 @@ if (isset($_POST['registroVenta'])){
     $vDto = new ventaDto();
     $vDto->setFechaVenta($_POST['FechaVenta']);
     $vDto->setHoraVenta($_POST['HoraVenta']);
-    $vto->setEstadoVenta($_POST['EstadoVenta']);
+    $vDto->setEstadoVenta($_POST['EstadoVenta']);
     $vDto->setCliente_id_Cliente($_POST['cliente_id_Cliente']);
     $vDto->setTienda_idtienda($_POST['tienda_idtienda']);
     $vDto->setMetododepago_ID_Met_pago($_POST['metododepago_ID_Met_pago']);
-    $vto->setUsuarios_documento($_POST['usuarios_documento']);
+    $vDto->setUsuarios_documento($_POST['usuarios_documento']);
     $vDto->setUsuarios_tienda_idtienda($_POST['usuarios_tienda_idtienda']);
 
     
@@ -31,11 +31,11 @@ else if (isset($_POST['registrocrud'])){$
     $vDto->setId_Venta($_POST['id_Venta']);
     $vDto->setFechaVenta($_POST['FechaVenta']);
     $vDto->setHoraVenta($_POST['HoraVenta']);
-    $vto->setEstadoVenta($_POST['EstadoVenta']);
+    $vDto->setEstadoVenta($_POST['EstadoVenta']);
     $vDto->setCliente_id_Cliente($_POST['cliente_id_Cliente']);
     $vDto->setTienda_idtienda($_POST['tienda_idtienda']);
     $vDto->setMetododepago_ID_Met_pago($_POST['metododepago_ID_Met_pago']);
-    $vto->setUsuarios_documento($_POST['usuarios_documento']);
+    $vDto->setUsuarios_documento($_POST['usuarios_documento']);
     $vDto->setUsuarios_tienda_idtienda($_POST['usuarios_tienda_idtienda']);
 
     $mensaje = $vDao->registrarVentaCrud($vDto);
@@ -45,11 +45,11 @@ else if (isset($_POST['registrocrud'])){$
         exit;
     }
 }
-else if ($_GET['id_Venta']!=null){
-    $vDao = new ventaDao();
-    $mensaje = $vDao->eliminarVenta($_GET['id_Venta']);
+if (isset($_GET['id_Vent'])) {
+    $uDao = new UsuarioDao();
+    $mensaje = $uDao->eliminarUsuario($_GET['id_Vent']);
     header("Location:../tablas/venta/listarventa.php?mensaje=".$mensaje);
-    exit();
+    exit;
 }
 else if (isset($_POST['modificar'])){
     $vDao = new ventaDao();
@@ -57,11 +57,11 @@ else if (isset($_POST['modificar'])){
     $vDto->setId_Venta($_POST['id_Venta']);
     $vDto->setFechaVenta($_POST['FechaVenta']);
     $vDto->setHoraVenta($_POST['HoraVenta']);
-    $vto->setEstadoVenta($_POST['EstadoVenta']);
+    $vDto->setEstadoVenta($_POST['EstadoVenta']);
     $vDto->setCliente_id_Cliente($_POST['cliente_id_Cliente']);
     $vDto->setTienda_idtienda($_POST['tienda_idtienda']);
     $vDto->setMetododepago_ID_Met_pago($_POST['metododepago_ID_Met_pago']);
-    $vto->setUsuarios_documento($_POST['usuarios_documento']);
+    $vDto->setUsuarios_documento($_POST['usuarios_documento']);
     $vDto->setUsuarios_tienda_idtienda($_POST['usuarios_tienda_idtienda']);
 
     $mensaje =$vDao->modificarVenta($vDto);

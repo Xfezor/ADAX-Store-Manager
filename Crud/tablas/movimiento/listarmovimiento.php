@@ -1,9 +1,9 @@
 <?php
 session_start();
-if (!isset($_SESSION['Nombre1_Cliente'])) {
+if (!isset($_SESSION['nombre1'])) {
     header('Location:login.php?error=2');
     echo "no esta iniciando la sesion";
-} elseif (isset($_SESSION['Nombre1_Cliente'])) {
+} elseif (isset($_SESSION['nombre1'])) {
     require_once '../../utilidades/conexion.php';
 } else {
     echo 'ocurrio un error';
@@ -35,14 +35,14 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
+            <a class="navbar-brand" href="#">ADAX - CRUD</a>usrtable
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+            <ul class="navbar-nav">
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
@@ -57,11 +57,11 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarproducto.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -83,39 +83,21 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../proveedor/listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">Inventario</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../Inventario/listarInventario.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../Inventario/registrar.php">registrar</a></li>
-                        </ul>
-
-                        <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            cliente
-                        </a>
-                        <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="listarcliente.php">lista</a></li>
-                        <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
                             <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
                     </li>
-
                 </ul>
-                <span class="navbar-text me-3 active">cliente:
+                <span class="navbar-text me-3 active">Usuario:
                     <?php
-                    echo $_SESSION['Nombre1_Cliente'];
+                    echo $_SESSION['nombre1'];
                     ?>
                 </span>
 
@@ -126,7 +108,7 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
 
 
                     ?>
-                    <span class="navbar-text me-3 ms-3 active">Operacion: <?php echo $_GET['mensaje']?>
+                    <span class="navbar-text me-3 ms-3 active">Operacion: <?php echo $_GET['mensaje'] ?>
                     </span>
                     <?php
                 }
@@ -135,43 +117,42 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
         </div>
     </nav>
     <div style="width: 99.9%">
-    <table id="usrtable" class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
+    <table id="usrtable"
+        class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
         <thead class="table-dark light-header">
             <tr class="text-center">
-                <th style="font-weight:normal">id_Cliente</th>
-                <th style="font-weight:normal">Documento</th>
-                <th style="font-weight :normal">Nombre1_Cliente</th>
-                <th style="font-weight :normal">Nombre2_Cliente</th>
-                <th style="font-weight :normal">Apellido1_Cliente</th>
-                <th style="font-weight :normal">Apellido2_Cliente</th>
-                <th style="font-weight :normal">Tipo_documento</th>
+                <th style="font-weight:normal">id_Movimiento</th>
+                <th style="font-weight:normal">cantidad_despues</th>
+                <th style="font-weight :normal">fecha_movimiento</th>
+                <th style="font-weight :normal">fecha_modificacion</th>
+                <th style="font-weight :normal">estado_despues</th>
+                <th style="font-weight :normal">inventario_id_Inventario</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            require '../../Dao/clienteDao.php';
-            require '../../Dto/clienteDto.php';
+            require '../../Dao/movimientoDao.php';
+            require '../../Dto/movimientoDto.php';
 
-            $cDao = new clienteDao();
-            $allUsers = $cDao->listarTodos();
+            $mDao = new MovimientoDao();
+            $allUsers = $mDao->listarTodos();
             foreach ($allUsers as $user) { ?>
                 <tr class="text-center">
-                    <td><?php echo $user['id_Cliente']; ?></td>
-                    <td><?php echo $user['Documento']; ?></td>
-                    <td><?php echo $user['Nombre1_Cliente']; ?></td>
-                    <td><?php echo $user['Nombre2_Cliente']; ?></td>
-                    <td><?php echo $user['Apellido1_Cliente']; ?></td>
-                    <td><?php echo $user['Apellido2_Cliente']; ?></td>
-                    <td><?php echo $user['Apellido2_Cliente']; ?></td>
+                    <td><?php echo $user['id_Movimiento']; ?></td>
+                    <td><?php echo $user['cantidad_despues']; ?></td>
+                    <td><?php echo $user['fecha_movimiento']; ?></td>
+                    <td><?php echo $user['fecha_modificacion']; ?></td>
+                    <td><?php echo $user['estado_despues']; ?></td>
+                    <td><?php echo $user['inventario_id_Inventario']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value="<?php echo $user['id_Cliente']; ?>">
+                            <input type="hidden" name="id_Movimient" value="<?php echo $user['id_Movimiento']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.cliente.php?id_Cliente=<?php echo $user['id_Cliente']; ?>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.movimiento.php?id_Movimient=<?php echo $user['id_Movimiento']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                     </td>
                 </tr>
@@ -179,7 +160,6 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
             } ?>
         </tbody>
     </table>
-    </div>
     <script src="tablesjs.js"></script>
 </body>
 

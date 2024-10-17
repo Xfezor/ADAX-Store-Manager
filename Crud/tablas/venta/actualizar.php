@@ -1,4 +1,4 @@
-<input?php
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -30,63 +30,58 @@ session_start();
         require '../../Dto/ventaDto.php';
         require '../../utilidades/conexion.php';
 
-        if ($_POST['id_Vent']!= NULL) {
+        if (isset($_POST['id_Vent'])) {
             $vDao = new ventaDao();
             $venta = $vDao->obtenerVenta($_POST['id_Vent']);
+        } else {
+            $venta = array();
         }
         ?>
 
         <section class="get-in-touch">
             <h1 class="title">Actualizar</h1>
-            <form class="contact-form row" action="../../controlador/controlador.venta.php" method="POST">
-                
-                  
+            <form class="contact-form row" action="../../controlador/controlador.venta.php" method="POST">         
             <div class="form-field col-lg-6">
-                <input id="id-venta" name="id_Venta" value="<?php echo $venta['id_Venta']; ?>" class="input-number js-input" type="number" required>
+                <input id="id-venta" name="id_Venta" value="<?php echo isset($venta['id_Venta']) ? $venta['id_Venta'] : ''; ?>" class="input-number js-input" type="number" required>
                 <label class="label" for="id-venta">id_Venta</label>
             </div>
             <div class="form-field col-lg-6 ">
-                <input id="fecha-venta" name="FechaVenta" value="<?php echo $venta['FechaVenta']; ?>" class="input-date js-input" type="date" required>
+                <input id="fecha-venta" name="FechaVenta" value="<?php echo isset($venta['FechaVenta']) ? $venta['FechaVenta'] : ''; ?>" class="input-date js-input" type="date" required>
                 <label class="label" for="fecha-venta">Fecha Venta</label>
             </div>
             <div class="form-field col-lg-6 ">
-                <input id="hora-venta" name="HoraVenta" value="<?php echo $venta['HoraVenta']; ?>" class="input-time js-input" type="time" required>
+                <input id="hora-venta" name="HoraVenta" value="<?php echo isset($venta['HoraVenta']) ? $venta['HoraVenta'] : ''; ?>" class="input-time js-input" type="time" required>
                 <label class="label" for="hora-venta">HoraVenta</label>
             </div>
             <div class="form-field col-lg-6 ">
-                <input id="estado-venta" name="EstadoVenta" value="<?php echo $venta['EstadoVenta']; ?>" class="input-text js-input" type="text" required>
+                <input id="estado-venta" name="EstadoVenta" value="<?php echo isset($venta['EstadoVenta']) ? $venta['EstadoVenta'] : ''; ?>" class="input-text js-input" type="text" required>
                 <label class="label" for="estado-venta">EstadoVenta</label>
             </div>
             <div class="form-field col-lg-6 ">
-                <input id="cliente-id" name="cliente_id_Cliente" value="<?php echo $venta['cliente_id_Cliente']; ?>" class="input-number js-input" type="number" required>
+                <input id="cliente-id" name="cliente_id_Cliente" value="<?php echo isset($venta['cliente_id_Cliente']) ? $venta['cliente_id_Cliente'] : ''; ?>" class="input-text js-input" type="text" required>
                 <label class="label" for="cliente-id">id Cliente </label>
             </div>
-            <div class="form-field col-lg-6 ">
-                <input id="tienda_idtienda" name="tienda_idtienda" value="<?php echo $venta['tienda_idtienda']; ?>" class="input-number js-input" type="number" required>
-                <label class="label" for="tienda_idtienda">id tienda </label>
-            </div>
-            <div class="form-field col-lg-6 ">
-                <input id="metododepago_ID_Met_pago" name="metododepago_ID_Met_pago" value="<?php echo $venta['metododepago_ID_Met_pago']; ?>" class="input-text js-input" type="text" required>
-                <label class="label" for="metododepago_ID_Met_pago">id metodo de pagp </label>
-            </div>
-            <div class="form-field col-lg-6 ">
-                <input id="usuarios_documento" name="usuarios_documento" value="<?php echo $venta['usuarios_documento']; ?>" class="input-text js-input" type="number"  step="1" required>
-                <label class="label" for="usuarios_documento">documento usuario </label>
-            </div>
-            <div class="form-field col-lg-6 ">
-                <input id="usuarios_tienda_idtienda" name="usuarios_tienda_idtienda" value="<?php echo $venta['usuarios_tienda_idtienda']; ?>" class="input-number js-input" type="number" required>
-                <label class="label" for="usuarios_tienda_idtienda">tienda usuario id</label>
-            </div>
-            
-
-            <div class="form-field col-lg-6">
-                    <a href="listarventa.php"><input class="submit-btn" value="cancelar" ></a>
+          <div class="form-field col-lg-6 ">
+                <input id="metododepago_ID_Met_pago" name="metododepago_ID_Met_pago" value="<?php echo isset($venta['metododepago_ID_Met_pago']) ? $venta['metododepago_ID_Met_pago'] : ''; ?>" class="input-text js-input" type="text"  required >
+                <label class="label" for="metododepago_ID_Met_pago"> metodo de pago  </label>
                 </div>
+
+                <div class="form-field col-lg-6 ">
+                <input id="usuarios_documento" name="usuarios_documento" value="<?php echo isset($venta['usuarios_documento']) ? $venta['usuarios_documento'] : ''; ?>" class="input-text js-input" type="text"  required >
+                <label class="label" for="usuarios_documento"> usuarios documento </label>
+                </div>
+
+                <div class="form-field col-lg-6 ">
+                <input id="usuarios_tienda_idtienda" name="usuarios_tienda_idtienda" value="<?php echo isset($venta['usuarios_tienda_idtienda']) ? $venta['usuarios_tienda_idtienda'] : ''; ?>" class="input-text js-input" type="text"  required >
+                <label class="label" for="usuarios_tienda_idtienda"> usuarios tienda</label>
+                </div>
+
                 <div class="form-field col-lg-6">
-                    <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
-                </div>
-
-            </form>
-        </section>
-    </div>
-</body>
+                        <a href="listarventa.php"><input class="submit-btn" value="cancelar" ></a>
+                    </div>
+                    <div class="form-field col-lg-6">
+                        <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
+                    </div>
+        </form>
+    </section>
+</div>

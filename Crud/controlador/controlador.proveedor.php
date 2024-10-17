@@ -38,9 +38,12 @@ else if (isset($_POST['registrocrud'])){
         exit;
     }
 }
-else if ($_GET['idproveedor']!=null){
-    $tDao = new proveedorDao();
+else if (isset($_GET['idproveedor']) && !empty($_GET['idproveedor'])){
+    var_dump($_GET['idproveedor']);
+    $prDao = new proveedorDao();
+    $idproveedor = $_GET['idproveedor'];
     $mensaje = $prDao->eliminarProveedor($_GET['idproveedor']);
+    var_dump($idproveedor);
     header("Location:../tablas/proveedor/listarproveedor.php?mensaje=".$mensaje);
     exit();
 }

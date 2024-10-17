@@ -26,45 +26,50 @@ session_start();
 <body>
     <div class="form-box">
         <?php
-        require '../../Dao/facturaDao.php';
-        require '../../Dto/facturaDto.php';
+        require '../../Dao/movimientoDao.php';
+        require '../../Dto/movimientoDto.php';
         require '../../utilidades/conexion.php';
 
-        if ($_POST['venta_id_Venta'] != NULL) {
-            $fDao = new facturaDao();
-            $factura = $fDao->obtenerFactura($_POST['venta_id_Venta']);
+        if (isset($_POST['id_Movimiento']) && $_POST['id_Movimiento'] != NULL) {
+            $mDao = new MovimientoDao();
+            $movimiento = $mDao->obtenerMovimiento($_POST['id_Movimiento']);
         }
         ?>
 
-        <section class="get-in-touch">
-            <h1 class="title">Registrar</h1>
-            <form class="contact-form row" action="../../controlador/controlador.factura.php" method="POST">
+<section class="get-in-touch">
+            <h1 class="title">Actualizar</h1>
+            <form class="contact-form row" action="../../controlador/controlador.movimiento.php" method="POST">
                 <div class="form-field col-lg-6">
-                <input name="venta_id_Venta" id="name" class="input-text js-input" type="text" required>
-                <label class="label" for="name">id Venta</label>
+                <input name="id_Movimiento" id="name" class="input-text js-input" type="text" required>
+                <label class="label" for="name">id Movimientoo</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                <input name="id Producto" id="text" class="input-text js-input" type="text" required>
-                <label class="label" for="name">id Producto</label>
+                <input name="cantidad_despues" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="name">cantidad despues</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                <input name="Cantidad" id="text" class="input-text js-input" type="text" required>
-                <label class="label" for="company">Cantidad</label>
+                <input name="fecha_movimiento" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="company">fecha movimiento</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                <input name="Precio" id="text" class="input-text js-input" type="text" required>
-                <label class="label" for="phone">Precio</label>
+                <input name="fecha_modificacion" id="text" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">fecha modificacion</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                <input name="Estado" class="input-text js-input" type="text" required>
-                <label class="label" for="phone">Estado</label>
+                <input name="estado_despues" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">estado despues</label>
+                </div>
+                <div class="form-field col-lg-6 ">
+                <input name="inventario_id_Inventario" class="input-text js-input" type="text" required>
+                <label class="label" for="phone">id Inventario </label>
                 </div>
 
+
                 <div class="form-field col-lg-6">
-                    <a href="listarfactura.php"><input class="submit-btn" value="cancelar" ></a>
+                    <a href="listarmovimiento.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input name="modificar" class="submit-btn" type="submit" value="Registrar">
+                    <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
                 </div>
 
             </form>
