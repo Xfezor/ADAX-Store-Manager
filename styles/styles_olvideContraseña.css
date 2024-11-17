@@ -1,0 +1,178 @@
+body {
+    background-color: #fcedc0;
+}
+.title{
+    font-weight: normal;
+    font-style: normal;
+}
+.contenedorarriba{
+    display: flex;
+    width: 100%;
+    margin: 0px auto;
+    margin-top: 3em;
+}
+@media only screen and (max-height: 800px){
+    .contenedorarriba{
+        display: flex;
+        width: 100%;
+        margin: 0px auto;
+    }
+}
+.adax{
+    background-color: #df6363;
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 20px;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    margin: auto;
+    margin-top: 10px;
+    text-align: center;
+}
+.back{
+    font-size: 43px;
+    border-color: transparent;
+    background-color: transparent;
+    margin-left: 2em;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.back:hover{
+    transform: scale(1.2);
+}
+.exit{
+    font-size: 45px;
+    border-color: transparent;
+    background-color: transparent;
+    display: inline-block;
+    margin-right: 2em;
+    transition: transform 0.3s ease;
+}
+.exit:hover{
+    transform: scale(1.2);
+}
+
+.cuadradoverde {
+    border-radius: 5px;
+    background-color: #ebd8a0;
+    padding: 2% 0;
+    width: 27%;
+    height: 70%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    border-radius: 2em;
+    margin-top: 5%;
+}
+
+.Contenedorsesion {
+    margin: auto;
+    margin-top: 2%;
+    width: 90%;
+    height: 100%;
+}
+.cuadradoverde .titulo {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    border-radius: 10px;
+    padding-left: 10px;
+    border-color: transparent;
+    padding: 5px 10px;
+}
+#buttonSendCode {
+    background-color: #df6363;
+    display: flex;
+    margin: auto;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+#buttonSendCode:hover{
+    background-color: #af3333;
+    color: rgb(255, 255, 255);
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+#buttonConfirmCode {
+    background-color: #df6363;
+    display: flex;
+    margin: auto;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+#buttonConfirmCode:hover{
+    background-color: #af3333;
+    color: rgb(255, 255, 255);
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+#buttonChangePswd{
+    background-color: #df6363;
+    display: flex;
+    margin: auto;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    transform: scale(1);
+    transition: transform 0.5s ease;
+}
+#buttonChangePswd:hover{
+    background-color: #af3333;
+    color: rgb(255, 255, 255);
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+.contrasena{
+    margin-top: 5%;
+}
+a{
+    text-decoration:none;
+    color: red;
+}
+p{
+    margin-top: 15px;
+}
+.titulo-olvide-mi-contraseña{
+    font-size: 35px; 
+    text-align: center;
+}
+.texto-olvide{
+    font-size: 20px;
+    text-align: center;
+}
+.username-text{
+    font-size: 27px;
+    margin-top: 30px;
+}
+.backgroudSucced{
+    background-color: #a3f8d0;
+    opacity: 0.5;
+    z-index: 1;
+}
