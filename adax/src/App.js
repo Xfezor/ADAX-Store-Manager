@@ -1,7 +1,4 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/style_index.css';
-import '@fontsource-variable/montserrat';
+
 import Index from './pages/index.jsx';
 import IniciarSesion from './pages/iniciar_sesion.jsx';
 import { Routes, Route } from "react-router-dom";
