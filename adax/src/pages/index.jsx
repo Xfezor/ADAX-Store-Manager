@@ -33,12 +33,12 @@ const Index = () => {
                         <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
                     </div>
                 </div>
-                <div className={`${styles.dropdown_menu} ${isOpen ? 'open' : ''}`} id="navbar2">
-                    <ul className={styles.dropdown_ul}>
+                <div className={`${styles.dropdown_menu} ${'dropdown_menu'} ${isOpen ? 'open' : ''}`} id="navbar2">
+                    <ul className={`${styles.dropdown_ul} ${'dropdown_ul'}`}>
                         <li><a href="#home">Sobre ADAX</a></li>
                         <li><a href="#beneficios">Servicios</a></li>
                         <li><a href="#footer">Contacto</a></li>
-                        <li><Link to="/iniciar_sesion" className={styles['action-btn']}>
+                        <li><Link to="/iniciar_sesion" className={styles.btnes}>
                         <FontAwesomeIcon icon={faRocket} className={styles.cohete}></FontAwesomeIcon>
                         Inicia Aquí
                     </Link>

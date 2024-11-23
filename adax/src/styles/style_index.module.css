@@ -176,7 +176,7 @@ header {
   border-radius: 10px;
   overflow: hidden;
   transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  z-index: 10;
+  z-index: 9999;
   margin-top: 5%;
   position: fixed ;
 }
@@ -190,16 +190,19 @@ header {
   padding: 0.7rem;
   display: flex;
   align-items: center;
+
   justify-content: center;
 }
 
 .dropdown_menu .action.btn {
   width: 100%;
   display: flex;
+
   justify-content: center;
 }
 .dropdown_ul {
   padding-left: 0;
+
 }
 /* Haciendolo Responsivo el NavBar :) */
 @media (max-width: 1200px) {
