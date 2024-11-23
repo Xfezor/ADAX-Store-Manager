@@ -1,151 +1,143 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/style_index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRocket } from '@fortawesome/free-solid-svg-icons';
 import '@fontsource-variable/montserrat';
-import {Outlet, Link, NavLink} from "react-router-dom";
-
+import { Outlet, Link, NavLink } from "react-router-dom";
+import { useState } from 'react';
+import { faRocket, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 const Index = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+        console.log("Menu is now", !isOpen)
+    };
     return (
         <>
-        
             <header>
                 <div className="navbar" id="navbar">
                     <div className="title">
-                        <img src="/img/nombre logo.png" style={{ width: '20%', height: '100%' }} alt="Logo" />
+                        <img className="logo" src='/img/nombrelogo.webp' alt="" />
                         <h1 className="titulo">Store Manager</h1>
                     </div>
                     <ul className="links">
-                        <li><a href="#sobre">Sobre ADAX</a></li>
-                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#home">Sobre ADAX</a></li>
+                        <li><a href="#hacer">¿Qué puedes hacer con ADAX?</a></li>
+                        <li><a href="#beneficios">Beneficios</a></li>
                         <li><a href="#footer">Contacto</a></li>
                     </ul>
-                    <NavLink to="/iniciar_sesion" className="action btn"><FontAwesomeIcon icon={faRocket} /> Inicia Aquí </NavLink>
-                    <div className="toggle_btn">
-                        <i className="fa-solid fa-bars"></i>
+                    <Link to="/iniciar_sesion" className="action btn">
+                        <FontAwesomeIcon icon={faRocket} className='cohete'></FontAwesomeIcon>
+                        Inicia Aquí
+                    </Link>
+                    <div className="toggle_btn" onClick={toggleMenu}>
+                        <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
                     </div>
                 </div>
+                <div className={`dropdown_menu ${isOpen ? 'open' : ''}`} id="navbar2">
+                    <ul className="dropdown_ul">
+                        <li><a href="#home">Sobre ADAX</a></li>
+                        <li><a href="#beneficios">Servicios</a></li>
+                        <li><a href="#footer">Contacto</a></li>
+                        <li><Link to="/iniciar_sesion" className="action btn">
+                        <FontAwesomeIcon icon={faRocket} className='cohete'></FontAwesomeIcon>
+                        Inicia Aquí
+                    </Link>
+                    </li>
+                    </ul>
+                </div>
             </header>
-            <div className="dropdown_menu" id="navbar2">
-                <ul className="dropdown_ul">
-                    <li><a href="#sobre">Sobre ADAX</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#footer">Contacto</a></li>
-                    <li><a href="iniciar_sesion.php" className="action btn">Inicia Aquí</a></li>
-                </ul>
+            <div className="contenedor-carousel" id="home">
+                <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                    <div className="carousel-inner">
+                        <div className="overlay"></div>
+                        <div className="carousel-item active">
+                            <img src="/img/mandarinas.webp" className="d-block w-100" alt="First slide" />
+                        </div>
+                        <div className="carousel-item">
+                            <img src="/img/ventafacil.webp" className="d-block w-100" alt="Second slide" />
+                        </div>
+                        <div className="carousel-item">
+                            <img src="/img/abierto.webp" className="d-block w-100" alt="Third slide" />
+                        </div>
+                    </div>
+                    <div className="cuadradito">
+                            <h1 className="pregunta-queEs"> ¿Qué es ADAX Store Manager?</h1>
+                            <p className="text-queEs">Bienvenido a <b>ADAX STORE MANAGER</b> <br />
+                                Solución integral para tu negocio.<br /> Te ayudamos a administrar tu negocio</p>
+                        </div>
+                </div>
             </div>
-            <section className="queEs">
-                <img src="/img/animacionadaxstoremanager.gif" alt="adax_letrero_neon" className="adax_letrero_neon" />
-                <div className="cuadradito">
-                    <h1 className="pregunta-queEs"> ¿Qué es ADAX Store Manager?</h1>
-                    <p className="text-queEs">Bienvenido a <b>ADAX STORE MANAGER</b> <br />
-                        Ofrecemos una solución integral para la administración eficiente de tiendas con pequeños y medianos inventarios. Nuestro software está diseñado para simplificar:</p>
-                    <ul className="simplificar">
-                        <li className="caracteristicas">Registro de Ventas</li>
-                        <li className="caracteristicas">Control de Inventario</li>
-                        <li className="caracteristicas">Gestión de entradas y salidas de mercancía</li>
-                        <li className="caracteristicas">Seguimiento de flujo de caja</li>
-                    </ul>
+            <section className="seccion2" id="hacer">
+                <h1 className="hacer">¿Que podras hacer con ADAX Store Manager?</h1>
+                <div className="contenedor-seccion2">
+                    <div className="registrodeventas">
+                        <h5 className="secciontitle">Registro de Ventas</h5>
+                        <p className="textseccion2">Control completo de todas tus transacciones comerciales</p>
+                    </div>
+                    <div className="controlinv">
+                        <h5 className="secciontitle">Control de Inventario</h5>
+                        <p className="textseccion2">Gestión eficiente de Stock y Productos
+                        </p>
+                    </div>
+                    <div className="mercancia">
+                        <h5 className="secciontitle">Mercancia</h5>
+                        <p className="textseccion2">Seguimiento de entradas y salidas de productos</p>
+                    </div>
+                    <div className="flujodecaja">
+                        <h5 className="secciontitle">Flujo de Caja</h5>
+                        <p className="textseccion2">Monitoreo detallado de ingresos y gastos</p>
+                    </div>
                 </div>
             </section>
-            <section className="funcionalidad">
-                <img src="/img/funcionalidades.png" alt="funcionalidades" className="funcionalidades" />
-                <div className="cuadradito2">
-                    <h1 className="pregunta-inicio">Funcionalidades</h1>
-                    <p className="text-inicio">Podrás Gestionar tus:</p>
-                    <ul className="funcionalidades_text">
-                        <li className="gestiona">Movimientos (entradas y salidas)</li>
-                        <li className="gestiona">Proveedores</li>
-                        <li className="gestiona">Productos</li>
-                        <li className="gestiona">Inventario</li>
-                        <li className="gestiona">Reportes</li>
-                        <li className="gestiona">Facturas</li>
-                        <li className="gestiona">Clientes</li>
-                        <li className="gestiona">Ventas</li>
-                    </ul>
+            <section id="beneficios" className="seccion3">
+                <h1 className="beneficios">Beneficios de Usar Adax Store Manager</h1>
+                <div className="contenedor-seccion3">
+                    <div className="ahorro">
+                        <h5>Ahorro de Tiempo</h5>
+                        <p> Automatiza tareas y reduce el tiempo de trabajo en tareas administrativas
+                        </p>
+                    </div>
+                    <div className="control">
+                        <h5>Control Total</h5>
+                        <p>Manten el control de tu negocio desde cualquier lugar y a cualquier hora</p>
+                    </div>
+                    <div className="reportes">
+                        <h5>Reportes</h5>
+                        <p>Genera reportes detallados para tomar decisiones informadas</p>
+                    </div>
+                    <div className="actualizado">
+                        <h5>Actualizado</h5>
+                        <p>Tu negocio estara actualiado con las ultimas tecnologias en del desarrollo web</p>
+                    </div>
                 </div>
             </section>
-            <section className="sobre_adax" id="sobre">
-                <img src="/img/logo.png" alt="logo" className="logo" />
-                <div className="cuadrito3">
-                    <h1 className="adax">Sobre <img src="/img/nombre logo.png" alt="logo" className="logo2" /></h1>
-                    <p className="text_sobreadax">Somos aprendices del SENA del Énfasis de Análisis y Desarrollo de Software (ADSO), que quisieron seguir y mejorar sus conocimientos del técnico de Desarrollo de Software del colegio. Somos proactivos, nos encanta el trabajo en equipo e intentamos resolver todo de manera rápida y efectiva. Cada uno aporta a través de la creatividad o de sus conocimientos. Este grupo está conformado por: </p>
-                    <ul className="sobre_grupo">
-                        <li className="sobre_grupo">Brigitt Natalia Barbosa Gonzales</li>
-                        <li className="sobre_grupo">Damian Alejandro Camacho del Río</li>
-                        <li className="sobre_grupo">Evelyn Stephanie Giraldo Torres</li>
-                        <li className="sobre_grupo">Santiago Martínez Molina</li>
-                        <li className="sobre_grupo">Sara Sofía Trujillo Mondragón</li>
-                    </ul>
-
-                </div>
-            </section>
-            <section className="caracteristicas_adax">
-                <img src="/img/equipo.png" alt="imagen de equipo de trabajo" className="equipo" />
-                <div className="cuadradito4">
-                    <h1 className="titulo_cuadradito3">En qué nos destacamos</h1>
-                    <h3 className="text1">Comunicación y Colaboración</h3>
-                    <ul className="destacar_text">
-                        <li className="caracteristica1">Mantenemos un diálogo abierto y frecuente con nuestros clientes</li>
-                        <li className="caracteristica2">Presentamos avances y resultados parciales de manera periódica</li>
-                    </ul>
-                    <h3 className="text2">Flexibilidad y Adaptabilidad</h3>
-                    <ul className="destacar_text">
-                        <li className="caracteristica3">Valoramos sugerencias y opiniones de nuestros clientes</li>
-                        <li className="caracteristica4">Incorporamos cambios ágilmente en el proceso de desarrollo</li>
-                    </ul>
-                    <h3 className="text3">Transparencia y Confianza</h3>
-                    <ul className="destacar_text">
-                        <li className="caracteristica5">Compartimos desafíos y logros del proyecto de manera clara y honesta</li>
-                        <li className="caracteristica6">Fomentamos un ambiente de confianza mutua</li>
-                    </ul>
-                    <h3 className="text4">Mejora Continua</h3>
-                    <ul className="destacar_text">
-                        <li className="caracteristica7">Utilizamos retroalimentación de clientes para perfeccionar nuestros procesos</li>
-                        <li className="caracteristica8">Elevamos la cantidad de nuestros servicios</li>
-                    </ul>
-                    <h3 className="text5">Nuestro Enfoque</h3>
-                    <ul className="destacar_text">
-                        <li className="caracteristica9">Trabajamos en estrecha colaboración con nuestros clientes para alcanzar resultados excelentes</li>
-                        <li className="caracteristica10">Construimos relaciones duraderas basadas en la confianza y el entendimiento mutuo</li>
-                    </ul>
-                </div>
-                <br />
-                <hr />
-            </section>
-            <section className="servicios" id="servicios">
-                <img src="/img/programador.jpeg" alt="imagen de un programador" className="imagen_programador" />
-                <div className="cuadradito5">
-                    <h1 className="">Servicios</h1>
-                    <ul className="servicios_text">
-                        <li className="servicio">Consultoría en tecnología y arquitectura de software</li>
-                        <li className="servicio">Mantenimiento y Soporte de Software</li>
-                        <li className="servicio">Desarrollo Web (Sitios y Aplicaciones)</li>
-                        <li className="servicio">Desarrollo de Software a la Medida</li>
-                        <li className="servicio">Asesoría y apoyo en proyectos</li>
-                    </ul>
-                </div>
-            </section>
+            <div className="siguientenivel">
+                <h3 className="titulosec4">¿Listo para Optimizar tu negocio?</h3>
+                <p className="textseccion3">Se el primero en dar el paso a la evolución de tu negocio</p>
+                <Link to="/iniciar_sesion" className="botonfinal"><FontAwesomeIcon icon={faRocket} className='cohete'></FontAwesomeIcon> Inicia Aquí </Link>
+            </div>
+            <script src="../javascript/index.js"></script>
             <footer id="footer">
                 <div className="container">
                     <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
-                        <div className="logofooter col mb-3">
-                            <img src="/img/logo.png" className="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none" width="50" height="60" alt="Logo Footer" />
+                        <div className="logofooter">
+                            <img src="../img/logo.webp" className="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none" width="50" height="60" />
                             <p className="text-body-secondary">© 2024</p>
                         </div>
-                        <div className="integrantes col mb-3">
+                        <div className=" integrantes">
                             <h5>Integrantes</h5>
-                            <ul className="nav flex-column">
+                            <ul className=" contenedorfooter nav flex-column">
                                 <li className="nav-item mb-2">Brigitt Natalia Barbosa Gonzales</li>
-                                <li className="nav-item mb-2">Damian Alejandro Camacho del Río</li>
+                                <li className="nav-item mb-2">Damian Alejandro Camacho del Rio</li>
                                 <li className="nav-item mb-2">Evelyn Stephanie Giraldo Torres</li>
                                 <li className="nav-item mb-2">Santiago Martínez Molina</li>
-                                <li className="nav-item mb-2">Sara Sofía Trujillo Mondragón</li>
+                                <li className="nav-item mb-2">Sara Sofia Trujillo Mondragón</li>
                             </ul>
                         </div>
-                        <div className="correos col mb-3">
+
+                        <div className="correos">
                             <h5>Correos</h5>
-                            <ul className="nav flex-column">
+                            <ul className=" con nav flex-column">
                                 <li className="nav-item mb-2">BarbozalesNalitt@gmail.com</li>
                                 <li className="nav-item mb-2">damono06@gmail.com</li>
                                 <li className="nav-item mb-2">Sgiraldotorres@gmail.com</li>
