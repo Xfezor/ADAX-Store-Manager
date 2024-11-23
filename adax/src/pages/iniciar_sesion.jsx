@@ -144,7 +144,7 @@ const IniciarSesion = () => {
                             <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className="contrasena"><b>Contraseña</b></h1>
                             <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
-                            <p>¿Eres usuario nuevo? Regístrate <a href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
+                            <p>¿Eres usuario nuevo? Regístrate <a className='aIniciarSesion' href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
                             <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
                         </div>
                     </form>
@@ -160,7 +160,7 @@ const IniciarSesion = () => {
                             <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className="contrasena"><b>Contraseña</b></h1>
                             <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
-                            <p>¿Eres usuario nuevo? Regístrate <a href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
+                            <p>¿Eres usuario nuevo? Regístrate <a className="aIniciarSesion" href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
                             <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
                         </div>
                     </form>
