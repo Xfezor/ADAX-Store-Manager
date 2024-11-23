@@ -11,7 +11,7 @@ if (isset($_POST['modificarRolesCrud'])) {
     $fDto -> setdescripcion ($POST ['descripcion']);
 
     $mensaje = $fDao -> modificarRol ($fDto);
-    echo $mensaje
+    echo $mensaje;
     if ($mensaje == 'Modificación exitosa'){
         header ('Location: ../PAGINA/rol.php?modificacion=exitosa');
         exit;
