@@ -143,7 +143,7 @@ header {
   display: none;
 }
 
-.action.btn {
+.btnes {
   background-color:#537081;
   color: #ffffff;
   border: none;
@@ -155,10 +155,10 @@ header {
   padding: 10px 40px;
   margin: 0;
   transition: 0.2s;
-  
+  margin-left: 5%;  
 
 }
-.action.btn:hover {
+.btnes:hover {
   transform: scale(1.1);
   color: #fff;
   transition: 0.4s;
