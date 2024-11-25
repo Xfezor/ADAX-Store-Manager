@@ -16,6 +16,7 @@ function iniciarsesion() {
 
 const IniciarSesion = () => {
     const [isEmpleado, setIsEmpleado] = useState(true);
+    const [isEmpleado, setIsEmpleado] = useState(true);
 
     const cambiarestadoBtn1 = () => {
         setIsEmpleado(true);
@@ -97,7 +98,11 @@ const IniciarSesion = () => {
                             <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className="contrasena"><b>Contraseña</b></h1>
                             <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
-                            <p>¿Eres usuario nuevo? Regístrate <a className='aIniciarSesion' href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
+                            <p>¿Eres usuario nuevo? Regístrate
+                                <Link to="/registro">
+                                    Aqui
+                                </Link>
+                                <Link to="/RestablecerContrasena" className='restablecerContra'> ¿Olvidaste tu contraseña? Entra </Link></p>
                             <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
                         </div>
                     </form>

@@ -25,7 +25,7 @@ const Index = () => {
                         <li><a href="#beneficios">Beneficios</a></li>
                         <li><a href="#footer">Contacto</a></li>
                     </ul>
-                    <Link to="/iniciar_sesion" className={styles.btnes}>
+                    <Link to="/registro" className={styles.btnes}>
                         <FontAwesomeIcon icon={faRocket} className={styles.cohete}></FontAwesomeIcon>
                         Inicia Aquí
                     </Link>
@@ -38,7 +38,7 @@ const Index = () => {
                         <li><a href="#home">Sobre ADAX</a></li>
                         <li><a href="#beneficios">Servicios</a></li>
                         <li><a href="#footer">Contacto</a></li>
-                        <li><Link to="/iniciar_sesion" className={styles.btnes}>
+                        <li><Link to="/registro" className={styles.btnes}>
                         <FontAwesomeIcon icon={faRocket} className={styles.cohete}></FontAwesomeIcon>
                         Inicia Aquí
                     </Link>
