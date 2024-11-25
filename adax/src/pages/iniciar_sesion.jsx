@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fontsource-variable/montserrat';
 import { Outlet, Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { faShuttleSpace } from '@fortawesome/free-solid-svg-icons';
 
 function exitbutton() {
     window.location.href = "index.html";
@@ -94,15 +95,17 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles.btn2} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
+                            <input className={styles.input} id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <input className={styles.input} id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
                             <p>¿Eres usuario nuevo? Regístrate
                                 <Link to="/registro">
                                     Aqui
                                 </Link>
-                                <Link to="/RestablecerContrasena" className={styles.restablecerContra}> ¿Olvidaste tu contraseña? Entra </Link></p>
-                            <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
+                            
+                            <br></br>
+                            ¿Olvidaste tu contraseña? Entra <Link to="/RestablecerContrasena" className={styles.restablecerContra}>aquí</Link></p>
+                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
                         </div>
                     </form>
                 ) : (
@@ -121,11 +124,11 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles['btn2-active']} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
+                            <input className={styles.input} id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <input className={styles.input} id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
                             <p>¿Eres usuario nuevo? Regístrate <a className={styles.aIniciarSesion} href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
-                            <button className="button btn-danger">
+                            <button className="btn btn-danger" type="submit" id={styles.button2}>
                                 Iniciar Sesión
                             </button>
 
