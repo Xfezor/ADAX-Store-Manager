@@ -1,5 +1,7 @@
 import Index from './pages/index.jsx';
 import IniciarSesion from './pages/iniciar_sesion.jsx';
+import Registro from './pages/registro.jsx';
+import Restablecer from './pages/restablecercontrasena.jsx';
 import Factura from './pages/factura.jsx'; 
 import Inicio from './pages/inicio.jsx'; 
 import Pago from './pages/generar_pago.jsx'; 
@@ -13,6 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/iniciar_sesion" element={<IniciarSesion />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/restablecer_contrasena" element={<Restablecer />} />
         <Route path="/generar_pago" element={<Pago />} /> 
         <Route path="/factura" element={<Factura />} />
         <Route path="/ventas" element={<Ventas />} />

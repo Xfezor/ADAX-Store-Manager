@@ -65,8 +65,9 @@ body {
 .cuadradoverde .titulo {
   text-align: center;
 }
-input {
+.input {
   width: 100%;
+  height: 8%;
   border-radius: 10px;
   padding-left: 10px;
   border-color: transparent;
