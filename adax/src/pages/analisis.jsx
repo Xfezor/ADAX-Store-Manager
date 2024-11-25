@@ -1,5 +1,8 @@
 import React from "react";
-import '../styles/styles_analisis.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styles from '../styles/styles_analisis.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 function Analisis() {
 
@@ -25,33 +28,22 @@ function Analisis() {
 
   return (
     <div>
-      <head>
-        <title>ADAX - Análisis</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossOrigin="anonymous"
-        />
-      </head>
       <header>
-        <div className="contenedorarriba">
-          <button className="back" onClick={backbutton}>
-            <i className="fa-solid fa-arrow-left"></i>
+        <div className={styles.contenedorarriba}>
+          <button className={styles.back} onClick={backbutton}>
+            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
           </button>
-          <div className="adax">
-            <h1 className="title">Análisis</h1>
+          <div className={styles.adax}>
+            <h1 className={styles.title}>Análisis</h1>
           </div>
-          <button className="exit" onClick={exitbutton}>
-            <i className="fa-solid fa-xmark"></i>
+          <button className={styles.exit} onClick={exitbutton}>
+            <FontAwesomeIcon icon="fa-solid fa-xmark" />
           </button>
         </div>
       </header>
       <body>
-        <div className="container">
-          <div className="txt-arriba">
+        <div className={styles.container}>
+          <div className={styles['txt-arriba']}>
             <h1 className="d-inline-block">Producto</h1>
             <button
               className="btn btn-danger d-inline-block"
@@ -63,11 +55,11 @@ function Analisis() {
             </button>
           </div>
           <div>
-            <img src="../img/green.png" className="d-inline-block" alt="green" />
+            <img src="/img/green.webp" className="d-inline-block" alt="green" />
             <h5 className="d-inline-block me-3">Popular</h5>
-            <img src="../img/yellow.png" className="d-inline-block" alt="yellow" />
+            <img src="/img/yellow.webp" className="d-inline-block" alt="yellow" />
             <h5 className="d-inline-block me-3">Medio popular</h5>
-            <img src="../img/red.png" className="d-inline-block" alt="red" />
+            <img src="/img/red.webp" className="d-inline-block" alt="red" />
             <h5 className="d-inline-block me-3">No popular</h5>
           </div>
 
@@ -85,17 +77,17 @@ function Analisis() {
             <option value="none">Más caro</option>
             <option value="none">Más barato</option>
           </select>
-          <button className="btn btn-danger" id="buscar" onClick={buscarProducto}>
+          <button className={`${'btn'} ${'btn-danger'} ${styles['btn btn-danger']}`} id="buscar" onClick={buscarProducto}>
             Buscar
           </button>
         </div>
-        <div className="cuadradoverde"></div>
+        <div className={styles.cuadradoverde}></div>
       </body>
       <footer>
-        <div className="user">
-          <h1 className="username">Usuario: "Pepito Peréz"</h1>
-          <h1 className="username">Tienda: "Los peregrinos"</h1>
-          <h1 className="username">Codigo invitacion: "TX435SX"</h1>
+        <div className={styles.user}>
+          <h1 className={styles.username}>Usuario: "Pepito Peréz"</h1>
+          <h1 className={styles.username}>Tienda: "Los peregrinos"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "TX435SX"</h1>
           <button
             className="btn btn-danger"
             id="cerrarsesion"

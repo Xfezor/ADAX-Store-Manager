@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
-import '../styles/styles_ventas.css';
+import '../styles/styles_ventas.module.css';
 import IniciarSesion from './iniciar_sesion';
 
 const Ventas = () => {

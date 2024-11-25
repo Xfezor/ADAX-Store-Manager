@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/styles_inicio.css'; 
+import '../styles/styles_inicio.module.css'; 
 import Ventas from './ventas';
 import { useNavigate } from 'react-router-dom';
 
