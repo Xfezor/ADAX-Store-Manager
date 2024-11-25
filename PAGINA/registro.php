@@ -106,7 +106,7 @@
     </form>
   </div>
 
-  <div class="conteiner2" id="cont2" style="display: none;">
+
     <h1 class="Registrarse">Registrarse</h1>
     <div class="toggle-buttons">
       <button class="btn1" id="empleadoBtn" onclick="cambiarestadoBtn11(this)">Empleado</button>

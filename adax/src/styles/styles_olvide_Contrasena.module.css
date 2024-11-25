@@ -1,5 +1,5 @@
 body {
-    background-color: #fcedc0;
+    background-color: white;
 }
 .title{
     font-weight: normal;
@@ -152,22 +152,18 @@ input {
 .contrasena{
     margin-top: 5%;
 }
-a{
-    text-decoration:none;
-    color: red;
-}
 p{
     margin-top: 15px;
 }
-.titulo-olvide-mi-contraseña{
-    font-size: 35px; 
+.hola{
+    font-size:40000px; 
     text-align: center;
 }
-.texto-olvide{
+.textoOlvide{
     font-size: 20px;
     text-align: center;
 }
-.username-text{
+.usernameText{
     font-size: 27px;
     margin-top: 30px;
 }
