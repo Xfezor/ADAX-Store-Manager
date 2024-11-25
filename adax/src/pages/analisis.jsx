@@ -42,12 +42,12 @@ function Analisis() {
         </div>
       </header>
       <body>
-        <div className={styles.container}>
+        <div className={`container ${styles.container}`}>
           <div className={styles['txt-arriba']}>
             <h1 className="d-inline-block">Producto</h1>
             <button
               className="btn btn-danger d-inline-block"
-              id="movimientos"
+              id={styles.movimientos}
               name="Buscar"
               onClick={vermovimientos}
             >
@@ -65,10 +65,10 @@ function Analisis() {
 
           <input
             type="text"
-            className="form-control"
+            className={`form-control ${styles['form-control']}`}
             placeholder="Escriba el nombre de un producto"
           />
-          <select className="form-control w-auto">
+          <select className={`form-control w-auto ${styles['form-control']}`}>
             <option defaultValue value="none">
               Ningun filtro
             </option>
@@ -77,7 +77,7 @@ function Analisis() {
             <option value="none">Más caro</option>
             <option value="none">Más barato</option>
           </select>
-          <button className={`${'btn'} ${'btn-danger'} ${styles['btn btn-danger']}`} id="buscar" onClick={buscarProducto}>
+          <button className={`btn btn-danger ${styles['btn btn-danger']}`} id={styles.buscar} onClick={buscarProducto}>
             Buscar
           </button>
         </div>
@@ -90,7 +90,7 @@ function Analisis() {
           <h1 className={styles.username}>Codigo invitacion: "TX435SX"</h1>
           <button
             className="btn btn-danger"
-            id="cerrarsesion"
+            id={styles.cerrarsesion}
             onClick={cerrarSesion}
           >
             Cerrar sesión
