@@ -25,7 +25,7 @@ const Index = () => {
                         <li><a href="#beneficios">Beneficios</a></li>
                         <li><a href="#footer">Contacto</a></li>
                     </ul>
-                    <Link to="/registro" className={styles.btnes}>
+                    <Link to="/iniciar_sesion" className={styles.btnes}>
                         <FontAwesomeIcon icon={faRocket} className={styles.cohete}></FontAwesomeIcon>
                         Inicia Aquí
                     </Link>

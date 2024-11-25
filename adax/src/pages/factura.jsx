@@ -1,8 +1,8 @@
 import React from "react";
-import '../styles/styles_factura.css';
+import '../styles/styles_factura.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'; 
-import '@fortawesome/fontawesome-free/css/all.css';  
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
 function Factura() {

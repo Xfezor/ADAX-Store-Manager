@@ -1,9 +1,10 @@
 import Index from './pages/index.jsx';
 import IniciarSesion from './pages/iniciar_sesion.jsx';
-import Factura from './pages/factura'; 
-import Inicio from './pages/inicio'; 
-import Pago from './pages/generar_pago'; 
-import Ventas from './pages/ventas'; 
+import Factura from './pages/factura.jsx'; 
+import Inicio from './pages/inicio.jsx'; 
+import Pago from './pages/generar_pago.jsx'; 
+import Ventas from './pages/ventas.jsx'; 
+import Analisis from './pages/analisis.jsx';
 import { Routes, Route } from "react-router-dom";   
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/factura" element={<Factura />} />
         <Route path="/ventas" element={<Ventas />} />
         <Route path="/inicio" element={<Inicio />} />
+        <Route path="/analisis" element={<Analisis />} />
         <Route path="*" element={<Index />} />
       </Routes>
     </div>
