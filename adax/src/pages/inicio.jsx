@@ -1,10 +1,14 @@
 import React from 'react';
-import '../styles/styles_inicio.module.css'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import styles from '../styles/styles_inicio.module.css';
 import Ventas from './ventas';
 import { useNavigate } from 'react-router-dom';
 
-const Inicio= () => {
- 
+const Inicio = () => {
+
   const session = {
     nombre1: 'John Doe',
     nombreTienda: 'Store Name',
@@ -19,7 +23,7 @@ const Inicio= () => {
   const navigate = useNavigate();
 
 
- 
+
   const backbutton = () => {
     console.log('Back button clicked');
   };
@@ -31,53 +35,52 @@ const Inicio= () => {
   return (
     <>
       <header>
-        <div className="contenedorarriba">
-          <button className="back" onClick={backbutton}>
-            <i className="fa-solid fa-arrow-left"></i>
+        <div className={styles.contenedorarriba}>
+          <button className={styles.back} onClick={backbutton}>
+            <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-          <div className="adax">
-            <h1 className="title">ADAX Store Manager</h1>
+          <div className={styles.adax}>
+            <h1 className={styles.title}>ADAX Store Manager</h1>
           </div>
-          <button className="exit" onClick={exitbutton}>
-            <i className="fa-solid fa-xmark"></i>
+          <button className={styles.exit} onClick={exitbutton}>
+            <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
           </button>
         </div>
       </header>
       <main>
-        <div className="big-button-container">
-          <div className="linea-big-button">
-            <div className="btn" id="Gp">
-              <h1 className="textogrande">Gestionar Productos</h1>
+        <div className={styles['big-button-container']}>
+          <div className={styles['linea-big-button']}>
+            <div className={styles.btn} id="Gp">
+              <h1 className={styles.textogrande}>Gestionar Productos</h1>
             </div>
-            <div className="btn" id="An">
-              <h1 className="textogrande">Analisis</h1>
+            <div className={styles.btn} id="An">
+              <h1 className={styles.textogrande}>Analisis</h1>
             </div>
           </div>
-          <div className="linea-big-button">
-      <div className="btn" id="Vn" onClick={Ventas}>
-        <h1 className="textogrande">Ventas</h1>
-      </div>
-            <div className="btn" id="Gv">
-              <h1 className="textogrande">Gestionar Ventas</h1>
+          <div className={styles['linea-big-button']}>
+            <div className={styles.btn} id="Vn" onClick={Ventas}>
+              <h1 className={styles.textogrande}>Ventas</h1>
+            </div>
+            <div className={styles.btn} id="Gv">
+              <h1 className={styles.textogrande}>Gestionar Ventas</h1>
             </div>
           </div>
         </div>
       </main>
       <footer>
-        <div className="user">
-          <h1 className="username">Usuario: {session.nombre1}</h1>
-          <h1 className="username">Tienda: {session.nombreTienda}</h1>
-          <h1 className="username">
-            Codigo invitacion: {session.rol_id_Rol ? '?' : session.codigo_invitacion}
-          </h1>
-          {session.rol_id_Rol === 1 && (
-            <a href="../Crud/tablas/tablas.php" className="btn btn-danger" id="cerrarsesion">
-              CRUD
-            </a>
-          )}
-          <a href="iniciar_sesion" className="btn btn-danger" id="cerrarsesion">
-            Cerrar sesión
+        <div className={styles.user}>
+          <h1 className={styles.username}>Usuario: "Pepito Peréz"</h1>
+          <h1 className={styles.username}>Tienda: "Los peregrinos"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "TX435SX"</h1>
+          <a href="../Crud/tablas/tablas.php" className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
           </a>
+          <button
+            className="btn btn-danger"
+            id={styles.cerrarsesion}
+            onClick=""
+          >
+            Cerrar sesión
+          </button>
         </div>
       </footer>
     </>
