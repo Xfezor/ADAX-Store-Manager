@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/styles_iniciar_sesion.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import '@fontsource-variable/montserrat';
 import { Outlet, Link } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -73,7 +75,7 @@ const IniciarSesion = () => {
                         <h1 className={styles.title}>ADAX Store Manager</h1>
                     </div>
                     <Link className={styles.exit} to="/index">
-                        <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                        <FontAwesomeIcon icon={faXmark} />
                     </Link>
                 </div>
             </header>

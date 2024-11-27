@@ -13,6 +13,7 @@ body {
   width: 100%;
   margin: 0px auto;
   margin-top: 3em;
+  align-items: center;
 }
 .adax {
   background-color: #df6363;
@@ -28,9 +29,7 @@ body {
   height: fit-content;
   display: flex;
   margin: auto;
-  margin-top: 10px;
   text-align: center;
-  left: 50%;
   transform: translate(12%);
 }
 .exit {
