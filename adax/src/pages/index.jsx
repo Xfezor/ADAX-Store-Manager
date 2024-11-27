@@ -25,12 +25,14 @@ const Index = () => {
                         <li><a href="#beneficios">Beneficios</a></li>
                         <li><a href="#footer">Contacto</a></li>
                     </ul>
-                    <Link to="/iniciar_sesion" className={styles.btnes}>
+                    <div className={styles.btnes}>
+                    <Link to="/iniciar_sesion">
                         <FontAwesomeIcon icon={faRocket} className={styles.cohete}></FontAwesomeIcon>
-                        Inicia Aquí
+                        <p>Inicia Aquí</p>
                     </Link>
+                    </div>
                     <div className={styles.toggle_btn} onClick={toggleMenu}>
-                        <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
+                        <FontAwesomeIcon icon={isOpen ? faTimes : faBars}/>
                     </div>
                 </div>
                 <div className={`${styles.dropdown_menu} ${'dropdown_menu'} ${isOpen ? 'open' : ''}`} id="navbar2">

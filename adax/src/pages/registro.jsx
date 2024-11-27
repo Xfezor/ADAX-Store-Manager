@@ -44,10 +44,10 @@ function cambiarestadoBtn1(){
   };
   
   function backbutton(){
-    window.location.href = "iniciar_sesion.php"
+    window.location.href = "iniciar_sesion"
   };
   function exitbutton(){
-    window.location.href = "index.html";
+    window.location.href = "index";
   }
   
   function validarContraseñas() {
@@ -175,47 +175,49 @@ function cambiarestadoBtn1(){
             <header>
                 <div className={styles.contenedorarriba}>
                     <button className={styles.back} onClick={backbutton}>
+                        <Link className={styles.back}>
                         <FontAwesomeIcon icon={faArrowLeft}></FontAwesomeIcon>
+                        </Link> 
                     </button>
                     <div className={styles.adax}>
-                        <h1 className="title">ADAX Store Manager</h1>
+                        <h1 className={styles.title}>ADAX Store Manager</h1>
                     </div>
-                    <button className="exit" onclick="exitbutton()">
-                      <FontAwesomeIcon icon={faXmark}></FontAwesomeIcon>
+                    <button className={styles.exit} onClick={exitbutton}>
+                      <FontAwesomeIcon icon={faXmark} className={styles.exit}></FontAwesomeIcon>
                     </button>
                 </div>
             </header>
             <div className={styles.conteiner1} id="cont1">
                 <h1 className={styles.Registrarse}>Registrarse</h1>
-                <div className="toggle-buttons">
-                    <button className="btn1-active" id="empleadoBtn" onclick="cambiarestadoBtn1(this)">Empleado</button>
-                    <button className="btn2" id="tiendaBtn" onClick="cambiarestadoBtn2(this)">Tienda</button>
+                <div className={styles["toggle-buttons"]}>
+                    <button className= {styles["btn1-active"]} id={styles.empleadoBtn} onlick="cambiarestadoBtn1(this)">Empleado</button>
+                    <button className= {styles.btn2} id={styles.tiendaBtn} onClick="cambiarestadoBtn2(this)">Tienda</button>
                 </div>
-                <form id="tienda" onsubmit="return validarformulario()" action="../Crud/controlador/controlador.usuarios.php" method="POST">
-                    <h3 className="documento-txt">Documento *</h3>
-                    <input name="documento" className="documento" type="number" placeholder="* Número de documento" id="documento" />
-                    <select name="tipodoc" className="documento-type" type="number" id="tp">
+                <form id={styles.tienda}onsubmit="return validarformulario()" action="../Crud/controlador/controlador.usuarios.php" method="POST">
+                    <h3 className={styles["documento-txt"]}>Documento *</h3>
+                    <input name="documento" className={`${styles.documento} ${styles.input}`} type="number" placeholder="* Número de documento" id="documento" />
+                    <select name="tipodoc" className={`${styles["documento-type"]} ${styles.input}`} type="number" id="tp">
                         <option default value="CC">Cedula de cuidadania</option>
                         <option value="TI">Tarjeta de identidad</option>
                         <option value="CE">Cedula de extranjeria</option>
                         <option value="RC">Registro civil</option>
                     </select>
-                    <h3 className="nombre-txt">Nombre *</h3>
-                    <input name="nombre1" className="nombre" type="text" placeholder="* Nombre completo" id="nomcom" />
-                    <input name="nombre2" className="nombre2" type="text" placeholder="Segundo nombre (opcional)" id="segnom" />
-                    <h3 className="apellido-txt">Apellido *</h3>
-                    <input name="apellido1" className="apellido" type="apellido" placeholder="* Apellido" id="ape1" />
-                    <input name="apellido2" className="apellido2" type="apellido" placeholder="Segundo apellido (opcional)" id="ape2" />
-                    <h3 className="email-txt">Correo Electronico *</h3>
-                    <input name="correo" className="email" type="text" placeholder="* Correo electronico (example@example.com)" id="correo" />
+                    <h3 className={styles["nombre-txt"]}>Nombre *</h3>
+                    <input name="nombre1" className={`${styles.nombre} ${styles.input}`} type="text" placeholder="* Nombre completo" id="nomcom" />
+                    <input name="nombre2" className={`${styles.nombre2} ${styles.input}`} type="text" placeholder="Segundo nombre (opcional)" id="segnom" />
+                    <h3 className={styles["apellido-txt"]}>Apellido *</h3>
+                    <input name="apellido1" className={`${styles.apellido} ${styles.input}`} type="apellido" placeholder="* Apellido" id="ape1" />
+                    <input name="apellido2" className={`${styles.apellido2} ${styles.input}`}type="apellido" placeholder="Segundo apellido (opcional)" id="ape2" />
+                    <h3 className={styles["email-txt"]}>Correo Electronico *</h3>
+                    <input name="correo" className={`${styles.email} ${styles.input} `} type="text" placeholder="* Correo electronico (example@example.com)" id="correo" />
 
-                    <h3 className="password-txt">Contraseña *</h3>
-                    <input name="contrasena" id="pass1" className="password" type="password" placeholder="* Ingrese su contraseña" />
-                    <input id="pass2" className="password2" type="password" placeholder="* Repita su contraseña" />
-                    <h3 className="codigo-txt">Codigo de Invitación *</h3>
-                    <input name="codigoinv" className="codigo" type="text" placeholder="* Ingrese el codigo de invitación" id="codinv" />
-                    <p className="iniciar-sesion">¿Ya eres usuario? Ingresa <a href="iniciar_sesion.php">Aqui</a></p>
-                    <button name="registro" value="registro" className="btn btn-danger" type="submit" id="boton_regis">Registrarse</button>
+                    <h3 className={`${styles["password-txt"]}`}>Contraseña *</h3>
+                    <input name="contrasena" id="pass1" className={`${styles.password} ${styles.input}`} type="password" placeholder="* Ingrese su contraseña" />
+                    <input id="pass2" className={`${styles.password2} ${styles.input}`} type="password" placeholder="* Repita su contraseña" />
+                    <h3 className={styles ["codigo-txt"]}>Codigo de Invitación *</h3>
+                    <input name="codigoinv" className={`${styles.codigo} ${styles.input}`} type="text" placeholder="* Ingrese el codigo de invitación" id="codinv" />
+                    <p className={styles["iniciar-sesion"]}>¿Ya eres usuario? Ingresa <Link className={styles.textorojo} to="/iniciar_sesion">Aqui</Link></p>
+                    <button name="registro" value="registro" className={styles["btn btn-danger"]} type="submit" id={styles["boton_regis"]}>Registrarse</button>
                 </form>
             </div>
             <div className="conteiner2" id="cont2" style={{display : 'none'}}>
