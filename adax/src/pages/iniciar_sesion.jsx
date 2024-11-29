@@ -2,20 +2,11 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/styles_iniciar_sesion.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import '@fontsource-variable/montserrat';
 import { Outlet, Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { faShuttleSpace } from '@fortawesome/free-solid-svg-icons';
 
-function exitbutton() {
-    window.location.href = "index.html";
-}
-
-function iniciarsesion() {
-    window.location.href = "inicio.php";
-}
 
 const IniciarSesion = () => {
     const [isEmpleado, setIsEmpleado] = useState(true);
@@ -75,7 +66,7 @@ const IniciarSesion = () => {
                         <h1 className={styles.title}>ADAX Store Manager</h1>
                     </div>
                     <Link className={styles.exit} to="/index">
-                        <FontAwesomeIcon icon={faXmark} />
+                        <FontAwesomeIcon style={{color: "black"}} icon={faXmark} />
                     </Link>
                 </div>
             </header>
@@ -97,17 +88,19 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles.btn2} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input className={styles.input} id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
+                            <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input className={styles.input} id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
-                            <p>¿Eres usuario nuevo? Regístrate
-                                <Link to="/registro">
+                            <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <p>¿Eres usuario nuevo? Regístrate&nbsp;
+                                <Link to="/registro" className={styles.aIniciarSesion} >
                                     Aqui
                                 </Link>
-                            
-                            <br></br>
-                            ¿Olvidaste tu contraseña? Entra <Link to="/RestablecerContrasena" className={styles.restablecerContra}>aquí</Link></p>
-                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
+                            </p>
+                            <p  className={styles.restablecerContra}>
+                                ¿Olvidaste tu contraseña?&nbsp;
+                                <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
+                            </p>
+                            <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
                         </div>
                     </form>
                 ) : (
@@ -126,13 +119,19 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles['btn2-active']} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input className={styles.input} id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
+                            <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input className={styles.input} id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
-                            <p>¿Eres usuario nuevo? Regístrate <a className={styles.aIniciarSesion} href="registro.php">aquí</a><br /> ¿Olvidaste tu contraseña? Entra <a href="olvideContraseña.html">aquí</a></p>
-                            <button className="btn btn-danger" type="submit" id={styles.button2}>
-                                Iniciar Sesión
-                            </button>
+                            <input id={styles.contrasena} name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <p>¿Eres usuario nuevo? Regístrate&nbsp;
+                                <Link to="/registro" className={styles.aIniciarSesion} >
+                                    Aqui
+                                </Link>
+                            </p>
+                            <p  className={styles.restablecerContra}>
+                                ¿Olvidaste tu contraseña?&nbsp;
+                                <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
+                            </p>
+                            <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
 
                         </div>
                     </form>

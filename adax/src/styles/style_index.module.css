@@ -35,12 +35,18 @@ ul {
 li {
   list-style: none;
 }
-a {
+.a {
   text-decoration: none;
   color: #000;
   font-size: 1rem;
+  font-weight: bolder;
 }
-a:hover{
+.alink {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+.a:hover{
   color: #ebd8a0;
 }
 
@@ -146,6 +152,7 @@ header {
 }
 
 .btnes {
+  width: 10px;
   background-color:#537081;
   color: #ffffff;
   border: none;
@@ -154,15 +161,19 @@ header {
   font-size: 0.8rem;
   font-weight: bold;
   cursor: pointer;
-  padding: 10px 40px;
   margin: 0;
   transition: 0.2s;
-  margin-left: 5%;  
+  margin-left: 5%;
+  margin-right: 1%;
+  width: 20%;
+  height: 30px;
   display: flex;
-  flex-direction: row;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 .btnes:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
   color: #fff;
   transition: 0.4s;
 }
@@ -257,6 +268,7 @@ header {
       1px -1px 0 #000,
       -1px 1px 0 #000,
        1px 1px 0 #000;
+       font-weight: bold;
 }
 .text-queEs{
   margin: 0;
@@ -266,6 +278,7 @@ header {
   color:white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
+  font-weight: bold;
 }
 /* Sección 2 */
 .textseccion2{
@@ -282,6 +295,7 @@ header {
       1px -1px 0 #000,
       -1px 1px 0 #000,
        1px 1px 0 #000;
+       font-weight: bold;
 }
 
 .seccion2 {
@@ -299,6 +313,7 @@ header {
      1px -1px 0 #000,
      -1px 1px 0 #000,
       1px 1px 0 #000;
+      font-weight: bold;
 }
 .contenedor-seccion2{
   display: grid;
@@ -384,7 +399,7 @@ header {
 }
 .beneficios {
   margin-bottom: 5%;
-  color: white;
+  color:#ebd8a0;
   -webkit-text-stroke: 1px black;
    text-shadow:
        3px 3px 0 #000,
@@ -392,6 +407,7 @@ header {
       1px -1px 0 #000,
       -1px 1px 0 #000,
        1px 1px 0 #000;
+       font-weight: bold;
 }
 .contenedor-seccion3 {
   display: grid;
@@ -451,6 +467,14 @@ header {
   justify-content: center;
   align-items: center;
   transition: 0.2s;
+  text-decoration: none;
+}
+.alink2 {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
 }
 .botonfinal:hover {
   transform: scale(1.1);
