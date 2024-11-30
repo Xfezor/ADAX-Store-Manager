@@ -174,7 +174,7 @@ const Registro = () => {
               <button className={styles["btn1-active"]} id={styles.empleadoBtn} onClick={cambiarestadoBtn1}> Empleado</button>
               <button className={styles.btn2} id={styles.tiendaBtn} onClick={cambiarestadoBtn2}>Tienda</button>
             </div>
-            <form id={styles.tienda} onSubmit={validarContraseñas} action="../Crud/controlador/controlador.usuarios.php" method="POST">
+            <form id={styles.tienda} onSubmit={validarContraseñas} /*action="../Crud/controlador/controlador.usuarios.php"*/ method="POST">
               <h3 className={styles["documento-txt"]}>Documento *</h3>
               <input name="documento" className={`${styles.documento} ${styles.input}`} type="number" placeholder="* Número de documento" id="documento" />
               <select name="tipodoc" className={`${styles["documento-type"]} ${styles.input}`} type="number" id="tp">
@@ -198,7 +198,7 @@ const Registro = () => {
               <h3 className={styles["codigo-txt"]}>Codigo de Invitación *</h3>
               <input name="codigoinv" className={`${styles.codigo} ${styles.input}`} type="text" placeholder="* Ingrese el codigo de invitación" id="codinv" />
               <p className={styles["iniciar-sesion"]}>¿Ya eres usuario? Ingresa <Link className={styles.textorojo} to="/iniciar_sesion">Aqui</Link></p>
-              <button name="registro" value="registro" className={styles["btn btn-danger"]} type="submit" id={styles["boton_regis"]}>Registrarse</button>
+              <Link to="/iniciar_sesion"><button name="registro" value="registro" className={styles["btn btn-danger"]} type="" id={styles["boton_regis"]}>Registrarse</button></Link>
             </form>
           </div>
         ) : (

@@ -9,6 +9,8 @@ body {
 
 .contenedorarriba {
   display: flex;
+  width: 100%;
+  margin: 0px auto;
   margin-top: 3em;
 }
 
@@ -20,7 +22,7 @@ body {
   }
 }
 
-.adax {
+.adax{
   background-color: #df6363;
   font-family: 'Montserrat';
   font-weight: 700;
@@ -29,16 +31,14 @@ body {
   padding-left: 3%;
   padding-right: 3%;
   padding-top: 1.2em;
-  padding-bottom: 0.5em;  
+  padding-bottom: 1.2em;
   width: fit-content;
   height: fit-content;
-  display: flex;
+  display: inline-block;
   margin: auto;
   margin-top: 10px;
-  text-align: center;
 }
-
-.back {
+.back{
   font-size: 43px;
   border-color: transparent;
   background-color: transparent;
@@ -46,22 +46,20 @@ body {
   display: inline-block;
   transition: transform 0.3s ease;
 }
-
-.back:hover {
+.back:hover{
   transform: scale(1.2);
 }
-
-.exit {
-  font-size: 45px;
-  border-color: transparent;
-  background-color: transparent;
-  display: inline-block;
-  margin-right: 2em;
-  transition: transform 0.3s ease;
+.exit{
+font-size: 45px;
+border-color: transparent;
+background-color: transparent;
+display: inline-block;
+margin-right: 2em;
+transition: transform 0.3s ease;
 }
-
-.exit:hover {
+.exit:hover{
   transform: scale(1.2);
+  cursor: pointer;
 }
 
 .conteiner1 {
@@ -120,7 +118,7 @@ body {
 
 .input {
   width: 90%;
-  height: 50%;
+  height: 70%;
   border-radius: 10px;
   padding-left: 5px;
   border-color: transparent;
@@ -246,7 +244,7 @@ select {
   background-color: #df6363;
   margin: 0 auto;
   width: 50%;
-  height: 60%;
+  height: 75%;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
@@ -256,6 +254,7 @@ select {
   transition: transform 0.5s ease;
   grid-row: 8/8;
   grid-column: 2/4;
+  border-color: transparent;
 }
 
 #boton_regis:hover {

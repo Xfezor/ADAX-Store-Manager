@@ -38,24 +38,19 @@ const IniciarSesion = () => {
                 text: 'Escriba un correo válido'
             });
             return;
-        }
-
-
-        if (email === "juana@labanana.com" && contrasena === "juana") {
-
-            window.location.href = "/inicio";
         } else {
-
-            let formlogin = document.getElementById("cont1");
-            let formlogin2 = document.getElementById("cont2");
-
-
-            if (isEmpleado) {
-                formlogin.submit();
+            if (contrasena === ""){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Contraseña vacia',
+                    text: 'Por favor ingrese una contraseña'
+                });
+                return; 
             } else {
-                formlogin2.submit();
+                window.location.href = "/inicio";
             }
         }
+
     };
 
     return (
@@ -66,7 +61,7 @@ const IniciarSesion = () => {
                         <h1 className={styles.title}>ADAX Store Manager</h1>
                     </div>
                     <Link className={styles.exit} to="/index">
-                        <FontAwesomeIcon style={{color: "black"}} icon={faXmark} />
+                        <FontAwesomeIcon style={{ color: "black" }} icon={faXmark} />
                     </Link>
                 </div>
             </header>
@@ -76,8 +71,8 @@ const IniciarSesion = () => {
                     <form
                         id="cont1"
                         className={styles.Contenedorsesion}
-                        action="../Crud/login/procesologin.php?tipo=empleado"
-                        method="POST"
+                        /*action="../Crud/login/procesologin.php?tipo=empleado"
+                        method="POST"*/
                         onSubmit={handleSubmit}
                         noValidate
                     >
@@ -96,19 +91,19 @@ const IniciarSesion = () => {
                                     Aqui
                                 </Link>
                             </p>
-                            <p  className={styles.restablecerContra}>
+                            <p className={styles.restablecerContra}>
                                 ¿Olvidaste tu contraseña?&nbsp;
                                 <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
                             </p>
-                            <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
+                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
                         </div>
                     </form>
                 ) : (
                     <form
                         id="cont2"
                         className={styles.Contenedorsesion}
-                        action="../Crud/login/procesologin.php?tipo=tienda"
-                        method="POST"
+                        /*action="../Crud/login/procesologin.php?tipo=tienda"
+                        method="POST"*/
                         onSubmit={handleSubmit}
                         noValidate
                     >
@@ -121,17 +116,17 @@ const IniciarSesion = () => {
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
                             <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input id={styles.contrasena} name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
                             <p>¿Eres usuario nuevo? Regístrate&nbsp;
                                 <Link to="/registro" className={styles.aIniciarSesion} >
                                     Aqui
                                 </Link>
                             </p>
-                            <p  className={styles.restablecerContra}>
+                            <p className={styles.restablecerContra}>
                                 ¿Olvidaste tu contraseña?&nbsp;
                                 <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
                             </p>
-                            <button className="btn btn-danger" type="submit">Iniciar Sesión</button>
+                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
 
                         </div>
                     </form>
