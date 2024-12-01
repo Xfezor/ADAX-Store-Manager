@@ -6,7 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
-import styles from '../styles/styles_registro.module.css'
+import styles from '../styles/styles_registro.module.css';
+import { useNavigate } from 'react-router-dom';
 
 
 function backbutton() {
@@ -42,7 +43,7 @@ function validarformulario(event) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: "Por favor, complete el campo 'Número de documento', o ingrese un número de documento válido con 10 dígitos",
+      text: "Por favor, complete el campo 'Documento', o ingrese un número de documento válido con 10 dígitos",
     });
     return false;
   }
@@ -133,8 +134,11 @@ function validarformulario(event) {
   }
 
   // Si todas las validaciones pasan
-  return false;
+  window.location.href = "/iniciar_sesion";
 }
+
+
+
 const Registro = () => {
   const [isEmpleado, setIsEmpleado] = useState(true);
 
@@ -174,7 +178,7 @@ const Registro = () => {
               <button className={styles["btn1-active"]} id={styles.empleadoBtn} onClick={cambiarestadoBtn1}> Empleado</button>
               <button className={styles.btn2} id={styles.tiendaBtn} onClick={cambiarestadoBtn2}>Tienda</button>
             </div>
-            <form id={styles.tienda} onSubmit={validarContraseñas} /*action="../Crud/controlador/controlador.usuarios.php"*/ method="POST">
+            <form id={styles.tienda} onSubmit={validarformulario} /*action="../Crud/controlador/controlador.usuarios.php"*/ method="POST">
               <h3 className={styles["documento-txt"]}>Documento *</h3>
               <input name="documento" className={`${styles.documento} ${styles.input}`} type="number" placeholder="* Número de documento" id="documento" />
               <select name="tipodoc" className={`${styles["documento-type"]} ${styles.input}`} type="number" id="tp">
@@ -198,7 +202,7 @@ const Registro = () => {
               <h3 className={styles["codigo-txt"]}>Codigo de Invitación *</h3>
               <input name="codigoinv" className={`${styles.codigo} ${styles.input}`} type="text" placeholder="* Ingrese el codigo de invitación" id="codinv" />
               <p className={styles["iniciar-sesion"]}>¿Ya eres usuario? Ingresa <Link className={styles.textorojo} to="/iniciar_sesion">Aqui</Link></p>
-              <Link to="/iniciar_sesion"><button name="registro" value="registro" className={styles["btn btn-danger"]} type="" id={styles["boton_regis"]}>Registrarse</button></Link>
+              <button name="registroTienda" value="registroTienda" className={styles["btn btn-danger"]} id={styles["boton_regis"]}>Registrarse</button>
             </form>
           </div>
         ) : (
@@ -208,7 +212,7 @@ const Registro = () => {
               <button className={styles.btn1} id="empleadoBtn" onClick={cambiarestadoBtn1}>Empleado</button>
               <button className={styles["btn2-active"]} id="tiendaBtn" onClick={cambiarestadoBtn2}>Tienda</button>
             </div>
-            <form id={styles.tienda} onSubmit="return validarContraseñas()" action="../Crud/controlador/controlador.tienda.php" method="POST">
+            <form id={styles.tienda} onSubmit={validarformulario} /*action="../Crud/controlador/controlador.tienda.php"*/ method="POST">
               <h3 className={styles["nombretienda-txt"]}>Nombre Tienda *</h3>
               <input name="nombreTienda" className={`${styles.nombretienda} ${styles.input}`} type="text" placeholder="* Nombre completo de la tienda" />
 
