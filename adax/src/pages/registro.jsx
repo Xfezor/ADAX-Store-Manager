@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fontsource-variable/montserrat';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import styles from '../styles/styles_registro.module.css';
-import { useNavigate } from 'react-router-dom';
 
 
 function backbutton() {
@@ -15,17 +14,6 @@ function backbutton() {
 };
 function exitbutton() {
   window.location.href = "index";
-}
-function validarContraseñas(event) {
-  event.preventDefault();
-  var password1 = document.getElementById("pass1").value;
-  var password2 = document.getElementById("pass2").value;
-
-  if (password1 !== password2) {
-    alert("Las contraseñas no coinciden");
-    return false;
-  }
-  return true;
 }
 function validarformulario(event) {
   event.preventDefault();

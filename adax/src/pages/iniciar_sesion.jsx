@@ -4,7 +4,7 @@ import styles from '../styles/styles_iniciar_sesion.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import '@fontsource-variable/montserrat';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
