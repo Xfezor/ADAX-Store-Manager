@@ -9,16 +9,18 @@ import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
 
-  const session = {
-    nombre1: 'John Doe',
-    nombreTienda: 'Store Name',
-    codigo_invitacion: '12345',
-    rol_id_Rol: 1,
-  };
-
   const Ventas = () => {
-    navigate('/Ventas');
+    navigate('/ventas');
   };
+  const GestionarProductos = () => {
+    navigate('/gestionarProductos');
+  }
+  const Analisis = () => {
+    navigate('/analisis');
+  }
+  const GestionarVentas = () => {
+    navigate('/gestionarVentas');
+  }
 
   const navigate = useNavigate();
 
@@ -50,10 +52,10 @@ const Inicio = () => {
       <main>
         <div className={styles['big-button-container']}>
           <div className={styles['linea-big-button']}>
-            <div className={styles.btn} id="Gp">
+            <div className={styles.btn} id="Gp" onClick={GestionarProductos}>
               <h1 className={styles.textogrande}>Gestionar Productos</h1>
             </div>
-            <div className={styles.btn} id="An">
+            <div className={styles.btn} id="An" onClick={Analisis}>
               <h1 className={styles.textogrande}>Analisis</h1>
             </div>
           </div>
@@ -61,7 +63,7 @@ const Inicio = () => {
             <div className={styles.btn} id="Vn" onClick={Ventas}>
               <h1 className={styles.textogrande}>Ventas</h1>
             </div>
-            <div className={styles.btn} id="Gv">
+            <div className={styles.btn} id="Gv" onClick={GestionarVentas}>
               <h1 className={styles.textogrande}>Gestionar Ventas</h1>
             </div>
           </div>
