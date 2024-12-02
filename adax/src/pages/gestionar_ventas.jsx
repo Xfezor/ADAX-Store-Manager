@@ -40,12 +40,12 @@ function GestionarVentas() {
             <div className={styles.container}>
                 <h1 className={styles['text-left']}>Factura</h1>
                 <input type="text" className={styles['form-control']} placeholder="Escriba un numero de venta o de producto" />
-                <button className="btn btn-danger" id={styles.buscar}>Buscar</button>
+                <button className={styles["btn btn-danger"]} id={styles.buscar}>Buscar</button>
             </div>
             <div className={styles.cuadradoverde}>
                 <table id="productos" className={styles['facturas-table']}>
-                    <thead className={styles['table-head']}>
-                        <tr>
+                    <thead className={styles['table-head-gesven']}>
+                        <tr className={styles.trventas}>
                             <th>ID Venta</th>
                             <th>ID producto</th>
                             <th>Cantidad</th>
@@ -56,12 +56,19 @@ function GestionarVentas() {
                     </thead>
                     <tbody className={styles['table-body']}>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><form action="detalle_factura.php" method="POST"><input type="hidden" name="venta_ID" value="" /><button type="submit" className="btn btn-danger" id={styles.detalle}>Ver detalle</button></form></td>
+                            <td className={styles.tdventas}></td>
+                            <td className={styles.tdventas}></td>
+                            <td className={styles.tdventas}></td>
+                            <td className={styles.tdventas}></td>
+                            <td className={styles.tdventas}></td>
+                            <td className={`styles.tdventas`}>
+                                <form action="detalle_factura.php" method="POST">
+                                    <input type="hidden" name="venta_ID" value="" />
+                                    <button type="submit" className="btn btn-danger" id={styles.detalle}>
+                                        Ver detalle
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

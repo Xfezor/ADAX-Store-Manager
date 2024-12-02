@@ -1,6 +1,9 @@
-import React from 'react';
-import styles from'../styles/styles_gestionar_productos.module.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import styles from '../styles/styles_gestionar_productos.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const GestionarProductos = () => {
 
@@ -8,45 +11,44 @@ const GestionarProductos = () => {
 
 
   const backbutton = () => {
-      console.log("Volver atrás");
-      navigate(-1);
+    console.log("Volver atrás");
+    navigate(-1);
   };
 
   const exitbutton = () => {
-      console.log("Salir");
-      navigate('/inicio');
+    console.log("Salir");
+    navigate('/inicio');
   };
 
 
   return (
-    <div className="page">
+    <div className={styles.page}>
       <header>
-        <div className="contenedorarriba">
-          <button className="back">
-            <i className="fa-solid fa-arrow-left"></i>
+        <div className={styles.contenedorarriba}>
+          <button className={styles.back} onClick={backbutton}>
+            <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-          <div className="adax">
-            <h1 className="title">Gestionar productos</h1>
+          <div className={styles.adax}>
+            <h1 className={styles.title}>Gestionar Productos</h1>
           </div>
-          <button className="exit">
-            <i className="fa-solid fa-xmark"></i>
+          <button className={styles.exit} onClick={exitbutton}>
+            <FontAwesomeIcon icon={faXmark} className={styles.exit} />
           </button>
         </div>
       </header>
-
-      <div className="left-container">
-        <h1 className="big-text">Producto</h1>
+      <div className={styles["left-container"]}>
+        <h1 className={styles["big-text"]}>Producto</h1>
         <input
-          className="search"
+          className={styles["search"]}
           type="text"
           placeholder="Escriba el nombre de un producto"
         />
-        <button className="btn btn-danger" id="search-button" >
+        <button className="btn btn-danger" id={styles["search-button"]} >
           Buscar
         </button>
-        <div className="product-list">
-          <table className="product-table">
-            <thead className="table-head">
+        <div className={styles["product-list"]}>
+          <table className={styles["product-table"]}>
+            <thead className={styles["table-head"]}>
               <tr>
                 <th>Nombre</th>
                 <th>Marca</th>
@@ -54,12 +56,11 @@ const GestionarProductos = () => {
               </tr>
             </thead>
             <tbody className="table-body">
-              
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td>
-                    <button className="btn btn-danger">
+                <tr className={styles.trgespro}>
+                  <td className={styles.tdgespro}></td>
+                  <td className={styles.tdgespro}></td>
+                  <td className={styles.tdgespro}>
+                    <button className={`{btn btn-danger ${styles["search-button"]}`}>
                       Ver detalle
                     </button>
                   </td>

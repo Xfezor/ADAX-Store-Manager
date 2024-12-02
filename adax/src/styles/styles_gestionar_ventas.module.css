@@ -195,13 +195,16 @@ body {
     table-layout: fixed;
     display: table;
 }
-.table-head{
+.table-head-gesven{
     position: sticky;
     top: 0;
     left: 0;
     height: 10%;
     min-height: 10%;
     max-height: 10%;
+    padding: 1.5rem 4rem;
+    border-collapse: collapse;
+    display: table-cell;
 }
 th{
     padding: 0rem 4rem;
@@ -213,15 +216,14 @@ th{
     display: table-cell;
     height: 100%;
 }
-td{
-    padding: 0.5em;
+.tdventas{
+display: flex;
+justify-content: center;
+align-items: center ;
 }
-table, td{
-    padding: .5rem 4rem;
-    border-collapse: collapse;
-    display: table-cell;
+.botonbuscar {
+    text-align: center;
 }
-
 .table-body::-webkit-scrollbar{
     width: .5rem;
     height: .5rem;
@@ -230,7 +232,7 @@ table, td{
     border-radius: .5rem;
     background-color: #0004;
 }
-tbody tr{
+tbody .trventas{
     --delay: .1s;
     transition: .5s ease-in-out var(--delay);
     height: 20px;
@@ -244,10 +246,10 @@ tbody tr.hide{
     max-height: 1px;
     display: none;
 }
-tbody tr td{
+tbody .trventas .tdventas{
     transition: .2s ease-in-out;
 }
-tbody tr.hide td{
+tbody .trventas.hide .tdventas{
     padding: 0;
     font: 0 / 0 Montserrat;
     transition: .2s ease-in-out .5s;
