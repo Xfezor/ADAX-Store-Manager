@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import '../styles/styles_gestionar_productos.css';
-
+import styles from'../styles/styles_gestionar_productos.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const GestionarProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -13,6 +13,19 @@ const GestionarProductos = () => {
   const [usuario, setUsuario] = useState('');
   const [tienda, setTienda] = useState('');
   const [codigoInvitacion, setCodigoInvitacion] = useState('');
+
+  const navigate = useNavigate();
+
+
+  const backbutton = () => {
+      console.log("Volver atrás");
+      navigate(-1);
+  };
+
+  const exitbutton = () => {
+      console.log("Salir");
+      navigate('/inicio');
+  };
 
   useEffect(() => {
     

@@ -6,6 +6,7 @@ import Factura from './pages/factura.jsx';
 import Inicio from './pages/inicio.jsx'; 
 import Pago from './pages/generar_pago.jsx'; 
 import Ventas from './pages/ventas.jsx'; 
+import GestionarProductos from './pages/gestionar_productos.jsx';
 import Analisis from './pages/analisis.jsx';
 import { Routes, Route } from "react-router-dom";   
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/generar_pago" element={<Pago />} /> 
         <Route path="/factura" element={<Factura />} />
         <Route path="/ventas" element={<Ventas />} />
+        <Route path="/gestionar_productos" element={< GestionarProductos />} />
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/analisis" element={<Analisis />} />
         <Route path="*" element={<Index />} />
