@@ -55,7 +55,7 @@ li {
 }
 
 /* Header :) */
-header {
+.headerindex {
   width: 100%;
   justify-content: center;
   display: flex;

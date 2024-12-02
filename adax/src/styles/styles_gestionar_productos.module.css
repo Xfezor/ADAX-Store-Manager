@@ -93,6 +93,7 @@ body {
 
 .page {
   display: flex;
+  flex-direction: column;
 }
 
 .left-container, .right-container {
@@ -140,7 +141,7 @@ body {
   border: 1px solid black;
 }
 
-#search-button {
+.search-button {
   height: 80%;
   width: 100%;
   background-color: #df6363;
@@ -150,9 +151,12 @@ body {
   padding-left: 20px;
   padding-right: 20px;
   justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#search-button:hover {
+.search-button:hover {
   background-color: #af3333;
   color: black;
 }

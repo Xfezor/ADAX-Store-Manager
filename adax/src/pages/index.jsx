@@ -13,7 +13,7 @@ const Index = () => {
     };
     return (
         <>
-            <header>
+            <header className={styles.headerindex}>
                 <div className={styles.navbar} id="navbar">
                     <div className={styles.title}>
                         <img className={styles.logo} src='/img/nombrelogo.webp' alt="logo" />
