@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
-function gestionarVentas() {
+function GestionarVentas() {
 
     const navigate = useNavigate();
 
@@ -29,44 +29,44 @@ function gestionarVentas() {
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <div className={styles.adax}>
-                        <h1 className={styles.title}>Factura</h1>
+                        <h1 className={styles.title}>Gestionar Ventas</h1>
                     </div>
                     <button className={styles.exit} onClick={exitbutton} to="/inicio">
-                        <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
+                        <FontAwesomeIcon icon={faXmark} className={styles.exit} />
                     </button>
                 </div>
             </header>
-            <body>
-                <div class="container">
-                    <h1 class="text-left">Factura</h1>
-                    <input type="text" class="form-control" placeholder="Escriba un numero de venta o de producto" />
-                    <button class="btn btn-danger" id="buscar">Buscar</button>
-                </div>
-                <div class="cuadradoverde">
-                    <table id="productos" class="facturas-table">
-                        <thead class="table-head">
-                            <tr>
-                                <th>ID Venta</th>
-                                <th>ID producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Estado</th>
-                                <th>Detalle</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-body">
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><form action="detalle_factura.php" method="POST"><input type="hidden" name="venta_ID" value="" /><button type="submit" class="btn btn-danger" id="detalle">Ver detalle</button></form></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </body>
+
+            <div className={styles.container}>
+                <h1 className={styles['text-left']}>Factura</h1>
+                <input type="text" className={styles['form-control']} placeholder="Escriba un numero de venta o de producto" />
+                <button className="btn btn-danger" id={styles.buscar}>Buscar</button>
+            </div>
+            <div className={styles.cuadradoverde}>
+                <table id="productos" className={styles['facturas-table']}>
+                    <thead className={styles['table-head']}>
+                        <tr>
+                            <th>ID Venta</th>
+                            <th>ID producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+                    <tbody className={styles['table-body']}>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><form action="detalle_factura.php" method="POST"><input type="hidden" name="venta_ID" value="" /><button type="submit" className="btn btn-danger" id={styles.detalle}>Ver detalle</button></form></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <footer>
                 <div className={styles.user}>
                     <h1 className={styles.username}>Usuario: "Pepito Peréz"</h1>
@@ -86,3 +86,5 @@ function gestionarVentas() {
         </>
     );
 }
+
+export default GestionarVentas;

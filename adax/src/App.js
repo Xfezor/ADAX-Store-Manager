@@ -8,6 +8,7 @@ import Pago from './pages/generar_pago.jsx';
 import Ventas from './pages/ventas.jsx'; 
 import GestionarProductos from './pages/gestionar_productos.jsx';
 import Analisis from './pages/analisis.jsx';
+import GestionarVentas from './pages/gestionar_ventas.jsx';
 import { Routes, Route } from "react-router-dom";   
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/gestionar_productos" element={< GestionarProductos />} />
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/analisis" element={<Analisis />} />
+        <Route path="/gestionar_ventas" element={<GestionarVentas />} />
         <Route path="*" element={<Index />} />
       </Routes>
     </div>
