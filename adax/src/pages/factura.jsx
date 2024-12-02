@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styles from '../styles/styles_factura.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
@@ -6,18 +7,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 function Factura() {
+
     const navigate = useNavigate();
 
 
     const backbutton = () => {
         console.log("Volver atrás");
-
         navigate(-1);
     };
 
     const exitbutton = () => {
         console.log("Salir");
-
+        navigate('/inicio');
     };
 
     return (
@@ -30,7 +31,7 @@ function Factura() {
                     <div className={styles.adax}>
                         <h1 className={styles.title}>Factura</h1>
                     </div>
-                    <button className={styles.exit} onClick={exitbutton}>
+                    <button className={styles.exit} onClick={exitbutton} to="/inicio">
                         <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
                     </button>
                 </div>
