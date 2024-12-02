@@ -31,7 +31,7 @@ function Factura() {
                         <h1 className={styles.title}>Factura</h1>
                     </div>
                     <button className={styles.exit} onClick={exitbutton} to="/inicio">
-                        <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
+                        <FontAwesomeIcon icon={faXmark} className={styles.exit} />
                     </button>
                 </div>
             </header>
