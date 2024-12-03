@@ -12,7 +12,6 @@ body {
   display: flex;
   width: 100%;
   margin: 0px auto;
-  margin-top: 3em;
 }
 
 @media only screen and (max-height: 800px) {
@@ -90,21 +89,32 @@ body {
   transform: scale(1.2);
 }
 
-
-.page {
-  display: flex;
-  flex-direction: column;
+h1 {
+  margin-bottom: none;
 }
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr ;
+  grid-column-gap: 30px;
+  height: 4px;
 
+}
+.left-container {
+  grid-column: 1;
+}
+.right-container {
+  grid-column: 2  ;
+}
 .left-container, .right-container {
   display: grid;
-  transform: translateX(20%);
   height: 100%;
-  width: 40%;
+  width: 100%;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr 10fr;
   grid-auto-rows: auto;
   gap: 10px;
+  padding: 3%;
+
 }
 
 @media only screen and (max-height: 800px) {
@@ -169,6 +179,16 @@ body {
   align-items: center;
 }
 
+.thnombre {
+  width: 70%;
+  text-align: center;
+}
+th {
+  text-align: center;
+}
+.tdbotondetalle {
+  display: flex;
+}
 #detalle {
   background-color: #df6363;
   margin: 0 0;
@@ -251,7 +271,7 @@ body {
   background-color: #ebd8a0;
   grid-column: 1/-1;
   grid-row: 7/-1;
-  display: flex; 
+  display: flex;
   flex-direction: column; 
   align-items: center; 
   gap: 10px; 
@@ -263,7 +283,7 @@ body {
 .big-text-proveedores {
   width: 100%;
   text-align: center;
-  font-size: 20px;
+  font-size: 70px;
 }
 
 .gestionar-proveedores {
@@ -275,6 +295,7 @@ body {
   font-size: 40px;
   border-radius: 20px;
   margin-top: 10px; 
+  margin-bottom: 10px;
   text-align: center;
   color: #212529;
   border: none;
@@ -305,6 +326,7 @@ body {
   transform: translateX(0.8%);
   align-content: center;
   text-align: center;
+  align-items: center;
 }
 
 @media only screen  and (max-height: 600px) {
