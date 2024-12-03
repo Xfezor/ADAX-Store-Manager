@@ -70,17 +70,17 @@ function DetalleFactura() {
             <div className={styles.cuadrado2}>
                 <table id="productos" className={styles['product-table']}>
                     <thead className={styles['table-head']}>
-                        <tr>
-                            <th>ID Producto</th>
-                            <th>Nombre</th>
-                            <th>Cantidad</th>
+                        <tr className={styles.trdefac}>
+                            <th className={styles.thdecfac}>ID Producto</th>
+                            <th className={styles.thdecfac}>Nombre</th>
+                            <th className={styles.thdecfac}>Cantidad</th>
                         </tr>
                     </thead>
                     <tbody className={styles['table-body']}>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <tr className={styles.trdefac}>
+                            <td className={styles.tddefac}></td>
+                            <td className={styles.tddefac}></td>
+                            <td className={styles.tddefac}></td>
                         </tr>
                     </tbody>
                 </table>
