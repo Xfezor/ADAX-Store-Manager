@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/styles_inicio.module.css';
-import Ventas from './ventas';
 import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
@@ -13,7 +12,7 @@ const Inicio = () => {
     navigate('/ventas');
   };
   const GestionarProductos = () => {
-    navigate('/gestionarProductos');
+    navigate('/gestionar_productos');
   }
   const Analisis = () => {
     navigate('/analisis');
