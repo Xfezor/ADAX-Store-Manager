@@ -141,7 +141,7 @@ body {
   border: 1px solid black;
 }
 
-.search-button {
+#search-button {
   height: 80%;
   width: 100%;
   background-color: #df6363;
@@ -156,7 +156,7 @@ body {
   justify-content: center;
 }
 
-.search-button:hover {
+#search-button:hover {
   background-color: #af3333;
   color: black;
 }
