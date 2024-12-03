@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import '@fontsource-variable/montserrat';
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 
 
