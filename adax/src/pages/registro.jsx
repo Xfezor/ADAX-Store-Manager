@@ -7,14 +7,8 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import styles from '../styles/styles_registro.module.css';
+import { useNavigate } from 'react-router-dom';
 
-
-function backbutton() {
-  window.location.href = "iniciar_sesion"
-};
-function exitbutton() {
-  window.location.href = "index";
-}
 function validarformulario(event) {
   event.preventDefault();
   // Obtener valores del formulario
@@ -136,6 +130,19 @@ const Registro = () => {
 
   const cambiarestadoBtn2 = () => {
     setIsEmpleado(false);
+  };
+
+  const navigate = useNavigate();
+
+
+  const backbutton = () => {
+      console.log("Volver atrás");
+      navigate(-1);
+  };
+
+  const exitbutton = () => {
+      console.log("Salir");
+      navigate('/inicio');
   };
 
   return (
