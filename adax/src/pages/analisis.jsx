@@ -1,17 +1,23 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_analisis.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 function Analisis() {
 
+  const navigate = useNavigate();
+
+
   const backbutton = () => {
-    console.log("Back button clicked"); 
+      console.log("Volver atrás");
+      navigate(-1);
   };
 
   const exitbutton = () => {
-    console.log("Exit button clicked"); 
+      console.log("Salir");
+      navigate('/inicio');
   };
 
   const vermovimientos = () => {

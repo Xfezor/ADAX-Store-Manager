@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/styles_olvide_Contrasena.module.css'; 
 import '@fontsource-variable/montserrat';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+import { useNavigate } from 'react-router-dom';
 import {faXmark} from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 
@@ -60,6 +61,20 @@ function cambiarContra() {
 }
 
 const RestablecerContrasena = () => {
+    const navigate = useNavigate();
+
+
+    const backbutton = () => {
+        console.log("Volver atrás");
+        navigate(-1);
+    };
+  
+    const exitbutton = () => {
+        console.log("Salir");
+        navigate('/inicio');
+    };
+
+    
     return (
         <>
             <header className='container-fluid'>
