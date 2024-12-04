@@ -19,8 +19,15 @@ const GestionarProductos = () => {
     console.log("Salir");
     navigate('/inicio');
   };
+  const index = () => {
+    console.log("Index");
+    navigate('/index');
+  }
 
-
+  const gestionarprov = () => {
+  console.log ("Gestionar proveedores");
+  navigate('/gestionar_proveedores');
+  }
   return (
     <div>
       <header>
@@ -51,10 +58,10 @@ const GestionarProductos = () => {
           <div className={styles["product-list"]}>
             <table className={styles["product-table"]}>
               <thead className={styles["table-head"]}>
-                <tr>
-                  <th className={styles.thnombre}>Nombre</th>
-                  <th>Marca</th>
-                  <th>Detalle</th>
+                <tr className={styles.trgespro}>
+                  <th className={styles.thgespro}>Nombre</th>
+                  <th className={styles.thgespro}>Marca</th>
+                  <th className={styles.thgespro}>Detalle</th>
                 </tr>
               </thead>
               <tbody className={styles["table-body"]}>
@@ -62,9 +69,9 @@ const GestionarProductos = () => {
                   <td className={`${styles.tdgespro} ${styles.tdmarca}`}></td>
                   <td className={`${styles.tdgespro} ${styles.tdnombre}`}></td>
                   <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
-                    {/* <button className={`{btn btn-danger ${styles["search-button"]}`}>
-                      Ver detalle
-                    </button> */}
+                      <button className={`{btn btn-danger`} id={styles["search-button"]}>
+                        Ver detalle
+                      </button>
                   </td>
                 </tr>
               </tbody>
@@ -85,7 +92,7 @@ const GestionarProductos = () => {
                 type="text"
                 placeholder="Escriba el precio sin puntos ni comas"
               />
-              <span style={{ display: 'flex', gap: '10px' }}>
+              <span style={{ 'display': 'flex', 'gap': '10px' }}>
                 <h3 className={styles["text-left"]}>Cantidad:</h3>
                 <input
                   type="number"
@@ -102,7 +109,7 @@ const GestionarProductos = () => {
             <h1 className={styles["big-text-proveedores"]}>
               Proveedores
             </h1>
-            <button className={styles["gestionar-proveedores"]}>
+            <button className={styles["gestionar-proveedores"]} onClick={gestionarprov}>
               Gestionar proveedores
             </button>
           </div>
@@ -113,7 +120,7 @@ const GestionarProductos = () => {
           <h1 className={styles["username"]}>Usuario: ""</h1>
           <h1 className={styles["username"]}>Tienda: ""</h1>
           <h1 className={styles["username"]}>Código invitación: ""</h1>
-          <button className="btn btn-danger" >
+          <button className="btn btn-danger" onClick={index} >
             Cerrar sesión
           </button>
         </div>
