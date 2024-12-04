@@ -5,13 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
+
 const Ventas = () => {
-  const navigate = useNavigate();
-
-
   const [producto, setProducto] = useState('');
   const [cantidad, setCantidad] = useState(1);
-
 
   const generarPago = () => {
     console.log("Generar pago");
@@ -23,22 +20,24 @@ const Ventas = () => {
 
   };
 
-
   const aumentarCantidad = () => {
     setCantidad(cantidad + 1);
   };
-
 
   const disminuirCantidad = () => {
     if (cantidad > 1) setCantidad(cantidad - 1);
   };
 
+  const navigate = useNavigate();
+
   const backbutton = () => {
-    console.log('Back button clicked');
+      console.log("Volver atrás");
+      navigate(-1);
   };
 
   const exitbutton = () => {
-    console.log('Exit button clicked');
+      console.log("Salir");
+      navigate('/inicio');
   };
 
   return (
