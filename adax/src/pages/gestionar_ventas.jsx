@@ -46,12 +46,12 @@ function GestionarVentas() {
                 <table id="productos" className={styles['facturas-table']}>
                     <thead className={styles['table-head-gesven']}>
                         <tr className={styles.trventas}>
-                            <th>ID Venta</th>
-                            <th>ID producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                            <th>Detalle</th>
+                            <th className={styles.thventas}>ID Venta</th>
+                            <th className={styles.thventas}>ID producto</th>
+                            <th className={styles.thventas}>Cantidad</th>
+                            <th className={styles.thventas}>Precio</th>
+                            <th className={styles.thventas}>Estado</th>
+                            <th className={styles.thventas}>Detalle</th>
                         </tr>
                     </thead>
                     <tbody className={styles['table-body']}>
