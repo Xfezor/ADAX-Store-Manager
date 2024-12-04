@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/style_index.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 import '@fontsource-variable/montserrat';
 import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react';
