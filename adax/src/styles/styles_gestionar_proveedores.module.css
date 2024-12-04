@@ -3,8 +3,7 @@ body {
 }
 
 .title {
-    font-weight: normal;
-    font-style: normal;
+
 }
 
 .contenedorarriba {
@@ -70,8 +69,7 @@ body {
 
 .container{
     width: 100%;
-    max-width: 84%;
-    margin-left: 8%;
+    max-width: 85%;
 }
 .form-control{
     max-width: 90%;
@@ -92,6 +90,36 @@ body {
     margin-left: 1.4em;
 }
 #buscar:hover {
+    background-color: #af3333;
+    color: black;
+}
+
+
+.cuadradoverde {
+    border-radius: 5px;
+    background-color: #ebd8a0;
+    padding: 2% 0;
+    width: 84%;
+    height: 32em;
+    margin: 0 auto;
+    border-radius: 2em;
+    margin-top: 2%;
+}
+
+#detalle{
+    background-color: #df6363;
+    margin: 0 0;
+    margin-top: 0;
+    padding: 5px 40px;
+    color: black;
+    border-radius: 15px;
+    vertical-align: 1px;
+    margin-left: 1.4em;
+    display: blox;
+    float: inline-end;
+    margin-right: 20px;
+}
+#detalle:hover{
     background-color: #af3333;
     color: black;
 }
@@ -150,107 +178,4 @@ body {
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
-}
-
-
-
-.cuadradoverde {
-    border-radius: 5px;
-    background-color: #ebd8a0;
-    padding: 0 0;
-    width: 84%;
-    height: 32em;
-    margin: 0 auto;
-    border-radius: 2em;
-    margin-top: 2%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    overflow: auto;
-    overflow-x: hidden;
-}
-
-#detalle{
-    background-color: #df6363;
-    margin: 0 0;
-    width: 100%;
-    margin-top: 0;
-    padding: 5px ;
-    color: black;
-    border-radius: 15px;
-    vertical-align: 1px;
-    float:inline-start;
-    margin-right: 20px;
-}
-#detalle:hover{
-    background-color: #af3333;
-    color: black;
-}
-
-.facturas-table{
-    min-width: 100%;
-    width: 100%;
-    min-height: 10%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    display: table;
-}
-.table-head-gesven{
-    position: sticky;
-    top: 0;
-    left: 0;
-    height: 10%;
-    min-height: 10%;
-    max-height: 10%;
-    padding: 1.5rem 4rem;
-    border-collapse: collapse;
-    display: table-cell;
-}
-.thventas{
-    padding: 0rem 4rem;
-    border-collapse: collapse;
-    padding-bottom: .5rem;
-    background-color: #d8c282;
-    width: 100%;
-    height: 10%;
-    display: table-cell;
-    height: 100%;
-}
-.tdventas{
-display: flex;
-justify-content: center;
-align-items: center ;
-}
-.botonbuscar {
-    text-align: center;
-}
-.table-body::-webkit-scrollbar{
-    width: .5rem;
-    height: .5rem;
-}
-.table-body::-webkit-scrollbar-thumb{
-    border-radius: .5rem;
-    background-color: #0004;
-}
-tbody .trventas{
-    --delay: .1s;
-    transition: .5s ease-in-out var(--delay);
-    height: 20px;
-    max-height: 20px;
-}
-tbody tr.hide{
-    opacity: 0;
-    transform: translateX(100%);
-    height: 1px;
-    line-height: 1px;
-    max-height: 1px;
-    display: none;
-}
-tbody .trventas .tdventas{
-    transition: .2s ease-in-out;
-}
-tbody .trventas.hide .tdventas{
-    padding: 0;
-    font: 0 / 0 Montserrat;
-    transition: .2s ease-in-out .5s;
 }

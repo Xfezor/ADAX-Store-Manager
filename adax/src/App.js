@@ -7,6 +7,7 @@ import Inicio from './pages/inicio.jsx';
 import Pago from './pages/generar_pago.jsx'; 
 import Ventas from './pages/ventas.jsx'; 
 import GestionarProductos from './pages/gestionar_productos.jsx';
+import Gestionarproveedores from './pages/gestionar_proveedores.jsx'
 import Analisis from './pages/analisis.jsx';
 import GestionarVentas from './pages/gestionar_ventas.jsx';
 import DetalleFactura from './pages/detalle_factura.jsx';
@@ -24,6 +25,7 @@ function App() {
         <Route path="/factura" element={<Factura />} />
         <Route path="/ventas" element={<Ventas />} />
         <Route path="/gestionar_productos" element={< GestionarProductos />} />
+        <Route path="/gestionar_proveedores" element={<Gestionarproveedores />}/>
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/analisis" element={<Analisis />} />
         <Route path="/gestionar_ventas" element={<GestionarVentas />} />
