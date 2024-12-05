@@ -6,7 +6,7 @@
 if (isset($_POST['registrarFacturasCrud'])){
     $fDao = new facturaDao();
     $fDto = new facturaDto();
-    $fDto->setproducto_id_Producto( $_POST['producto_id_Producto']);
+    $fDto->setproducto_id_Producto($_POST['producto_id_Producto']);
     $fDto->setCantidad($_POST['Cantidad']);
     $fDto->setPrecio($_POST['Precio']);
     $fDto->setEstado($_POST['Estado']);
