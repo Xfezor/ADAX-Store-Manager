@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_proveedores.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,10 +19,6 @@ const GestionarProveedores = () => {
         console.log("Salir");
         navigate('/inicio');
     };
-    const index = () => {
-        console.log("Index");
-        navigate('/index');
-    }
 
     return (
         <>
