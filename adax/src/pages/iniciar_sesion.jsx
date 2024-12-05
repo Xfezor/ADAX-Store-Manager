@@ -7,9 +7,20 @@ import '@fontsource-variable/montserrat';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
+import axios from 'axios';
 
 
 const IniciarSesion = () => {
+
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+
+
+
+
     const [isEmpleado, setIsEmpleado] = useState(true);
 
     const cambiarestadoBtn1 = () => {
@@ -25,8 +36,10 @@ const IniciarSesion = () => {
         return regex.test(valor);
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+
 
         const email = document.getElementById("email").value;
         const contrasena = document.getElementById("contrasena").value;
@@ -48,7 +61,26 @@ const IniciarSesion = () => {
                 });
                 return; 
             } else {
-                window.location.href = "/inicio";
+                const params = new URLSearchParams({
+                    tipo: isEmpleado ? 'empleado' : 'tienda', // Determina el tipo según el estado
+                });
+                try {
+                    const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/login/procesologin.php?${params.toString()}`, {
+                        email: email,
+                        contrasena: password,
+                    });
+                    if (respuesta.data.success) {
+                        console.log('inicio de sesion exitoso', respuesta.data)
+                        navigate('/inicio');
+                    } else {
+                        console.log('inicio de sesion no exitoso', respuesta.data)
+                        setError('Credenciales Incorrectas', respuesta.data.success);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    setError('Error al iniciar sesión');    
+                    
+                }
             }
         }
 
@@ -84,9 +116,9 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles.btn2} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
+                            <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <input id="contrasena" name="contrasena" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingrese su Contraseña..." required />
                             <p>¿Eres usuario nuevo? Regístrate&nbsp;
                                 <Link to="/registro" className={styles.aIniciarSesion} >
                                     Aqui
@@ -97,6 +129,7 @@ const IniciarSesion = () => {
                                 <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
                             </p>
                             <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
                         </div>
                     </form>
                 ) : (
@@ -115,9 +148,9 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles['btn2-active']} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input id="email" name="email" type="email" placeholder="Ingrese su correo electrónico..." required />
+                            <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña..." required />
+                            <input id="contrasena" name="contrasena" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingrese su Contraseña..." required />
                             <p>¿Eres usuario nuevo? Regístrate&nbsp;
                                 <Link to="/registro" className={styles.aIniciarSesion} >
                                     Aqui
@@ -128,7 +161,7 @@ const IniciarSesion = () => {
                                 <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
                             </p>
                             <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
-
+                            {error && <p style={{ color: 'red' }}>{error}</p>}
                         </div>
                     </form>
                 )}
