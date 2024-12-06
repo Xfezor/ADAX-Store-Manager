@@ -11,6 +11,7 @@ import Gestionarproveedores from './pages/gestionar_proveedores.jsx'
 import Analisis from './pages/analisis.jsx';
 import GestionarVentas from './pages/gestionar_ventas.jsx';
 import DetalleFactura from './pages/detalle_factura.jsx';
+import Tabla from './pages/CRUD/tablas.jsx';
 import { Routes, Route } from "react-router-dom";   
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/analisis" element={<Analisis />} />
         <Route path="/gestionar_ventas" element={<GestionarVentas />} />
         <Route path="/detalle_factura" element={<DetalleFactura />} />
+        <Route path="/crud/tablas" element={<Tabla />} />
         <Route path="*" element={<Index />} />
       </Routes>
     </div>
