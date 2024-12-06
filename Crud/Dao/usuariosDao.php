@@ -26,7 +26,6 @@ class UsuarioDao
                 header("Location:../../PAGINA/registro.php?error=3");
                 exit; 
             } else {
-                echo "se realizo la primera query";
                 try {
                     $query = $conn->prepare("select idtienda from tienda where codigo_invitacion = '$codinv'");
                     $query->execute();
@@ -38,7 +37,6 @@ class UsuarioDao
                         // header("Location:../../HTML/registro.php?error=3");
                         // exit; // Add this to stop the script execution
                     } else {
-                        echo "se realizo la segunda query";
                         try {
                             $query = $conn->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,?,?)");
                             $query->bindParam(1,$documento);
