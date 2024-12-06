@@ -13,7 +13,7 @@ class tiendaDao
         $telefono = $tiendaDto->getTelefono();
         $correo = $tiendaDto->getCorreo();
         $contrasena = $tiendaDto->getContrasena();
-        $codigo_inv = $tiendaDto->getCodigo_invitacion();
+        $codigo_inv = 10000;
         try {
             $query = $conn->prepare("INSERT INTO tienda(nombreTienda,direccion,telefono,correo,contrasena) values (?,?,?,?,?);");
             $query->bindParam(1, $nombreTienda);
@@ -25,6 +25,7 @@ class tiendaDao
             $mensaje = "Registrado Exitosamente";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
+            echo $mensaje;
         }
         $conn = null;
         return $mensaje;
