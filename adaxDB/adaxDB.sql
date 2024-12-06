@@ -306,7 +306,7 @@ DROP TABLE IF EXISTS `tienda`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tienda` (
-  `idtienda` int(11) NOT NULL,
+  `idtienda` int(11) NOT NULL AUTO_INCREMENT,
   `nombreTienda` varchar(45) NOT NULL,
   `direccion` varchar(45) DEFAULT NULL,
   `telefono` bigint(20) DEFAULT NULL,
@@ -314,7 +314,7 @@ CREATE TABLE `tienda` (
   `documento` int(11) NOT NULL,
   `tipo_documento` varchar(2) NOT NULL,
   `contrasena` varbinary(255) NOT NULL,
-  `codigo_invitacion` int(6) NOT NULL AUTO_INCREMENT,
+  `codigo_invitacion` int(6) AUTO_INCREMENT,
   PRIMARY KEY (`idtienda`),
   UNIQUE KEY `email_UNIQUE` (`correo`),
   UNIQUE KEY `codigo_invitacion_UNIQUE` (`codigo_invitacion`)
@@ -339,6 +339,23 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
+
+-- Trigger de codigo invitacion de la tienda
+
+DELIMITER ;;
+/*50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*50005 TRIGGER `adaxstore`.`before_insert_tienda`
+BEFORE INSERT ON `adaxstore`.`tienda`
+FOR EACH ROW
+BEGIN
+    SET NEW.codigo_invitacion = NEW.idtienda + 100;
+
+    WHILE EXISTS (SELECT 1 FROM tienda WHERE codigo_invitacion = NEW.codigo_invitacion) DO
+        SET NEW.codigo_invitacion = NEW.codigo_invitacion + 1;
+    END WHILE;
+END */;;
+
+DELIMITER ;
+
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger encriptarContrasenasTienda
 before insert on tienda
 for each row
