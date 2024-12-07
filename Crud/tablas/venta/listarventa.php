@@ -127,8 +127,6 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight :normal">cliente_id_Cliente</th>
                 <th style="font-weight:normal">tienda_idtienda</th>
                 <th style="font-weight:normal">metododepago_ID_Met_pago</th>
-                <th style="font-weight :normal">usuarios_documento</th>
-                <th style="font-weight :normal">usuarios_tienda_idtienda</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
@@ -149,8 +147,7 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['cliente_id_Cliente']; ?></td>
                     <td><?php echo $user['tienda_idtienda']; ?></td>
                     <td><?php echo $user['metododepago_ID_Met_pago']; ?></td>
-                    <td><?php echo $user['usuarios_documento']; ?></td>
-                    <td><?php echo $user['usuarios_tienda_idtienda']; ?></td>
+                  
                     <td>
                         <form action="actualizar.php" method="post">
                             <input type="hidden" name="id_Vent" value="<?php echo $user['id_Venta']; ?>">

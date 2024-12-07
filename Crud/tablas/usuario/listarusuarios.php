@@ -130,7 +130,6 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight :normal">correo</th>
                 <th style="font-weight :normal">rol_id_Rol</th>
                 <th style="font-weight :normal">codigo_invitacion</th>
-                <th style="font-weight :normal">tienda_idtienda</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
@@ -154,7 +153,6 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['correo']; ?></td>
                     <td><?php echo $user['rol_id_Rol']; ?></td>
                     <td><?php echo $user['codigo_invitacion']; ?></td>
-                    <td><?php echo $user['tienda_idtienda']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
                             <input type="hidden" name="doc" value="<?php echo $user['documento']; ?>">

@@ -86,10 +86,11 @@ if (!isset($_SESSION['nombre1'])) {
                     </li>
 
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Movimiento</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
-                        <li><a class="dropdown-item" href="Amovimiento/registrar.php">registrar</a></li>
+                        <li><a class="dropdown-item" href="movimiento/registrar.php">registrar</a></li>
                     </ul>
                 </li>
                                 </ul>

@@ -4,7 +4,7 @@ class productoDto {
     private $id_Producto;
     private $Nombre;
     private $Precio_unit;
-    private $Descripcion;
+    private $Descripción;
     private $Marca;
     private $Categoria;
     private $Presentacion;
@@ -25,7 +25,7 @@ class productoDto {
         return $this->Precio_unit;
     }
     public function getDescripcion() {
-        return $this->Descripcion;
+        return $this->Descripción;
     }
     public function getMarca() {
         return $this->Marca;
