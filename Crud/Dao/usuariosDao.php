@@ -82,6 +82,7 @@ class UsuarioDao
             $query = $conn->prepare($listarUsuarios);
             $query->execute();
             return $query->fetchAll();
+
         } catch (Exception  $ex) {
             echo 'Error'. $ex->getMessage();
         }
