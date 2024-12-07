@@ -41,74 +41,79 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+            <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
+                            <li><a class="dropdown-item" href="usuario/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarproducto.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../factura/listarfactura.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../factura/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="factura/listarfactura.php">lista</a></li>
+                            <li><a class="dropdown-item" href="factura/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../venta/listarventa.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../venta/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="venta/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../proveedor/listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="proveedor/listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../Inventario/listarInventario.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../Inventario/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../inventario/registrar.php">registrar</a></li>
                         </ul>
 
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             cliente
                         </a>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="listarcliente.php">lista</a></li>
-                        <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                        <li><a class="dropdown-item" href="cliente/listarcliente.php">lista</a></li>
+                        <li><a class="dropdown-item" href="cliente/registrar.php">registrar</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+
+                   
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
                         </ul>
                     </li>
 
