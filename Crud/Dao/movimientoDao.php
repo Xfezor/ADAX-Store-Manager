@@ -10,14 +10,14 @@ class MovimientoDao{
         $fecha_movimiento= $MovimientoDto->getFecha_movimiento();
         $fecha_modificacion = $MovimientoDto->getFecha_modificacion();
         $estado_despues = $MovimientoDto->getEstado_despues();
-        $inventario_id_Inventario = $MovimientoDto->getInventario_id_Inventario();
+        $id_tienda = $MovimientoDto->getId_tienda();
         try {
             $query = $conn->prepare("INSERT INTO movimientos(cantidad_despues,fecha_movimiento,fecha_modificacion,estado_despues,inventario_id_Inventario) values (?,?,?,?,?);");
             $query->bindParam(1,$cantidad_despues);
             $query->bindParam(2,$fecha_movimiento);
             $query->bindParam(3,$fecha_modificacion);
             $query->bindParam(4,$estado_despues);
-            $query->bindParam(5,$inventario_id_Inventario);
+            $query->bindParam(5,$id_tienda);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -35,7 +35,7 @@ class MovimientoDao{
         $fecha_movimiento= $MovimientoDto->getFecha_movimiento();
         $fecha_modificacion = $MovimientoDto->getFecha_modificacion();
         $estado_despues = $MovimientoDto->getEstado_despues();
-        $inventario_id_Inventario = $MovimientoDto->getInventario_id_Inventario();
+        $id_tienda = $MovimientoDto->getId_tienda();
         try {
             $query = $conn->prepare("INSERT INTO movimientos values (?,?,?,?,?);");
             $query->bindParam(1,$id_Movimiento);
@@ -43,7 +43,7 @@ class MovimientoDao{
             $query->bindParam(3,$fecha_movimiento);
             $query->bindParam(4,$fecha_modificacion);
             $query->bindParam(5,$estado_despues);
-            $query->bindParam(6,$inventario_id_Inventario);
+            $query->bindParam(6,$id_tienda);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -73,15 +73,15 @@ class MovimientoDao{
         $fecha_movimiento= $MovimientoDto->getFecha_movimiento();
         $fecha_modificacion = $MovimientoDto->getFecha_modificacion();
         $estado_despues = $MovimientoDto->getEstado_despues();
-        $inventario_id_Inventario = $MovimientoDto->getInventario_id_Inventario();
+        $id_tienda = $MovimientoDto->getId_tienda();
         try {
-            $query = $cnn->prepare("UPDATE movimientos SET id_Movimiento=?, cantidad_despues=?, fecha_movimiento=?, fecha_modificacion=?, estado_despues=?, inventario_id_Inventario=? WHERE id_Movimiento=?");
+            $query = $cnn->prepare("UPDATE movimientos SET id_Movimiento=?, cantidad_despues=?, fecha_movimiento=?, fecha_modificacion=?, estado_despues=?, id_tienda=? WHERE id_Movimiento=?");
             $query->bindParam(1,$id_Movimiento);
             $query->bindParam(2,$cantidad_despues);
             $query->bindParam(3,$fecha_movimiento);
             $query->bindParam(4,$fecha_modificacion);
             $query->bindParam(5,$estado_despues);
-            $query->bindParam(6,$inventario_id_Inventario);
+            $query->bindParam(6,$id_tienda);
             $query->bindParam(7,$id_Movimiento); 
             $query->execute();
             $mensaje= "Registro actualizado";

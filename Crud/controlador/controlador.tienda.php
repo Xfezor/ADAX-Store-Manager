@@ -15,7 +15,6 @@ if (isset($_POST['registroTienda'])){
     $mensaje = $tDao->registrarTienda($tDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        // Registration successful, redirect to login page or success page
         header("Location:../../PAGINA/registro.php?registro=exitoso");
         exit;
     }

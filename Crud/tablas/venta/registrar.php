@@ -63,15 +63,7 @@ session_start();
                 <input id="metododepago_ID_Met_pago" name="metododepago_ID_Met_pago" value="<?php echo $venta['metododepago_ID_Met_pago']; ?>" class="input-text js-input" type="text" required>
                 <label class="label" for="metododepago_ID_Met_pago">id metodo de pagp </label>
             </div>
-            <div class="form-field col-lg-6 ">
-                <input id="usuarios_documento" name="usuarios_documento" value="<?php echo $venta['usuarios_documento']; ?>" class="input-text js-input" type="number"  step="1" required>
-                <label class="label" for="usuarios_documento">documento usuario </label>
-            </div>
-            <div class="form-field col-lg-6 ">
-                <input id="usuarios_tienda_idtienda" name="usuarios_tienda_idtienda" value="<?php echo $venta['usuarios_tienda_idtienda']; ?>" class="input-number js-input" type="number" required>
-                <label class="label" for="usuarios_tienda_idtienda">tienda usuario id</label>
-            </div>
-            
+           
                 
 
                 <div class="form-field col-lg-6">

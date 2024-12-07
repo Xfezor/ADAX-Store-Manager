@@ -42,7 +42,8 @@ if (!isset($_SESSION['nombre1'])) {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
@@ -57,14 +58,14 @@ if (!isset($_SESSION['nombre1'])) {
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
                             <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../factura/listarfactura.php">lista</a></li>
@@ -72,11 +73,11 @@ if (!isset($_SESSION['nombre1'])) {
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle active " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarventa.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="venta/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -87,10 +88,32 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../inventario/registrar.php">registrar</a></li>
+                        </ul>
+
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            cliente
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../cliente/listarcliente.php">lista</a></li>
+                        <li><a class="dropdown-item" href="../cliente/registrar.php">registrar</a></li>
+                        </ul>
+
+                   
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Movimiento</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
                         </ul>
                     </li>
 
@@ -127,8 +150,6 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight :normal">cliente_id_Cliente</th>
                 <th style="font-weight:normal">tienda_idtienda</th>
                 <th style="font-weight:normal">metododepago_ID_Met_pago</th>
-                <th style="font-weight :normal">usuarios_documento</th>
-                <th style="font-weight :normal">usuarios_tienda_idtienda</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
             </tr>
@@ -149,8 +170,7 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['cliente_id_Cliente']; ?></td>
                     <td><?php echo $user['tienda_idtienda']; ?></td>
                     <td><?php echo $user['metododepago_ID_Met_pago']; ?></td>
-                    <td><?php echo $user['usuarios_documento']; ?></td>
-                    <td><?php echo $user['usuarios_tienda_idtienda']; ?></td>
+                  
                     <td>
                         <form action="actualizar.php" method="post">
                             <input type="hidden" name="id_Vent" value="<?php echo $user['id_Venta']; ?>">

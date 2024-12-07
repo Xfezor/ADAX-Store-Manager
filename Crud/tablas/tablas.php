@@ -46,6 +46,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="usuario/registrar.php">registrar</a></li>
                         </ul>
                     </li>
+                    
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
@@ -53,6 +54,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
@@ -60,6 +62,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="producto/listarproducto.php">lista</a></li>
                             <li><a class="dropdown-item" href="producto/registrar.php">registrar</a></li>
                         </ul>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
@@ -86,13 +89,33 @@ if (!isset($_SESSION['nombre1'])) {
                     </li>
 
                     <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
-                        <li><a class="dropdown-item" href="Amovimiento/registrar.php">registrar</a></li>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Inventario</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="inventario/registrar.php">registrar</a></li>
+                        </ul>
+
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            cliente
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="cliente/listarcliente.php">lista</a></li>
+                        <li><a class="dropdown-item" href="cliente/registrar.php">registrar</a></li>
+                        </ul>
+
+                   
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Movimiento</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="movimiento/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
                     </ul>
-                </li>
-                                </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
                     echo $_SESSION['nombre1'];

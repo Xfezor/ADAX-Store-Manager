@@ -65,17 +65,7 @@ session_start();
                 <input id="metododepago_ID_Met_pago" name="metododepago_ID_Met_pago" value="<?php echo isset($venta['metododepago_ID_Met_pago']) ? $venta['metododepago_ID_Met_pago'] : ''; ?>" class="input-text js-input" type="text"  required >
                 <label class="label" for="metododepago_ID_Met_pago"> metodo de pago  </label>
                 </div>
-
-                <div class="form-field col-lg-6 ">
-                <input id="usuarios_documento" name="usuarios_documento" value="<?php echo isset($venta['usuarios_documento']) ? $venta['usuarios_documento'] : ''; ?>" class="input-text js-input" type="text"  required >
-                <label class="label" for="usuarios_documento"> usuarios documento </label>
-                </div>
-
-                <div class="form-field col-lg-6 ">
-                <input id="usuarios_tienda_idtienda" name="usuarios_tienda_idtienda" value="<?php echo isset($venta['usuarios_tienda_idtienda']) ? $venta['usuarios_tienda_idtienda'] : ''; ?>" class="input-text js-input" type="text"  required >
-                <label class="label" for="usuarios_tienda_idtienda"> usuarios tienda</label>
-                </div>
-
+                
                 <div class="form-field col-lg-6">
                         <a href="listarventa.php"><input class="submit-btn" value="cancelar" ></a>
                     </div>

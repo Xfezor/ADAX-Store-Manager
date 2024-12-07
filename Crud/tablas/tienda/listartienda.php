@@ -42,20 +42,23 @@ if (!isset($_SESSION['nombre1'])) {
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" href="#" role="button"
+                     <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Usuarios
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../usuario/listarusuarios.php">Lista</a></li>
+            <li><a class="dropdown-item" href="../usuario/registrar.php">Registrar</a></li>
+        </ul>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle active" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
-                        </ul>
-                    </li>
+                            <li><a class="dropdown-item" href="tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
+                </ul>
+        </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
@@ -87,13 +90,35 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Inventario</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../inventario/registrar.php">registrar</a></li>
+                        </ul>
+
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            cliente
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../cliente/listarcliente.php">lista</a></li>
+                        <li><a class="dropdown-item" href="../cliente/registrar.php">registrar</a></li>
+                        </ul>
+
+                   
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
                             <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-                </ul>
+                
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
                     echo $_SESSION['nombre1'];

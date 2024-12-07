@@ -11,7 +11,7 @@ if (isset($_POST['registro'])){
     $mDto->setFecha_movimiento($_POST['fecha_movimiento']);
     $mDto->setFecha_modificacion($_POST['fecha_modificacion']);
     $mDto->setEstado_despues($_POST['estado_despues']);
-    $mDto->setInventario_id_Inventario($_POST['inventario_id_Inventario']);
+    $mDto->setId_tienda($_POST['id_tienda']);
 
     $mensaje = $mDao->registrarMovimiento($mDto);
     echo $mensaje;
@@ -30,7 +30,7 @@ else if (isset($_POST['registrocrud'])){
     $mDto->setFecha_movimiento($_POST['fecha_movimiento']);
     $mDto->setFecha_modificacion($_POST['fecha_modificacion']);
     $mDto->setEstado_despues($_POST['estado_despues']);
-    $mDto->setInventario_id_Inventario($_POST['inventario_id_Inventario']);
+    $mDto->setId_tienda($_POST['id_tienda']);
 
     $mensaje = $mDao->registrarMovimiento($mDto);
     echo $mensaje;
@@ -53,7 +53,7 @@ else if (isset($_POST['modificar'])){
     $mDto->setFecha_movimiento($_POST['fecha_movimiento']);
     $mDto->setFecha_modificacion($_POST['fecha_modificacion']);
     $mDto->setEstado_despues($_POST['estado_despues']);
-    $mDto->setInventario_id_Inventario($_POST['inventario_id_Inventario']);
+    $mDto->setId_tienda($_POST['id_tienda']);
 
     $mensaje =$mDao->modificarMovimiento($mDto);
     header("Location:../tablas/movimiento/listarmovimiento.php?mensaje=".$mensaje);

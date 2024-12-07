@@ -47,7 +47,7 @@ if (isset($_POST['registrarProducto'])) {
     $pDto = new productoDto();
     $pDto->setNombre($_POST['Nombre']);
     $pDto->setPrecio_unit($_POST['Precio_unit']);
-    $pDto->setDescripción('');
+    $pDto->setDescripción(Descripción: '');
     $pDto->setMarca('');
     $pDto->setCategoría('');
     $pDto->setPresentacion('');

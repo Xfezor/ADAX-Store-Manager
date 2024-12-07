@@ -35,31 +35,31 @@ session_start();
             <h1 class="title">registrar</h1>
             <form class="contact-form row" action="../../controlador/controlador.cliente.php" method="POST">
                 <div class="form-field col-lg-6">
-                    <input name="id_Cliente" id="name" class="input-text js-input" type="text" required>
+                    <input name="id_Cliente" id="name" class="input-text js-input" type="text" >
                     <label class="label" for="name">id_Cliente</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Documento" id="text" class="input-text js-input" type="text" required>
+                    <input name="Documento" id="text" class="input-text js-input" type="text" >
                     <label class="label" for="email">Documento</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Nombre1_Cliente" id="text" class="input-text js-input" type="text" required>
+                    <input name="Nombre1_Cliente" id="text" class="input-text js-input" type="text" >
                     <label class="label" for="company">Nombre1_Cliente</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Nombre2_Cliente" id="text" class="input-text js-input" type="text" required>
+                    <input name="Nombre2_Cliente" id="text" class="input-text js-input" type="text" >
                     <label class="label" for="phone">Nombre2_Cliente</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                    <input name="Apellido1_Cliente" id="text" class="input-text js-input" type="text" required>
+                    <input name="Apellido1_Cliente" id="text" class="input-text js-input" type="text" >
                     <label class="label" for="phone">Apellido1_Cliente 1</label>
                 </div>
                 <div class="form-field col-lg-6 ">
                     <input name="Apellido2_Cliente" id="text" class="input-text js-input" type="text">
                     <label class="label" for="company">Apellido2_Cliente 2</label>
                 </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="Tipo_documento" id="text" class="input-text js-input" type="text" required>
+                <div class="form-field col-lg-12 ">
+                    <input name="Tipo_documento" id="text" class="input-text js-input" type="text" >
                     <label class="label" for="phone">Tipo_documento 1</label>
                 </div>
                 <div class="form-field col-lg-6">

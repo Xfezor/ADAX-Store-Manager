@@ -32,7 +32,7 @@ class UsuarioDao
                     $query->execute();
                     $resultado = $query->fetch();
                     $mensaje = "Registrado Exitosamente";
-                    $idtienda = $resultado['idtienda'];
+
                     if ($resultado === false) {
                         $mensaje = "la query no fue exitosa, o el codigo de invitacion no existe";
                         // header("Location:../../HTML/registro.php?error=3");
@@ -51,7 +51,7 @@ class UsuarioDao
                             $query->bindParam(8,$correo);
                             $query->bindParam(9,$rol);
                             $query->bindParam(10,$codinv);
-                            $query->bindParam(11, $idtienda);
+                    
             
                             $query->execute();
                             $mensaje = "Registrado Exitosamente";
