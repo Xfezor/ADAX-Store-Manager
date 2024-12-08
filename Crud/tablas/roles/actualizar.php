@@ -28,8 +28,8 @@
             require '../utilidades/conexion.php';
 
             if ($_POST['id_Rol'] != NULL) {
-                $cDao = new rolDao();
-                $rol = $cDao->obtenerRol($_POST['id_Rol']);
+                $rDao = new rolDao();
+                $rol = $rDao->obtenerRol($_POST['id_Rol']);
             }
             ?>
             <section class="get-in-touch">
