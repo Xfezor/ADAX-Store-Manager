@@ -41,7 +41,7 @@ if (!isset($_SESSION['nombre1'])) {
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+                <ul class="navbar-nav">
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
@@ -88,7 +88,10 @@ if (!isset($_SESSION['nombre1'])) {
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Movimiento
+                        </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
                             <li><a class="dropdown-item" href="registrar.php">registrar</a></li>

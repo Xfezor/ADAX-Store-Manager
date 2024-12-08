@@ -71,7 +71,7 @@ header("Expires: 0"); // Proxies
       <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña...">
       <p>¿Eres Usuario nuevo? Registrate <a href="registro.php">Aquí</a><br> ¿Olvidaste tu contraseña? Entra <a
           href="olvideContraseña.html">Aqui</a></p>
-      <button class="btn btn-danger" id="button2" type="submit">Iniciar Sesion</button>
+      <button class="btn btn-danger" id="button21" type="submit">Iniciar Sesion</button>
     </div>
   </form>
   <form id="cont2" class="Contenedorsesion" action="../Crud/login/procesologin.php?tipo=tienda" method="POST" style="display: none;">
@@ -82,14 +82,14 @@ header("Expires: 0"); // Proxies
         <button class="btn2-active" id="tiendaBtn" onclick="cambiarestadoBtn22(this)">Tienda</button>
       </div>
       <h1 class="username-text"><b>Correo electronico</b></h1>
-      <input id="email" name="email" type="email" placeholder="Ingrese su correo electronico..." >
+      <input id="email2" name="email" type="email" placeholder="Ingrese su correo electronico...">
       <div class="invalid-feedback">Por favor, ingrese su correo electronico</div>
       <h1 class="contrasena"><b>Contraseña</b></h1>
-      <input id="contrasena" name="contrasena" type="password" placeholder="Ingrese su Contraseña...">
+      <input id="contrasena2" name="contrasena" type="password" placeholder="Ingrese su Contraseña...">
       <div class="invalid-feedback">Por favor, ingrese su contraseña</div>
       <p>¿Eres Usuario nuevo? Registrate <a href="registro.php">Aquí</a><br> ¿Olvidaste tu contraseña? Entra <a
           href="olvideContraseña.html">Aqui</a></p>
-      <button class="btn btn-danger" id="button2" type="submit">Iniciar Sesion</button>
+      <button class="btn btn-danger" id="button22" type="submit">Iniciar Sesion</button>
     </div>
   </form>
   <script src="../javascript/iniciarsesion.js"></script>
