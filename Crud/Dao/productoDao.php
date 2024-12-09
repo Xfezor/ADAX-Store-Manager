@@ -1,5 +1,5 @@
 <?php
-include_once __DIR__ . '/../utilidades/conexion.php';
+
 class productoDao{
 
     public function registrarProducto(productoDto $productoDto){ 
@@ -165,7 +165,9 @@ class productoDao{
         $Stock_Min = $productoDto->getStock_Min();
         $inventario_id_Inventario = $productoDto->getinventario_id_Inventario();
         try {
-            $query = $cnn->prepare("UPDATE producto SET id_Producto=?, Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=? , Stock_Min=?,inventario_id_Inventario=? WHERE id_Producto=?");
+            $query = $cnn->prepare("UPDATE producto SET Nombre = ?, Precio_unit = ?, Descripción = ?, Marca = ?, 
+            Categoría = ?, Presentacion = ?, Fecha_vencimiento = ?, Stock = ?, Stock_Min = ?
+            WHERE id_Producto = ?");
             $query->bindParam(1,$id_Producto);
             $query->bindParam(2,$Nombre);
             $query->bindParam(3,$Precio_unit);

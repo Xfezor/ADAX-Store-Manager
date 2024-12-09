@@ -64,6 +64,9 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
                             <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
+                        </li>
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
@@ -72,6 +75,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../factura/registrar.php">registrar</a></li>
                         </ul>
                     </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Venta</a>
@@ -96,6 +100,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
                             <li><a class="dropdown-item" href="../inventario/registrar.php">registrar</a></li>
                         </ul>
+                        </li>
 
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
@@ -106,14 +111,27 @@ if (!isset($_SESSION['nombre1'])) {
                         <li><a class="dropdown-item" href="../cliente/listarcliente.php">lista</a></li>
                         <li><a class="dropdown-item" href="../cliente/registrar.php">registrar</a></li>
                         </ul>
+                        </li>
 
                    
                         <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="moviimiento/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
+
+                   
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Entrega Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../entregaproductos/listarentregaproductos.php">Lista</a></li>
+                        <li><a class="dropdown-item" href="../entregaproductos/registrar.php">Registrar</a></li>
                         </ul>
                     </li>
 

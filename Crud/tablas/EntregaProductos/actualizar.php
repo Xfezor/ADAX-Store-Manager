@@ -28,33 +28,49 @@ session_start();
         require '../../Dto/entregaproductosDto.php';
         require '../../utilidades/conexion.php';
 
-        if ($_POST['proveedor_idproveedor'] != NULL) {
-            $epDao = new entregaproductosDao();
-            $entregaproductos = $epDao->obtenerentregaproductos($_POST['proveedor_idproveedor']);
-        }
+       
         ?>
 
         <section class="get-in-touch">
             <h1 class="title">Actualizar</h1>
-            <form class="contact-form row" action="../../controlador/controlador.cliente.php" method="POST">
-                <div class="form-field col-lg-6">
-                    <input name="proveedor_idproveedor" value="<?php echo $cliente['proveedor_idproveedor']; ?>" id="name" class="input-text js-input" type="text" required>
-                    <label class="label" for="name">proveedor_idproveedor</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="producto_id_Producto" value="<?php echo $cliente['producto_id_Producto']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="email">producto_id_Producto</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="fecha_Entrega" value="<?php echo $cliente['fecha_Entrega']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="company">fecha_Entrega</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="cantidad" value="<?php echo $cliente['cantidad']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">cantidad</label>
-                </div>
+            <form class="contact-form row" action="../../controlador/controlador.entregaproductos.php" method="POST">
+            <!-- Campo proveedor_idproveedor -->
+        <!-- Proveedor ID -->
+        <div class="form-field col-lg-12">
+        <input name="proveedor_idproveedor" value="<?php echo isset($cliente['proveedor_idproveedor']) ? $cliente['proveedor_idproveedor'] : ''; ?>" id="name" class="input-text js-input" type="text" required>
+            <label class="label" for="name">Proveedor ID</label>
+        </div>
 
-            </form>
+        <!-- Producto ID -->
+        <div class="form-field col-lg-12">
+            <input name="producto_id_Producto" value="<?php echo isset($cliente['producto_id_Producto']) ? $cliente['producto_id_Producto'] : ''; ?>" id="text" class="input-text js-input" type="text" required>
+            <label class="label" for="email">Producto ID</label>
+        </div>
+
+    <!-- Campo fecha_Entrega -->
+    <div class="form-field col-lg-12">
+        <input name="fecha_Entrega" value="<?php echo $cliente['fecha_Entrega']; ?>" id="text" class="input-text js-input" type="date" required>
+        <label class="label" for="company">Fecha de Entrega</label>
+    </div>
+
+    <!-- Campo cantidad -->
+    <div class="form-field col-lg-12">
+        <input name="cantidad" value="<?php echo $cliente['cantidad']; ?>" id="text" class="input-text js-input" type="number" required>
+        <label class="label" for="phone">Cantidad</label>
+    </div>
+
+    <!-- Botón Cancelar -->
+    <div class="form-field col-lg-6">
+        <button type="button" class="submit-btn" onclick="window.location.href='listarfactura.php'">Cancelar</button>
+    </div>
+
+    <!-- Botón Actualizar -->
+    <div class="form-field col-lg-6">
+        <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
+
+    </div>
+</form>
+
         </section>
     </div>
 </body>

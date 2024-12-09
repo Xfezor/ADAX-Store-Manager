@@ -59,7 +59,7 @@ session_start();
                     <a href="listarfactura.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input name="modificar" class="submit-btn" type="submit" value="Registrar">
+                    <input name="registrarfacturaCrud" class="submit-btn" type="submit" value="Registrar">
                 </div>
 
             </form>

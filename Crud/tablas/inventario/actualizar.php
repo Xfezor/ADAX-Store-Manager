@@ -30,43 +30,48 @@ session_start();
         require '../../Dto/inventarioDto.php';
         require '../../utilidades/conexion.php';
 
-        if ($_POST['id_inventario'] != NULL) {
+        $inventario = [
+            'id_inventario' => '',
+            'CantidadInventario' => '',
+            'fechaModificacion' => '',
+            'estado_revision' => '',
+            'tienda_idtienda' => ''
+        ];
+
+        if (!empty($_POST['id_inventario'])) {
             $iDao = new inventarioDao();
             $inventario = $iDao->obtenerinventario($_POST['id_inventario']);
         }
         ?>
-
         <section class="get-in-touch">
             <h1 class="title">Actualizar</h1>
             <form class="contact-form row" action="../../controlador/controlador.inventario.php" method="POST">
                 <div class="form-field col-lg-6">
-                    <input name="id_inventario" value="<?php echo $inventario['id_inventario']; ?>" id="name" class="input-text js-input" type="text" required>
-                    <label class="label" for="name">id inventario</label>
+                    <input name="id_inventario" value="<?php echo htmlspecialchars($inventario['id_inventario']); ?>" id="id_inventario" class="input-text js-input" type="text" required>
+                    <label class="label" for="id_inventario">ID Inventario</label>
                 </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="CantidadInventario" value="<?php echo $inventario['CantidadInventario']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="email">Cantidad de inventario</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="fechaModificacion" value="<?php echo $inventario['fechaModificacion']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="company">fecha de modificacion</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="estado_revision" value="<?php echo $inventario['estado_revision']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">estado revision</label>
-                </div>
-                <div class="form-field col-lg-6 ">
-                    <input name="tienda_idtienda" value="<?php echo $inventario['tienda_idtienda']; ?>" id="text" class="input-text js-input" type="text" required>
-                    <label class="label" for="phone">id tienda</label>
-                </div>
-                
                 <div class="form-field col-lg-6">
-                    <a href="listarinventario.php"><input class="submit-btn" value="cancelar" ></a>
+                    <input name="CantidadInventario" value="<?php echo htmlspecialchars($inventario['CantidadInventario']); ?>" id="CantidadInventario" class="input-text js-input" type="text" required>
+                    <label class="label" for="CantidadInventario">Cantidad de Inventario</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input name="fechaModificacion" value="<?php echo htmlspecialchars($inventario['fechaModificacion']); ?>" id="fechaModificacion" class="input-text js-input" type="text" required>
+                    <label class="label" for="fechaModificacion">Fecha de Modificación</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input name="estado_revision" value="<?php echo htmlspecialchars($inventario['estado_revision']); ?>" id="estado_revision" class="input-text js-input" type="text" required>
+                    <label class="label" for="estado_revision">Estado Revisión</label>
+                </div>
+                <div class="form-field col-lg-12">
+                    <input name="tienda_idtienda" value="<?php echo htmlspecialchars($inventario['tienda_idtienda']); ?>" id="tienda_idtienda" class="input-text js-input" type="text" required>
+                    <label class="label" for="tienda_idtienda">ID Tienda</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <a href="listarinventario.php" class="submit-btn">Cancelar</a>
                 </div>
                 <div class="form-field col-lg-6">
                     <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
                 </div>
-
             </form>
         </section>
     </div>

@@ -90,8 +90,8 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="inventario/listarinventario.php">lista</a></li>
-                            <li><a class="dropdown-item" href="inventario/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../inventario/registrar.php">registrar</a></li>
                         </ul>
 
                         <li class="nav-item dropdown">
@@ -111,6 +111,18 @@ if (!isset($_SESSION['nombre1'])) {
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
                             <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
+
+                   
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Entrega Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../entregaproductos/listarentregaproductos.php">Lista</a></li>
+                        <li><a class="dropdown-item" href="../entregaproductos/registrar.php">Registrar</a></li>
                         </ul>
                     </li>
 
@@ -143,6 +155,8 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight :normal">fechaModificacion</th>
                 <th style="font-weight :normal">estado_revision</th>
                 <th style="font-weight :normal">tienda_idtienda</th>
+                <th style="font-weight:normal">Modificar</th>
+                <th style="font-weight :normal">Eliminar</th>
         </thead>
         <tbody>
             <?php
@@ -152,20 +166,28 @@ if (!isset($_SESSION['nombre1'])) {
             $allUsers = $iDao->listarTodos();
             foreach ($allUsers as $user) { ?>
                 <tr class="text-center">
-                    <td><?php echo $user['id_inventario']; ?></td>
-                    <td><?php echo $user['CantidadInventario']; ?></td>
+                    <td><?php echo $user['id_Inventario']; ?></td>
+                    <td><?php echo $user['cantidadInventario']; ?></td>
                     <td><?php echo $user['fechaModificacion']; ?></td>
                     <td><?php echo $user['estado_revision']; ?></td>
                     <td><?php echo $user['tienda_idtienda']; ?></td>
                     <td>
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="idtiend" value="<?php echo $user['id_inventario']; ?>">
-                            <button type="submit" class="btn btn-warning">Modificar</button>
-                        </form>
-                    </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.inventario.php?id_inventario=<?php echo $user['id_inventario']; ?>
-                    " onclick=" return confirmar(event);">Eliminar</a>
-                    </td>
+                    <form action="actualizar.php" method="post">
+                        <input type="hidden" name="id_inventario" value="<?php echo isset($user['id_inventario']) ? htmlspecialchars($user['id_inventario']) : ''; ?>">
+                        <button type="submit" class="btn btn-warning">Modificar</button>
+                    </form>
+                </td>
+
+                    <td>
+                    <a 
+                        class="btn btn-danger" 
+                        href="../../controlador/controlador.inventario.php?id_inventario=<?php 
+                            echo isset($user['id_inventario']) ? htmlspecialchars($user['id_inventario']) : ''; ?>" 
+                        onclick="return confirm('¿Estás seguro de que deseas eliminar este registro?');">
+                        Eliminar
+                    </a>
+                </td>
+
                 </tr>
                 <?php
             } ?>
@@ -173,5 +195,24 @@ if (!isset($_SESSION['nombre1'])) {
     </table>
     </div>
     <script src="tablesjs.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#usrtable').DataTable({
+                "paging": true, 
+                "searching": true, 
+                "ordering": true, 
+                "order": [[0, 'desc']],
+                "language": {
+                    "sSearch": "Buscar:", 
+                    "sLengthMenu": "Mostrar _MENU_ registros por página", 
+                    "sInfo": "Mostrando _START_ a _END_ de _TOTAL_ entradas", 
+                    "oPaginate": {
+                        "sPrevious": "Anterior", 
+                        "sNext": "Siguiente" 
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

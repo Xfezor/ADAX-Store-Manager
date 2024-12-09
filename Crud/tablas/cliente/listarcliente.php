@@ -1,13 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION['Nombre1_Cliente'])) {
+if (!isset($_SESSION['nombre1'])) {
     header('Location:login.php?error=2');
     echo "no esta iniciando la sesion";
-} elseif (isset($_SESSION['Nombre1_Cliente'])) {
+} elseif (isset($_SESSION['nombre1'])) {
     require_once '../../utilidades/conexion.php';
 } else {
     echo 'ocurrio un error';
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,51 +47,51 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                         <a class="nav-link dropdown-toggle " href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
-                            <li><a class="dropdown-item" href="usuario/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="tienda/listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="producto/listarproducto.php">lista</a></li>
-                            <li><a class="dropdown-item" href="producto/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../producto/registrar.php">registrar</a></li>
                         </ul>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="factura/listarfactura.php">lista</a></li>
-                            <li><a class="dropdown-item" href="factura/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../factura/listarfactura.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../factura/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="venta/listarventa.php">lista</a></li>
-                            <li><a class="dropdown-item" href="venta/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../venta/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="proveedor/listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="proveedor/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle  " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Inventario</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
@@ -98,14 +99,15 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                         </ul>
 
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle active " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             cliente
                         </a>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="cliente/listarcliente.php">lista</a></li>
-                        <li><a class="dropdown-item" href="cliente/registrar.php">registrar</a></li>
+                        <li><a class="dropdown-item" href="../cliente/listarcliente.php">lista</a></li>
+                        <li><a class="dropdown-item" href="../cliente/registrar.php">registrar</a></li>
                         </ul>
+                        </li>
 
                    
                         <li class="nav-item dropdown">
@@ -116,14 +118,22 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                             <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-
-                </ul>
-                <span class="navbar-text me-3 active">cliente:
+                 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Entrega Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../entregaproductos/listarentregaproductos.php">Lista</a></li>
+                        <li><a class="dropdown-item" href="../entregaproductos/registrar.php">Registrar</a></li>
+                        </ul>
+                    </li>
+                            </ul>
+                <span class="navbar-text me-3 active">Usuario:
                     <?php
-                    echo $_SESSION['Nombre1_Cliente'];
+                    echo $_SESSION['nombre1'];
                     ?>
                 </span>
-
                 <a href="../cerrarsesion.php" class="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar
                     sesión</a>
                 <?php
@@ -169,15 +179,15 @@ if (!isset($_SESSION['Nombre1_Cliente'])) {
                     <td><?php echo $user['Nombre2_Cliente']; ?></td>
                     <td><?php echo $user['Apellido1_Cliente']; ?></td>
                     <td><?php echo $user['Apellido2_Cliente']; ?></td>
-                    <td><?php echo $user['Apellido2_Cliente']; ?></td>
+                    <td><?php echo $user['Tipo_documento']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value="<?php echo $user['id_Cliente']; ?>">
+                            <input type="hidden" name="id_Cliente" value="<?php echo $user['id_Cliente']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.cliente.php?id_Cliente=<?php echo $user['id_Cliente']; ?>
-                    " onclick=" return confirmar(event);">Eliminar</a>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.cliente.php?id_Cliente=<?php echo $user['id_Cliente']; ?>" onclick="return confirmar(event);">Eliminar</a>
+
                     </td>
                 </tr>
                 <?php

@@ -44,7 +44,7 @@ session_start();
                 <label class="label" for="name">id Venta</label>
                 </div>
                 <div class="form-field col-lg-6 ">
-                <input name="id Producto" id="text" class="input-text js-input" type="text" required>
+                <input name="producto_id_Producto" id="text" class="input-text js-input" type="text" >
                 <label class="label" for="name">id Producto</label>
                 </div>
                 <div class="form-field col-lg-6 ">
@@ -64,7 +64,7 @@ session_start();
                     <a href="listarfactura.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input name="modificar" class="submit-btn" type="submit" value="Registrar">
+                    <input name="modificarFactura" class="submit-btn" type="submit" value="Actualizar">
                 </div>
 
             </form>

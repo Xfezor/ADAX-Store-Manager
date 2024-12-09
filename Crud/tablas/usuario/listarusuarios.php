@@ -48,8 +48,8 @@ if (!isset($_SESSION['nombre1'])) {
             Usuarios
         </a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="usuario/listarusuarios.php">Lista</a></li>
-            <li><a class="dropdown-item" href="usuario/registrar.php">Registrar</a></li>
+            <li><a class="dropdown-item" href="../usuario/listarusuarios.php">Lista</a></li>
+            <li><a class="dropdown-item" href="../usuario/registrar.php">Registrar</a></li>
         </ul>
     </li>
 
@@ -136,6 +136,16 @@ if (!isset($_SESSION['nombre1'])) {
             <li><a class="dropdown-item" href="../movimiento/registrar.php">Registrar</a></li>
         </ul>
     </li>
+    <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Entrega Productos
+    </a>
+    <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="../entregaproductos/listarentregaproductos.php">Lista</a></li>
+    <li><a class="dropdown-item" href="../entregaproductos/registrar.php">Registrar</a></li>
+    </ul>
+</li>
+
 </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
@@ -163,7 +173,7 @@ if (!isset($_SESSION['nombre1'])) {
         <thead class="table-dark light-header">
             <tr class="text-center">
                 <th style="font-weight:normal">documento</th>
-                <th style="font-weight:normal">dipo_doc</th>
+                <th style="font-weight:normal">tipo_doc</th>
                 <th style="font-weight :normal">contrasena</th>
                 <th style="font-weight :normal">nombre1</th>
                 <th style="font-weight :normal">nombre2</th>

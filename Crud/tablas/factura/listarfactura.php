@@ -67,8 +67,8 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle  active" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="factura/listarfactura.php">lista</a></li>
-                            <li><a class="dropdown-item" href="factura/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../factura/listarfactura.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../factura/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -111,10 +111,23 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../moviimiento/registrar.php">registrar</a></li>
+                        <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">Lista</a></li>
+                        <li><a class="dropdown-item" href="../movimiento/registrar.php">Registrar</a></li>
                         </ul>
                     </li>
+
+                    </li>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Entrega Productos
+                    </a>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="../entregaproductos/listarentregaproductos.php">Lista</a></li>
+                    <li><a class="dropdown-item" href="../entregaproductos/registrar.php">Registrar</a></li>
+                    </ul>
+                    </li>
+
+                    
 
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:
@@ -174,7 +187,7 @@ if (!isset($_SESSION['nombre1'])) {
                                 <button type="submit" class="btn btn-warning">Modificar</button>
                             </form>
                         </td>
-                        <td><a class="btn btn-danger" href="../../controlador/controlador.factura.php?idtiend=<?php echo $user['venta_id_Venta']; ?>
+                        <td><a class="btn btn-danger" href="../../controlador/controlador.factura.php?venta_id_Venta=<?php echo $user['venta_id_Venta']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                         </td>
                     </tr>

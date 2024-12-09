@@ -76,8 +76,8 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle active " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="venta/listarventa.php">lista</a></li>
-                            <li><a class="dropdown-item" href="venta/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../venta/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -117,6 +117,15 @@ if (!isset($_SESSION['nombre1'])) {
                         </ul>
                     </li>
 
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Entrega Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../entregaproductos/listarentregaproductos.php">Lista</a></li>
+                            <li><a class="dropdown-item" href="../entregaproductos/registrar.php">Registrar</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php

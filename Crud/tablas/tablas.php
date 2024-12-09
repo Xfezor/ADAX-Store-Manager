@@ -42,16 +42,16 @@ if (!isset($_SESSION['nombre1'])) {
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
-                            <li><a class="dropdown-item" href="usuario/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/usuario/listarusuarios.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/usuario/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="tienda/listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/tienda/registrar.php">registrar</a></li>
                         </ul>
                     </li>
 
@@ -59,32 +59,32 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Producto</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="producto/listarproducto.php">lista</a></li>
-                            <li><a class="dropdown-item" href="producto/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/producto/listarproducto.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/producto/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Factura</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="factura/listarfactura.php">lista</a></li>
-                            <li><a class="dropdown-item" href="factura/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/factura/listarfactura.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/factura/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Venta</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="venta/listarventa.php">lista</a></li>
-                            <li><a class="dropdown-item" href="venta/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/venta/listarventa.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/venta/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="proveedor/listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="proveedor/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/proveedor/listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
 
@@ -92,8 +92,8 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Inventario</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="inventario/listarinventario.php">lista</a></li>
-                            <li><a class="dropdown-item" href="inventario/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/inventario/registrar.php">registrar</a></li>
                         </ul>
 
                         <li class="nav-item dropdown">
@@ -102,8 +102,8 @@ if (!isset($_SESSION['nombre1'])) {
                             cliente
                         </a>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="cliente/listarcliente.php">lista</a></li>
-                        <li><a class="dropdown-item" href="cliente/registrar.php">registrar</a></li>
+                        <li><a class="dropdown-item" href="../tablas/cliente/listarcliente.php">lista</a></li>
+                        <li><a class="dropdown-item" href="../tablas/cliente/registrar.php">registrar</a></li>
                         </ul>
 
                    
@@ -111,8 +111,17 @@ if (!isset($_SESSION['nombre1'])) {
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="movimiento/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../tablas/movimiento/listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/movimiento/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Entrega Productos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../tablas/entregaproductos/listarentregaproductos.php">Lista</a></li>
+                            <li><a class="dropdown-item" href="../tablas/entregaproductos/registrar.php">Registrar</a></li>
                         </ul>
                     </li>
                     </ul>

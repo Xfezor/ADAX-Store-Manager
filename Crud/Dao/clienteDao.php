@@ -24,11 +24,11 @@ class clienteDao{
             $query->bindParam(7,$Tipo_documento);
          
             $query->execute();
-            $mensaje= "Registro actualizado";
+            $mensaje= "Registro actualizado"; 
         } catch (Exception  $ex) {
             $mensaje= $ex->getMessage();
         }
-        $cnn= null;
+        $conn= null;
         return $mensaje;
         }
     public function registrarclienteCrud(clienteDto $clienteDto){
@@ -119,7 +119,7 @@ class clienteDao{
     return $mensaje;
     }
     
-    //eliminar cliente 
+
     public function eliminarcliente($id_Cliente){
         $cnn = Conexion::getConexion();
         $mensaje = "";
