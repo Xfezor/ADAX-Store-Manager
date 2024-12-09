@@ -81,7 +81,7 @@ if (isset($registro)||isset($_GET['no'])) {
             $usuario['rol_id_Rol'],
             $usuario['codigo_invitacion'],
             $usuario['tienda_idtienda'] // Asegúrate de que este método exista
-        ];
+    ];
     }
     echo json_encode($response);
     exit();
