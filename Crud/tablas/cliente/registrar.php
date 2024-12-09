@@ -18,28 +18,91 @@
 
 <body>
     <div class="form-box">
+        <?php
+        require '../../Dao/clienteDao.php';
+        require '../../Dto/clienteDto.php';
+        require '../../utilidades/conexion.php';
+        ?>
+
         <section class="get-in-touch">
-            <h1 class="title">Registrar Entrega de Producto</h1>
-            <form class="contact-form row" action="../../controlador/controlador.entregaproductos.php" method="POST">
+            <h1 class="title">Registrar Cliente</h1>
+            <form class="contact-form row" action="../../controlador/controlador.cliente.php" method="POST">
+
                 <div class="form-field col-lg-12">
-                    <input name="proveedor_idproveedor" id="proveedor_idproveedor" class="input-text js-input" type="text" required>
-                    <label class="label" for="proveedor_idproveedor">Proveedor ID</label>
+                    <input name="id_Cliente" 
+                           id="id_Cliente" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el ID del Cliente" 
+                           required>
+                    <label class="label" for="id_Cliente">ID Cliente</label>
                 </div>
+
                 <div class="form-field col-lg-12">
-                    <input name="producto_id_Producto" id="producto_id_Producto" class="input-text js-input" type="text" required>
-                    <label class="label" for="producto_id_Producto">Producto ID</label>
+                    <input name="Documento" 
+                           id="Documento" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el Documento" 
+                           required>
+                    <label class="label" for="Documento">Documento</label>
                 </div>
+
                 <div class="form-field col-lg-12">
-                    <input name="fecha_Entrega" id="fecha_Entrega" class="input-text js-input" type="date" required>
-                    <label class="label" for="fecha_Entrega">Fecha de Entrega</label>
+                    <input name="Nombre1_Cliente" 
+                           id="Nombre1_Cliente" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el Primer Nombre" 
+                           required>
+                    <label class="label" for="Nombre1_Cliente">Primer Nombre</label>
                 </div>
+
                 <div class="form-field col-lg-12">
-                    <input name="cantidad" id="cantidad" class="input-text js-input" type="number" required>
-                    <label class="label" for="cantidad">Cantidad</label>
+                    <input name="Nombre2_Cliente" 
+                           id="Nombre2_Cliente" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el Segundo Nombre" 
+                           required>
+                    <label class="label" for="Nombre2_Cliente">Segundo Nombre</label>
                 </div>
+
+                <div class="form-field col-lg-12">
+                    <input name="Apellido1_Cliente" 
+                           id="Apellido1_Cliente" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el Primer Apellido" 
+                           required>
+                    <label class="label" for="Apellido1_Cliente">Primer Apellido</label>
+                </div>
+
+                <div class="form-field col-lg-12">
+                    <input name="Apellido2_Cliente" 
+                           id="Apellido2_Cliente" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el Segundo Apellido" 
+                           required>
+                    <label class="label" for="Apellido2_Cliente">Segundo Apellido</label>
+                </div>
+
+                <div class="form-field col-lg-12">
+                    <input name="Tipo_documento" 
+                           id="Tipo_documento" 
+                           class="input-text js-input" 
+                           type="text" 
+                           placeholder="Ingrese el Tipo de Documento" 
+                           required>
+                    <label class="label" for="Tipo_documento">Tipo de Documento</label>
+                </div>
+
+             
                 <div class="form-field col-lg-6">
-                    <button type="button" class="submit-btn" onclick="window.location.href='listarentregaproductos.php'">Cancelar</button>
+                    <button type="button" class="submit-btn" onclick="window.location.href='listarcliente.php'">Cancelar</button>
                 </div>
+
                 <div class="form-field col-lg-6">
                     <input name="registro" class="submit-btn" type="submit" value="Registrar">
                 </div>
@@ -47,5 +110,6 @@
         </section>
     </div>
 </body>
+
 
 </html>

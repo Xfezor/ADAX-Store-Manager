@@ -34,7 +34,6 @@ session_start();
             <h1 class="title">Registrar Entrega de Productos</h1>
             <form class="contact-form row" action="../../controlador/controlador.entregaproductos.php" method="POST">
 
-                <!-- Proveedor ID -->
                 <div class="form-field col-lg-12">
                     <input name="proveedor_idproveedor" 
                            id="proveedor_idproveedor" 
@@ -45,7 +44,7 @@ session_start();
                     <label class="label" for="proveedor_idproveedor">Proveedor ID</label>
                 </div>
 
-                <!-- Producto ID -->
+               
                 <div class="form-field col-lg-12">
                     <input name="producto_id_Producto" 
                            id="producto_id_Producto" 
@@ -56,7 +55,7 @@ session_start();
                     <label class="label" for="producto_id_Producto">Producto ID</label>
                 </div>
 
-                <!-- Fecha de Entrega -->
+              
                 <div class="form-field col-lg-12">
                     <input name="fecha_Entrega" 
                            id="fecha_Entrega" 
@@ -66,7 +65,7 @@ session_start();
                     <label class="label" for="fecha_Entrega">Fecha de Entrega</label>
                 </div>
 
-                <!-- Cantidad -->
+               
                 <div class="form-field col-lg-12">
                     <input name="cantidad" 
                            id="cantidad" 
@@ -77,7 +76,7 @@ session_start();
                     <label class="label" for="cantidad">Cantidad</label>
                 </div>
 
-                <!-- Botones -->
+             
                 <div class="form-field col-lg-6">
                     <button type="button" class="submit-btn" onclick="window.location.href='listarentregaproductos.php'">Cancelar</button>
                 </div>
