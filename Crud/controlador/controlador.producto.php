@@ -1,12 +1,31 @@
 <?php
+
+header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+header('Content-Type: application/json');
+// Manejar la solicitud OPTIONS
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
+    http_response_code(200);
+    exit();
+}
+
 require '../Dao/productoDao.php';
 require '../Dto/productoDto.php';
-session_start();
 
-if (!isset($_SESSION['nombre1'])) {
-  header('Location:iniciar_sesion.php?error=2');
-  echo "no esta iniciando la sesion";
-} elseif (isset($_SESSION['nombre1'])) {
+$data = json_decode(file_get_contents('php://input'), true);
+if (isset($data['regristroProducto'])) {
+    // $nombreTienda = $data['nombreTienda'];
+    // $telefono = $data['telefono'];
+    // $email = $data['email'];
+    // $contrasena = $data['contrasena'];
+    // $direccion = $data['direccion'];
+}
+if (isset($data['listar'])) {
+    $listar = $data['listar'];
+}
+ elseif (isset($_SESSION['nombre1'])) {
   require '../Dao/usuariosDao.php';
   require '../Dto/usuariosDto.php';
   require '../Dao/tiendaDao.php';
@@ -19,8 +38,6 @@ if (!isset($_SESSION['nombre1'])) {
 } else {
   echo 'ocurrio un error';
 }
-echo "hola";
-var_dump($_POST);
 if (isset($_POST['registrarProducto'])) {
     $pDao = new productoDao();
     $pDto = new productoDto();
@@ -41,7 +58,31 @@ if (isset($_POST['registrarProducto'])) {
         header("Location:../../PAGINA/registro.php?registro=exitoso");
         exit();
     }
-} else if (isset($_POST['registrarProductoUnico'])) {
+} 
+else if (isset($listar) ||isset($_GET['si'])) {
+    $pDao = new ProductoDao();
+    $pDto = new productoDao();
+    $lista = $pDao->listarTodos();
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $producto) {
+        // Asegúrate de que cada producto sea un array o un objeto
+        $response[] = [
+            $producto['id_Producto'],
+            $producto['Nombre'],
+            $producto['Precio_unit'],
+            $producto['Descripcion'],
+            $producto['Marca'],
+            $producto['Categoria'],
+            $producto['Presentacion'],
+            $producto['Fecha_vencimiento'],
+            $producto['Stock'],
+            $producto['Stock_Min'],
+            $producto['inventario_id_Inventario'],
+    ];
+    }
+    echo json_encode($response);
+    exit();
+}else if (isset($_POST['registrarProductoUnico'])) {
     echo "hola";
     $pDao = new productoDao();
     $pDto = new productoDto();
