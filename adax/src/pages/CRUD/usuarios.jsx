@@ -6,9 +6,10 @@ import DT from 'datatables.net-dt';
 import axios from 'axios';
 
 
-const Tabla = () => {
+const Usuarios = () => {
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
+    
     const Lista = async () => {
         try {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
@@ -41,7 +42,7 @@ const Tabla = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
                                     <li><a className="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
@@ -104,7 +105,19 @@ const Tabla = () => {
                 </div>
             </nav>
             <div style={{ 'width': '99.9%' }}>
-                <DataTable options={{}} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
+                <DataTable data={usuarios} slots={{
+                    11: (data, row) => (
+                        <form action="actualizar.php" method="post">
+                            <input type="hidden" name="doc" value={usuarios[0]} />
+                            <button type="submit" className="btn btn-warning">Modificar</button>
+                        </form>
+                    ),
+                    12: (data, row) => (
+                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${usuarios[0]}`}>
+                            Eliminar
+                        </a>
+                    )
+                }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
                             <th style={{ 'fontWeight': 'normal' }}>documento</th>
@@ -123,32 +136,7 @@ const Tabla = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {usuarios.map((usuario, index) => (
-                            <tr className="text-center" key={index}>
-                                <td>{usuario[0]}</td>
-                                <td>{usuario[1]}</td>
-                                <td>{usuario[2]}</td>
-                                <td>{usuario[3]}</td>
-                                <td>{usuario[4]}</td>
-                                <td>{usuario[5]}</td>
-                                <td>{usuario[6]}</td>
-                                <td>{usuario[7]}</td>
-                                <td>{usuario[8]}</td>
-                                <td>{usuario[9]}</td>
-                                <td>{usuario[10]}</td>
-                                <td>
-                                    <form action="actualizar.php" method="post">
-                                        <input type="hidden" name="doc" value={usuario[0]} />
-                                        <button type="submit" className="btn btn-warning">Modificar</button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${usuario[0]}`}>
-                                        Eliminar
-                                    </a>
-                                </td>
-                            </tr>
-                        ))}
+
                     </tbody>
                 </DataTable>
             </div>
@@ -156,5 +144,5 @@ const Tabla = () => {
     );
 }
 
-export default Tabla;
+export default Usuarios;
 

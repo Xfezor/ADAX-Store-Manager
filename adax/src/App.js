@@ -11,9 +11,10 @@ import Gestionarproveedores from './pages/gestionar_proveedores.jsx'
 import Analisis from './pages/analisis.jsx';
 import GestionarVentas from './pages/gestionar_ventas.jsx';
 import DetalleFactura from './pages/detalle_factura.jsx';
-import Tabla from './pages/CRUD/tablas.jsx';
-import { Routes, Route } from "react-router-dom";   
-
+import Usuarios from './pages/CRUD/usuarios.jsx';
+import Tienda from './pages/CRUD/tienda.jsx';
+import Producto from './pages/CRUD/producto.jsx';
+import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div>
@@ -31,7 +32,9 @@ function App() {
         <Route path="/analisis" element={<Analisis />} />
         <Route path="/gestionar_ventas" element={<GestionarVentas />} />
         <Route path="/detalle_factura" element={<DetalleFactura />} />
-        <Route path="/crud/tablas" element={<Tabla />} />
+        <Route path="/crud/usuarios" element={<Usuarios />} />
+        <Route path="/crud/tienda" element={<Tienda />} />
+        <Route path="/crud/producto" element={<Producto />} />
         <Route path="*" element={<Index />} />
       </Routes>
     </div>
