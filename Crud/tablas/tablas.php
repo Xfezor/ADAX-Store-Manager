@@ -46,7 +46,7 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="usuario/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-                    
+
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
@@ -96,18 +96,18 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="inventario/registrar.php">registrar</a></li>
                         </ul>
 
-                        <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            cliente
+                            Cliente
                         </a>
                         <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="cliente/listarcliente.php">lista</a></li>
-                        <li><a class="dropdown-item" href="cliente/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../cliente/listarcliente.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../cliente/registrar.php">registrar</a></li>
                         </ul>
 
-                   
-                        <li class="nav-item dropdown">
+
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Movimiento</a>
                         <ul class="dropdown-menu">
@@ -115,7 +115,16 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="movimiento/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-                    </ul>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Roles</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="roles/listaroles.php">lista</a></li>
+                            <li><a class="dropdown-item" href="roles/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
+                </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
                     echo $_SESSION['nombre1'];
