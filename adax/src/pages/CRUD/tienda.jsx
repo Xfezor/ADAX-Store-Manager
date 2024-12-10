@@ -26,7 +26,6 @@ const Tienda = () => {
             console.error(err);
             return null;
         }
-        console.log(tienda);
     }
     useEffect(() => {
         Lista();

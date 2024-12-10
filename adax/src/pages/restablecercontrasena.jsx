@@ -96,12 +96,12 @@ const RestablecerContrasena = () => {
                     <h1 id="middletittle1" className={styles.usernameText}><b>Correo electronico</b></h1>
                     <h1 id="middletittle2" className={styles.usernameText} style={{ display: 'none' }}><b>Codigo de seguridad</b></h1>
                     <h1 id="middletittle3" className={styles.usernameText} style={{ display: 'none' }}><b>Contraseña</b></h1>
-                    <input id="input1" type="email" placeholder="Ingrese su correo electronico" required />
-                    <input id="input2" type="text" placeholder="Ingrese el codigo de seguridad" required style={{ display: 'none' }} />
+                    <input id="input1" type="email" placeholder="Ingrese su correo electronico" className={styles.input} required />
+                    <input id="input2" type="text" placeholder="Ingrese el codigo de seguridad" className={styles.input} required style={{ display: 'none' }} />
                     <h1 id="middletittle3" className={styles.usernameText} style={{ display: 'none' }}><b>Contraseña</b></h1>
-                    <input id="input3" type="password" placeholder="Ingrese su contraseña" required style={{ display: 'none' }} />
+                    <input id="input3" type="password" placeholder="Ingrese su contraseña" className={styles.input} required style={{ display: 'none' }} />
                     <h1 id="middletittle4" className={styles.usernameText}><b>Repita su contraseña</b></h1>
-                    <input id="input4" type="password" placeholder="Repita su contraseña" required style={{ display: 'none' }} />
+                    <input id="input4" type="password" placeholder="Repita su contraseña" className={styles.input} required style={{ display: 'none' }} />
                     <div className="invalid-feedback">Por favor, ingrese su usuario</div>
                     <button className="btn btn-danger" id="buttonSendCode" type="submit" onclick={sendcodeandhide}>Enviar código</button>
                     <button className="btn btn-danger" id="buttonConfirmCode" type="submit" onclick={confirmcode} style={{ display: 'none' }}>Confirmar código</button>

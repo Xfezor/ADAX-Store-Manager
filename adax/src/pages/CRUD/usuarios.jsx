@@ -15,7 +15,6 @@ const Usuarios = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
                 listar: true,
             });
-            console.log(respuesta.data);
             if (respuesta.data) {
                 setUsuarios(respuesta.data);
             } else {
@@ -26,7 +25,6 @@ const Usuarios = () => {
             console.error(err);
             return null;
         }
-        console.log(usuarios);
     }
     useEffect(() => {
         Lista();
@@ -108,12 +106,12 @@ const Usuarios = () => {
                 <DataTable data={usuarios} slots={{
                     11: (data, row) => (
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={usuarios[0]} />
+                            <input type="hidden" name="doc" value={row[0]} />
                             <button type="submit" className="btn btn-warning">Modificar</button>
                         </form>
                     ),
                     12: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${usuarios[0]}`}>
+                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
                             Eliminar
                         </a>
                     )
