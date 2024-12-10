@@ -1,22 +1,22 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
-import Index from './pages/index.jsx';
-import IniciarSesion from './pages/iniciar_sesion.jsx';
-import Registro from './pages/registro.jsx';
-import Restablecer from './pages/restablecercontrasena.jsx';
-import Factura from './pages/factura.jsx';
-import Inicio from './pages/inicio.jsx';
-import Pago from './pages/generar_pago.jsx';
-import Ventas from './pages/ventas.jsx';
-import GestionarProductos from './pages/gestionar_productos.jsx';
-import Gestionarproveedores from './pages/gestionar_proveedores.jsx';
-import Analisis from './pages/analisis.jsx';
-import GestionarVentas from './pages/gestionar_ventas.jsx';
-import DetalleFactura from './pages/detalle_factura.jsx';
-import Usuarios from './pages/CRUD/usuarios.jsx';
-import ActualizarUsuarios from './pages/CRUD/actualizar/actualizarUsuario.jsx';
-import Tienda from './pages/CRUD/tienda.jsx';
-import Producto from './pages/CRUD/producto.jsx';
+import Index from './components/index.jsx';
+import IniciarSesion from './components/iniciar_sesion.jsx';
+import Registro from './components/registro.jsx';
+import Restablecer from './components/restablecercontrasena.jsx';
+import Factura from './components/factura.jsx';
+import Inicio from './components/inicio.jsx';
+import Pago from './components/generar_pago.jsx';
+import Ventas from './components/ventas.jsx';
+import GestionarProductos from './components/gestionar_productos.jsx';
+import Gestionarproveedores from './components/gestionar_proveedores.jsx';
+import Analisis from './components/analisis.jsx';
+import GestionarVentas from './components/gestionar_ventas.jsx';
+import DetalleFactura from './components/detalle_factura.jsx';
+import Usuarios from './components/CRUD/usuarios.jsx';
+import ActualizarUsuarios from './components/CRUD/actualizar/actualizarUsuario.jsx';
+import Tienda from './components/CRUD/tienda.jsx';
+import Producto from './components/CRUD/producto.jsx';
 function App() {
   return (
       <div>
