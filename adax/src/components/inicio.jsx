@@ -9,14 +9,24 @@ import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
 
-  const { usuario } = useContext(ContextoSesion);
-  const { tienda } = useContext(ContextoSesion);
-  const { codigo_invitacion } = useContext(ContextoSesion);
-  const { rol } = useContext(ContextoSesion);
+  const { cerrarSesion } = useContext(ContextoSesion);
+
+  const usuario1 = localStorage.getItem('usuario');
+  const tienda1 = localStorage.getItem('tienda');
+  const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
+  const rol1 = localStorage.getItem('rol');
+
+  const usuario = JSON.parse(usuario1);
+  const tienda = JSON.parse(tienda1);
+  const codigo_invitacion = JSON.parse(codigo_invitacion1);
+  const rol = JSON.parse(rol1);
+
   console.log(usuario);
-  console.log(tienda);
-  console.log(codigo_invitacion);
-  console.log(rol);
+
+
+  const handleCerrarSesion = () => {
+    cerrarSesion();
+  }
 
   const Ventas = () => {
     navigate('/ventas');
@@ -88,7 +98,7 @@ const Inicio = () => {
           <button
             className="btn btn-danger"
             id={styles.cerrarsesion}
-            onClick=""
+            onClick={handleCerrarSesion}
           >
             Cerrar sesión
           </button>
