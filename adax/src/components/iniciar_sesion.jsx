@@ -125,9 +125,9 @@ const IniciarSesion = () => {
                                 <button type="button" className={styles.btn2} onClick={cambiarestadoBtn2}>Tienda</button>
                             </div>
                             <h1 className={styles['username-text']}><b>Correo electrónico</b></h1>
-                            <input id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Ingrese su correo electrónico..." required />
+                            <input className={styles.input} id="email" name="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Ingrese su correo electrónico..." required />
                             <h1 className={styles.contrasena}><b>Contraseña</b></h1>
-                            <input id="contrasena" name="contrasena" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingrese su Contraseña..." required />
+                            <input className={styles.input} id="contrasena" name="contrasena" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingrese su Contraseña..." required />
                             <p>¿Eres usuario nuevo? Regístrate&nbsp;
                                 <Link to="/registro" className={styles.aIniciarSesion} >
                                     Aqui
