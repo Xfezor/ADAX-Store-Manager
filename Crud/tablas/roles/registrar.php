@@ -18,56 +18,40 @@
             crossorigin="anonymous"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="styles.css">
+
     </head>
 
     <body>
         <div class="form-box">
             <?php
-            require '../../Dao/rolDao.php';
-            require '../../Dto/rolDto.php';
+            require '../../Dao/tiendaDao.php';
+            require '../../Dto/tiendaDto.php';
             require '../../utilidades/conexion.php';
 
-            if ($_POST['id_Rol'] != NULL) {
-                $rDao = new rolDao();
-                $rol = $rDao->obtenerRol($_POST['id_Rol']);
-            }
             ?>
+
             <section class="get-in-touch">
-                <h1 class="title">
-                    Actualizar
-                </h1>
+                <h1 class="title">Registrar</h1>
                 <form class="contact-form row" action="../../controlador/controlador.rol.php" method="POST">
-                    <div class="form-group col-lg-6">
-                        <input name="id_Rol" value="<?php echo $rol['id_Rol']; ?>" id="name" class="input-text js-input"
-                            type="text" required>
-                        <label class="label" for="name">
-                            id_Rol
-                        </label>
+                    <div class="form-field col-lg-6">
+                        <input name="id_Rol" id="name" class="input-text js-input" type="text" required>
+                        <label class="label" for="name">Id del Rol</label>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <input name="nombreRol" value="<?php echo $rol['nombreRol']; ?>" id="text"
-                            class="input-text js-input" type="text" required>
-                        <label class="label" for="name">
-                            Nombre del rol
-                        </label>
+                    <div class="form-field col-lg-6 ">
+                        <input name="nombreRol" id="text" class="input-text js-input" type="text" required>
+                        <label class="label" for="email">Nombre del Rol</label>
                     </div>
-                    <div class="form-group col-lg-6">
-                        <input name="descripcion" value="<?php echo $rol['descripcion']; ?>" id="text"
-                            class="input-text js-input" type="text" required>
-                        <label class="label" for="name">
-                            Descripción
-                        </label>
+                    <div class="form-field col-lg-6 ">
+                        <input name="descripcion" id="text" class="input-text js-input" type="text" required>
+                        <label class="label" for="company">descripción</label>
                     </div>
                     <div class="form-field col-lg-6">
-                        <a href="listarRol.php"></a>
+                        <a href="listaroles.php"><input class="submit-btn" value="Cancelar"></a>
+                    </div>
+                    <div class="form-field col-lg-6">
+                        <input name="registroRolCrud" class="submit-btn" type="submit" value="Registrar">
                     </div>
 
-                    <div class="form-field col-lg-6">
-                        <a href="listartiendas.php"><input class="submit-btn" value="cancelar"></a>
-                    </div>
-                    <div class="form-field col-lg-6">
-                        <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
-                    </div>
                 </form>
             </section>
         </div>
