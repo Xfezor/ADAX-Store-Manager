@@ -1,15 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
+const Contexto = createContext();
 
-const Usuarios = () => {
+const Usuarios = ({ children }) => {
+    
+    const navigate = useNavigate();
+
+    const handleNavigate = (row) => {
+        navigate(`/crud/actualizar/actualizarUsuario`);
+    }
+
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
-    
+
+
     const Lista = async () => {
         try {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
@@ -29,7 +39,10 @@ const Usuarios = () => {
     useEffect(() => {
         Lista();
     }, []);
+
     return (
+        <Contexto.Provider value={{ handleNavigate }}>
+            {children}
         <div>
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
                 <div className="container-fluid">
@@ -105,13 +118,10 @@ const Usuarios = () => {
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={usuarios} slots={{
                     11: (data, row) => (
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={row[0]} />
-                            <button type="submit" className="btn btn-warning">Modificar</button>
-                        </form>
+                        <button type="submit" className="btn btn-warning" onClick={() => handleNavigate(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])}>Modificar</button>
                     ),
                     12: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
+                        <a className="btn btn-danger" >
                             Eliminar
                         </a>
                     )
@@ -139,8 +149,9 @@ const Usuarios = () => {
                 </DataTable>
             </div>
         </div>
+    </Contexto.Provider>
     );
 }
 
-export default Usuarios;
+export {Contexto, Usuarios};
 
