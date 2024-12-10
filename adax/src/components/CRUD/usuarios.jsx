@@ -140,7 +140,6 @@ const Usuarios = ({ children }) => {
                         </tr>
                     </thead>
                     <tbody>
-
                     </tbody>
                 </DataTable>
             </div>

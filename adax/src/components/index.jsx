@@ -5,6 +5,7 @@ import '@fontsource-variable/montserrat';
 import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react';
 import { faRocket, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import Carousel from './Carousel';
 const Index = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => {
@@ -48,7 +49,8 @@ const Index = () => {
                     </ul>
                 </div>
             </header>
-            <div className={styles['contenedor-carousel']} id="home">
+            <Carousel/>
+            {/* <div className={styles['contenedor-carousel']} id="home">
                 <div id="carouselExampleControls" className={`${styles.carousel} ${styles.slide}`} data-bs-ride="carousel">
                     <div className={styles['carousel-inner']}>
                         <div className={styles.overlay}></div>
@@ -76,7 +78,7 @@ const Index = () => {
                             Solución integral para tu negocio.<br /> Te ayudamos a administrar tu negocio</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <section className={styles.seccion2} id="hacer">
                 <h1 className={styles.hacer}>¿Que podras hacer con ADAX Store Manager?</h1>
                 <div className={styles['contenedor-seccion2']}>
