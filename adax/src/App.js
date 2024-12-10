@@ -18,6 +18,7 @@ import Usuarios from './components/CRUD/usuarios.jsx';
 import ActualizarUsuarios from './components/CRUD/actualizar/actualizarUsuario.jsx';
 import Tienda from './components/CRUD/tienda.jsx';
 import Producto from './components/CRUD/producto.jsx';
+import Clientes from './components/CRUD/cliente.jsx'
 function App() {
   return (
     <ProveedorSesion>
@@ -40,6 +41,7 @@ function App() {
           <Route path="/crud/actualizar/actualizar_usuario" element={<ActualizarUsuarios />} />
           <Route path="/crud/tienda" element={<Tienda />} />
           <Route path="/crud/producto" element={<Producto />} />
+          <Route path="/crud/cliente" element={<Clientes />} />
           <Route path="*" element={<Index />} />
         </Routes>
       </div>
