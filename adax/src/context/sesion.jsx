@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const ContextoSesion = createContext();
 
@@ -15,17 +16,22 @@ export const ProveedorSesion = ({ children }) => {
         setRol(rol);
         // Aquí puedes guardar el token en localStorage o sessionStorage
         localStorage.setItem('usuario', JSON.stringify(usuarioData));
-        localStorage.setItem('tienda', JSON.stringify(usuarioData));
-        localStorage.setItem('codigo_invitacion', JSON.stringify(usuarioData));
-        localStorage.setItem('rol', JSON.stringify(usuarioData));
+        localStorage.setItem('tienda', JSON.stringify(tienda));
+        localStorage.setItem('codigo_invitacion', JSON.stringify(codigo_invitacion));
+        localStorage.setItem('rol', JSON.stringify(rol));
     };
 
+    const navigate = useNavigate();
     const cerrarSesion = () => {
         setUsuario(null);
         setTienda(null);
         setCodigoInvitacion(null);
         setRol(null);
         localStorage.removeItem('usuario');
+        localStorage.removeItem('tienda');
+        localStorage.removeItem('codigo_invitacion');
+        localStorage.removeItem('rol');
+        navigate("/iniciar_sesion");
     };
 
     return (
