@@ -1,26 +1,21 @@
-import React, { useState, useContext } from 'react';
-import { Contexto } from '../usuarios.jsx';
-import { useParams } from 'react-router-dom';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_actualizar.module.css';
 
-const ActualizarUsuario = () => {
-
-    const { datos, cargando } = useContext(Contexto);
-
+const ActualizarUsuario = (documento,tipoDoc,contrasena,correo,nombre1,nombre2,apellido1,apellido2,rol_id_Rol,codigo_invitacion) => {
 
     const [usuario, setUsuario] = useState({
-        documento: Contexto.documento,
-        tipoDoc: Contexto.tipoDoc,
-        contrasena: Contexto.contrasena,
-        correo: Contexto.correo,
-        nombre1: Contexto.nombre1,
-        nombre2: Contexto.nombre2,
-        apellido1: Contexto.apellido1,
-        apellido2: Contexto.apellido2,
-        rol_id_Rol: Contexto.rol_id_Rol,
-        codigo_invitacion: Contexto.codigo_invitacion,
+        documento: documento,
+        tipoDoc: tipoDoc,
+        contrasena: contrasena,
+        correo: correo,
+        nombre1: nombre1,
+        nombre2: nombre2,
+        apellido1: apellido1,
+        apellido2: apellido2,
+        rol_id_Rol: rol_id_Rol,
+        codigo_invitacion: codigo_invitacion,
     });
 
     const handleChange = (e) => {

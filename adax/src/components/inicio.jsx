@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { ContextoSesion } from '../context/sesion.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -7,6 +8,15 @@ import styles from '../styles/styles_inicio.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
+
+  const { usuario } = useContext(ContextoSesion);
+  const { tienda } = useContext(ContextoSesion);
+  const { codigo_invitacion } = useContext(ContextoSesion);
+  const { rol } = useContext(ContextoSesion);
+  console.log(usuario);
+  console.log(tienda);
+  console.log(codigo_invitacion);
+  console.log(rol);
 
   const Ventas = () => {
     navigate('/ventas');
@@ -44,7 +54,7 @@ const Inicio = () => {
             <h1 className={styles.title}>ADAX Store Manager</h1>
           </div>
           <button className={styles.exit} onClick={exitbutton}>
-            <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
+            <FontAwesomeIcon icon={faXmark} className={styles.exit} />
           </button>
         </div>
       </header>
@@ -70,9 +80,9 @@ const Inicio = () => {
       </main>
       <footer>
         <div className={styles.user}>
-          <h1 className={styles.username}>Usuario: "Pepito Peréz"</h1>
-          <h1 className={styles.username}>Tienda: "Los peregrinos"</h1>
-          <h1 className={styles.username}>Codigo invitacion: "TX435SX"</h1>
+          <h1 className={styles.username}>Usuario: "{usuario}"</h1>
+          <h1 className={styles.username}>Tienda: "{tienda}"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
           <a href="../Crud/tablas/tablas.php" className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
           </a>
           <button
