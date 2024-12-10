@@ -134,8 +134,6 @@ li {
   border: 2px solid black;
   align-content: center;
 }
-.navbar .title {
-}
 
 .navbar .links {
   display:flex;
