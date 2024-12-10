@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { Contexto } from '../usuarios.jsx';
+import { useParams } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_actualizar.module.css';
 
-const ActualizarUsuario = (documento, tipoDoc, contrasena, correo, nombre1, nombre2, apellido1, apellido2, rol_id_Rol, codigo_invitacion) => {
+const ActualizarUsuario = () => {
+
+    const { datos, cargando } = useContext(Contexto);
+
 
     const [usuario, setUsuario] = useState({
-        documento: documento,
-        tipoDoc: tipoDoc,
-        contrasena: contrasena,
-        correo: correo,
-        nombre1: nombre1,
-        nombre2: nombre2,
-        apellido1: apellido1,
-        apellido2: apellido2,
-        rol_id_Rol: rol_id_Rol,
-        codigo_invitacion: codigo_invitacion,
+        documento: Contexto.documento,
+        tipoDoc: Contexto.tipoDoc,
+        contrasena: Contexto.contrasena,
+        correo: Contexto.correo,
+        nombre1: Contexto.nombre1,
+        nombre2: Contexto.nombre2,
+        apellido1: Contexto.apellido1,
+        apellido2: Contexto.apellido2,
+        rol_id_Rol: Contexto.rol_id_Rol,
+        codigo_invitacion: Contexto.codigo_invitacion,
     });
 
     const handleChange = (e) => {
@@ -37,7 +42,7 @@ const ActualizarUsuario = (documento, tipoDoc, contrasena, correo, nombre1, nomb
                             <label className={`${styles.label} label`} htmlFor="name">Documento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="tipodoc" value={usuario.tipoDoc} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" required />
+                            <input name="tipoDoc" value={usuario.tipoDoc} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" required />
                             <label className={styles.label} for="email">Tipo de documento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
