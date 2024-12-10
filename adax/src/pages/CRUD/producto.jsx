@@ -26,7 +26,6 @@ const Producto = () => {
             console.error(err);
             return null;
         }
-        console.log(producto);
     }
     useEffect(() => {
         Lista();
@@ -108,12 +107,12 @@ const Producto = () => {
                 <DataTable data={producto} slots={{
                     11: (data, row) => (
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={producto[0]} />
+                            <input type="hidden" name="doc" value={row.id_Producto} />
                             <button type="submit" className="btn btn-warning">Modificar</button>
                         </form>
                     ),
                     12: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${producto[0]}`}>
+                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
                             Eliminar
                         </a>
                     )
