@@ -145,7 +145,7 @@ DELIMITER ;;
 
 -- Trigger de codigo invitacion de la tienda
 DELIMITER ;;
-/*50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*50005 TRIGGER `adaxstore`.`before_insert_tienda`
+/*50003 CREATE*/ /*50005 TRIGGER `adaxstore`.`before_insert_tienda`
 BEFORE INSERT ON `adaxstore`.`tienda`
 FOR EACH ROW
 BEGIN
@@ -329,7 +329,7 @@ CREATE TABLE `tienda` (
   `documento` int(11) NOT NULL,
   `tipo_documento` varchar(2) NOT NULL,
   `contrasena` varbinary(255) NOT NULL,
-  `codigo_invitacion` int(6) AUTO_INCREMENT,
+  `codigo_invitacion` int(6),
   PRIMARY KEY (`idtienda`),
   UNIQUE KEY `email_UNIQUE` (`correo`),
   UNIQUE KEY `codigo_invitacion_UNIQUE` (`codigo_invitacion`)
