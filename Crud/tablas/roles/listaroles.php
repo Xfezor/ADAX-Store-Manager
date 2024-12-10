@@ -97,6 +97,17 @@ if (!isset($_SESSION['nombre1'])) {
                             <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
                         </ul>
                     </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Roles
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="listaroles.php">lista</a></li>
+                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <span class="navbar-text me-3 active">Usuario:
                     <?php
@@ -120,5 +131,43 @@ if (!isset($_SESSION['nombre1'])) {
             </div>
         </div>
     </nav>
+    <div style="width: 99.9%">
+        <table id="urstable" class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
+        <thead class="table-dark light-header">
+                <tr class="text-center">
+                    <th style="font-weight:normal">Id del rol</th>
+                    <th style="font-weight:normal">nombreTienda</th>
+                    <th style="font-weight :normal">direccion</th>
+                    <th style="font-weight:normal">Modificar</th>
+                    <th style="font-weight :normal">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                require '../../Dao/rolDao.php';
+                require '../../Dto/rolDto.php';
+
+                $rDao = new rolDao();
+                $allUsers = $rDao->listarTodos();
+                foreach ($allUsers as $user) { ?>
+                    <tr class="text-center">
+                        <td><?php echo $user['id_Rol']; ?></td>
+                        <td><?php echo $user['nombreRol']; ?></td>
+                        <td><?php echo $user['descripcion']; ?></td>
+                        <td>
+                            <form action="actualizar.php" method="post">
+                                <input type="hidden" name="id_Rol" value="<?php echo $user['id_Rol']; ?>">
+                                <button type="submit" class="btn btn-warning">Modificar</button>
+                            </form>
+                        </td>
+                        <td><a class="btn btn-danger" href="../../controlador/controlador.rol.php?id_Rol=<?php echo $user['id_Rol']; ?>
+                    " onclick=" return confirmar(event);">Eliminar</a>
+                        </td>
+                    </tr>
+                    <?php
+                } ?>
+            </tbody>
+        </table>
+    </div>
 
 </body>
