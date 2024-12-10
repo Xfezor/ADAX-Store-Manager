@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ContextoSesion } from '../context/sesion.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/styles_iniciar_sesion.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,6 +12,7 @@ import axios from 'axios';
 
 
 const IniciarSesion = () => {
+    const { iniciarSesion } = useContext(ContextoSesion);
 
     const navigate = useNavigate();
 
@@ -70,6 +72,15 @@ const IniciarSesion = () => {
                         contrasena: password,
                     });
                     if (respuesta.data.success) {
+                        const usuarioData = email;
+                        const tienda = respuesta.data.nombreTienda;
+                        const rol = respuesta.data.rol;
+                        const codigo_invitacion = respuesta.data.codigo_invitacion;
+                        console.log(tienda);
+                        console.log("1",respuesta.data.nombreTienda);
+                        console.log("2",respuesta.nombreTienda);
+
+                        iniciarSesion(usuarioData,tienda,codigo_invitacion,rol);
                         console.log('inicio de sesion exitoso', respuesta.data)
                         navigate('/inicio');
                     } else {
@@ -104,8 +115,6 @@ const IniciarSesion = () => {
                     <form
                         id="cont1"
                         className={styles.Contenedorsesion}
-                        /*action="../Crud/login/procesologin.php?tipo=empleado"
-                        method="POST"*/
                         onSubmit={handleSubmit}
                         noValidate
                     >
