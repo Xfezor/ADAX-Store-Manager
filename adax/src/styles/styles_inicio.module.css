@@ -50,7 +50,7 @@ font-size: 45px;
 border-color: transparent;
 background-color: transparent;
 display: inline-block;
-margin-right: 2em;
+margin-right: 1em;
 transition: transform 0.3s ease;
 }
 .exit:hover{

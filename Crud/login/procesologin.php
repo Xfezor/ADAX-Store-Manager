@@ -37,14 +37,10 @@ if ($_GET["tipo"] === "empleado") {
         $sentencia = $cnn->prepare("SELECT nombreTienda,idtienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
         $sentencia->execute();
         $valor2 = $sentencia->fetch(PDO::FETCH_OBJ);
-        $_SESSION['nombre1'] = $valor->nombre1;
-        $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
-        $_SESSION['nombreTienda'] = $valor2->nombreTienda;
-        $_SESSION['idtienda'] = $valor2->idtienda;
-        if ($valor->rol_id_Rol === 1) {
-            $_SESSION['rol_id_Rol'] = $valor->rol_id_Rol;
-        }
-        echo json_encode(['success' => true]);
+        $cod = $valor->codigo_invitacion;
+        $nombreTienda = $valor2->nombreTienda;
+        $rol = $valor->rol_id_Rol;
+        echo json_encode(['success' => true, 'codigo_invitacion' => $cod, 'nombreTienda' => $nombreTienda, 'rol' => $rol]);
         exit();
     } else {
         echo json_encode(['success' => false]);

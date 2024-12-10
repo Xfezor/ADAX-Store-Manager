@@ -1,12 +1,10 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-const Contexto = createContext();
 
 const Usuarios = ({ children }) => {
     
@@ -41,8 +39,6 @@ const Usuarios = ({ children }) => {
     }, []);
 
     return (
-        <Contexto.Provider value={{ handleNavigate }}>
-            {children}
         <div>
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
                 <div className="container-fluid">
@@ -149,9 +145,8 @@ const Usuarios = ({ children }) => {
                 </DataTable>
             </div>
         </div>
-    </Contexto.Provider>
     );
 }
 
-export {Contexto, Usuarios};
+export default Usuarios;
 

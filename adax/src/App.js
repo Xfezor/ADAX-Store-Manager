@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
+import { ProveedorSesion } from './context/sesion.jsx';
 import Index from './components/index.jsx';
 import IniciarSesion from './components/iniciar_sesion.jsx';
 import Registro from './components/registro.jsx';
@@ -19,6 +20,7 @@ import Tienda from './components/CRUD/tienda.jsx';
 import Producto from './components/CRUD/producto.jsx';
 function App() {
   return (
+    <ProveedorSesion>
       <div>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -36,12 +38,12 @@ function App() {
           <Route path="/detalle_factura" element={<DetalleFactura />} />
           <Route path="/crud/usuarios" element={<Usuarios />} />
           <Route path="/crud/actualizar/actualizar_usuario" element={<ActualizarUsuarios />} />
-
           <Route path="/crud/tienda" element={<Tienda />} />
           <Route path="/crud/producto" element={<Producto />} />
           <Route path="*" element={<Index />} />
         </Routes>
       </div>
+    </ProveedorSesion>
   );
 }
 
