@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/styles_iniciar_sesion.module.css';
@@ -15,10 +15,13 @@ const IniciarSesion = () => {
     const { iniciarSesion } = useContext(ContextoSesion);
 
     const navigate = useNavigate();
-    
-    if (localStorage.getItem('usuario')){
-        navigate("/inicio");
+
+    const validadorSesion = () => {
+        if (localStorage.getItem('usuario')){
+            navigate("/inicio");
+        };
     }
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -96,6 +99,9 @@ const IniciarSesion = () => {
         }
 
     };
+    useEffect(() => {
+        validadorSesion();
+    },[])
 
     return (
         <>
