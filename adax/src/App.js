@@ -36,6 +36,7 @@ function App() {
           <Route path="/crud/factura" element={<Facturass />} />
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/gestionar_productos" element={<GestionarProductos />} />
+          <Route path="/gestionar_productos" element={<GestionarProductos />} />
           <Route path="/gestionar_proveedores" element={<Gestionarproveedores />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/analisis" element={<Analisis />} />
@@ -49,6 +50,7 @@ function App() {
           <Route path="/crud/proveedor" element={<Proveedor />} />
           
           <Route path="*" element={<Index />} />
+          <Route path="/crud/Proveedor" element={<Proveedor />} />
         </Routes>
       </div>
     </ProveedorSesion>
@@ -56,4 +58,3 @@ function App() {
 }
 
 export default App;
-
