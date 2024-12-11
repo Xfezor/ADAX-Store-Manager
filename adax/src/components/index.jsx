@@ -6,6 +6,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react';
 import { faRocket, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Carousel from './Carousel';
+console.log(styles)
 const Index = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => {
@@ -36,8 +37,8 @@ const Index = () => {
                         <FontAwesomeIcon icon={isOpen ? faTimes : faBars} />
                     </div>
                 </div>
-                <div className={`${styles.dropdown_menu} ${'dropdown_menu'} ${isOpen ? 'open' : ''}`} id="navbar2">
-                    <ul className={`${styles.dropdown_ul} ${'dropdown_ul'}`}>
+                <div className={`${styles.dropdown_menu} ${isOpen ? 'open' : ''}`} id="navbar2">
+                    <ul className={styles.dropdown_ul}>
                         <li><a href="#home">Sobre ADAX</a></li>
                         <li><a href="#beneficios">Servicios</a></li>
                         <li><a href="#footer">Contacto</a></li>
@@ -50,36 +51,7 @@ const Index = () => {
                 </div>
             </header>
             <Carousel/>
-            {/* <div className={styles['contenedor-carousel']} id="home">
-                <div id="carouselExampleControls" className={`${styles.carousel} ${styles.slide}`} data-bs-ride="carousel">
-                    <div className={styles['carousel-inner']}>
-                        <div className={styles.overlay}></div>
-                        <div className={`${styles['carousel-item']} ${styles.active}`}>
-                            <img src="/img/mandarinas.webp" className="d-block w-100" alt="First slide" />
-                        </div>
-                        <div className={styles['carousel-item']}>
-                            <img src="/img/ventafacil.webp" className="d-block w-100" alt="Second slide" />
-                        </div>
-                        <div className={styles['carousel-item']}>
-                            <img src="/img/abierto.webp" className="d-block w-100" alt="Third slide" />
-                        </div>
-                    </div>
-                    <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-                    </button>
-                    <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-                    </button>
-                    <div className={styles.cuadradito}>
-                        <h1 className={styles['pregunta-queEs']}>¿Qué es ADAX Store Manager?</h1>
-                        <p className={styles['text-queEs']}>Bienvenido a <b>ADAX STORE MANAGER</b> <br />
-                            Solución integral para tu negocio.<br /> Te ayudamos a administrar tu negocio</p>
-                    </div>
-                </div>
-            </div> */}
-            <section className={styles.seccion2} id="hacer">
+            <section className={`${styles.secindex} ${styles.seccion2}`} id="hacer">
                 <h1 className={styles.hacer}>¿Que podras hacer con ADAX Store Manager?</h1>
                 <div className={styles['contenedor-seccion2']}>
                     <div className={styles.registrodeventas}>
