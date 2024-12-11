@@ -145,4 +145,4 @@ const Proveedor = () => {
     );
 };
 
-export default Movimiento;
+export default Proveedor;

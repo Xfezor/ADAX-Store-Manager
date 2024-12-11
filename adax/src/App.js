@@ -33,7 +33,7 @@ function App() {
           <Route path="/restablecer_contrasena" element={<Restablecer />} />
           <Route path="/generar_pago" element={<Pago />} />
           <Route path="/factura" element={<Factura />} /> 
-          <Route path="/crud/facturass" element={<Facturass />} />
+          <Route path="/crud/factura" element={<Facturass />} />
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/gestionar_productos" element={<GestionarProductos />} />
           <Route path="/gestionar_proveedores" element={<Gestionarproveedores />} />
@@ -46,6 +46,7 @@ function App() {
           <Route path="/crud/actualizar/actualizar_usuario" element={<ActualizarUsuarios />} />
           <Route path="/crud/tienda" element={<Tienda />} />
           <Route path="/crud/producto" element={<Producto />} />
+          <Route path="/crud/proveedor" element={<Proveedor />} />
           
           <Route path="*" element={<Index />} />
         </Routes>

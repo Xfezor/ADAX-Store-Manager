@@ -111,7 +111,6 @@ if (isset($registro)||isset($_GET['no'])) {
 } else if (isset($id)) {
     $uDao = new UsuarioDao();
     $mensaje = $uDao->eliminarUsuario($id);
-    
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
 } else if (isset($_POST['modificar'])) {
