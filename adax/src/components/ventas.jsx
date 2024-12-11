@@ -24,7 +24,7 @@ const Ventas = () => {
   const rol = JSON.parse(rol1);
 
   const RolCrud = () => {
-    if (rol === "1") {
+    if (rol == "1") {
     return(
       <a onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
       </a>

@@ -24,7 +24,7 @@ function Analisis() {
     cerrarSesion();
   };
   const RolCrud = () => {
-    if (rol === "1") {
+    if (rol == "1") {
     return(
       <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
       </button>
