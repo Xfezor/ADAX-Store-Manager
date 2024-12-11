@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ContextoSesion } from '../context/sesion.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +8,7 @@ import styles from '../styles/styles_inicio.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
-
+  const navigate = useNavigate();
   const { cerrarSesion } = useContext(ContextoSesion);
 
   const usuario1 = localStorage.getItem('usuario');
@@ -21,11 +21,24 @@ const Inicio = () => {
   const codigo_invitacion = JSON.parse(codigo_invitacion1);
   const rol = JSON.parse(rol1);
 
-  console.log(usuario);
-
-
   const handleCerrarSesion = () => {
     cerrarSesion();
+  }
+  const validador = () => {
+    if (localStorage.getItem('usuario')) {
+      navigate("/inicio");
+    };
+  }
+  const RolCrud = () => {
+    if (rol === "1") {
+    return(
+      <a onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+      </a>
+    );
+    }
+  }
+  const CRUD = () => {
+    navigate('/crud/usuarios');
   }
 
   const Ventas = () => {
@@ -41,7 +54,7 @@ const Inicio = () => {
     navigate('/gestionarVentas');
   }
 
-  const navigate = useNavigate();
+
 
 
 
@@ -53,6 +66,9 @@ const Inicio = () => {
     console.log('Exit button clicked');
   };
 
+  useEffect(() => {
+    validador();
+  }, [])
   return (
     <>
       <header>
@@ -93,8 +109,7 @@ const Inicio = () => {
           <h1 className={styles.username}>Usuario: "{usuario}"</h1>
           <h1 className={styles.username}>Tienda: "{tienda}"</h1>
           <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
-          <a href="../Crud/tablas/tablas.php" className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-          </a>
+          <RolCrud />
           <button
             className="btn btn-danger"
             id={styles.cerrarsesion}
