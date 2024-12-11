@@ -1,23 +1,66 @@
 <?php
+header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
+    http_response_code(200);
+    exit();
+}
+
     require '../Dao/facturaDao.php';
     require '../Dto/facturaDto.php';
     require '../utilidades/conexion.php';
 
-if (isset($_POST['registrarFacturasCrud'])){
+    $data = json_decode(file_get_contents('php://input'), true);
+    if (isset($data['regristroFactura'])) {
+        $venta_id_Venta = $data['venta_id_Venta'];
+        $producto_id_Producto = $data['producto_id_Producto'];
+        $Cantidad = $data['Cantidad'];
+        $Precio = $data['Precio'];
+        $contrasena = $data['Estado'];
+
+    }
+    if (isset($data['listar'])) {
+        $listar = $data['listar'];
+    }
+
+if (isset($registrarFacturas)){
     $fDao = new facturaDao();
     $fDto = new facturaDto();
-    $fDto->setproducto_id_Producto($_POST['producto_id_Producto']);
-    $fDto->setCantidad($_POST['Cantidad']);
-    $fDto->setPrecio($_POST['Precio']);
-    $fDto->setEstado($_POST['Estado']);
+    $fDto->setventa_id_Venta($venta_id_Venta);
+    $fDto->setproducto_id_Producto($producto_id_Producto);
+    $fDto->setCantidad($Cantidad);
+    $fDto->setPrecio($Precio);
+    $fDto->setEstado($Estado);
     
     $mensaje = $fDao->registrarFactura($fDto);
-    echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        // Registration successful, redirect to login page or success page
-        header("Location:../../PAGINA/registro.php?registro=exitoso");
-        exit;
+        echo json_encode(['success' => true]);
+        exit();
     }
+
+} else if (isset($listar) ||isset($_GET['si'])) {
+    $fDao = new facturaDao();
+    $fDto = new facturaDto();
+    $lista = $fDao->listarTodos();
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $factura) {
+        
+        $response[] = [
+            $factura['venta_id_Venta'],
+            $factura['producto_id_Producto'],
+            $factura['Cantidad'],
+            $factura['Precio'],
+            $factura['Estado'],
+           
+    ];
+    }
+    echo json_encode($response);
+    exit();
+    
 
 }
 else if (isset($_POST['registrarfacturaCrud'])){

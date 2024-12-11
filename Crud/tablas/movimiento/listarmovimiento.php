@@ -8,7 +8,7 @@ if (!isset($_SESSION['nombre1'])) {
 } else {
     echo 'ocurrio un error';
 }
-?>
+?>movimient
 <!DOCTYPE html>
 <html lang="en">
 
@@ -148,11 +148,11 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['inventario_id_Inventario']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="id_Movimient" value="<?php echo $user['id_Movimiento']; ?>">
+                            <input type="hidden" name="id_Movimiento" value="<?php echo $user['id_Movimiento']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.movimiento.php?id_Movimient=<?php echo $user['id_Movimiento']; ?>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.movimiento.php?id_Movimiento=<?php echo $user['id_Movimiento']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                     </td>
                 </tr>
