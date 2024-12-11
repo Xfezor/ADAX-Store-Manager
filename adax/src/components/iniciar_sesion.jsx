@@ -16,11 +16,7 @@ const IniciarSesion = () => {
 
     const navigate = useNavigate();
 
-    const validadorSesion = () => {
-        if (localStorage.getItem('usuario')){
-            navigate("/inicio");
-        };
-    }
+
 
 
     const [email, setEmail] = useState('');
@@ -99,9 +95,15 @@ const IniciarSesion = () => {
         }
 
     };
+    // eslint-disable-next-line
     useEffect(() => {
+        const validadorSesion = () => {
+            if (localStorage.getItem('usuario')){
+                navigate("/inicio");
+            };
+        }
         validadorSesion();
-    },[validadorSesion])
+    },[navigate])
 
     return (
         <>
