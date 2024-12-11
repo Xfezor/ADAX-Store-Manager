@@ -47,7 +47,7 @@ function DetalleFactura() {
     useEffect(() => {
         const validador = () => {
             if (localStorage.getItem('usuario') === null) {
-                navigate("/inicio");
+                navigate("/iniciar_sesion");
             };
         };
         validador();
