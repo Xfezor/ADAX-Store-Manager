@@ -37,11 +37,7 @@ const Registro = () => {
     setIsEmpleado(false);
   };
 
-  const validador = () => {
-    if (localStorage.getItem('usuario')) {
-      navigate("/inicio");
-    };
-  }
+
 
   const backbutton = () => {
     console.log("Volver atrás");
@@ -265,8 +261,13 @@ const Registro = () => {
   }
 
   useEffect(() => {
+    const validador = () => {
+      if (localStorage.getItem('usuario')) {
+        navigate("/inicio");
+      };
+    }
     validador();
-  }, [validador]);
+  }, [navigate]);
   return (
     <>
       <header>
