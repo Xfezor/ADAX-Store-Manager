@@ -20,12 +20,13 @@ const Inicio = () => {
   const tienda = JSON.parse(tienda1);
   const codigo_invitacion = JSON.parse(codigo_invitacion1);
   const rol = JSON.parse(rol1);
+  console.log(rol);
 
   const handleCerrarSesion = () => {
     cerrarSesion();
   };
   const RolCrud = () => {
-    if (rol === "1") {
+    if (rol == "1") {
     return(
       <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
       </button>
