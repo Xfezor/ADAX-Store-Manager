@@ -21,7 +21,7 @@ import Producto from './components/CRUD/producto.jsx';
 import Movimiento from './components/CRUD/movimiento.jsx';
 import Facturass from './components/CRUD/facturass.jsx';
 import Cliente from './components/CRUD/cliente.jsx';
-import Proveedor  from './components/CRUD/proveedor.jsx';
+import Proveedor  from './components/CRUD/Proveedor.jsx';
 
 function App() {
   return (
