@@ -6,8 +6,8 @@ import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Usuarios = ({ children }) => {
-    
+const Usuarios = () => {
+
     const navigate = useNavigate();
 
     const handleNavigate = (row) => {
@@ -16,6 +16,10 @@ const Usuarios = ({ children }) => {
 
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
+
+    const usuario1 = localStorage.getItem('usuario');
+    const usuario = JSON.parse(usuario1);
+
 
 
     const Lista = async () => {
@@ -104,7 +108,7 @@ const Usuarios = ({ children }) => {
                                 </ul>
                             </li>
                         </ul>
-                        <span className="navbar-text me-3 active">Usuario:
+                        <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <a href="cerrarsesion.php" className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar
                             sesión</a>
