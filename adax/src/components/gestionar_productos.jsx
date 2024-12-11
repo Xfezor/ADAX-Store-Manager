@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { ContextoSesion } from '../context/sesion.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_productos.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,10 +7,34 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const GestionarProductos = () => {
-
   const navigate = useNavigate();
+  const { cerrarSesion } = useContext(ContextoSesion);
 
+  const usuario1 = localStorage.getItem('usuario');
+  const tienda1 = localStorage.getItem('tienda');
+  const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
+  const rol1 = localStorage.getItem('rol');
 
+  const usuario = JSON.parse(usuario1);
+  const tienda = JSON.parse(tienda1);
+  const codigo_invitacion = JSON.parse(codigo_invitacion1);
+  const rol = JSON.parse(rol1);
+  console.log(rol);
+
+  const handleCerrarSesion = () => {
+    cerrarSesion();
+  };
+  const RolCrud = () => {
+    if (rol == "1") {
+    return(
+      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+      </button>
+    );
+    }
+  };
+  const CRUD = () => {
+    navigate('/crud/usuarios');
+  };
   const backbutton = () => {
     console.log("Volver atrás");
     navigate(-1);

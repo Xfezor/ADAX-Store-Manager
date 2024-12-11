@@ -27,7 +27,7 @@ function GestionarVentas() {
     };
 
     const RolCrud = () => {
-        if (rol === "1") {
+        if (rol == "1") {
             return (
                 <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
                 </button>
@@ -71,7 +71,6 @@ function GestionarVentas() {
                     </button>
                 </div>
             </header>
-
             <div className={styles.container}>
                 <h1 className={styles['text-left']}>Factura</h1>
                 <input type="text" className={styles['form-control']} placeholder="Escriba un numero de venta o de producto" />
