@@ -121,9 +121,9 @@ const Usuarios = () => {
                         <button type="submit" className="btn btn-warning" onClick={() => handleNavigate(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])}>Modificar</button>
                     ),
                     12: (data, row) => (
-                        <a className="btn btn-danger" >
+                        <button className="btn btn-danger" >
                             Eliminar
-                        </a>
+                        </button>
                     )
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">

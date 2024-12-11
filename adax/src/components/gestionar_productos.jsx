@@ -25,11 +25,11 @@ const GestionarProductos = () => {
     cerrarSesion();
   };
   const RolCrud = () => {
-    if (rol == "1") {
-    return(
-      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-      </button>
-    );
+    if (rol === 1) {
+      return (
+        <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+        </button>
+      );
     }
   };
   const CRUD = () => {
@@ -44,15 +44,19 @@ const GestionarProductos = () => {
     console.log("Salir");
     navigate('/inicio');
   };
-  const index = () => {
-    console.log("Index");
-    navigate('/index');
-  }
 
   const gestionarprov = () => {
-  console.log ("Gestionar proveedores");
-  navigate('/gestionar_proveedores');
+    console.log("Gestionar proveedores");
+    navigate('/gestionar_proveedores');
   }
+  useEffect(() => {
+    const validador = () => {
+      if (localStorage.getItem('usuario') === null) {
+        navigate("/inicio");
+      };
+    };
+    validador();
+  }, [navigate])
   return (
     <div>
       <header>
@@ -94,9 +98,9 @@ const GestionarProductos = () => {
                   <td className={`${styles.tdgespro} ${styles.tdmarca}`}></td>
                   <td className={`${styles.tdgespro} ${styles.tdnombre}`}></td>
                   <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
-                      <button className={`{btn btn-danger`} id={styles["search-button"]}>
-                        Ver detalle
-                      </button>
+                    <button className={`{btn btn-danger`} id={styles["search-button"]}>
+                      Ver detalle
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -141,11 +145,16 @@ const GestionarProductos = () => {
         </div>
       </div>
       <footer>
-        <div className={styles["user"]}>
-          <h1 className={styles["username"]}>Usuario: ""</h1>
-          <h1 className={styles["username"]}>Tienda: ""</h1>
-          <h1 className={styles["username"]}>Código invitación: ""</h1>
-          <button className="btn btn-danger" onClick={index} >
+        <div className={styles.user}>
+          <h1 className={styles.username}>Usuario: "{usuario}"</h1>
+          <h1 className={styles.username}>Tienda: "{tienda}"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
+          <RolCrud />
+          <button
+            className="btn btn-danger"
+            id={styles.cerrarsesion}
+            onClick={handleCerrarSesion}
+          >
             Cerrar sesión
           </button>
         </div>
