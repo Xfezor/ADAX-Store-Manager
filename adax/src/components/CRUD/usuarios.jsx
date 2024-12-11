@@ -6,8 +6,8 @@ import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const Usuarios = ({ children }) => {
-    
+const Usuarios = () => {
+
     const navigate = useNavigate();
 
     const handleNavigate = (row) => {
@@ -16,11 +16,14 @@ const Usuarios = ({ children }) => {
 
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
+    const [mensaje,setMensaje] = useState(null);
 
+    const usuario1 = localStorage.getItem('usuario');
+    const usuario = JSON.parse(usuario1);
 
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
                 listar: true,
             });
             if (respuesta.data) {
@@ -28,6 +31,23 @@ const Usuarios = ({ children }) => {
             } else {
                 console.log('listado no exitoso', respuesta.data)
                 return null;
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
+    const Eliminar = async (id) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
+                eliminar: id,
+            });
+            if (respuesta.data.respuesta) {
+                setMensaje(respuesta.data.mensaje);
+                Lista();
+            } else {
+                console.log('no exitoso', respuesta.data.respuesta)
+                setMensaje(respuesta.data.mensaje);
             }
         } catch (err) {
             console.error(err);
@@ -104,10 +124,10 @@ const Usuarios = ({ children }) => {
                                 </ul>
                             </li>
                         </ul>
-                        <span className="navbar-text me-3 active">Usuario:
+                        <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
-                        <a href="cerrarsesion.php" className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar
-                            sesión</a>
+                        <a href="cerrarsesion.php" className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</a>
+                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
@@ -117,9 +137,9 @@ const Usuarios = ({ children }) => {
                         <button type="submit" className="btn btn-warning" onClick={() => handleNavigate(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])}>Modificar</button>
                     ),
                     12: (data, row) => (
-                        <a className="btn btn-danger" >
+                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
-                        </a>
+                        </button>
                     )
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">

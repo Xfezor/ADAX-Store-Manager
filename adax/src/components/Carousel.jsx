@@ -7,5 +7,4 @@ const Carousel = () => {
         </div>
     )
 }
-
-            export default Carousel
+export default Carousel
