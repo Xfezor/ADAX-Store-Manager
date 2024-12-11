@@ -13,6 +13,9 @@ const Usuarios = () => {
     const handleNavigate = (row) => {
         navigate(`/crud/actualizar/actualizarUsuario`);
     }
+    const handleRegistro = () => {
+        navigate("/crud/registrar_usuarios")
+    }
 
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
@@ -73,7 +76,7 @@ const Usuarios = () => {
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
                                     <li><a className="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="usuario/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item"  onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"

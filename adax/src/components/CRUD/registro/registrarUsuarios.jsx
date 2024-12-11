@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import axios from 'axios';
@@ -173,52 +173,53 @@ const RegistrarUsuarios = () => {
                     <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
                         <div className={`form-field col-lg-6 ${styles['form-field']}`}>
                             <input name="document" id="documento" value={documento} onChange={(e) => setDocumento(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="name">Documento</label>
+                            <label className={`${styles.label} label`} htmlFor="name">Documento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="tipoDoc2" id="tipodoc" value={tipoDoc} onChange={(e) => setTipoDoc(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="email">Tipo de documento</label>
+                            <label className={`${styles.label} label`} htmlFor="email">Tipo de documento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="contrasena" id="pass1" value={contrasena} onChange={(e) => setContrasena(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="company">Contraseña</label>
+                            <label className={`${styles.label} label`} htmlFor="company">Contraseña</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="correo" id="correo" value={email} onChange={(e) => setEmail(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="phone">Correo</label>
+                            <label className={`${styles.label} label`} htmlFor="phone">Correo</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="nombre1" id="nom1" value={nombre} onChange={(e) => setNombre(e.target.value)}  className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="phone">Nombre 1</label>
+                            <input name="nombre1" id="nom1" value={nombre} onChange={(e) => setNombre(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
+                            <label className={`${styles.label} label`} htmlFor="phone">Nombre 1</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="nombre2" id="text" value={nombre2} onChange={(e) => setNombre2(e.target.value)} className={`${styles['input-text']} js-input`} type="text" />
-                            <label className={`${styles.label} label`} for="company">Nombre 2</label>
+                            <label className={`${styles.label} label`} htmlFor="company">Nombre 2</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="apellido1" id="ape1" value={apellido} onChange={(e) => setApellido(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="phone">Apellido 1</label>
+                            <label className={`${styles.label} label`} htmlFor="phone">Apellido 1</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="apellido2" id="text" value={apellido2} onChange={(e) => setApellido2(e.target.value)} className={`${styles['input-text']} js-input`} type="text" />
-                            <label className={`${styles.label} label`} for="company">Apellido 2</label>
+                            <label className={`${styles.label} label`} htmlFor="company">Apellido 2</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="idrol" id="idrol" value={idrol} onChange={(e) => setRol(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="phone">Id rol</label>
+                            <label className={`${styles.label} label`} htmlFor="phone">Id rol</label>
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="codigoinvitacion" id="codinv" value={codigoinv} onChange={(e) => setCodigoinv(e.target.value)} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} for="phone">Codigo invitacion</label>
+                            <label className={`${styles.label} label`} htmlFor="phone">Codigo invitacion</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <a href="listarusuarios.php"><input className={styles['submit-btn']} value="cancelar" /></a>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="registrocrud" className={styles['submit-btn']} type="submit" value="Registrar" />
+                            <input name="registrocrud" className={styles['submit-btn']} type="submit" value="registrar" />
                         </div>
                     </form>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                 </section>
             </div>
         </>
