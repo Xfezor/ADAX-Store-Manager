@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { ContextoSesion } from '../context/sesion.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_productos.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,10 +7,34 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const GestionarProductos = () => {
-
   const navigate = useNavigate();
+  const { cerrarSesion } = useContext(ContextoSesion);
 
+  const usuario1 = localStorage.getItem('usuario');
+  const tienda1 = localStorage.getItem('tienda');
+  const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
+  const rol1 = localStorage.getItem('rol');
 
+  const usuario = JSON.parse(usuario1);
+  const tienda = JSON.parse(tienda1);
+  const codigo_invitacion = JSON.parse(codigo_invitacion1);
+  const rol = JSON.parse(rol1);
+  console.log(rol);
+
+  const handleCerrarSesion = () => {
+    cerrarSesion();
+  };
+  const RolCrud = () => {
+    if (rol === 1) {
+      return (
+        <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+        </button>
+      );
+    }
+  };
+  const CRUD = () => {
+    navigate('/crud/usuarios');
+  };
   const backbutton = () => {
     console.log("Volver atrás");
     navigate(-1);
@@ -19,15 +44,19 @@ const GestionarProductos = () => {
     console.log("Salir");
     navigate('/inicio');
   };
-  const index = () => {
-    console.log("Index");
-    navigate('/index');
-  }
 
   const gestionarprov = () => {
-  console.log ("Gestionar proveedores");
-  navigate('/gestionar_proveedores');
+    console.log("Gestionar proveedores");
+    navigate('/gestionar_proveedores');
   }
+  useEffect(() => {
+    const validador = () => {
+      if (localStorage.getItem('usuario') === null) {
+        navigate("/inicio");
+      };
+    };
+    validador();
+  }, [navigate])
   return (
     <div>
       <header>
@@ -69,9 +98,9 @@ const GestionarProductos = () => {
                   <td className={`${styles.tdgespro} ${styles.tdmarca}`}></td>
                   <td className={`${styles.tdgespro} ${styles.tdnombre}`}></td>
                   <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
-                      <button className={`{btn btn-danger`} id={styles["search-button"]}>
-                        Ver detalle
-                      </button>
+                    <button className={`{btn btn-danger`} id={styles["search-button"]}>
+                      Ver detalle
+                    </button>
                   </td>
                 </tr>
               </tbody>
@@ -116,11 +145,16 @@ const GestionarProductos = () => {
         </div>
       </div>
       <footer>
-        <div className={styles["user"]}>
-          <h1 className={styles["username"]}>Usuario: ""</h1>
-          <h1 className={styles["username"]}>Tienda: ""</h1>
-          <h1 className={styles["username"]}>Código invitación: ""</h1>
-          <button className="btn btn-danger" onClick={index} >
+        <div className={styles.user}>
+          <h1 className={styles.username}>Usuario: "{usuario}"</h1>
+          <h1 className={styles.username}>Tienda: "{tienda}"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
+          <RolCrud />
+          <button
+            className="btn btn-danger"
+            id={styles.cerrarsesion}
+            onClick={handleCerrarSesion}
+          >
             Cerrar sesión
           </button>
         </div>

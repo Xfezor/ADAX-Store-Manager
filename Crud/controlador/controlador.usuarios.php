@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
     http_response_code(200);
     exit();
-}
+};
 
 require '../Dao/usuariosDao.php';
 require '../Dto/usuariosDto.php';
@@ -38,6 +38,9 @@ if (isset($data['registro'])) {
 }
 if (isset($data['listar'])) {
     $listar = $data['listar'];
+}
+if (isset($data['eliminar'])) {
+    $id = $data['eliminar'];
 }
 
 
@@ -105,10 +108,11 @@ if (isset($registro)||isset($_GET['no'])) {
         header("Location:../tablas/usuario/listarusuarios.php?mensaje=registro exitoso");
         exit();
     }
-} else if ($_GET['docu'] != null) {
+} else if (isset($id)) {
     $uDao = new UsuarioDao();
-    $mensaje = $uDao->eliminarUsuario($_GET['docu']);
-    header("Location:../tablas/usuario/listarusuarios.php?mensaje=" . $mensaje);
+    $mensaje = $uDao->eliminarUsuario($id);
+    
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
 } else if (isset($_POST['modificar'])) {
     $uDao = new UsuarioDao();

@@ -27,33 +27,37 @@ if (!isset($_SESSION['nombre1'])) {
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.6/css/dataTables.dataTables.css" />
-
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.1.6/js/dataTables.js"></script>
+
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ADAX - CRUD</a>
+            <a class="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../usuario/listarusuarios.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../usuario/registrar.php">registrar</a></li>
-                        </ul>
+                    <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Usuarios
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="../usuario/listarusuarios.php">Lista</a></li>
+                        <li><a class="dropdown-item" href="../usuario/registrar.php">Registrar</a></li>
+                    </ul>
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Tienda</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../tienda/listartienda.php">lista</a></li>
-                            <li><a class="dropdown-item" href="../tienda/registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="tienda/listartienda.php">lista</a></li>
+                            <li><a class="dropdown-item" href="tienda/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -80,54 +84,69 @@ if (!isset($_SESSION['nombre1'])) {
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Movimiento
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/listarproveedor.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Inventario</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../inventario/listarinventario.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../inventario/registrar.php">registrar</a></li>
+                        </ul>
+
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Roles
+                            cliente
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="listaroles.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../cliente/listarcliente.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../cliente/registrar.php">registrar</a></li>
+                        </ul>
+
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Movimiento</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../movimiento/listarmovimiento.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../movimiento/registrar.php">registrar</a></li>
                         </ul>
                     </li>
-                </ul>
-                <span class="navbar-text me-3 active">Usuario:
-                    <?php
-                    echo $_SESSION['nombre1'];
-                    ?>
-                </span>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">Metodos de Pago</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../metodos_Pago/listarmetodospago.php">lista</a></li>
+                            <li><a class="dropdown-item" href="../metodos_Pago/registrar.php">registrar</a></li>
+                        </ul>
+                    </li>
 
-                <a href="../cerrarsesion.php" class="btn btn-outline-danger float-right end-0 me-0" type="submit">
-                    cerrar sesión
-                </a>
-                <?php
-                if (isset($_GET['mensaje'])) {
-
-
-                    ?>
-                    <span class="navbar-text me-3 ms-3 active">Operacion: <?php echo $_GET['mensaje'] ?>
+                    <span class="navbar-text me-3 active">Usuario:
+                        <?php
+                        echo $_SESSION['nombre1'];
+                        ?>
                     </span>
+
+                    <a href="../cerrarsesion.php" class="btn btn-outline-danger float-right end-0 me-0"
+                        type="submit">cerrar
+                        sesión</a>
                     <?php
-                }
-                ?>
+                    if (isset($_GET['mensaje'])) {
+
+
+                        ?>
+                        <span class="navbar-text me-3 ms-3 active">Operacion: <?php echo $_GET['mensaje'] ?>
+                        </span>
+                        <?php
+                    }
+                    ?>
             </div>
         </div>
     </nav>
@@ -135,32 +154,30 @@ if (!isset($_SESSION['nombre1'])) {
         <table id="urstable" class="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
         <thead class="table-dark light-header">
                 <tr class="text-center">
-                    <th style="font-weight:normal">Id del rol</th>
-                    <th style="font-weight:normal">nombreTienda</th>
-                    <th style="font-weight :normal">direccion</th>
+                    <th style="font-weight:normal">Id del Metodo de Pago</th>
+                    <th style="font-weight:normal">Nombre del Metodo de Pago</th>
                     <th style="font-weight:normal">Modificar</th>
                     <th style="font-weight :normal">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                require '../../Dao/rolDao.php';
-                require '../../Dto/rolDto.php';
+                require '../../Dao/metodopagoDao.php';
+                require '../../Dto/metodopagoDto.php';
 
-                $rDao = new rolDao();
-                $allUsers = $rDao->listarTodos();
+                $mpDao = new metodopagoDao();
+                $allUsers = $mpDao->listarTodos();
                 foreach ($allUsers as $user) { ?>
                     <tr class="text-center">
-                        <td><?php echo $user['id_Rol']; ?></td>
-                        <td><?php echo $user['nombreRol']; ?></td>
-                        <td><?php echo $user['descripcion']; ?></td>
+                        <td><?php echo $user['ID_Met_pago']; ?></td>
+                        <td><?php echo $user['Nombre']; ?></td>
                         <td>
-                            <form action="actualizar.php" method="post">
-                                <input type="hidden" name="id_Rol" value="<?php echo $user['id_Rol']; ?>">
+                            <form action="actualizar.php" method="POST">
+                                <input type="hidden" name="ID_Met_pago" value="<?php echo $user['ID_Met_pago']; ?>">
                                 <button type="submit" class="btn btn-warning">Modificar</button>
                             </form>
                         </td>
-                        <td><a class="btn btn-danger" href="../../controlador/controlador.rol.php?id_Rol=<?php echo $user['id_Rol']; ?>
+                        <td><a class="btn btn-danger" href="../../controlador/controlador.metodospago.php?ID_Met_pago=<?php echo $user['ID_Met_pago']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                         </td>
                     </tr>
@@ -169,5 +186,5 @@ if (!isset($_SESSION['nombre1'])) {
             </tbody>
         </table>
     </div>
-
 </body>
+</html>

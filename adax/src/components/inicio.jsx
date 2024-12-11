@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useContext, useEffect } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -8,41 +8,61 @@ import styles from '../styles/styles_inicio.module.css';
 import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
+  const navigate = useNavigate();
+  const { cerrarSesion } = useContext(ContextoSesion);
 
-  const { usuario } = useContext(ContextoSesion);
-  const { tienda } = useContext(ContextoSesion);
-  const { codigo_invitacion } = useContext(ContextoSesion);
-  const { rol } = useContext(ContextoSesion);
-  console.log(usuario);
-  console.log(tienda);
-  console.log(codigo_invitacion);
+  const usuario1 = localStorage.getItem('usuario');
+  const tienda1 = localStorage.getItem('tienda');
+  const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
+  const rol1 = localStorage.getItem('rol');
+
+  const usuario = JSON.parse(usuario1);
+  const tienda = JSON.parse(tienda1);
+  const codigo_invitacion = JSON.parse(codigo_invitacion1);
+  const rol = JSON.parse(rol1);
   console.log(rol);
 
+  const handleCerrarSesion = () => {
+    cerrarSesion();
+  };
+  const RolCrud = () => {
+    if (rol === 1) {
+    return(
+      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+      </button>
+    );
+    }
+  };
+  const CRUD = () => {
+    navigate('/crud/usuarios');
+  };
   const Ventas = () => {
     navigate('/ventas');
   };
   const GestionarProductos = () => {
     navigate('/gestionar_productos');
-  }
+  };
   const Analisis = () => {
     navigate('/analisis');
-  }
+  };
   const GestionarVentas = () => {
-    navigate('/gestionarVentas');
-  }
-
-  const navigate = useNavigate();
-
-
-
+    navigate('/gestionar_ventas');
+  };
   const backbutton = () => {
     console.log('Back button clicked');
   };
-
   const exitbutton = () => {
     console.log('Exit button clicked');
   };
 
+  useEffect(() => {
+    const validador = () => {
+        if (localStorage.getItem('usuario') === null) {
+            navigate("/inicio");
+        };
+    };
+    validador();
+}, [navigate])
   return (
     <>
       <header>
@@ -83,12 +103,11 @@ const Inicio = () => {
           <h1 className={styles.username}>Usuario: "{usuario}"</h1>
           <h1 className={styles.username}>Tienda: "{tienda}"</h1>
           <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
-          <a href="../Crud/tablas/tablas.php" className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-          </a>
+          <RolCrud />
           <button
             className="btn btn-danger"
             id={styles.cerrarsesion}
-            onClick=""
+            onClick={handleCerrarSesion}
           >
             Cerrar sesión
           </button>
