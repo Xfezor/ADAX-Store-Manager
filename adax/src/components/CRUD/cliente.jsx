@@ -1,16 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 
-
-
 const Cliente = ({children}) => {
     DataTable.use(DT);
     const [clientes, setClientes] = useState([]);
 
+    const navigate = useNavigate();
+
+    const listarUsuarios = () => {
+        navigate('/CRUD/usuarios')
+    }
+    const listarTienda = () => {
+        navigate('/CRUD/tienda')
+    }
+    const listarProductos = () => {
+        navigate('/CRUD/producto')
+    }
+    const listarFacturas = () => {
+        navigate('/CRUD/facturas')
+    }
+    const listarFactura = () => {
+        navigate('/CRUD/venta')
+    }
+    const listarClientes = () => {
+        navigate ('/CRUD/cliente')
+    }
     const Lista = async () => {
         try {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
@@ -46,55 +65,65 @@ const Cliente = ({children}) => {
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="usuario/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" onClick={listarUsuarios}>Listar</a></li>
+                                    <li><a className="dropdown-item" href="usuario/registrar.php" >Registrar</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="tienda/listartienda.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="tienda/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" onClick={listarTienda}>Listar</a></li>
+                                    <li><a className="dropdown-item" href="tienda/registrar.php">Registrar</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Producto</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="producto/listarproducto.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="producto/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" onClick={listarProductos}>Listar</a></li>
+                                    <li><a className="dropdown-item" href="producto/registrar.php">Registrar</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Factura</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="factura/listarfactura.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="factura/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" onClick={listarFactura}>Listar</a></li>
+                                    <li><a className="dropdown-item" href="factura/registrar.php">Registrar</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Venta</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="venta/listarventa.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="venta/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" onClick={listarFactura}>Listar</a></li>
+                                    <li><a className="dropdown-item" href="venta/registrar.php">Registrar</a></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Proveedor</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="proveedor/listarproveedor.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="proveedor/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" href="proveedor/listarproveedor.php">Listar</a></li>
+                                    <li><a className="dropdown-item" href="proveedor/registrar.php">Registrar</a></li>
                                 </ul>
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" 
+                                    aria-expanded="false">Movimiento</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="Amovimiento/registrar.php">registrar</a></li>
+                                    <li><a className="dropdown-item" href="movimiento/listarmovimiento.php">Listar</a></li>
+                                    <li><a className="dropdown-item" href="movimiento/registrar.php">Registrar</a></li>
+                                </ul>
+                            </li>
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" 
+                                    aria-expanded="false">Movimiento</a>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="movimiento/listarmovimiento.php">Listar</a></li>
+                                    <li><a className="dropdown-item" href="movimiento/registrar.php">Registrar</a></li>
                                 </ul>
                             </li>
                         </ul>
