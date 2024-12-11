@@ -24,22 +24,16 @@ const Ventas = () => {
   const rol = JSON.parse(rol1);
 
   const RolCrud = () => {
-    if (rol == "1") {
+    if (rol === 1) {
     return(
-      <a onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-      </a>
+      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+      </button>
     );
     }
   }
   const CRUD = () => {
     navigate('/crud/usuarios');
   }
-  const validador = () => {
-    if (localStorage.getItem('usuario') === null) {
-      navigate("/inicio");
-    };
-  };
-
   const generarPago = () => {
     console.log("Generar pago");
     navigate('/generar_pago');
@@ -65,8 +59,13 @@ const Ventas = () => {
       navigate('/inicio');
   };
   useEffect(() => {
+    const validador = () => {
+        if (localStorage.getItem('usuario') === null) {
+            navigate("/inicio");
+        };
+    };
     validador();
-  }, [validador])
+}, [navigate])
   return (
     <>
       <header>
