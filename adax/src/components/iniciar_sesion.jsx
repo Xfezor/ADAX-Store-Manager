@@ -101,7 +101,7 @@ const IniciarSesion = () => {
     };
     useEffect(() => {
         validadorSesion();
-    },[])
+    },[validadorSesion])
 
     return (
         <>
