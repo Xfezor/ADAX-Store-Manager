@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { ContextoSesion } from '../context/sesion.jsx';
 import { useNavigate } from 'react-router-dom';  
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';  
 import './styles/styles_detalle_producto.css';  
 
 export function Detalle() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { cerrarSesion } = useContext(ContextoSesion);
 
-  
+  const usuario1 = localStorage.getItem('usuario');
+  const tienda1 = localStorage.getItem('tienda');
+  const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
+  const rol1 = localStorage.getItem('rol');
+
+  const usuario = JSON.parse(usuario1);
+  const tienda = JSON.parse(tienda1);
+  const codigo_invitacion = JSON.parse(codigo_invitacion1);
+  const rol = JSON.parse(rol1);
+
+  const handleCerrarSesion = () => {
+    cerrarSesion();
+  };
+  const RolCrud = () => {
+    if (rol === 1) {
+    return(
+      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+      </button>
+    );
+    }
+  };
+  const CRUD = () => {
+    navigate('/crud/usuarios');
+  };
   const backbutton = () => {
     console.log("Volver");
     navigate(-1);  
@@ -19,6 +44,14 @@ export function Detalle() {
     navigate('/inicio');  
   };
 
+  useEffect(() => {
+    const validador = () => {
+        if (localStorage.getItem('usuario') === null) {
+            navigate("/inicio");
+        };
+    };
+    validador();
+}, [navigate])
   return (
     <div>
       <header>
@@ -91,14 +124,17 @@ export function Detalle() {
           </button>
         </div>
       </div>
-
-     
       <footer>
-        <div className="user">
-          <h1 className="username">Usuario: "Pepito Peréz"</h1>
-          <h1 className="username">Tienda: "Los peregrinos"</h1>
-          <h1 className="username">Código invitación: "TX435SX"</h1>
-          <button className="btn btn-danger" id="cerrarsesion">
+        <div className={styles.user}>
+          <h1 className={styles.username}>Usuario: "{usuario}"</h1>
+          <h1 className={styles.username}>Tienda: "{tienda}"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
+          <RolCrud />
+          <button
+            className="btn btn-danger"
+            id={styles.cerrarsesion}
+            onClick={handleCerrarSesion}
+          >
             Cerrar sesión
           </button>
         </div>

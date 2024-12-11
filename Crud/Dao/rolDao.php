@@ -15,7 +15,6 @@ class rolDao
             $query->bindParam(1, $id_Rol);
             $query->bindParam(2, $nombreRol);
             $query->bindParam(3, $descripcion);
-
             $query->execute();
             $mensaje = 'Rol registrado con exito';
         } catch (Exception $ex) {
@@ -61,23 +60,22 @@ class rolDao
 
     public function modificarRol(rolDto $rolDto)
     {
-        $conn = Conexion::getConexion();
-        $mensaje = '';
-        $id_Rol = $rolDto->getid_Rol();
+        $cnn = Conexion::getConexion();
+        $mensaje = "";
+        $id_Rol = $rolDto->getId_Rol();
         $nombreRol = $rolDto->getnombreRol();
         $descripcion = $rolDto->getdescripcion();
         try {
-            $query = $conn->prepare("UPDATE rol SET nombreRol = ?, descripcion = ? WHERE id_Rol = ?");
+            $query = $cnn->prepare("UPDATE rol SET nombreRol=?, descripcion=? WHERE id_Rol=?");
             $query->bindParam(1, $nombreRol);
             $query->bindParam(2, $descripcion);
             $query->bindParam(3, $id_Rol);
-
             $query->execute();
-            $mensaje = 'Rol modificado con exito';
+            $mensaje = "Registro actualizado";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
-        $conn = null;
+        $cnn = null;
         return $mensaje;
     }
 

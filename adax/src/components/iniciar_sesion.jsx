@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../styles/styles_iniciar_sesion.module.css';
@@ -15,6 +15,13 @@ const IniciarSesion = () => {
     const { iniciarSesion } = useContext(ContextoSesion);
 
     const navigate = useNavigate();
+
+    const validadorSesion = () => {
+        if (localStorage.getItem('usuario')){
+            navigate("/inicio");
+        };
+    }
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -76,10 +83,6 @@ const IniciarSesion = () => {
                         const tienda = respuesta.data.nombreTienda;
                         const rol = respuesta.data.rol;
                         const codigo_invitacion = respuesta.data.codigo_invitacion;
-                        console.log(tienda);
-                        console.log("1",respuesta.data.nombreTienda);
-                        console.log("2",respuesta.nombreTienda);
-
                         iniciarSesion(usuarioData,tienda,codigo_invitacion,rol);
                         console.log('inicio de sesion exitoso', respuesta.data)
                         navigate('/inicio');
@@ -96,6 +99,9 @@ const IniciarSesion = () => {
         }
 
     };
+    useEffect(() => {
+        validadorSesion();
+    },[validadorSesion])
 
     return (
         <>
