@@ -15,7 +15,7 @@ require '../Dto/tiendaDto.php';
 require '../utilidades/conexion.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (isset($data['regristroTienda'])) {
+if (isset($data['registroTienda'])) {
     $nombreTienda = $data['nombreTienda'];
     $telefono = $data['telefono'];
     $email = $data['email'];
@@ -31,7 +31,7 @@ if (isset($registroTienda)) {
     $tDao = new tiendaDao();
     $tDto = new tiendaDto();
     $tDto->setNombreTienda($nombreTienda);
-    $tDto->setDireccion($telefono);
+    $tDto->setDireccion($direccion);
     $tDto->setTelefono($telefono);
     $tDto->setCorreo($email);
     $tDto->setContrasena($contrasena);
