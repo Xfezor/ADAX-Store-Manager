@@ -81,7 +81,6 @@ session_start();
                 <div class="form-field col-lg-6">
                     <input name="registrocrud" class="submit-btn" type="submit" value="Registrar">
                 </div>
-
             </form>
         </section>
     </div>

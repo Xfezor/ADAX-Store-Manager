@@ -36,6 +36,19 @@ if (isset($data['registro'])) {
     $codigo_invitacion = $data['codigo_invitacion'];
     $registro = $data['registro'];
 }
+if (isset($data['registroCrud'])) {
+    $documento = $data['documento'];
+    $tipodoc = $data['tipoDoc'];
+    $contrasena = $data['contrasena'];
+    $nombre1 = $data['nombre'];
+    $nombre2 = $data['nombre2'];
+    $apellido1 = $data['apellido'];
+    $apellido2 = $data['apellido2'];
+    $email = $data['email'];
+    $codigo_invitacion = $data['codigo_invitacion'];
+    $idRol = $data['idRol'];
+    $registroCrud = $data['registroCrud'];
+}
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
@@ -88,24 +101,23 @@ if (isset($registro)||isset($_GET['no'])) {
     }
     echo json_encode($response);
     exit();
-} else if (isset($_POST['registrocrud'])) {
+} else if (isset($registroCrud)) {
     $uDao = new UsuarioDao();
     $uDto = new usuarioDto();
-    $uDto->setDocumento($_POST['document']);
-    $uDto->setTipo_doc($_POST['tipodoc']);
-    $uDto->setContrasena($_POST['contrasena']);
-    $uDto->setNombre1($_POST['nombre1']);
-    $uDto->setNombre2($_POST['nombre2']);
-    $uDto->setApellido1($_POST['apellido1']);
-    $uDto->setApellido2($_POST['apellido2']);
-    $uDto->setCorreo($_POST['correo']);
-    $uDto->setRol_id_Rol($_POST['idrol']);
-    $uDto->setCodigoInvitacion($_POST['codigoinvitacion']);
+    $uDto->setDocumento($documento);
+    $uDto->setTipo_doc($tipodoc);
+    $uDto->setContrasena($contrasena);
+    $uDto->setNombre1($nombre1);
+    $uDto->setNombre2($nombre2);
+    $uDto->setApellido1($apellido1);
+    $uDto->setApellido2($apellido2);
+    $uDto->setCorreo($email);
+    $uDto->setRol_id_Rol($idRol);
+    $uDto->setCodigoInvitacion($codigo_invitacion);
 
     $mensaje = $uDao->registrarUsuario($uDto);
-    echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        header("Location:../tablas/usuario/listarusuarios.php?mensaje=registro exitoso");
+        echo json_encode(['success' => true]);
         exit();
     }
 } else if (isset($id)) {
