@@ -1,35 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const Cliente = ({children}) => {
-    DataTable.use(DT);
-    const [clientes, setClientes] = useState([]);
+
+const Cliente = () => {
 
     const navigate = useNavigate();
 
-    const listarUsuarios = () => {
-        navigate('/CRUD/usuarios')
+    const handleCerrarSesion = () => {
+        navigate("/inicio");
     }
-    const listarTienda = () => {
-        navigate('/CRUD/tienda')
+    const handleRegistro = () => {
+        navigate("/crud/registrar_usuarios")
     }
-    const listarProductos = () => {
-        navigate('/CRUD/producto')
+    const handleUsuario = () => {
+        navigate("/crud/usuarios")
     }
-    const listarFacturas = () => {
-        navigate('/CRUD/facturas')
+    const handleTienda = () => {
+        navigate("/crud/tienda")
     }
-    const listarFactura = () => {
-        navigate('/CRUD/venta')
+    const handleProducto = () => {
+        navigate("/crud/producto")
     }
-    const listarClientes = () => {
-        navigate ('/CRUD/cliente')
+    const handleFactura = () => {
+        navigate("/crud/factura")
     }
+    const handleCliente = () => {
+        navigate("/crud/cliente")
+    }
+    const handleProveedor = () => {
+        navigate("/crud/proveedor")
+    }
+    const handleMovimiento = () => {
+        navigate("/crud/movimiento")
+    }
+
+    DataTable.use(DT);
+    const [clientes, setClientes] = useState([]);
+    // eslint-disable-next-line
+    const [mensaje, setMensaje] = useState(null);
+
+    const usuario1 = localStorage.getItem('usuario');
+    const usuario = JSON.parse(usuario1);
+
+
     const Lista = async () => {
         try {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
@@ -62,75 +80,65 @@ const Cliente = ({children}) => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul className="navbar-nav">
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" onClick={listarUsuarios}>Listar</a></li>
-                                    <li><a className="dropdown-item" href="usuario/registrar.php" >Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleUsuario}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" onClick={listarTienda}>Listar</a></li>
-                                    <li><a className="dropdown-item" href="tienda/registrar.php">Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown"
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Producto</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" onClick={listarProductos}>Listar</a></li>
-                                    <li><a className="dropdown-item" href="producto/registrar.php">Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleProducto}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Factura</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" onClick={listarFactura}>Listar</a></li>
-                                    <li><a className="dropdown-item" href="factura/registrar.php">Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleFactura}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">Venta</a>
+                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Cliente</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" onClick={listarFactura}>Listar</a></li>
-                                    <li><a className="dropdown-item" href="venta/registrar.php">Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleCliente}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Proveedor</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="proveedor/listarproveedor.php">Listar</a></li>
-                                    <li><a className="dropdown-item" href="proveedor/registrar.php">Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleProveedor}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" 
-                                    aria-expanded="false">Movimiento</a>
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="movimiento/listarmovimiento.php">Listar</a></li>
-                                    <li><a className="dropdown-item" href="movimiento/registrar.php">Registrar</a></li>
-                                </ul>
-                            </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" 
-                                    aria-expanded="false">Movimiento</a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="movimiento/listarmovimiento.php">Listar</a></li>
-                                    <li><a className="dropdown-item" href="movimiento/registrar.php">Registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleMovimiento}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                         </ul>
-                        <span className="navbar-text me-3 active">Usuario:
+                        <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
-                        <a href="cerrarsesion.php" className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar
-                            sesión</a>
+                        <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
+                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
@@ -150,15 +158,15 @@ const Cliente = ({children}) => {
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th style={{'fontWeight' : 'normal'}}>id_Cliente</th>
-                            <th style={{'fontWeight' : 'normal'}}>Documento</th>
-                            <th style={{'fontWeight' : 'normal'}}>Nombre1_Cliente</th>
-                            <th style={{'fontWeight' : 'normal'}}>Nombre2_Cliente</th>
-                            <th style={{'fontWeight' : 'normal'}}>Apellido1_Cliente</th>
-                            <th style={{'fontWeight' : 'normal'}}>Apellido2_Cliente</th>
-                            <th style={{'fontWeight' : 'normal'}}>Tipo_documento</th>
-                            <th style={{'fontWeight' : 'normal'}}>Modificar</th>
-                            <th style={{'fontWeight' : 'normal'}}>Eliminar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>id_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Documento</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Nombre1_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Nombre2_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Apellido1_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Apellido2_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Tipo_documento</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>

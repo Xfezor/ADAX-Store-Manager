@@ -20,6 +20,7 @@ import Tienda from './components/CRUD/tienda.jsx';
 import Producto from './components/CRUD/producto.jsx';
 import Movimiento from './components/CRUD/movimiento.jsx';
 import Facturass from './components/CRUD/facturass.jsx';
+import Cliente from './components/CRUD/cliente.jsx';
 import Proveedor  from './components/CRUD/proveedor.jsx';
 
 function App() {
@@ -48,8 +49,8 @@ function App() {
           <Route path="/crud/tienda" element={<Tienda />} />
           <Route path="/crud/producto" element={<Producto />} />
           <Route path="/crud/proveedor" element={<Proveedor />} />
+          <Route path="/crud/cliente" element={<Cliente />} />
           <Route path="*" element={<Index />} />
-          <Route path="/crud/Proveedor" element={<Proveedor />} />
         </Routes>
       </div>
     </ProveedorSesion>

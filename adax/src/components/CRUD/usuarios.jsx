@@ -10,16 +10,40 @@ const Usuarios = () => {
 
     const navigate = useNavigate();
 
+    const handleCerrarSesion = () => {
+        navigate("/inicio");
+    }
     const handleNavigate = (row) => {
         navigate(`/crud/actualizar/actualizarUsuario`);
     }
     const handleRegistro = () => {
         navigate("/crud/registrar_usuarios")
     }
+    const handleUsuario = () => {
+        navigate("/crud/usuarios")
+    }
+    const handleTienda = () => {
+        navigate("/crud/tienda")
+    }
+    const handleProducto = () => {
+        navigate("/crud/producto")
+    }
+    const handleFactura = () => {
+        navigate("/crud/factura")
+    }
+    const handleCliente = () => {
+        navigate("/crud/cliente")
+    }
+    const handleProveedor = () => {
+        navigate("/crud/proveedor")
+    }
+    const handleMovimiento = () => {
+        navigate("/crud/movimiento")
+    }
 
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
-    const [mensaje,setMensaje] = useState(null);
+    const [mensaje, setMensaje] = useState(null);
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
@@ -75,61 +99,61 @@ const Usuarios = () => {
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="usuario/listarusuarios.php">lista</a></li>
-                                    <li><button className="dropdown-item"  onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleUsuario}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="tienda/listartienda.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="tienda/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Producto</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="producto/listarproducto.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="producto/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleProducto}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Factura</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="factura/listarfactura.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="factura/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleFactura}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">Venta</a>
+                                    aria-expanded="false">Cliente</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="venta/listarventa.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="venta/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleCliente}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Proveedor</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="proveedor/listarproveedor.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="proveedor/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleProveedor}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
 
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="movimiento/listarmovimiento.php">lista</a></li>
-                                    <li><a className="dropdown-item" href="Amovimiento/registrar.php">registrar</a></li>
+                                    <li><button className="dropdown-item" onClick={handleMovimiento}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                         </ul>
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
-                        <a href="cerrarsesion.php" className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</a>
+                        <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
                         <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
