@@ -26,6 +26,7 @@ body {
   margin-bottom: 0;
   margin-top: 0.5%;
   color: #000;
+  font-weight:bold;
 }
 ul {
   margin-left: 0;
@@ -38,7 +39,7 @@ li {
 .a {
   text-decoration: none;
   color: #000;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bolder;
 }
 .alink {
@@ -65,7 +66,7 @@ li {
   grid-row: 2;
   z-index: 2;
   bottom: 0;
-  width: 60%;
+  width: 100%;
   margin-bottom: 5%;
 }
 /* Contenedor Carousel */
@@ -76,14 +77,14 @@ li {
   align-items: center;
   min-width: fit-content;
 }
-
+/* El carousel esta afectando el responvise del mismo */
 .carousel {
   width: 100%;
-  height: 100vh;
+  height: 1100px;
   margin: 0 auto;
   position: relative; 
   border-radius: 10px;
-  overflow: hidden;
+  overflow:auto;
   min-width: fit-content;
   display: flex;
   justify-content: center;
@@ -102,7 +103,7 @@ li {
  .carousel-item img {
   height: 100%;
   border-radius: 10px;
-  object-fit: contain;
+  object-fit:fill;
   margin: 0;
   padding: 0;
  
@@ -123,7 +124,7 @@ li {
   position: fixed;
   width: 100%;
   height: 10%;
-  max-width: 1200px;
+  max-width: 1400px;
   align-items: center;
   background-color: #df6363;
   padding: 0.5em;
@@ -253,6 +254,7 @@ li {
   align-self: center;
 } */
 .pregunta-queEs{
+  font-size: 4em;
   grid-row: 1/1;
   grid-column: 1/1;
   padding-top: 10px;
@@ -272,7 +274,7 @@ li {
   margin: 0;
   padding-top: 1%;
   text-align: center;
-  font-size: 2em;
+  font-size: 3em;
   color:white;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
