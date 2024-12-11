@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { ContextoSesion } from '../context/sesion.jsx';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fontsource-variable/montserrat';
 import { Link } from "react-router-dom";
@@ -14,8 +13,6 @@ import { useNavigate } from 'react-router-dom';
 const Registro = () => {
 
   const navigate = useNavigate();
-  const { cerrarSesion } = useContext(ContextoSesion);
-
   const [isEmpleado, setIsEmpleado] = useState(true);
   const [documento, setDocumento] = useState('');
   const [tipoDoc, setTipoDoc] = useState('CC');
@@ -269,7 +266,7 @@ const Registro = () => {
 
   useEffect(() => {
     validador();
-  }, []);
+  }, [validador]);
   return (
     <>
       <header>

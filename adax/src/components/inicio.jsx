@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { ContextoSesion } from '../context/sesion.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -23,52 +23,45 @@ const Inicio = () => {
 
   const handleCerrarSesion = () => {
     cerrarSesion();
-  }
-  const validador = () => {
-    if (localStorage.getItem('usuario')) {
-      navigate("/inicio");
-    };
-  }
+  };
   const RolCrud = () => {
     if (rol === "1") {
     return(
-      <a onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-      </a>
+      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+      </button>
     );
     }
-  }
+  };
   const CRUD = () => {
     navigate('/crud/usuarios');
-  }
-
+  };
   const Ventas = () => {
     navigate('/ventas');
   };
   const GestionarProductos = () => {
     navigate('/gestionar_productos');
-  }
+  };
   const Analisis = () => {
     navigate('/analisis');
-  }
+  };
   const GestionarVentas = () => {
-    navigate('/gestionarVentas');
-  }
-
-
-
-
-
+    navigate('/gestionar_ventas');
+  };
   const backbutton = () => {
     console.log('Back button clicked');
   };
-
   const exitbutton = () => {
     console.log('Exit button clicked');
   };
 
   useEffect(() => {
+    const validador = () => {
+        if (localStorage.getItem('usuario') === null) {
+            navigate("/inicio");
+        };
+    };
     validador();
-  }, [])
+}, [navigate])
   return (
     <>
       <header>
