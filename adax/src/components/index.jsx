@@ -51,7 +51,7 @@ const Index = () => {
                 </div>
             </header>
             <Carousel/>
-            <section className={`${styles.secindex} ${styles.seccion2}`} id="hacer">
+            <section className={`${styles.sections} ${styles.seccion2}`} id="hacer">
                 <h1 className={styles.hacer}>¿Que podras hacer con ADAX Store Manager?</h1>
                 <div className={styles['contenedor-seccion2']}>
                     <div className={styles.registrodeventas}>
@@ -73,7 +73,7 @@ const Index = () => {
                     </div>
                 </div>
             </section>
-            <section id="beneficios" className={styles.seccion3}>
+            <section id="beneficios" className={`${styles.seccion3} ${styles.sections}`}>
                 <h1 className={styles.beneficios}>Beneficios de Usar Adax Store Manager</h1>
                 <div className={styles['contenedor-seccion3']}>
                     <div className={styles.ahorro}>
