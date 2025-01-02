@@ -136,7 +136,7 @@ const Tienda = () => {
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
