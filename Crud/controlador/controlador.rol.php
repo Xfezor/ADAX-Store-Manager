@@ -20,7 +20,7 @@ header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (isset($data['registro'])) {
-    $id_Rol = $data['id_Rol'];
+    $id_Roles = $data['id_Rol'];
     $nombreRol = $data['nombreRol'];
     $descripcion = $data['descripcion'];
 }
@@ -32,7 +32,7 @@ if (isset($data['listar'])) {
 if (isset($registrarRol)) {
     $rDao = new rolDao();
     $rDto = new rolDto();
-    $rDto->setid_Rol($id_Rol);
+    $rDto->setid_Rol($id_Roles);
     $rDto->setnombreROL($nombreRol);
     $rDTo->setdescripcion($descripcion);
 
@@ -45,9 +45,9 @@ if (isset($registrarRol)) {
 } else if (isset($listar) || isset($GET['si'])) {
     $rDao = new rolDao;
     $rDto = new rolDto;
-    $lista = $rDao->listarTodos();
+    $listaRoles = $rDao->listarTodos();
     $response = [];
-    foreach ($lista as $rol) {
+    foreach ($listaRoles as $rol) {
         $response[] = [
             $rol ['id_Rol'],
             $rol ['nombreRol'],

@@ -40,6 +40,12 @@ const Factura = () => {
     const handleMovimiento = () => {
         navigate("/crud/movimiento")
     }
+    const handleRoles = () => {
+        navigate("/crud/roles")
+    }
+    const handleEntregaProductos = () => {
+        navigate("/crud/entrega_productos")
+    }
     DataTable.use(DT);
 
     const [factura, setFactura] = useState([]);
@@ -132,6 +138,22 @@ const Factura = () => {
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleMovimiento}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                </ul>
+                            </li>
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Roles</a>
+                                <ul className="dropdown-menu">
+                                    <li><button className="dropdown-item" onClick={handleRoles}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                </ul>
+                            </li>
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
+                                <ul className="dropdown-menu">
+                                    <li><button className="dropdown-item" onClick={handleEntregaProductos}>lista</button></li>
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
