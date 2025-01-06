@@ -23,6 +23,7 @@ import Facturass from './components/CRUD/facturass.jsx';
 import Cliente from './components/CRUD/cliente.jsx';
 import Proveedor  from './components/CRUD/proveedor.jsx';
 import Roles from './components/CRUD/roles.jsx';
+import EntregaPedidos from './components/CRUD/entrega_productos.jsx';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
           <Route path="/crud/proveedor" element={<Proveedor />} />
           <Route path="/crud/cliente" element={<Cliente />} />
           <Route path="/crud/roles" element={<Roles />} />
+          <Route path="/crud/entrega_productos" element={<EntregaPedidos />} />
           <Route path="*" element={<Index />} />
         </Routes>
       </div>
