@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+const Entrega_Productos = () => {
 
-const Movimiento = () => {
     const navigate = useNavigate();
-
+    
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -46,31 +46,30 @@ const Movimiento = () => {
         navigate("/crud/entrega_productos")
     }
     DataTable.use(DT);
-    const [movimientos, setMovimientos] = useState([]);
+    const [entregaProductos, setEntregaProductos] = useState([]);
     // eslint-disable-next-line
     const [mensaje, setMensaje] = useState(null);
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php',
-                { listar: true }
-            );
-            console.log(respuesta.data); // Verifica los datos aquí
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.entregaproductos.php`, {
+                listar: true,
+            });
+            console.log(respuesta.data);
             if (respuesta.data) {
-                setMovimientos(respuesta.data);
+                setEntregaProductos(respuesta.data);
             } else {
-                console.log('Listado no exitoso:', respuesta.data);
+                console.log('listado no exitoso', respuesta.data)
+                return null;
             }
         } catch (err) {
-            console.error('Error al obtener los datos:', err);
+            console.error(err);
+            return null;
         }
-    };
-
-
+    }
     useEffect(() => {
         Lista();
     }, []);
@@ -92,7 +91,7 @@ const Movimiento = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
@@ -133,7 +132,7 @@ const Movimiento = () => {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Movimiento</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleMovimiento}>lista</button></li>
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
@@ -159,49 +158,41 @@ const Movimiento = () => {
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
-            <div style={{ width: '99.9%' }}>
-                <DataTable
-                    data={movimientos}
-                    slots={{
-                        6: (data, row) => (
-                            <form action="movimiento/actualizar.php" method="post">
-                                <input type="hidden" name="id_Movimiento" value={row.id_Movimiento} />
-                                <button type="submit" className="btn btn-warning">Modificar</button>
-                            </form>
-                        ),
-                        7: (data, row) => (
-                            <a
-                                className="btn btn-danger"
-                                href={`../../controlador/controlador.movimiento.php?id_Movimiento=${row.id_Movimiento}`}
-                            >
-                                Eliminar
-                            </a>
-                        ),
-                    }}
-                    id="usrtable"
-                    className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
-                >
+            <div style={{ 'width': '99.9%' }}>
+                <DataTable data={entregaProductos} slots={{
+                    4: (data, row) => (
+                        <form action="actualizar.php" method="post">
+                            <input type="hidden" name="doc" value={entregaProductos[0]} />
+                            <button type="submit" className="btn btn-warning">Modificar</button>
+                        </form>
+                    ),
+                    5: (data, row) => (
+                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
+                            Eliminar
+                        </a>
+                    )
+                }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th>id_Movimiento</th>
-                            <th>cantidad_despues</th>
-                            <th>fecha_movimiento</th>
-                            <th>fecha_modificacion</th>
-                            <th>estado_despues</th>
-                            <th>id_tienda</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>ID del Proveedor</th>
+                            <th style={{ 'fontWeight': 'normal' }}>ID del producto</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Fecha de Entrega</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Cantidad</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+
+                    </tbody>
                 </DataTable>
             </div>
         </div>
     );
-};
+}
 
-export default Movimiento;
+export default Entrega_Productos;
