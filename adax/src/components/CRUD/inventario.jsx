@@ -8,11 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
-const Factura = () => {
+const Inventario = () => {
 
     const navigate = useNavigate();
-
+    
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -48,34 +47,32 @@ const Factura = () => {
     }
     const handleInventario = () => {
         navigate("/crud/inventario")
-    }
+    } 
     DataTable.use(DT);
-
-    const [factura, setFactura] = useState([]);
+    const [inventario, setInventario] = useState([]);
     // eslint-disable-next-line
     const [mensaje, setMensaje] = useState(null);
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
-                { listar: true }
-            );
-            console.log(respuesta.data); // Verifica los datos aquí
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+                listar: true,
+            });
+            console.log(respuesta.data);
             if (respuesta.data) {
-                setFactura(respuesta.data);
+                setInventario(respuesta.data);
             } else {
-                console.log('Listado no exitoso:', respuesta.data);
+                console.log('listado no exitoso', respuesta.data)
+                return null;
             }
         } catch (err) {
-            console.error('Error al obtener los datos:', err);
+            console.error(err);
+            return null;
         }
-    };
-
-
+    }
     useEffect(() => {
         Lista();
     }, []);
@@ -97,7 +94,7 @@ const Factura = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
@@ -105,7 +102,7 @@ const Factura = () => {
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle " href="#top" role="button" data-bs-toggle="dropdown"
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Producto</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleProducto}>lista</button></li>
@@ -113,7 +110,7 @@ const Factura = () => {
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown"
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Factura</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleFactura}>lista</button></li>
@@ -152,7 +149,7 @@ const Factura = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-
+                            
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
                                 <ul className="dropdown-menu">
@@ -172,48 +169,42 @@ const Factura = () => {
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
-            <div style={{ width: '99.9%' }}>
-                <DataTable
-                    data={factura}
-                    slots={{
-                        5: (data, row) => (
-                            <form action="factura/actualizar.php" method="post">
-                                <input type="hidden" name="venta_id_Venta" value={row.venta_id_Venta} />
-                                <button type="submit" className="btn btn-warning">Modificar</button>
-                            </form>
-                        ),
-                        6: (data, row) => (
-                            <a
-                                className="btn btn-danger"
-                                href={`../../controlador/controlador.factura.php?venta_id_Venta=${row.venta_id_Venta}`}
-                            >
-                                Eliminar
-                            </a>
-                        ),
-                    }}
-                    id="usrtable"
-                    className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
-                >
+            <div style={{ 'width': '99.9%' }}>
+                <DataTable data={inventario} slots={{
+                    5: (data, row) => (
+                        <form action="actualizar.php" method="post">
+                            <input type="hidden" name="doc" value={inventario[0]} />
+                            <button type="submit" className="btn btn-warning">Modificar</button>
+                        </form>
+                    ),
+                    6: (data, row) => (
+                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
+                            Eliminar
+                        </a>
+                    )
+                }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th>venta_id_Venta</th>
-                            <th>producto_id_Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Id del Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Cantidad Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Fecha de Modificón del Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Estado de revisión</th>   
+                            <th style={{ 'fontWeight': 'normal' }}>Id de la tienda</th>   
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+
+                    </tbody>
                 </DataTable>
             </div>
         </div>
     );
-};
+}
 
-export default Factura;
+export default Inventario;
