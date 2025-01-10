@@ -45,6 +45,9 @@ const Tienda = () => {
     const handleEntregaProductos = () => {
         navigate("/crud/entrega_productos")
     }
+    const handleInventario = () => {
+        navigate("/crud/inventario")
+    } 
     DataTable.use(DT);
     const [tienda, setTienda] = useState([]);
     // eslint-disable-next-line
@@ -151,6 +154,14 @@ const Tienda = () => {
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleEntregaProductos}>lista</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                </ul>
+                            </li>
+
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
+                                <ul className="dropdown-menu">
+                                    <li><button className="dropdown-item" onClick={handleInventario}>lista</button></li>
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
