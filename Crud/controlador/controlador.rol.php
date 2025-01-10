@@ -1,14 +1,40 @@
 <?php
+header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+};
+
 require '../Dao/rolDao.php';
 require '../Dto/rolDto.php';
 require '../utilidades/conexion.php';
 
-if (isset($_POST['registrarRol'])) {
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
+
+
+$data = json_decode(file_get_contents('php://input'), true);
+if (isset($data['registro'])) {
+    $id_Roles = $data['id_Rol'];
+    $nombreRol = $data['nombreRol'];
+    $descripcion = $data['descripcion'];
+}
+
+if (isset($data['listar'])) {
+    $listar = $data['listar'];
+}
+
+if (isset($registrarRol)) {
     $rDao = new rolDao();
     $rDto = new rolDto();
-    $rDto->setid_Rol($_POST['id_Rol']);
-    $rDto->setnombreROL($POST['nombreRol']);
-    $rDTo->setdescripcion($rDto)['descripcion'];
+    $rDto->setid_Rol($id_Roles);
+    $rDto->setnombreROL($nombreRol);
+    $rDTo->setdescripcion($descripcion);
 
     $mensaje = $rDao->registrarRol($rDto);
     echo $mensaje;
@@ -16,6 +42,21 @@ if (isset($_POST['registrarRol'])) {
         header("Location:../tablas/roles/listaroles.php?mensaje=" . $mensaje);
         exit;
     }
+} else if (isset($listar) || isset($GET['si'])) {
+    $rDao = new rolDao;
+    $rDto = new rolDto;
+    $listaRoles = $rDao->listarTodos();
+    $response = [];
+    foreach ($listaRoles as $rol) {
+        $response[] = [
+            $rol ['id_Rol'],
+            $rol ['nombreRol'],
+            $rol ['descripcion']
+        ];
+    }
+    echo json_encode($response);
+    exit();
+
 } else if (isset($_POST['registroRolCrud'])) {
     $rDao = new rolDao();
     $rDto = new rolDto();

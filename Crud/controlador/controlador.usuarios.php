@@ -9,7 +9,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
     http_response_code(200);
     exit();
-};
+}
+;
 
 require '../Dao/usuariosDao.php';
 require '../Dto/usuariosDto.php';
@@ -69,7 +70,7 @@ if (isset($data['actualizar'])){
     $actualizar = $data['actualizar'];
 }
 
-if (isset($registro)||isset($_GET['no'])) {
+if (isset($registro) || isset($_GET['no'])) {
     $uDao = new UsuarioDao();
     $uDto = new usuarioDto();
     $uDto->setDocumento($documento);
@@ -90,7 +91,7 @@ if (isset($registro)||isset($_GET['no'])) {
     }
 
 
-} else if (isset($listar) ||isset($_GET['si'])) {
+} else if (isset($listar) || isset($_GET['si'])) {
     $uDao = new UsuarioDao();
     $uDto = new usuarioDto();
     $lista = $uDao->listarTodos();
@@ -109,7 +110,7 @@ if (isset($registro)||isset($_GET['no'])) {
             $usuario['rol_id_Rol'],
             $usuario['codigo_invitacion'],
             $usuario['tienda_idtienda'] // Asegúrate de que este método exista
-    ];
+        ];
     }
     echo json_encode($response);
     exit();

@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-const Producto = () => {
+const Inventario = () => {
 
     const navigate = useNavigate();
-
+    
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -55,21 +55,21 @@ const Producto = () => {
         navigate("/crud/ventas")
     }
     DataTable.use(DT);
-    const [producto, setProducto] = useState([]);
+    const [inventario, setInventario] = useState([]);
     // eslint-disable-next-line
     const [mensaje, setMensaje] = useState(null);
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 listar: true,
             });
             console.log(respuesta.data);
             if (respuesta.data) {
-                setProducto(respuesta.data);
+                setInventario(respuesta.data);
             } else {
                 console.log('listado no exitoso', respuesta.data)
                 return null;
@@ -100,7 +100,7 @@ const Producto = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
@@ -108,7 +108,7 @@ const Producto = () => {
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown"
+                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">Producto</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleProducto}>lista</button></li>
@@ -155,15 +155,15 @@ const Producto = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-
+                            
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleEntregaProductos}>lista</button></li>
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
-                            </li>   
-                            
+                            </li>
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
                                 <ul className="dropdown-menu">
@@ -171,7 +171,7 @@ const Producto = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-
+                            
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">
@@ -187,23 +187,24 @@ const Producto = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
+
                         </ul>
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
             <div style={{ 'width': '99.9%' }}>
-                <DataTable data={producto} slots={{
-                    11: (data, row) => (
+                <DataTable data={inventario} slots={{
+                    5: (data, row) => (
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={row.id_Producto} />
+                            <input type="hidden" name="doc" value={inventario[0]} />
                             <button type="submit" className="btn btn-warning">Modificar</button>
                         </form>
                     ),
-                    12: (data, row) => (
+                    6: (data, row) => (
                         <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
                             Eliminar
                         </a>
@@ -211,22 +212,17 @@ const Producto = () => {
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th style={{ 'fontWeight': 'normal' }}>id_Producto</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Nombre</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Precio_unit</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Descripcion</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Marca</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Categoria</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Presentacion</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Fecha_vencimiento</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Stock</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Stock_Min</th>
-                            <th style={{ 'fontWeight': 'normal' }}>inventario_id_Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Id del Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Cantidad Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Fecha de Modificón del Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Estado de revisión</th>   
+                            <th style={{ 'fontWeight': 'normal' }}>Id de la tienda</th>   
                             <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
                             <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
+
                     </tbody>
                 </DataTable>
             </div>
@@ -234,5 +230,4 @@ const Producto = () => {
     );
 }
 
-export default Producto;
-
+export default Inventario;
