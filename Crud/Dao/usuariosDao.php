@@ -55,7 +55,7 @@ class UsuarioDao
                             $mensaje = "Registrado Exitosamente";
                         } catch (Exception $ex) {
                             $mensaje = $ex->getMessage();
-                            header("Location:../../PAGINA/registro.php?error=4");
+                            //header("Location:../../PAGINA/registro.php?error=4");
                         }
                     }
 
