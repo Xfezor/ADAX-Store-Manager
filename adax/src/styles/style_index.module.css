@@ -5,8 +5,8 @@
   font-family: fantasy; 
 }
 
-section {
-  padding-top: 10%;
+.sections {
+  padding: 10%;
 }
 body {
     background-color: #fcedc0;
@@ -448,6 +448,7 @@ li {
 
 .textseccion3 {
   text-align: center;
+  font-size: 1.5em;
 }
 .siguientenivel {
   display: flex;
