@@ -4,17 +4,21 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Usuarios = () => {
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+
 
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
     const handleNavigate = (row) => {
-        navigate(`/crud/actualizar/actualizarUsuario`);
+        const data = row;
+        navigate(`/crud/actualizar/actualizarUsuario`, {state:data});
     }
     const handleRegistro = () => {
         navigate("/crud/registrar_usuarios")
@@ -43,7 +47,7 @@ const Usuarios = () => {
 
     DataTable.use(DT);
     const [usuarios, setUsuarios] = useState([]);
-    const [mensaje, setMensaje] = useState(null);
+    const [mensaje, setMensaje] = useState(location.state);
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
@@ -161,7 +165,7 @@ const Usuarios = () => {
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={usuarios} slots={{
                     11: (data, row) => (
-                        <button type="submit" className="btn btn-warning" onClick={() => handleNavigate(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10])}>Modificar</button>
+                        <button type="submit" className="btn btn-warning" onClick={() => handleNavigate(row)}>Modificar</button>
                     ),
                     12: (data, row) => (
                         <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
