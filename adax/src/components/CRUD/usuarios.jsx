@@ -16,13 +16,16 @@ const Usuarios = () => {
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
-    const handleNavigate = (row) => {
+    const handleActualizarUsuario = (row) => {
         const data = row;
         navigate(`/crud/actualizar/actualizarUsuario`, {state:data});
     }
     const handleRegistro = () => {
         navigate("/crud/registrar_usuarios")
     }
+    const handleRegistroFactura = () => {
+        navigate("/crud/registrar_factura");
+      };
     const handleUsuario = () => {
         navigate("/crud/usuarios")
     }
@@ -118,7 +121,7 @@ const Usuarios = () => {
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleUsuario}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroFactura}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
@@ -220,7 +223,7 @@ const Usuarios = () => {
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={usuarios} slots={{
                     11: (data, row) => (
-                        <button type="submit" className="btn btn-warning" onClick={() => handleNavigate(row)}>Modificar</button>
+                        <button type="submit" className="btn btn-warning" onClick={() => handleActualizarUsuario(row)}>Modificar</button>
                     ),
                     12: (data, row) => (
                         <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
@@ -254,4 +257,3 @@ const Usuarios = () => {
 }
 
 export default Usuarios;
-

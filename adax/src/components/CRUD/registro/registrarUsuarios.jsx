@@ -213,7 +213,7 @@ const RegistrarUsuarios = () => {
                             <label className={`${styles.label} label`} htmlFor="phone">Codigo invitacion</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <a href="listarusuarios.php"><input className={styles['submit-btn']} value="cancelar" /></a>
+                            <a href="usuarios"><input className={styles['submit-btn']} value="cancelar" /></a>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="registrocrud" className={styles['submit-btn']} type="submit" value="registrar" />

@@ -5,18 +5,18 @@ class facturaDao{
     public function registrarFactura(facturaDto $facturaDto){ 
         $conn = Conexion::getConexion();
         $mensaje = "";
-        $venta_id_Venta = $facturaDto->getventa_id_Venta(); 
-        $producto_id_producto = $facturaDto->getproducto_id_producto();
-        $cantidad = $facturaDto->getcantidad();
-        $precio = $facturaDto->getprecio();
-        $estado = $facturaDto->getestado();
+        $venta_id_Venta = $facturaDto->getVenta_id_Venta(); 
+        $producto_id_producto = $facturaDto->getProducto_id_producto();
+        $Cantidad = $facturaDto->getCantidad();
+        $Precio = $facturaDto->getPrecio();
+        $Estado = $facturaDto->getEstado();
         try {
-            $query = $conn->prepare("INSERT INTO factura (venta_id_Venta,producto_id_producto,cantidad,precio,estado) values (?,?,?,?,?);");
+            $query = $conn->prepare("INSERT INTO factura (venta_id_Venta,producto_id_producto,Cantidad,Precio,Pstado) values (?,?,?,?,?);");
             $query->bindParam(1,$venta_id_Venta);
             $query->bindParam(2,$producto_id_producto);
-            $query->bindParam(3,$cantidad);
-            $query->bindParam(4,$precio);
-            $query->bindParam(5,$estado);
+            $query->bindParam(3,$Cantidad);
+            $query->bindParam(4,$Precio);
+            $query->bindParam(5,$Estado);
             $query->execute();
             $mensaje = "Registrado Exitosamente";
         } catch (Exception $ex) {
@@ -28,19 +28,19 @@ class facturaDao{
     public function registrarFacturaCrud(facturaDto $facturaDto){
         $conn = Conexion::getConexion();
         $mensaje = "";
-        $venta_id_Venta= $facturaDto->getventa_id_Venta();
-        $producto_id_producto = $facturaDto->getproducto_id_producto();
-        $cantidad = $facturaDto->getcantidad();
-        $precio = $facturaDto->getprecio();
-        $estado = $facturaDto->getestado();
+        $venta_id_Venta= $facturaDto->getVenta_id_Venta();
+        $producto_id_producto = $facturaDto->getProducto_id_producto();
+        $Cantidad = $facturaDto->getCantidad();
+        $Precio = $facturaDto->getPrecio();
+        $Estado = $facturaDto->getEstado();
        
         try {
             $query = $conn->prepare("INSERT INTO factura values (?,?,?,?,?);");
             $query->bindParam(1,$venta_id_Venta);
             $query->bindParam(2,$producto_id_producto);
-            $query->bindParam(3,$cantidad);
-            $query->bindParam(4,$precio);
-            $query->bindParam(5,$estado);
+            $query->bindParam(3,$Cantidad);
+            $query->bindParam(4,$Precio);
+            $query->bindParam(5,$Estado);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -66,7 +66,7 @@ class facturaDao{
         $sentencia = $conn->prepare("SELECT venta_id_Venta from factura where venta_id_Venta = $venta_id_Venta;");
         $sentencia->execute();
         $valor = $sentencia->fetch(PDO::FETCH_OBJ);
-        $idtienda = $valor->idtienda;
+        $venta_id_Venta = $valor->venta_id_Venta;
         if ($valor === FALSE) {
             header('Location:../../PAGINA/inicio.php?error=1');
             exit();
@@ -87,16 +87,16 @@ class facturaDao{
         $mensaje = "";
         $venta_id_Venta= $facturaDto->getventa_id_Venta();
         $producto_id_producto = $facturaDto->getproducto_id_producto();
-        $cantidad = $facturaDto->getcantidad();
-        $precio = $facturaDto->getprecio();
-        $estado = $facturaDto->getestado();
+        $Cantidad = $facturaDto->getCantidad();
+        $Precio = $facturaDto->getPrecio();
+        $Estado = $facturaDto->getEstado();
         try {
             $query = $cnn->prepare("UPDATE factura SET venta_id_Venta=?, producto_id_producto=?, cantidad=?, precio=?, estado=? WHERE venta_id_Venta=?");
             $query->bindParam(1,$venta_id_Venta);
             $query->bindParam(2,$producto_id_producto);
-            $query->bindParam(3,$cantidad);
-            $query->bindParam(4,$precio);
-            $query->bindParam(5,$estado);
+            $query->bindParam(3,$Cantidad);
+            $query->bindParam(4,$Precio);
+            $query->bindParam(5,$Estado);
             $query->execute();
             $mensaje= "Registro actualizado";
         } catch (Exception  $ex) {
@@ -154,7 +154,7 @@ class facturaDao{
         $conn = Conexion::getConexion();
         try {
             $conn->query('RESET QUERY CACHE');
-            $query = $conn->prepare('SELECT f.producto_id_Producto,p.Nombre,f.cantidad from factura f inner join producto p on p.id_Producto = f.producto_id_Producto where venta_id_Venta = ?;');
+            $query = $conn->prepare('SELECT f.producto_id_Producto,p.Nombre,f.Cantidad from factura f inner join producto p on p.id_Producto = f.producto_id_Producto where venta_id_Venta = ?;');
             $query->bindParam(1, $venta_id_Venta);
             $query->execute();
             return $query->fetchAll();

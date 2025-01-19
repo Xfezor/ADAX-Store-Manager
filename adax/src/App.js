@@ -5,7 +5,7 @@ import Index from './components/index.jsx';
 import IniciarSesion from './components/iniciar_sesion.jsx';
 import Registro from './components/registro.jsx';
 import Restablecer from './components/restablecercontrasena.jsx';
-import Factura from './components/factura.jsx'; // Adjusted to singular "factura.jsx"
+import Factura from './components/factura.jsx';
 import Inicio from './components/inicio.jsx';
 import Pago from './components/generar_pago.jsx';
 import Ventas from './components/ventas.jsx';
@@ -15,14 +15,16 @@ import Analisis from './components/analisis.jsx';
 import GestionarVentas from './components/gestionar_ventas.jsx';
 import DetalleFactura from './components/detalle_factura.jsx';
 import Usuarios from './components/CRUD/usuarios.jsx';
-import RegistrarUsuarios from './components/CRUD/registro/registrarUsuarios.jsx';
+import RegistrarUsuarios from './components/CRUD/registro/registrarFactura.jsx';
+import RegistrarFactura from './components/CRUD/registro/registrarUsuarios.jsx';
 import ActualizarUsuarios from './components/CRUD/actualizar/actualizarUsuario.jsx';
+import ActualizarFactura from './components/CRUD/actualizar/actualizarFactura.jsx';
 import Tienda from './components/CRUD/tienda.jsx';
 import Producto from './components/CRUD/producto.jsx';
 import Movimiento from './components/CRUD/movimiento.jsx';
 import Facturass from './components/CRUD/facturass.jsx';
 import Cliente from './components/CRUD/cliente.jsx';
-import Proveedor  from './components/CRUD/proveedor.jsx';
+import Proveedor from './components/CRUD/proveedor.jsx';
 import Roles from './components/CRUD/roles.jsx';
 import EntregaPedidos from './components/CRUD/entrega_productos.jsx';
 import Inventario from './components/CRUD/inventario.jsx';
@@ -39,10 +41,9 @@ function App() {
           <Route path="/registro" element={<Registro />} />
           <Route path="/restablecer_contrasena" element={<Restablecer />} />
           <Route path="/generar_pago" element={<Pago />} />
-          <Route path="/factura" element={<Factura />} /> 
+          <Route path="/factura" element={<Factura />} />
           <Route path="/crud/factura" element={<Facturass />} />
           <Route path="/ventas" element={<Ventas />} />
-          <Route path="/gestionar_productos" element={<GestionarProductos />} />
           <Route path="/gestionar_productos" element={<GestionarProductos />} />
           <Route path="/gestionar_proveedores" element={<Gestionarproveedores />} />
           <Route path="/inicio" element={<Inicio />} />
@@ -52,7 +53,9 @@ function App() {
           <Route path="/detalle_factura" element={<DetalleFactura />} />
           <Route path="/crud/usuarios" element={<Usuarios />} />
           <Route path="/crud/registrar_usuarios" element={<RegistrarUsuarios />} />
+          <Route path="/crud/registrar_factura" element={<RegistrarFactura />} />
           <Route path="/crud/actualizar/actualizarUsuario" element={<ActualizarUsuarios />} />
+          <Route path="/crud/actualizar/actualizarFactura/:id" element={<ActualizarFactura />} />
           <Route path="/crud/tienda" element={<Tienda />} />
           <Route path="/crud/producto" element={<Producto />} />
           <Route path="/crud/proveedor" element={<Proveedor />} />
