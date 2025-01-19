@@ -55,7 +55,7 @@ session_start();
                 <input name="Precio" id="text" class="input-text js-input" type="text" required>
                 <label class="label" for="phone">Precio</label>
                 </div>
-                <div class="form-field col-lg-6 ">
+                <div class="form-field col-lg-12 ">
                 <input name="Estado" class="input-text js-input" type="text" required>
                 <label class="label" for="phone">Estado</label>
                 </div>
