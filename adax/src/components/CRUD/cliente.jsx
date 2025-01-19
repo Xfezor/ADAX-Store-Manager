@@ -14,6 +14,10 @@ const Cliente = () => {
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
+    const handleActualizarCliente = (row) => {
+        const data = row;
+        navigate(`/crud/actualizar/actualizarCliente`, {state:data});
+    }
     const handleRegistro = () => {
         navigate("/crud/registrar_usuarios")
     }
@@ -55,7 +59,7 @@ const Cliente = () => {
     }
     DataTable.use(DT);
     const [clientes, setClientes] = useState([]);
-    // eslint-disable-next-line
+
     const [mensaje, setMensaje] = useState(null);
 
     const usuario1 = localStorage.getItem('usuario');
@@ -74,6 +78,23 @@ const Cliente = () => {
             else {
                 console.log('Listado no exitoso', respuesta.data)
                 return null;
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
+    const Eliminar = async (id) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+                eliminar: id,
+            });
+            if (respuesta.data.respuesta) {
+                setMensaje(respuesta.data.mensaje);
+                Lista();
+            } else {
+                console.log('no exitoso', respuesta.data.respuesta)
+                setMensaje(respuesta.data.mensaje);
             }
         } catch (err) {
             console.error(err);
@@ -200,15 +221,13 @@ const Cliente = () => {
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={clientes} slots={{
                     7: (data, row) => (
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={row.id_Producto} />
-                            <button type="submit" className="btn btn-warning">Modificar</button>
-                        </form>
+                        <button type="submit" className="btn btn-warning" onClick={() => handleActualizarCliente(row)}>Modificar</button>
+                    
                     ),
                     8: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.cliente.php?id_Cliente=${row[0]}`}>
+                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
-                        </a>
+                        </button>                   
                     )
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">

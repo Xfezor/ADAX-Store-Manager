@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Factura = () => {
     const navigate = useNavigate();
-    
+
     const handleCerrarSesion = () => {
       navigate("/inicio");
     };
@@ -20,8 +20,46 @@ const Factura = () => {
     };
     const handleActualizarFactura = (row) => {
         const data = row;
-        navigate(`/crud/actualizar/actualizarFactura/${row[0]}`, {state: data});  // Asegúrate de que el ID es el correcto
+        navigate(`/crud/actualizar/actualizarFactura/:id`, {state:data});
     }
+    const handleUsuario = () => {
+      navigate("/crud/usuarios");
+    };
+    const handleTienda = () => {
+      navigate("/crud/tienda");
+    };
+    const handleProducto = () => {
+      navigate("/crud/producto");
+    };
+    const handleFactura = () => {
+      navigate("/crud/factura");
+    };
+    const handleCliente = () => {
+      navigate("/crud/cliente");
+    };
+    const handleProveedor = () => {
+      navigate("/crud/proveedor");
+    };
+    const handleMovimiento = () => {
+      navigate("/crud/movimiento");
+    };
+    const handleRoles = () => {
+      navigate("/crud/roles");
+    };
+    const handleEntregaProductos = () => {
+      navigate("/crud/entrega_productos");
+    };
+    const handleInventario = () => {
+      navigate("/crud/inventario");
+    };
+    const handleMetodosDePago = () => {
+      navigate("/crud/metodosdepago");
+    };
+    const handleVentas = () => {
+      navigate("/crud/ventas");
+    };
+
+    DataTable.use(DT);
 
     const [factura, setFactura] = useState([]);
     const [mensaje, setMensaje] = useState(null);
@@ -36,14 +74,14 @@ const Factura = () => {
                 { listar: true }
             );
             if (respuesta.data) {
-                setFactura(respuesta.data);  // Asegúrate de que la respuesta tiene los datos correctos
+                setFactura(respuesta.data);
             } else {
                 console.log('Listado no exitoso:', respuesta.data);
-                setFactura([]);  // Vaciar factura si no hay datos
+                return null;
             }
         } catch (err) {
             console.error('Error al obtener los datos:', err);
-            setFactura([]);  // Vaciar factura en caso de error
+            return null;
         }
     }
 
@@ -54,23 +92,21 @@ const Factura = () => {
             });
             if (respuesta.data.respuesta) {
                 setMensaje(respuesta.data.mensaje);
-                Lista();  // Actualizar la lista después de eliminar
+                Lista();
             } else {
-                console.log('No fue exitoso:', respuesta.data.respuesta)
+                console.log('no exitoso', respuesta.data.respuesta)
                 setMensaje(respuesta.data.mensaje);
             }
         } catch (err) {
-            console.error('Error al eliminar factura:', err);
+            console.error(err);
+            return null;
         }
     }
 
-    const handleModificarFactura = (row) => {
-        // Asegúrate de que row[0] contiene el ID de la factura que se va a modificar
-        navigate(`/crud/actualizarFactura/:id/${row[0]}`);
-    }
+  
 
     useEffect(() => {
-        Lista();  // Cargar las facturas cuando el componente se monta
+        Lista();
     }, []);
 
     return (
@@ -191,8 +227,8 @@ const Factura = () => {
                     5: (data, row) => (
                         <button type="submit" className="btn btn-warning" onClick={() => handleActualizarFactura(row)}>Modificar</button>
                     ),
-                    6: (data, row) => (
-                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
+                    6:(data, row) =>(
+                    <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
                         </button>
                     )
