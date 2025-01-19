@@ -6,59 +6,24 @@ import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 const Factura = () => {
-
     const navigate = useNavigate();
-
+    
     const handleCerrarSesion = () => {
-        navigate("/inicio");
-    }
+      navigate("/inicio");
+    };
     const handleRegistro = () => {
-        navigate("/crud/registrar_usuarios")
+      navigate("/crud/registrar_usuarios");
+    };
+    const handleRegistroFactura = () => {
+      navigate("/crud/registrar_factura");
+    };
+    const handleActualizarFactura = (row) => {
+        const data = row;
+        navigate(`/crud/actualizar/actualizarFactura/${row[0]}`, {state: data});  // Asegúrate de que el ID es el correcto
     }
-    const handleUsuario = () => {
-        navigate("/crud/usuarios")
-    }
-    const handleTienda = () => {
-        navigate("/crud/tienda")
-    }
-    const handleProducto = () => {
-        navigate("/crud/producto")
-    }
-    const handleFactura = () => {
-        navigate("/crud/factura")
-    }
-    const handleCliente = () => {
-        navigate("/crud/cliente")
-    }
-    const handleProveedor = () => {
-        navigate("/crud/proveedor")
-    }
-    const handleMovimiento = () => {
-        navigate("/crud/movimiento")
-    }
-    const handleRoles = () => {
-        navigate("/crud/roles")
-    }
-    const handleEntregaProductos = () => {
-        navigate("/crud/entrega_productos")
-    }
-    const handleInventario = () => {
-        navigate("/crud/inventario")
-    }
-    const handleMetodosDePago = () => {
-        navigate("/crud/metodosdepago")
-    }
-    const handleVentas = () => {
-        navigate("/crud/ventas")
-    }
-    DataTable.use(DT);
 
     const [factura, setFactura] = useState([]);
-    // eslint-disable-next-line
     const [mensaje, setMensaje] = useState(null);
 
     const usuario1 = localStorage.getItem('usuario');
@@ -70,26 +35,49 @@ const Factura = () => {
                 'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
                 { listar: true }
             );
-            console.log(respuesta.data); // Verifica los datos aquí
             if (respuesta.data) {
-                setFactura(respuesta.data);
+                setFactura(respuesta.data);  // Asegúrate de que la respuesta tiene los datos correctos
             } else {
                 console.log('Listado no exitoso:', respuesta.data);
+                setFactura([]);  // Vaciar factura si no hay datos
             }
         } catch (err) {
             console.error('Error al obtener los datos:', err);
+            setFactura([]);  // Vaciar factura en caso de error
         }
-    };
+    }
 
+    const Eliminar = async (id) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`, {
+                eliminar: id,
+            });
+            if (respuesta.data.respuesta) {
+                setMensaje(respuesta.data.mensaje);
+                Lista();  // Actualizar la lista después de eliminar
+            } else {
+                console.log('No fue exitoso:', respuesta.data.respuesta)
+                setMensaje(respuesta.data.mensaje);
+            }
+        } catch (err) {
+            console.error('Error al eliminar factura:', err);
+        }
+    }
+
+    const handleModificarFactura = (row) => {
+        // Asegúrate de que row[0] contiene el ID de la factura que se va a modificar
+        navigate(`/crud/actualizarFactura/:id/${row[0]}`);
+    }
 
     useEffect(() => {
-        Lista();
+        Lista();  // Cargar las facturas cuando el componente se monta
     }, []);
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="../tablas.php">ADAX - CRUD</a>
+                    <marque><a className="navbar-brand" href="../tablas.php">ADAX - CRUD</a></marque>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topnavbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -100,7 +88,7 @@ const Factura = () => {
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleUsuario}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroFactura}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
@@ -192,35 +180,24 @@ const Factura = () => {
                             </li>
 
                         </ul>
-                        <span className="navbar-text me-3 active">Usuario: {usuario}
-                        </span>
+                        <span className="navbar-text me-3 active">Usuario: {usuario}</span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
             <div style={{ width: '99.9%' }}>
-                <DataTable
-                    data={factura}
-                    slots={{
-                        5: (data, row) => (
-                            <form action="factura/actualizar.php" method="post">
-                                <input type="hidden" name="venta_id_Venta" value={row.venta_id_Venta} />
-                                <button type="submit" className="btn btn-warning">Modificar</button>
-                            </form>
-                        ),
-                        6: (data, row) => (
-                            <a
-                                className="btn btn-danger"
-                                href={`../../controlador/controlador.factura.php?venta_id_Venta=${row.venta_id_Venta}`}
-                            >
-                                Eliminar
-                            </a>
-                        ),
-                    }}
-                    id="usrtable"
-                    className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
-                >
+            <DataTable data={factura} slots={{
+                    5: (data, row) => (
+                        <button type="submit" className="btn btn-warning" onClick={() => handleActualizarFactura(row)}>Modificar</button>
+                    ),
+                    6: (data, row) => (
+                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
+                            Eliminar
+                        </button>
+                    )
+                    }}id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
+            >
                     <thead className="table-dark light-header">
                         <tr className="text-center">
                             <th>venta_id_Venta</th>

@@ -9,9 +9,7 @@ import styles from './styles_registro.module.css';
 const ActualizarUsuario = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const initialData = location.state || {}; // Asegúrate de que location.state no sea null o undefined
-
-    // Definir estados para cada campo del formulario
+    const initialData = location.state || {};
     const [documento, setDocumento] = useState(initialData[0] || '');
     const [tipoDoc, setTipoDoc] = useState(initialData[1] || '');
     const [contrasena, setContrasena] = useState(initialData[2] || '');
@@ -27,7 +25,7 @@ const ActualizarUsuario = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Actualizar el estado correspondiente según el campo modificado
+        
         switch (name) {
             case 'documento':
                 setDocumento(value);
@@ -92,6 +90,11 @@ const ActualizarUsuario = () => {
             return null;
         }
     };
+
+    const handleCancel = () => {
+        navigate('/crud/usuarios');
+    };
+
     return (
         <>
             <div className='form-box'>
@@ -140,11 +143,11 @@ const ActualizarUsuario = () => {
                             <label className={styles.label} htmlFor="phone">Codigo invitacion</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <a href="listarusuarios.php"><button className={styles['submit-btn']}> cancelar </button></a>
+                            <button type="button" className={styles['submit-btn']} onClick={handleCancel}>Cancelar</button>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}> actualizar </button>                        </div>
-
+                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>                        
+                        </div>
                     </form>
                 </section>
             </div>
