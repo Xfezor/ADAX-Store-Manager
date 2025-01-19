@@ -1,5 +1,4 @@
 <?php
-
 header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
@@ -14,15 +13,20 @@ require '../Dao/clienteDao.php';
 require '../Dto/clienteDto.php';
 require '../utilidades/conexion.php';
 
+// Deshabilitar el caché
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+header("Pragma: no-cache"); // HTTP 1.0
+header("Expires: 0"); // Proxies
+
 $data = json_decode(file_get_contents('php://input'), true);
 if(isset($data['registro'])) {
     $id_Cliente = $data['id_Cliente'];
-    $documento = $data['documento'];
-    $nombre1_Cliente = $data['nombre1_Cliente'];
-    $nombre2_Cliente = $data['nombre2_Cliente'];
-    $apellido1_Cliente = $data['apellido1_Cliente'];
-    $apellido2_Cliente = $data['apellido2_Cliente'];
-    $tipo_documento_Cliente = $data['tipo_documento'];
+    $Documento = $data['Documento'];
+    $Nombre1_Cliente = $data['Nombre1_Cliente'];
+    $Nombre2_Cliente = $data['Nombre2_Cliente'];
+    $Apellido1_Cliente = $data['apellido1_Cliente'];
+    $Apellido2_Cliente = $data['apellido2_Cliente'];
+    $Tipo_documento = $data['Tipo_documento'];
 }
 if (isset($data['listar'])) {
     $listar = $data['listar'];
@@ -32,12 +36,12 @@ if (isset($registro)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
     $cDto->setid_Cliente($id_Cliente);
-    $cDto->setDocumento($documento);
+    $cDto->setDocumento($Documento);
     $cDto->setNombre1_Cliente($Nombre1_Cliente);
-    $cDto->setNombre2_Cliente($Nombre2_Cliente);
+    $cDto->setNombre2_Cliente($Nombre1_Cliente);
     $cDto->setApellido1_Cliente($Apellido1_Cliente);
     $cDto->setApellido2_Cliente($Apellido2_Cliente);
-    $cDto->setTipo_documento($tipo_documento_Cliente);
+    $cDto->setTipo_documento($Tipo_documento);
 
     $mensaje = $cDao->registrarCliente($cDto);
     echo $mensaje;

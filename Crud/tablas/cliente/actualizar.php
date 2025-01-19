@@ -36,42 +36,41 @@
             <section class="get-in-touch">
                 <h1 class="title">Actualizar</h1>
                 <form class="contact-form row" action="../../controlador/controlador.cliente.php" method="POST">
-                    <div class="form-field col-lg-6">
-                        <input name="id_Cliente" value="<?php echo $cliente['id_Cliente']; ?>" id="name"
-                            class="input-text js-input" type="text" required>
+                <div class="form-field col-lg-6">
+                <input name="id_Cliente" value="<?php echo $cliente['id_Cliente']; ?>" id="name"
+                            class="input-text js-input" type="number" required>
                         <label class="label" for="name">id_Cliente</label>
                     </div>
-                    <div class="form-field col-lg-6 ">
+                    <div class="form-field col-lg-6">
                         <input name="Documento" value="<?php echo $cliente['Documento']; ?>" id="text"
                             class="input-text js-input" type="text" required>
                         <label class="label" for="email">Documento</label>
                     </div>
-                    <div class="form-field col-lg-6 ">
+                    <div class="form-field col-lg-6">
                         <input name="Nombre1_Cliente" value="<?php echo $cliente['Nombre1_Cliente']; ?>" id="text"
                             class="input-text js-input" type="text" required>
                         <label class="label" for="company">Nombre1_Cliente</label>
                     </div>
-                    <div class="form-field col-lg-6 ">
+                    <div class="form-field col-lg-6">
                         <input name="Nombre2_Cliente" value="<?php echo $cliente['Nombre2_Cliente']; ?>" id="text"
                             class="input-text js-input" type="text" required>
                         <label class="label" for="phone">Nombre2_Cliente</label>
                     </div>
-                    <div class="form-field col-lg-6 ">
+                    <div class="form-field col-lg-6">
                         <input name="Apellido1_Cliente" value="<?php echo $cliente['Apellido1_Cliente']; ?>" id="text"
                             class="input-text js-input" type="text" required>
-                        <label class="label" for="phone">Apellido1_Cliente 1</label>
+                        <label class="label" for="phone">Apellido1_Cliente</label>
                     </div>
-                    <div class="form-field col-lg-6 ">
+                    <div class="form-field col-lg-6">
                         <input name="Apellido2_Cliente" value="<?php echo $cliente['Apellido2_Cliente']; ?>" id="text"
                             class="input-text js-input" type="text">
-                        <label class="label" for="company">Apellido2_Cliente 2</label>
+                        <label class="label" for="company">Apellido2_Cliente</label>
                     </div>
-                    <div class="form-field col-lg-6 ">
+                    <div class="form-field col-lg-6">
                         <input name="Tipo_documento" value="<?php echo $cliente['Tipo_documento']; ?>" id="text"
                             class="input-text js-input" type="text" required>
-                        <label class="label" for="phone">Tipo_documento </label>
+                        <label class="label" for="phone">Tipo_documento</label>
                     </div>
-
                     <div class="form-field col-lg-6">
                         <a href="listarcliente.php"><input class="submit-btn" value="cancelar"></a>
                     </div>
