@@ -35,7 +35,7 @@ class clienteDao{
     public function registrarClienteCrud(clienteDto $clienteDto){
         $conn = Conexion::getConexion();
         $mensaje = "";
-        $id_Cliente = $clienteDto->getid_Cliente();
+        $id_Cliente = $clienteDto->getId_Cliente();
         $Documento = $clienteDto->getDocumento();
         $Nombre1_Cliente = $clienteDto->getNombre1_Cliente();
         $Nombre2_Cliente = $clienteDto->getNombre2_Cliente();
@@ -77,7 +77,7 @@ class clienteDao{
     public function modificarcliente(clienteDto $clienteDto){
         $cnn = Conexion::getConexion();
         $mensaje = "";
-        $id_Cliente = $clienteDto->getid_Cliente();
+        $id_Cliente = $clienteDto->getId_Cliente();
         $Documento = $clienteDto->getDocumento();
         $Nombre1_Cliente = $clienteDto->getNombre1_Cliente();
         $Nombre2_Cliente = $clienteDto->getNombre2_Cliente();
