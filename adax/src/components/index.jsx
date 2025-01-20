@@ -6,7 +6,6 @@ import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react';
 import { faRocket, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Carousel from './Carousel';
-console.log(styles)
 const Index = () => {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => {

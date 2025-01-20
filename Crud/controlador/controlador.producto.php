@@ -5,11 +5,11 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitid
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 // Manejar la solicitud OPTIONS
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+/*if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
     http_response_code(200);
     exit();
-}
+}*/
 
 require '../Dao/productoDao.php';
 require '../Dto/productoDto.php';
@@ -24,6 +24,10 @@ if (isset($data['regristroProducto'])) {
 }
 if (isset($data['listar'])) {
     $listar = $data['listar'];
+}
+if (isset($data['listarProductosApp'])) {
+    $listarProductosApp = $data['listarProductosApp'];
+    $codigo_invitacion = $data['codigo_invitacion'];
 }
  elseif (isset($_SESSION['nombre1'])) {
   require '../Dao/usuariosDao.php';
@@ -59,7 +63,7 @@ if (isset($_POST['registrarProducto'])) {
         exit();
     }
 } 
-else if (isset($listar) ||isset($_GET['si'])) {
+else if (isset($listar) ) {
     $pDao = new ProductoDao();
     $pDto = new productoDao();
     $lista = $pDao->listarTodos();
@@ -147,4 +151,17 @@ else if (isset($listar) ||isset($_GET['si'])) {
 
     $mensaje = $pDao->modificarProducto($pDto);
     header("Location:../tablas/producto/listarproducto.php?mensaje=" . $mensaje);
+} else if (isset($listarProductosApp) ) {
+    $pDao = new ProductoDao();
+    $lista = $pDao->listarProductosApp($codigo_invitacion);
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $producto) {
+        // Asegúrate de que cada producto sea un array o un objeto
+        $response[] = [
+            $producto['Nombre'],
+            $producto['Marca'],
+    ];
+    }
+    echo json_encode($response);
+    exit();
 }
