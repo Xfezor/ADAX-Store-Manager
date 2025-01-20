@@ -88,6 +88,7 @@ body {
   grid-template-rows: 1fr 1fr 10fr;
   grid-auto-rows: auto;
   gap: 10px;
+  overflow: scroll;
 }
 @media only screen and (max-height: 800px){
   .left-container{
@@ -153,8 +154,9 @@ body {
   grid-column: 1/-1;
   grid-row: 3/-1;
   border-radius: 15px;
+  max-height: 56vh;
   align-items: center;
-
+  overflow: scroll;
 }
 .trgespro {
   text-align: center;
@@ -235,17 +237,18 @@ body {
   border-radius: 15px;
   padding-left: 20px;
   padding-right: 20px;
-  margin-block-end: 10px;
+  margin-block-end: 40px;
 }
 .text-left{
   font-size: 23px;
   grid-row: 3/3;
   grid-column: 1/2;
+  margin-top: 10px;
 }
 .numero{
   grid-column: 2/ 3;
   grid-row: 3/3;
-  height: 90%;
+  height: 100%;
   width: 30%;
   border: none;
   margin: auto 0;
@@ -381,6 +384,8 @@ body {
   table-layout: fixed;
   display: table;
   border-radius: 15px;
+  overflow: scroll;
+
 }
 .table-head{
   position: sticky;
@@ -411,9 +416,10 @@ body {
   padding: 0.5em;
 }
 .product-table .tdgespro{
-  padding: .5rem 4rem;
+  padding: .5rem .5rem;
   border-collapse: collapse;
   display: table-cell;
+  border-bottom: 1px solid #0002;
 }
 
 .table-body::-webkit-scrollbar{
