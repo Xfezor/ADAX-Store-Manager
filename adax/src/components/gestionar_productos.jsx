@@ -81,9 +81,7 @@ const GestionarProductos = () => {
       setProductos(productosFiltrados);
     }
   }
-  const listar = () => {
-    Lista();
-  }
+
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {
@@ -91,9 +89,8 @@ const GestionarProductos = () => {
       };
     };
     validador();
-
-    //listar();
-  }, [navigate, Lista])
+    Lista();
+  }, [])
   return (
     <div>
       <header>
