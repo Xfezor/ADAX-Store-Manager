@@ -1,10 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_productos.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
+
+
 
 const GestionarProductos = () => {
   const navigate = useNavigate();
@@ -19,7 +23,6 @@ const GestionarProductos = () => {
   const tienda = JSON.parse(tienda1);
   const codigo_invitacion = JSON.parse(codigo_invitacion1);
   const rol = JSON.parse(rol1);
-  console.log(rol);
 
   const handleCerrarSesion = () => {
     cerrarSesion();
@@ -49,6 +52,38 @@ const GestionarProductos = () => {
     console.log("Gestionar proveedores");
     navigate('/gestionar_proveedores');
   }
+  const [productos ,setProductos] = useState([]);
+  const [productosOriginales ,setProductosOriginales] = useState([]);
+  const Lista = async () => {
+    try {
+      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
+        listarProductosApp: true,
+        codigo_invitacion: codigo_invitacion,
+      });
+      if (respuesta.data) {
+        console.log("etsitosooo");
+        setProductos(respuesta.data);
+        setProductosOriginales(respuesta.data);
+      } else {
+        console.log('listado no exitoso', respuesta.data)
+        return null;
+      }
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+  const buscar = (nombre) => {
+    if (nombre === "") {
+      setProductos(productosOriginales);
+    } else {
+      const productosFiltrados = productosOriginales.filter((Pro) => Pro[0].toLowerCase().includes(nombre.toLowerCase()));
+      setProductos(productosFiltrados);
+    }
+  }
+  const listar = () => {
+    Lista();
+  }
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {
@@ -56,7 +91,9 @@ const GestionarProductos = () => {
       };
     };
     validador();
-  }, [navigate])
+
+    //listar();
+  }, [navigate, Lista])
   return (
     <div>
       <header>
@@ -80,6 +117,7 @@ const GestionarProductos = () => {
             type="text"
             placeholder="Escriba el nombre de un producto"
             id="search"
+            onChange={(e) => buscar(e.target.value)}
           />
           <button className="btn btn-danger" id={styles["search-button"]} >
             Buscar
@@ -94,15 +132,17 @@ const GestionarProductos = () => {
                 </tr>
               </thead>
               <tbody className={styles["table-body"]}>
-                <tr className={styles.trgespro}>
-                  <td className={`${styles.tdgespro} ${styles.tdmarca}`}></td>
-                  <td className={`${styles.tdgespro} ${styles.tdnombre}`}></td>
+                {productos.map((Pro, index) => (
+                <tr className={styles.trgespro} key={index}>
+                  <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[0]}</td>
+                  <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[1]}</td>
                   <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
                     <button className={`{btn btn-danger`} id={styles["search-button"]}>
                       Ver detalle
                     </button>
                   </td>
                 </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -121,7 +161,7 @@ const GestionarProductos = () => {
                 type="text"
                 placeholder="Escriba el precio sin puntos ni comas"
               />
-              <span style={{ 'display': 'flex', 'gap': '10px' }}>
+              <span style={{ 'display': 'flex', 'gap': '10px', 'marginBottom': '20px' }}>
                 <h3 className={styles["text-left"]}>Cantidad:</h3>
                 <input
                   type="number"
@@ -129,10 +169,10 @@ const GestionarProductos = () => {
                   placeholder="Número"
                 />
               </span>
-              <button className={styles["añadir-producto"]} type="submit">
+            </form>
+              <button className={styles["añadir-producto"]} onClick={Lista}>
                 Añadir producto
               </button>
-            </form>
           </div>
           <div className={styles["proveedores"]}>
             <h1 className={styles["big-text-proveedores"]}>
