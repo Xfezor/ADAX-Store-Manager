@@ -154,7 +154,10 @@ body {
   grid-column: 1/-1;
   grid-row: 3/-1;
   border-radius: 15px;
+  max-height: 56vh;
   align-items: center;
+  overflow: scroll;
+  height: 56vh;
 
 }
 #detalle{
@@ -377,10 +380,13 @@ body {
   min-width: 100%;
   width: 100%;
   min-height: 10%;
+  max-height: 50vh;
+  height: 400px;
   border-collapse: collapse;
   table-layout: fixed;
   display: table;
   border-radius: 15px;
+  overflow: hidden;
 }
 .table-head{
   position: sticky;
@@ -414,21 +420,25 @@ table, td{
   padding: .5rem 4rem;
   border-collapse: collapse;
   display: table-cell;
+  overflow: hidden;
 }
 
 .table-body::-webkit-scrollbar{
   width: .5rem;
   height: .5rem;
+  overflow: hidden;
 }
 .table-body::-webkit-scrollbar-thumb{
   border-radius: .5rem;
   background-color: #0004;
+  overflow: hidden;
 }
 tbody tr{
   --delay: .1s;
   transition: .5s ease-in-out var(--delay);
   height: 20px;
   max-height: 20px;
+  overflow: hidden;
 }
 tbody tr.hide{
   opacity: 0;
@@ -437,14 +447,17 @@ tbody tr.hide{
   line-height: 1px;
   max-height: 1px;
   display: none;
+  overflow: hidden;
 }
 tbody tr td{
   transition: .2s ease-in-out;
+  overflow: hidden;
 }
 tbody tr.hide td{
   padding: 0;
   font: 0 / 0 Montserrat;
   transition: .2s ease-in-out .5s;
+  overflow: hidden;
 }
 
 .form{
