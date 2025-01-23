@@ -61,7 +61,7 @@ const GestionarProductos = () => {
         codigo_invitacion: codigo_invitacion,
       });
       if (respuesta.data) {
-        console.log("etsitosooo");
+        console.log("etsitosooo", respuesta.data);
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
       } else {

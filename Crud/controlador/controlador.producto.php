@@ -24,23 +24,21 @@ if (isset($data['regristroProducto'])) {
 }
 if (isset($data['listar'])) {
     $listar = $data['listar'];
-}
-if (isset($data['listarProductosApp'])) {
+} else if (isset($data['listarProductosApp'])) {
     $listarProductosApp = $data['listarProductosApp'];
     $codigo_invitacion = $data['codigo_invitacion'];
-}
- elseif (isset($_SESSION['nombre1'])) {
-  require '../Dao/usuariosDao.php';
-  require '../Dto/usuariosDto.php';
-  require '../Dao/tiendaDao.php';
-  require '../Dto/tiendaDto.php';
-  if (isset($_SESSION["rol_id_Rol"])) {
-    $rol_id_Rol = $_SESSION["rol_id_Rol"];
-  }
-  $nombreTienda = $_SESSION["nombreTienda"];
-  $codigo_invitacion = $_SESSION["codigo_invitacion"];
+} elseif (isset($_SESSION['nombre1'])) {
+    require '../Dao/usuariosDao.php';
+    require '../Dto/usuariosDto.php';
+    require '../Dao/tiendaDao.php';
+    require '../Dto/tiendaDto.php';
+    if (isset($_SESSION["rol_id_Rol"])) {
+        $rol_id_Rol = $_SESSION["rol_id_Rol"];
+    }
+    $nombreTienda = $_SESSION["nombreTienda"];
+    $codigo_invitacion = $_SESSION["codigo_invitacion"];
 } else {
-  echo 'ocurrio un error';
+    echo 'ocurrio un error';
 }
 if (isset($_POST['registrarProducto'])) {
     $pDao = new productoDao();
@@ -62,8 +60,7 @@ if (isset($_POST['registrarProducto'])) {
         header("Location:../../PAGINA/registro.php?registro=exitoso");
         exit();
     }
-} 
-else if (isset($listar) ) {
+} else if (isset($listar)) {
     $pDao = new ProductoDao();
     $pDto = new productoDao();
     $lista = $pDao->listarTodos();
@@ -82,11 +79,11 @@ else if (isset($listar) ) {
             $producto['Stock'],
             $producto['Stock_Min'],
             $producto['inventario_id_Inventario'],
-    ];
+        ];
     }
     echo json_encode($response);
     exit();
-}else if (isset($_POST['registrarProductoUnico'])) {
+} else if (isset($_POST['registrarProductoUnico'])) {
     echo "hola";
     $pDao = new productoDao();
     $pDto = new productoDto();
@@ -151,7 +148,7 @@ else if (isset($listar) ) {
 
     $mensaje = $pDao->modificarProducto($pDto);
     header("Location:../tablas/producto/listarproducto.php?mensaje=" . $mensaje);
-} else if (isset($listarProductosApp) ) {
+} else if (isset($listarProductosApp)) {
     $pDao = new ProductoDao();
     $lista = $pDao->listarProductosApp($codigo_invitacion);
     $response = []; // Inicializa un array para la respuesta
@@ -160,7 +157,7 @@ else if (isset($listar) ) {
         $response[] = [
             $producto['Nombre'],
             $producto['Marca'],
-    ];
+        ];
     }
     echo json_encode($response);
     exit();
