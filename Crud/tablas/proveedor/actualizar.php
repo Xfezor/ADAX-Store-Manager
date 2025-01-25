@@ -1,6 +1,4 @@
-<input?php
-session_start();
-?>
+<input?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,9 +28,9 @@ session_start();
         require '../../Dto/proveedorDto.php';
         require '../../utilidades/conexion.php';
 
-        if(isset($_POST['idproveedor']) && $_POST['idproveedor'] != NULL) {
-            $prDao = new proveedorDao();
-            $proveedor = $prDao->obtenerProveedor($_POST['idprovedor']);
+        if($_POST['idproveedor'] != NULL) {
+            $pvDao = new proveedorDao();
+            $proveedor = $pvDao->obtenerProveedor($_POST['idprovedor']);
         }
         ?>
 
