@@ -19,6 +19,7 @@ import RegistrarUsuarios from './components/CRUD/registro/registrarFactura.jsx';
 import RegistrarFactura from './components/CRUD/registro/registrarUsuarios.jsx';
 import RegistrarCliente from './components/CRUD/registro/registrarCliente.jsx';
 import ActualizarUsuarios from './components/CRUD/actualizar/actualizarUsuario.jsx';
+import ActualizarProveedor from './components/CRUD/actualizar/actualizarProveedor.jsx';
 import ActualizarFactura from './components/CRUD/actualizar/actualizarFactura.jsx';
 import ActualizarCliente from './components/CRUD/actualizar/actualizarCliente.jsx';
 import Tienda from './components/CRUD/tienda.jsx';
@@ -58,6 +59,7 @@ function App() {
           <Route path="/crud/registrar_factura" element={<RegistrarFactura />} />
           <Route path="/crud/registrar_cliente" element={<RegistrarCliente/>} />
           <Route path="/crud/actualizar/actualizarUsuario" element={<ActualizarUsuarios />} />
+          <Route path="/crud/actualizar/actualizarProveedor" element={<ActualizarProveedor />} />
           <Route path="/crud/actualizar/actualizarFactura/:id" element={<ActualizarFactura />} />
           <Route path="/crud/actualizar/actualizarCliente" element={<ActualizarCliente/>} />
           <Route path="/crud/tienda" element={<Tienda />} />
