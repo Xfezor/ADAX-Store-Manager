@@ -4,18 +4,23 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 
 const Roles = () => {
 
     const navigate = useNavigate();
+
+    const location = useLocation();
     
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
     const handleRegistro = () => {
+        navigate("/registro");
+    }
+    const handleRegistroUsuarios = () => {
         navigate("/crud/registrar_usuarios")
     }
     const handleUsuario = () => {
@@ -42,8 +47,15 @@ const Roles = () => {
     const handleRoles = () => {
         navigate("/crud/roles")
     }
+    const handleActualizarRol = (row) => {
+        const data = row;
+        navigate("/crud/actualizar/actualizarRol", { state: data });
+    }
+    const handleRegistroRol = () => {
+        navigate("/crud/registrar_Rol")
+    }
     const handleEntregaProductos = () => {
-        navigate("/crud/entrega_productos")
+        navigate("/crud/entrega_pedidos")
     }
     const handleInventario = () => {
         navigate("/crud/inventario")
@@ -57,7 +69,7 @@ const Roles = () => {
     DataTable.use(DT);
     const [rol, setRol] = useState([]);
     // eslint-disable-next-line
-    const [mensaje, setMensaje] = useState(null);
+    const [mensaje, setMensaje] = useState(location.state);
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
@@ -79,9 +91,29 @@ const Roles = () => {
             return null;
         }
     }
+
+    const Eliminar = async (idRol) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.rol.php`, {
+                eliminar: idRol,
+            });
+            console.log (respuesta.data);
+            if (respuesta.data.respuesta) {
+                setMensaje(respuesta.data.mensaje);
+                await Lista();
+            } else {
+                console.log('no exitoso', respuesta.data.respuesta)
+                setMensaje(respuesta.data.mensaje);
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
     useEffect(() => {
         Lista();
     }, []);
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
@@ -97,10 +129,10 @@ const Roles = () => {
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleUsuario}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroUsuarios}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
@@ -149,10 +181,10 @@ const Roles = () => {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Roles</a>
+                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Roles</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleRoles}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroRol}>registrar</button></li>
                                 </ul>
                             </li>
                             
@@ -199,15 +231,12 @@ const Roles = () => {
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={rol} slots={{
                     3: (data, row) => (
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={rol[0]} />
-                            <button type="submit" className="btn btn-warning">Modificar</button>
-                        </form>
+                        <button type="submit" className="btn btn-warning" onClick={() => handleActualizarRol(row)}>Modificar</button>
                     ),
                     4: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
+                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
-                        </a>
+                        </button>
                     )
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
@@ -220,7 +249,6 @@ const Roles = () => {
                         </tr>
                     </thead>
                     <tbody>
-
                     </tbody>
                 </DataTable>
             </div>

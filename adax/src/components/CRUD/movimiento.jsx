@@ -43,7 +43,7 @@ const Movimiento = () => {
         navigate("/crud/roles")
     }
     const handleEntregaProductos = () => {
-        navigate("/crud/entrega_productos")
+        navigate("/crud/entrega_pedidos")
     }
     const handleInventario = () => {
         navigate("/crud/inventario")
