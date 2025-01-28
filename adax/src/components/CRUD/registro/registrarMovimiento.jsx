@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
-import Usuarios from '../usuarios';
 
 const RegistrarMovimiento = () => {
     const navigate = useNavigate();

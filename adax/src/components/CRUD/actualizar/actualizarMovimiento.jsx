@@ -20,7 +20,7 @@ const ActualizarMovimiento = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-  
+
         switch (name) {
             case 'id_Movimiento':
                 setid_Movimiento(value);
@@ -39,6 +39,7 @@ const ActualizarMovimiento = () => {
                 break;
             case 'inventario_id_Inventario':
                 setinventario_id_Inventario(value);
+                break;
             default:
                 break;
         }
@@ -55,11 +56,11 @@ const ActualizarMovimiento = () => {
                 fecha_modificacion: fecha_modificacion,
                 estado_despues: estado_despues,
                 inventario_id_Inventario: inventario_id_Inventario,
-                
+
             });
             if (respuesta.data) {
                 const mensaje = respuesta.data.mensaje;
-                navigate('/crud/movimiento', {state: mensaje});
+                navigate('/crud/movimiento', { state: mensaje });
             } else {
                 console.log('actualizacion no exitosa', respuesta.data)
                 return null;
@@ -104,12 +105,12 @@ const ActualizarMovimiento = () => {
                             <input name="inventario_id_Inventario" value={inventario_id_Inventario} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" />
                             <label className={styles.label} htmlFor="company">inventario_id_Inventario</label>
                         </div>
-                        
+
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <button type="button" className={styles['submit-btn']} onClick={handleCancel}>Cancelar</button>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>                        
+                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>
                         </div>
                     </form>
                 </section>
