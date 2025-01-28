@@ -43,7 +43,7 @@ const Entrega_Productos = () => {
         navigate("/crud/roles")
     }
     const handleEntregaProductos = () => {
-        navigate("/crud/entrega_productos")
+        navigate("/crud/entrega_pedidos")
     }
     const handleInventario = () => {
         navigate("/crud/inventario")
@@ -100,7 +100,7 @@ const Entrega_Productos = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle active" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
@@ -157,7 +157,7 @@ const Entrega_Productos = () => {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
+                                <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleEntregaProductos}>lista</button></li>
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
