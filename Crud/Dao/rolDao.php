@@ -16,7 +16,7 @@ class rolDao
             $query->bindParam(2, $nombreRol);
             $query->bindParam(3, $descripcion);
             $query->execute();
-            $mensaje = 'Rol registrado con exito';
+            $mensaje = "Rol registrado con exito";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
@@ -38,7 +38,7 @@ class rolDao
             $query->bindParam(2, $nombreRol);
             $query->bindParam(3, $descripcion);
             $query->execute();
-            $mensaje = 'Rol registrado con exito';
+            $mensaje = "Rol registrado con exito";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }

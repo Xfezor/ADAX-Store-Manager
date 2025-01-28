@@ -20,26 +20,44 @@ header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (isset($data['registro'])) {
-    $id_Roles = $data['id_Rol'];
+    $id_Rol = $data['id_Rol'];
     $nombreRol = $data['nombreRol'];
     $descripcion = $data['descripcion'];
+    $registro = $data['registro'];
+}
+    if (isset($data ['registroCrud'])) {
+    $id_Rol = $data['id_Rol'];
+    $nombreRol = $data['nombreRol'];    
+    $descripcion = $data['descripcion'];
+    $registroCrud = $data['registroCrud'];
 }
 
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
 
-if (isset($registrarRol)) {
+if (isset( $data['eliminar'])) {
+    $idRol = $data['eliminar'];
+}
+
+if (isset($data['actualizar'])) {
+    $id_Rol = $data['id_Rol'];
+    $nombreRol = $data['nombreRol'];
+    $descripcion = $data['descripcion'];
+    $actualizar = $data['actualizar'];
+}
+
+
+if (isset($registro) || isset($_GET['no'])) {
     $rDao = new rolDao();
     $rDto = new rolDto();
-    $rDto->setid_Rol($id_Roles);
+    $rDto->setid_Rol($id_Rol);
     $rDto->setnombreROL($nombreRol);
     $rDTo->setdescripcion($descripcion);
 
     $mensaje = $rDao->registrarRol($rDto);
-    echo $mensaje;
-    if ($mensaje == 'Registrado exitosamente') {
-        header("Location:../tablas/roles/listaroles.php?mensaje=" . $mensaje);
+    if ($mensaje == "Rol Registrado con exito") {
+        echo json_encode(['success' => true]);
         exit;
     }
 } else if (isset($listar) || isset($GET['si'])) {
@@ -57,31 +75,32 @@ if (isset($registrarRol)) {
     echo json_encode($response);
     exit();
 
-} else if (isset($_POST['registroRolCrud'])) {
+}  else if (isset($registroCrud)) {
     $rDao = new rolDao();
     $rDto = new rolDto();
-    $rDto->setId_Rol($_POST['id_Rol']);
-    $rDto->setnombreROL($_POST['nombreRol']);
-    $rDto->setdescripcion($_POST['descripcion']);
+    $rDto->setId_Rol($id_Rol);
+    $rDto->setnombreROL($nombreRol);
+    $rDto->setdescripcion($descripcion);
 
     $mensaje = $rDao->registroRolCrud($rDto);
-    echo $mensaje;
     if ($mensaje === 'Rol registrado con exito') {
-        header("Location:../tablas/roles/listaroles.php?mensaje=".$mensaje);
-        exit;
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false, 'mensaje' => $mensaje]);
     }
-} else if ($_GET['id_Rol'] != null) {
+    exit();
+} else if (isset($idRol)) {
     $rDao = new rolDao();
-    $mensaje = $rDao->eliminarRol($_GET['id_Rol']);
-    header("Location:../tablas/roles/listaroles.php?mensaje=" . $mensaje);
-    exit;
-} else if (isset($_POST['modificar'])) {
+    $mensaje = $rDao->eliminarRol($idRol);
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
+    exit();
+} else if (isset($actualizar)) {
     $rDao = new rolDao();
     $rDto = new rolDto();
-    $rDto->setId_Rol($_POST['id_Rol']);
-    $rDto->setnombreRol($_POST['nombreRol']);
-    $rDto->setdescripcion($_POST['descripcion']);
+    $rDto->setId_Rol($id_Rol);
+    $rDto->setnombreRol($nombreRol);
+    $rDto->setdescripcion($descripcion);
 
-    $mensaje = $rDao->modificarRol($rDto);
-    header("Location:../tablas/roles/listaroles.php?mensaje=" . $mensaje);
+    $mensaje = $rDao->modificarRol(rolDto: $rDto);
+    echo json_encode( ['respuesta' => true, 'mensaje' => $mensaje]);
 }
