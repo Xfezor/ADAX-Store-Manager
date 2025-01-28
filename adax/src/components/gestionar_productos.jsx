@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_productos.module.css';
@@ -54,7 +54,7 @@ const GestionarProductos = () => {
   }
   const [productos ,setProductos] = useState([]);
   const [productosOriginales ,setProductosOriginales] = useState([]);
-  const Lista = async () => {
+  const Lista = useCallback(async () => {
     try {
       const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
         listarProductosApp: true,
@@ -72,7 +72,7 @@ const GestionarProductos = () => {
       console.error(err);
       return null;
     }
-  }
+  },[codigo_invitacion]);
   const buscar = (nombre) => {
     if (nombre === "") {
       setProductos(productosOriginales);
@@ -90,7 +90,7 @@ const GestionarProductos = () => {
     };
     validador();
     Lista();
-  }, [])
+  }, [Lista,navigate])
   return (
     <div>
       <header>
@@ -134,7 +134,7 @@ const GestionarProductos = () => {
                   <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[0]}</td>
                   <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[1]}</td>
                   <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
-                    <button className={`{btn btn-danger`} id={styles["search-button"]}>
+                    <button className={`{btn btn-danger`} id={styles["detail-button"]}>
                       Ver detalle
                     </button>
                   </td>

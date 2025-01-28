@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_analisis.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 function Analisis() {
@@ -25,10 +27,10 @@ function Analisis() {
   };
   const RolCrud = () => {
     if (rol === 1) {
-    return(
-      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-      </button>
-    );
+      return (
+        <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+        </button>
+      );
     }
   };
   const CRUD = () => {
@@ -36,43 +38,43 @@ function Analisis() {
   };
 
   const backbutton = () => {
-      console.log("Volver atrás");
-      navigate(-1);
+    console.log("Volver atrás");
+    navigate(-1);
   };
 
   const exitbutton = () => {
-      console.log("Salir");
-      navigate('/inicio');
+    console.log("Salir");
+    navigate('/inicio');
   };
 
   const vermovimientos = () => {
-    console.log("Ver movimientos clicked"); 
+    console.log("Ver movimientos clicked");
   };
 
   const buscarProducto = () => {
-    console.log("Buscar producto clicked"); 
+    console.log("Buscar producto clicked");
   };
- // eslint-disable-next-line
+  // eslint-disable-next-line
   useEffect(() => {
     const validador = () => {
-        if (localStorage.getItem('usuario') === null) {
-            navigate("/inicio");
-        };
+      if (localStorage.getItem('usuario') === null) {
+        navigate("/inicio");
+      };
     };
     validador();
-}, [navigate])
+  }, [navigate])
   return (
     <div>
       <header>
         <div className={styles.contenedorarriba}>
           <button className={styles.back} onClick={backbutton}>
-            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+            <FontAwesomeIcon icon={faArrowLeft} />
           </button>
           <div className={styles.adax}>
             <h1 className={styles.title}>Análisis</h1>
           </div>
-          <button className={styles.exit} onClick={exitbutton}>
-            <FontAwesomeIcon icon="fa-solid fa-xmark" />
+          <button className={styles.exit} onClick={exitbutton} to="/inicio">
+            <FontAwesomeIcon icon={faXmark}  />
           </button>
         </div>
       </header>

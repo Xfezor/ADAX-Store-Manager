@@ -1,17 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_ventas.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
 
 
 const Ventas = () => {
   const navigate = useNavigate();
   const { cerrarSesion } = useContext(ContextoSesion);
-  const [producto, setProducto] = useState('');
-  const [cantidad, setCantidad] = useState(1);
+  const [producto] = '';
 
   const usuario1 = localStorage.getItem('usuario');
   const tienda1 = localStorage.getItem('tienda');
@@ -25,12 +26,85 @@ const Ventas = () => {
 
   const RolCrud = () => {
     if (rol === 1) {
-    return(
-      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-      </button>
-    );
+      return (
+        <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+        </button>
+      );
     }
   }
+
+  const [productos, setProductos] = useState([]);
+  const [productosOriginales, setProductosOriginales] = useState([]);
+  const Lista = useCallback( async () => {
+    try {
+      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
+        listarProductosAppPrecio: true,
+        codigo_invitacion: codigo_invitacion,
+      });
+      if (respuesta.data) {
+        console.log("etsitosooo", respuesta.data);
+        setProductos(respuesta.data);
+        setProductosOriginales(respuesta.data);
+      } else {
+        console.log('listado no exitoso', respuesta.data)
+        return null;
+      }
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }, [codigo_invitacion]);
+  const buscar = (nombre) => {
+    if (nombre === "") {
+      setProductos(productosOriginales);
+    } else {
+      const productosFiltrados = productosOriginales.filter((Pro) => Pro[0].toLowerCase().includes(nombre.toLowerCase()));
+      setProductos(productosFiltrados);
+    }
+  }
+
+  const [prodCarrito, setProdCarrito] = useState([]);
+  const agregarProducto = (index) => {
+    const producto = productos[index];
+    const productoEnCarrito = prodCarrito.find((item) => item[0] === producto[0]);
+  
+    if (productoEnCarrito) {
+      const nuevoCarrito = prodCarrito.map((item) =>
+        item[0] === producto[0]
+          ? { ...item, cantidad: item.cantidad + 1 }
+          : item
+      );
+      setProdCarrito(nuevoCarrito);
+    } else {
+      setProdCarrito([...prodCarrito, { ...producto, cantidad: 1 }]);
+    }
+  };
+  const eliminarProducto = (index) => {
+    const nuevoCarrito = [...prodCarrito];
+    nuevoCarrito.splice(index, 1);
+    setProdCarrito(nuevoCarrito);
+  };
+  const aumentarCantidad = (index) => {
+    const nuevoCarrito = [...prodCarrito];
+    nuevoCarrito[index] = {
+      ...nuevoCarrito[index],
+      cantidad: nuevoCarrito[index].cantidad + 1
+    };
+    setProdCarrito(nuevoCarrito);
+  };
+  const disminuirCantidad = (index) => {
+    const nuevoCarrito = [...prodCarrito];
+    nuevoCarrito[index] = {
+      ...nuevoCarrito[index],
+      cantidad: nuevoCarrito[index].cantidad - 1
+    };
+    setProdCarrito(nuevoCarrito);
+    if (nuevoCarrito[index].cantidad === 0) {
+      eliminarProducto(index);
+    }
+  };
+
+
   const CRUD = () => {
     navigate('/crud/usuarios');
   }
@@ -44,28 +118,25 @@ const Ventas = () => {
   const buscarProductoHandler = () => {
     console.log(`Buscando producto: ${producto}`);
   };
-  const aumentarCantidad = () => {
-    setCantidad(cantidad + 1);
-  };
-  const disminuirCantidad = () => {
-    if (cantidad > 1) setCantidad(cantidad - 1);
-  };
   const backbutton = () => {
-      console.log("Volver atrás");
-      navigate(-1);
+    console.log("Volver atrás");
+    navigate(-1);
   };
   const exitbutton = () => {
-      console.log("Salir");
-      navigate('/inicio');
+    console.log("Salir");
+    navigate('/inicio');
   };
+  // eslint-disable-next-line
   useEffect(() => {
     const validador = () => {
-        if (localStorage.getItem('usuario') === null) {
-            navigate("/inicio");
-        };
+      if (localStorage.getItem('usuario') === null) {
+        navigate("/inicio");
+      };
     };
+
     validador();
-}, [navigate])
+    Lista();
+  }, [Lista,navigate])
   return (
     <>
       <header>
@@ -91,26 +162,71 @@ const Ventas = () => {
             name="search"
             id="search"
             placeholder="Escriba el nombre de un producto"
-            value={producto}
-            onChange={(e) => setProducto(e.target.value)}
+            onChange={(e) => buscar(e.target.value)}
           />
           <button className="btn btn-danger" id={styles['search-button']} onClick={buscarProductoHandler}>
             Buscar
           </button>
           <div className={styles['product-list']}>
-            <button className="btn btn-danger" id={styles['add-button']} onClick={aumentarCantidad}>
-              1+
-            </button>
-            <button className="btn btn-danger" id={styles['minus-button']} onClick={disminuirCantidad}>
-              1-
-            </button>
+            <table className={styles["product-table"]}>
+              <thead className={styles["table-head"]}>
+                <tr className={styles.trgespro}>
+                  <th className={styles.thgespro}>Nombre</th>
+                  <th className={styles.thgespro}>Marca</th>
+                  <th className={styles.thgespro}>Precio</th>
+                  <th className={styles.thgespro}>Operacion</th>
+                </tr>
+              </thead>
+              <tbody className={styles["table-body"]}>
+                {productos.map((Pro, index) => (
+                  <tr className={styles.trgespro} key={index}>
+                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[0]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[1]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[2]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
+                      <button className="btn btn-danger" id={styles['add-button']} onClick={() => agregarProducto(index)}>
+                        1+
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 
         <div className={styles['right-container']}>
           <h1 className={styles['big-text']}>Carrito</h1>
           <div className={styles['cart-list']}>
-            <h2 className={styles['text-inside']}>test?</h2>
+            <table className={styles["product-table"]}>
+              <thead className={styles["table-head"]}>
+                <tr className={styles.trgespro}>
+                  <th className={styles.thgespro}>Nombre</th>
+                  <th className={styles.thgespro}>Marca</th>
+                  <th className={styles.thgespro}>Precio</th>
+                  <th className={styles.thgespro}>Cantidad</th>
+                  <th className={styles.thgespro}>Operacion</th>
+                </tr>
+              </thead>
+              <tbody className={styles["table-body"]}>
+                {prodCarrito.map((ProD, index) => (
+                  <tr className={styles.trgespro} key={index}>
+                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[0]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[1]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[2]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD.cantidad}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
+                      <button className="btn btn-danger" id={styles['add-button']} onClick={() => aumentarCantidad(index)}>
+                        1+
+                      </button>
+                      <button className="btn btn-danger" id={styles['minus-button']} onClick={() => disminuirCantidad(index)}>
+                        1-
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
           <button className={styles['generar-pago']} onClick={generarPago}>
             Generar pago

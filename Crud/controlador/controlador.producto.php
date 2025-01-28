@@ -27,6 +27,9 @@ if (isset($data['listar'])) {
 } else if (isset($data['listarProductosApp'])) {
     $listarProductosApp = $data['listarProductosApp'];
     $codigo_invitacion = $data['codigo_invitacion'];
+} else if (isset($data['listarProductosAppPrecio'])) {
+    $listarProductosAppPrecio = $data['listarProductosAppPrecio'];
+    $codigo_invitacion = $data['codigo_invitacion'];
 } elseif (isset($_SESSION['nombre1'])) {
     require '../Dao/usuariosDao.php';
     require '../Dto/usuariosDto.php';
@@ -157,6 +160,20 @@ if (isset($_POST['registrarProducto'])) {
         $response[] = [
             $producto['Nombre'],
             $producto['Marca'],
+        ];
+    }
+    echo json_encode($response);
+    exit();
+} else if (isset($listarProductosAppPrecio)) {
+    $pDao = new ProductoDao();
+    $lista = $pDao->listarProductosAppPrecio($codigo_invitacion);
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $producto) {
+        // Asegúrate de que cada producto sea un array o un objeto
+        $response[] = [
+            $producto['Nombre'],
+            $producto['Marca'],
+            $producto['Precio_unit'],
         ];
     }
     echo json_encode($response);

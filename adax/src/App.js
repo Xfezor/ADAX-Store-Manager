@@ -16,8 +16,6 @@ import GestionarVentas from './components/gestionar_ventas.jsx';
 import DetalleFactura from './components/detalle_factura.jsx';
 import Usuarios from './components/CRUD/usuarios.jsx';
 import RegistrarUsuarios from './components/CRUD/registro/registrarUsuarios.jsx';
-import RegistrarFactura from './components/CRUD/registro/registrarFactura.jsx';
-import RegistrarUsuarios from './components/CRUD/registro/registrarUsuarios.jsx';
 import RegistrarProveedor from './components/CRUD/registro/registrarProveedor.jsx';
 import RegistrarFactura from './components/CRUD/registro/registrarUsuarios.jsx';
 import RegistrarCliente from './components/CRUD/registro/registrarCliente.jsx';
@@ -38,7 +36,7 @@ import ActualizarRoles from './components/CRUD/actualizar/actualizarRol.jsx';
 import RegistrarRoles from './components/CRUD/registro/registrarRol.jsx';
 import EntregaPedidos from './components/CRUD/entrega_pedidos.jsx';
 import Inventario from './components/CRUD/inventario.jsx';
-import Metodos_de_Pago from './components/CRUD/metodosdepago.jsx';
+import MetodosDePago from './components/CRUD/metodosdepago.jsx';
 import Venta from './components/CRUD/ventas.jsx';
 
 function App() {
@@ -81,7 +79,7 @@ function App() {
           <Route path="/crud/registrar_rol" element={<RegistrarRoles />} />
           <Route path="/crud/entrega_pedidos" element={<EntregaPedidos />} />
           <Route path="/crud/inventario" element={<Inventario />} />
-          <Route path="/crud/metodosdepago" element={<Metodos_de_Pago />} />
+          <Route path="/crud/metodosdepago" element={<MetodosDePago />} />
           <Route path="/crud/ventas" element={<Venta />} />
           <Route path="*" element={<Index />} />
         </Routes>

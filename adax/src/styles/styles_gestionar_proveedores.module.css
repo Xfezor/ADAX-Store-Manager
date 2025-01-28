@@ -70,15 +70,19 @@ body {
 .container{
     width: 100%;
     max-width: 85%;
+    margin: 0 auto;
+    padding-left:10px;
 }
 .form-control{
-    max-width: 90%;
+    max-width: 100%;
     display: inline-block;
     margin-top: 10px;
     height: 40px;
     border-radius: 15px;
+    border-color: transparent;
+    width: 99%;
+    padding-left: 10px;
 }
-
 #buscar{
     background-color: #df6363;
     margin: 0 0;
