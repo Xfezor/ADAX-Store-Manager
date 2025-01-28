@@ -127,7 +127,7 @@ const Usuarios = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle" href="#top" role="button"
+                            <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleTienda}>lista</button></li>
@@ -147,7 +147,7 @@ const Usuarios = () => {
                                     aria-expanded="false">Factura</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleFactura}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroFactura}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
@@ -199,6 +199,7 @@ const Usuarios = () => {
                                 </ul>
                             </li>
 
+                            
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">
@@ -214,12 +215,12 @@ const Usuarios = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            
+
                         </ul>
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>

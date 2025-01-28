@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx'
 import styles from '../styles/styles_gestionar_ventas.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
 
 function GestionarVentas() {
 
@@ -34,6 +36,40 @@ function GestionarVentas() {
             );
         }
     }
+
+    const [factura, setFactura] = useState([]);
+    const [facturasOriginales, setFacturasOriginales] = useState([]);
+    const Lista = async () => {
+        try {
+            const respuesta = await axios.post(
+                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
+                { listar: true }
+            );
+            if (respuesta.data) {
+                setFactura(respuesta.data);
+                setFacturasOriginales(respuesta.data);
+            } else {
+                console.log('Listado no exitoso:', respuesta.data);
+                return null;
+            }
+        } catch (err) {
+            console.error('Error al obtener los datos:', err);
+            return null;
+        }
+    }
+    const buscar = (valor) => {
+        if (valor === "") {
+          setFactura(facturasOriginales);
+        } else {
+          const facturasFiltrados = facturasOriginales.filter((Fa) => {
+            const idVenta = String(Fa[0]).toLowerCase();
+            const idProducto = String(Fa[1]).toLowerCase();
+            return idVenta.includes(valor.toLowerCase()) || idProducto.includes(valor.toLowerCase());
+          });
+          setFactura(facturasFiltrados);
+        }
+      };
+
     const CRUD = () => {
         navigate('/crud/usuarios');
     }
@@ -55,6 +91,7 @@ function GestionarVentas() {
             };
         };
         validador();
+        Lista();
     }, [navigate])
     return (
         <>
@@ -73,8 +110,7 @@ function GestionarVentas() {
             </header>
             <div className={styles.container}>
                 <h1 className={styles['text-left']}>Factura</h1>
-                <input type="text" className={styles['form-control']} placeholder="Escriba un numero de venta o de producto" />
-                <button className={styles["btn btn-danger"]} id={styles.buscar}>Buscar</button>
+                <input type="text" onChange={(e) => buscar(e.target.value)} className={styles['form-control']} placeholder="Escriba un numero de venta o de producto" />
             </div>
             <div className={styles.cuadradoverde}>
                 <table id="productos" className={styles['facturas-table']}>
@@ -89,21 +125,20 @@ function GestionarVentas() {
                         </tr>
                     </thead>
                     <tbody className={styles['table-body']}>
-                        <tr>
-                            <td className={styles.tdventas}></td>
-                            <td className={styles.tdventas}></td>
-                            <td className={styles.tdventas}></td>
-                            <td className={styles.tdventas}></td>
-                            <td className={styles.tdventas}></td>
-                            <td className={`styles.tdventas`}>
-                                <form action="detalle_factura.php" method="POST">
-                                    <input type="hidden" name="venta_ID" value="" />
+                        {factura.map((Fa, index) => (
+                            <tr className={styles.trgespro} key={index}>
+                                <td className={styles.tdventas}>{Fa[0]}</td>
+                                <td className={styles.tdventas}>{Fa[1]}</td>
+                                <td className={styles.tdventas}>{Fa[2]}</td>
+                                <td className={styles.tdventas}>{Fa[3]}</td>
+                                <td className={styles.tdventas}>{Fa[4]}</td>
+                                <td className={styles.tdventas}>
                                     <button type="submit" className="btn btn-danger" id={styles.detalle}>
                                         Ver detalle
                                     </button>
-                                </form>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

@@ -63,7 +63,7 @@ const GestionarProveedores = () => {
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <div className={styles.adax}>
-                        <h1 className={styles.title}>Gestionar Productos</h1>
+                        <h1 className={styles.title}>Gestionar proveedores</h1>
                     </div>
                     <button className={styles.exit} onClick={exitbutton}>
                         <FontAwesomeIcon icon={faXmark} className={styles.exit} />
@@ -72,10 +72,7 @@ const GestionarProveedores = () => {
             </header>
             <div className={styles.container}>
                 <h1 className={styles["text-left"]}>Proveedores</h1>
-                <form action="buscar_proveedor.php" method="post" className={styles.formgespro}>
-                    <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
-                    <button className="btn btn-danger" id={styles.buscar}>Buscar</button>
-                </form>
+                <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
             </div>
             <div className={styles.cuadradoverde}>
 
