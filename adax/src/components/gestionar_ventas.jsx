@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx'
 import styles from '../styles/styles_gestionar_ventas.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -39,7 +39,7 @@ function GestionarVentas() {
 
     const [factura, setFactura] = useState([]);
     const [facturasOriginales, setFacturasOriginales] = useState([]);
-    const Lista = async () => {
+    const Lista = useCallback(async () => {
         try {
             const respuesta = await axios.post(
                 'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
@@ -59,7 +59,7 @@ function GestionarVentas() {
             console.error('Error al obtener los datos:', err);
             return null;
         }
-    }
+    },[codigo_invitacion]);
     const buscar = (valor) => {
         if (valor === "") {
             setFactura(facturasOriginales);
@@ -86,7 +86,6 @@ function GestionarVentas() {
         console.log("Salir");
         navigate('/inicio');
     };
-
     useEffect(() => {
         const validador = () => {
             if (localStorage.getItem('usuario') === null) {
@@ -95,7 +94,7 @@ function GestionarVentas() {
         };
         validador();
         Lista();
-    }, [navigate])
+    }, [navigate,Lista])
     return (
         <>
             <header>
