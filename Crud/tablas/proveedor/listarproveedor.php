@@ -84,7 +84,7 @@ if (!isset($_SESSION['nombre1'])) {
                             aria-expanded="false">Proveedor</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="listarproveedor.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -94,7 +94,7 @@ if (!isset($_SESSION['nombre1'])) {
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="listarmovimiento.php">lista</a></li>
-                            <li><a class="dropdown-item" href="registrar.php">registrar</a></li>
+                            <li><a class="dropdown-item" href="../proveedor/registrar.php">registrar</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -137,7 +137,7 @@ if (!isset($_SESSION['nombre1'])) {
             require '../../Dao/proveedorDao.php';
             require '../../Dto/proveedorDto.php';
 
-            $prDao = new proveedorDao();
+            $pvDao = new proveedorDao();
             $allUsers = $prDao->listarTodos();
             foreach ($allUsers as $user) { ?>
                 <tr class="text-center">
@@ -148,7 +148,7 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['id_tienda']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="idproveedo" value="<?php echo $user['idproveedor']; ?>">
+                            <input type="hidden" name="doc" value="<?php echo $user['idproveedor']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
