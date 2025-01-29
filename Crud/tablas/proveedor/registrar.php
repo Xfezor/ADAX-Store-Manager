@@ -61,7 +61,7 @@ session_start();
                     <a href="listarproveedor.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input name="registrocrud" class="submit-btn" type="submit" value="Actualizar">
+                    <input name="registroProveedorcrud" class="submit-btn" type="submit" value="Actualizar">
                 </div>
 
             </form>

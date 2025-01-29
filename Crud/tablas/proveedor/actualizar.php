@@ -62,7 +62,7 @@
 
         
         <div class="form-field col-lg-6">
-                    <a href="listarventa.php"><input class="submit-btn" value="cancelar" ></a>
+                    <a href="listarproveedor.php"><input class="submit-btn" value="cancelar" ></a>
                 </div>
                 <div class="form-field col-lg-6">
                     <input name="modificar" class="submit-btn" type="submit" value="Actualizar">
