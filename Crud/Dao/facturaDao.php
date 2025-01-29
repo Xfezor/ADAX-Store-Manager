@@ -61,6 +61,17 @@ class facturaDao{
             echo 'Error'. $ex->getMessage();
         }
     }
+    public function listarTodosTienda($codigo_invitacion){
+        $conn = Conexion::getConexion();
+        try {
+            $listarFactura = "SELECT f.venta_id_Venta,f.producto_id_Producto,f.Cantidad,f.Precio,f.Estado FROM factura f inner join venta v on f.venta_id_venta = v.id_venta inner join tienda t on t.idtienda = v.tienda_idtienda where t.codigo_invitacion = $codigo_invitacion;";
+            $query = $conn->prepare($listarFactura);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception  $ex) {
+            echo 'Error'. $ex->getMessage();
+        }
+    }
     public function listarFacturas($venta_id_Venta){
         $conn = Conexion::getConexion();
         $sentencia = $conn->prepare("SELECT venta_id_Venta from factura where venta_id_Venta = $venta_id_Venta;");

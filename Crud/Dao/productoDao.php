@@ -57,7 +57,7 @@ class productoDao
         $valor = $sentencia->fetch(PDO::FETCH_OBJ);
         $idtienda = $valor->idtienda;
         if ($valor === FALSE) {
-            header('Location:../../PAGINA/inicio.php?error=1');
+            //header('Location:../../PAGINA/inicio.php?error=1');
             exit();
         } elseif ($sentencia->rowcount() == 1) {
             $sentencia2 = $conn->prepare("SELECT id_Inventario from inventario where tienda_idtienda = $idtienda;");

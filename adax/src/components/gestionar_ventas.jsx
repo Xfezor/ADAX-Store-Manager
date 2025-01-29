@@ -43,7 +43,10 @@ function GestionarVentas() {
         try {
             const respuesta = await axios.post(
                 'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
-                { listar: true }
+                {
+                    listarTienda: true,
+                    codigo_invitacion: codigo_invitacion,
+                }
             );
             if (respuesta.data) {
                 setFactura(respuesta.data);
@@ -59,16 +62,16 @@ function GestionarVentas() {
     }
     const buscar = (valor) => {
         if (valor === "") {
-          setFactura(facturasOriginales);
+            setFactura(facturasOriginales);
         } else {
-          const facturasFiltrados = facturasOriginales.filter((Fa) => {
-            const idVenta = String(Fa[0]).toLowerCase();
-            const idProducto = String(Fa[1]).toLowerCase();
-            return idVenta.includes(valor.toLowerCase()) || idProducto.includes(valor.toLowerCase());
-          });
-          setFactura(facturasFiltrados);
+            const facturasFiltrados = facturasOriginales.filter((Fa) => {
+                const idVenta = String(Fa[0]).toLowerCase();
+                const idProducto = String(Fa[1]).toLowerCase();
+                return idVenta.includes(valor.toLowerCase()) || idProducto.includes(valor.toLowerCase());
+            });
+            setFactura(facturasFiltrados);
         }
-      };
+    };
 
     const CRUD = () => {
         navigate('/crud/usuarios');

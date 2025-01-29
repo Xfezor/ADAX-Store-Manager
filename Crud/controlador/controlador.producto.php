@@ -22,6 +22,13 @@ if (isset($data['regristroProducto'])) {
     // $contrasena = $data['contrasena'];
     // $direccion = $data['direccion'];
 }
+if (isset($data['registrarProductoUnico'])) {
+    $registrarProductoUnico = $data['registrarProductoUnico'];
+    $nombre = $data['nombre'];
+    $precio = $data['precio'];
+    $cantidad = $data['cantidad'];
+    $codigo_invitacion = $data['codigo_invitacion'];
+}
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 } else if (isset($data['listarProductosApp'])) {
@@ -30,7 +37,7 @@ if (isset($data['listar'])) {
 } else if (isset($data['listarProductosAppPrecio'])) {
     $listarProductosAppPrecio = $data['listarProductosAppPrecio'];
     $codigo_invitacion = $data['codigo_invitacion'];
-} elseif (isset($_SESSION['nombre1'])) {
+} else if (isset($_SESSION['nombre1'])) {
     require '../Dao/usuariosDao.php';
     require '../Dto/usuariosDto.php';
     require '../Dao/tiendaDao.php';
@@ -41,7 +48,7 @@ if (isset($data['listar'])) {
     $nombreTienda = $_SESSION["nombreTienda"];
     $codigo_invitacion = $_SESSION["codigo_invitacion"];
 } else {
-    echo 'ocurrio un error';
+    //echo 'ocurrio un error';
 }
 if (isset($_POST['registrarProducto'])) {
     $pDao = new productoDao();
@@ -86,24 +93,22 @@ if (isset($_POST['registrarProducto'])) {
     }
     echo json_encode($response);
     exit();
-} else if (isset($_POST['registrarProductoUnico'])) {
-    echo "hola";
+} else if (isset($registrarProductoUnico)) {
     $pDao = new productoDao();
     $pDto = new productoDto();
-    $pDto->setNombre($_POST['Nombre']);
-    $pDto->setPrecio_unit($_POST['Precio_unit']);
+    $pDto->setNombre($nombre);
+    $pDto->setPrecio_unit($precio);
     $pDto->setDescripción('');
     $pDto->setMarca('');
     $pDto->setCategoría('');
     $pDto->setPresentacion('');
     $pDto->setFecha_vencimiento('');
-    $pDto->setStock($_POST['Stock']);
+    $pDto->setStock($cantidad);
     $pDto->setStock_Min('');
-    $mensaje = $pDao->registrarProductoUnico($pDto, $_SESSION['codigo_invitacion']);
-    echo $mensaje;
+    $mensaje = $pDao->registrarProductoUnico($pDto, $codigo_invitacion);
     if ($mensaje === 'Registrado Exitosamente') {
-        // Registration successful, redirect to login page or success page
-        header("Location:../../PAGINA/gestionar_productos.php?registro=exitoso");
+        $response = ['registro' => true];
+        echo json_encode( $response);
         exit();
     }
 } else if (isset($_POST['registrarProducto'])) {
