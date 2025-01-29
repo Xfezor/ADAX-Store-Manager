@@ -226,7 +226,7 @@ const Movimiento = () => {
                             <th>fecha_movimiento</th>
                             <th>fecha_modificacion</th>
                             <th>estado_despues</th>
-                            <th>id_tienda</th>
+                            <th>inventario_id_Inventario</th>
                             <th>Modificar</th>
                             <th>Eliminar</th>
                         </tr>

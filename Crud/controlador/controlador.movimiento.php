@@ -16,13 +16,19 @@
     require '../Dto/movimientoDto.php';
     require '../utilidades/conexion.php';
 
+    // Deshabilitar el caché
+    header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
+    header("Pragma: no-cache"); // HTTP 1.0
+    header("Expires: 0"); // Proxies
+
     $data = json_decode(file_get_contents('php://input'), true);
     if (isset($data['regristro'])) {
-        $nombreTienda = $data['cantidad_despues'];
-        $telefono = $data['fecha_movimiento'];
-        $email = $data['email'];
-        $contrasena = $data['contrasena'];
-        $direccion = $data['direccion'];
+        $id_Movimiento = $data['id_Movimiento'];
+        $cantidad_despues = $data['cantidad_despues'];
+        $fecha_movimiento = $data['fecha_movimiento'];
+        $fecha_modificacion = $data['fecha_modificacion'];
+        $estado_despues = $data['estado_despues'];
+        $inventario_id_Inventario = $data['inventario_id_Inventario'];
     }
     if (isset($data['listar'])) {
         $listar = $data['listar'];
