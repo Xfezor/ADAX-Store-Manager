@@ -17,7 +17,6 @@ import DetalleFactura from './components/detalle_factura.jsx';
 import Usuarios from './components/CRUD/usuarios.jsx';
 import RegistrarUsuarios from './components/CRUD/registro/registrarUsuarios.jsx';
 import RegistrarProveedor from './components/CRUD/registro/registrarProveedor.jsx';
-import RegistrarFactura from './components/CRUD/registro/registrarUsuarios.jsx';
 import RegistrarCliente from './components/CRUD/registro/registrarCliente.jsx';
 import RegistrarMovimiento from './components/CRUD/registro/registrarMovimiento.jsx';
 import ActualizarUsuarios from './components/CRUD/actualizar/actualizarUsuario.jsx';
