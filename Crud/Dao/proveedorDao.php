@@ -1,127 +1,136 @@
 <?php
-
-class proveedorDao{
-
-    public function registrarProveedor(proveedorDto $proveedorDto){
+class proveedorDao
+{
+    public function registrarProveedor(proveedorDto $proveedorDto)
+    {
         $conn = Conexion::getConexion();
-        $mensaje = "";
-        $idproveedor = $proveedorDto->getIdproveedor();
-        $nombre = $proveedorDto->getNombre();
+        $mensaje = '';
+        $idproveedor = $proveedorDto->getidproveedor();
+        $nombre = $proveedorDto->getnombre();
         $telefono = $proveedorDto->gettelefono();
-        $email = $proveedorDto->getEmail();
-        $id_tienda = $proveedorDto->getId_tienda();
-       
-        try {
-            $query = $conn->prepare("INSERT INTO proveedor(nombre,telefono,email,id_tienda) values (?,?,?,?,?);");
-            $query->bindParam(1,$idproveedor);
-            $query->bindParam(2,$nombre);
-            $query->bindParam(3,$telefono);
-            $query->bindParam(4,$email);
-            $query->bindParam(5,$id_tienda);
+        $email = $proveedorDto->getemail();
+        $id_tienda = $proveedorDto->getid_tienda();
 
+        try {
+            $query = $conn->prepare("INSERT INTO proveedor(idproveedor, nombre, telefono, email, id_tienda) VALUES (?, ?, ?, ?, ?)");
+            $query->bindParam(1, $idproveedor);
+            $query->bindParam(2, $nombre);
+            $query->bindParam(3, $telefono);
+            $query->bindParam(4, $email);
+            $query->bindParam(5, $id_tienda);
             $query->execute();
-            $mensaje = "Registrado Exitosamente";
+            $mensaje = "Proveedor registrado exitosamente";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
+        } finally {
+            $conn = null;
         }
-        $conn = null;
         return $mensaje;
-    } 
-    public function registrarProveedorCrud(proveedorDto $proveedorDto){
-        $conn = Conexion::getConexion();
-        $mensaje = "";
-        $idproveedor = $proveedorDto->getIdproveedor();
-        $nombre = $proveedorDto->getNombre();
-        $telefono = $proveedorDto->getTelefono();
-        $email = $proveedorDto->getEmail();
-        $id_tienda = $proveedorDto->getId_tienda();
-       
-        try {
-            $query = $conn->prepare("INSERT INTO proveedor values (?,?,?,?,?);");
-            $query->bindParam(1,$idproveedor);
-            $query->bindParam(2,$nombre);
-            $query->bindParam(3,$telefono);
-            $query->bindParam(4,$email);
-            $query->bindParam(5,$id_tienda);
-           
+    }
 
+    public function registroProveedorCrud(proveedorDto $proveedorDto)
+    {
+        $conn = Conexion::getConexion();
+        $mensaje = '';
+        $idproveedor = $proveedorDto->getidproveedor();
+        $nombre = $proveedorDto->getnombre();
+        $telefono = $proveedorDto->gettelefono();
+        $email = $proveedorDto->getemail();
+        $id_tienda = $proveedorDto->getid_tienda();
+
+        try {
+            $query = $conn->prepare("INSERT INTO proveedor(idproveedor, nombre, telefono, email, id_tienda) VALUES (?, ?, ?, ?, ?)");
+            $query->bindParam(1, $idproveedor);
+            $query->bindParam(2, $nombre);
+            $query->bindParam(3, $telefono);
+            $query->bindParam(4, $email);
+            $query->bindParam(5, $id_tienda);
             $query->execute();
-            $mensaje = "Registrado Exitosamente";
+            $mensaje = "Proveedor registrado exitosamente en CRUD";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
+        } finally {
+            $conn = null;
         }
-        $conn = null;
         return $mensaje;
-    } 
-    public function listarTodos(){
+    }
+
+    public function listarTodos()
+    {
         $conn = Conexion::getConexion();
         try {
-            $listarProveedor = 'SELECT * from proveedor';
+            $listarProveedor = "SELECT * FROM proveedor";
             $query = $conn->prepare($listarProveedor);
             $query->execute();
             return $query->fetchAll();
-        } catch (Exception  $ex) {
-            echo 'Error'. $ex->getMessage();
+        } catch (Exception $ex) {
+            return []; 
+        } finally {
+            $conn = null;
         }
     }
 
-    public function modificarProveedor(proveedorDto $proveedorDto){
-        $cnn = Conexion::getConexion();
+    public function modificarProveedor(proveedorDto $proveedorDto)
+    {
+        $conn = Conexion::getConexion();
         $mensaje = "";
-        $idproveedor = $proveedorDto->getIdproveedor();
-        $nombre = $proveedorDto->getNombre();
-        $telefono = $proveedorDto->getTelefono();
-        $email = $proveedorDto->getEmail();
-        $id_tienda = $proveedorDto->getId_tienda();
-       
+        $idproveedor = $proveedorDto->getidproveedor();
+        $nombre = $proveedorDto->getnombre();
+        $telefono = $proveedorDto->gettelefono();
+        $email = $proveedorDto->getemail();
+        $id_tienda = $proveedorDto->getid_tienda();
+
         try {
-            $query = $cnn->prepare("UPDATE proveedor SET idproveedor=?, nombre=?, telefono=?, email=?, id_tienda=? WHERE idproveedor=?");
-            $query->bindParam(1,$idproveedor);
-            $query->bindParam(2,$nombre);
-            $query->bindParam(3,$telefono);
-            $query->bindParam(4,$email);
-            $query->bindParam(5,$id_tienda);
-            
+            $query = $conn->prepare("UPDATE proveedor SET nombre=?, telefono=?, email=?, id_tienda=? WHERE idproveedor=?");
+            $query->bindParam(1, $nombre);
+            $query->bindParam(2, $telefono);
+            $query->bindParam(3, $email);
+            $query->bindParam(4, $id_tienda);
+            $query->bindParam(5, $idproveedor);
             $query->execute();
-            $mensaje= "Registro actualizado";
-        } catch (Exception  $ex) {
-            $mensaje= $ex->getMessage();
+            $mensaje = "Registro actualizado";
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        } finally {
+            $conn = null;
         }
-        $cnn= null;
         return $mensaje;
-        }
-        // obtener Proveedor
-    public function obtenerProveedor($idproveedor){
-        $cnn = Conexion::getConexion();
-        $mensaje = "";
-    try {
-        $query = $cnn->prepare('SELECT * FROM proveedor WHERE idproveedor=?');
-        $query->bindParam(1, $idproveedor);
-        $query->execute();
-        return $query->fetch();
-    
-    } catch (Exception  $ex) {
-        $mensaje= $ex->getMessage();
     }
-    $cnn= null;
-    return $mensaje;
-    }
-    
-    //eliminar Proveedor
-    public function eliminarProveedor($idproveedor){
-        $cnn = Conexion::getConexion();
-        $mensaje = "";
+
+    public function obtenerProveedor($idproveedor)
+    {
+        $conn = Conexion::getConexion();
         try {
-            $query = $cnn->prepare('DELETE FROM proveedor WHERE idproveedor= ?');
+            $query = $conn->prepare("SELECT * FROM proveedor WHERE idproveedor = ?");
+            $query->bindParam(1, $idproveedor, PDO::PARAM_INT);
+            $query->execute();
+            $resultado = $query->fetch();
+            if (!$resultado) {
+                throw new Exception("Proveedor no encontrado");
+            }
+            return $resultado;
+        } catch (Exception $ex) {
+            throw new Exception("Error al obtener proveedor: " . $ex->getMessage());
+        } finally {
+            $conn = null;
+        }
+    }
+
+    public function eliminarProveedor($idproveedor)
+    {
+        $conn = Conexion::getConexion();
+        $mensaje = '';
+        try {
+            $query = $conn->prepare("DELETE FROM proveedor WHERE idproveedor = ?");
             $query->bindParam(1, $idproveedor);
             $query->execute();
-            $mensaje= "Registro eliminado";
-        } catch (Exception  $ex) {
-            $mensaje= $ex->getMessage();
+            $mensaje = "Proveedor eliminado con éxito";
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        } finally {
+            $conn = null;
         }
-        $cnn=null;
         return $mensaje;
     }
-    
-
 }
+?>
