@@ -82,7 +82,7 @@ const RestablecerContrasena = () => {
                         <h1 className={styles.title}>ADAX Store Manager</h1>
                     </div>
                     <button className={styles.exit} onClick={exitbutton}>
-                        <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
+                        <FontAwesomeIcon icon={faXmark} className={styles.exit} />
                     </button>
                 </div>
             </header>

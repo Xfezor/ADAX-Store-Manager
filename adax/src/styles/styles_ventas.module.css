@@ -100,7 +100,7 @@ body {
     grid-template-rows: 1fr 1fr 10fr;
     grid-auto-rows: auto;
     gap: 10px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 @media only screen and (max-height: 800px) {
@@ -121,7 +121,7 @@ body {
 }
 
 .search {
-    grid-column: 1/ 5;
+    grid-column: 1/ -1;
     height: 70%;
     width: 100%;
     border: none;
@@ -175,7 +175,9 @@ body {
     border-radius: 15px;
     max-height: 56vh;
     align-items: center;
-    overflow: scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+
 }
 
 .trgespro {
@@ -248,14 +250,14 @@ body {
     border-radius: 15px;
     max-height: 48vh;
     align-items: center;
-    overflow: scroll;
+    overflow-y: scroll;
+    scrollbar-width: thin;
 }
 
 .generar-pago {
     grid-column: 1/-1;
     grid-row: 9/-1;
     background-color: #df6363;
-    font-family: 'Montserrat';
     font-weight: 700;
     font-size: 40px;
     border-radius: 20px;
@@ -356,7 +358,7 @@ body {
     display: table;
     border-radius: 15px;
     overflow: scroll;
-
+    text-align: center;
 }
 
 .table-head {

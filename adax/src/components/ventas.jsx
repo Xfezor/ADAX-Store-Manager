@@ -6,14 +6,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 
 const Ventas = () => {
+  // Navigate para navegar
   const navigate = useNavigate();
-  const { cerrarSesion } = useContext(ContextoSesion);
-  const [producto] = '';
 
+  // Contexto
+  const { cerrarSesion } = useContext(ContextoSesion);
+
+  // Obtener datos de localstorage
   const usuario1 = localStorage.getItem('usuario');
   const tienda1 = localStorage.getItem('tienda');
   const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
@@ -23,7 +27,7 @@ const Ventas = () => {
   const tienda = JSON.parse(tienda1);
   const codigo_invitacion = JSON.parse(codigo_invitacion1);
   const rol = JSON.parse(rol1);
-
+  // Checkeo de rol
   const RolCrud = () => {
     if (rol === 1) {
       return (
@@ -32,9 +36,11 @@ const Ventas = () => {
       );
     }
   }
-
+  // Estado de productos
   const [productos, setProductos] = useState([]);
   const [productosOriginales, setProductosOriginales] = useState([]);
+
+  // Llamada de API
   const Lista = useCallback( async () => {
     try {
       const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
@@ -63,7 +69,10 @@ const Ventas = () => {
     }
   }
 
+  // Producto carrito
   const [prodCarrito, setProdCarrito] = useState([]);
+  
+  // Funcion para añadir el producto al carrito
   const agregarProducto = (index) => {
     const producto = productos[index];
     const productoEnCarrito = prodCarrito.find((item) => item[0] === producto[0]);
@@ -103,20 +112,29 @@ const Ventas = () => {
       eliminarProducto(index);
     }
   };
-
-
+  
   const CRUD = () => {
     navigate('/crud/usuarios');
   }
   const generarPago = () => {
     console.log("Generar pago");
-    navigate('/generar_pago');
+    console.log(prodCarrito);
+    if (prodCarrito.length === 0) {
+      console.log("no hay nada en el carrito");
+      Swal.fire({
+        icon: "error",
+        title: "¡Carrito vacio!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    } else {
+      navigate('/generar_pago', { state: prodCarrito });
+
+    };
   };
   const handleCerrarSesion = () => {
     cerrarSesion();
-  };
-  const buscarProductoHandler = () => {
-    console.log(`Buscando producto: ${producto}`);
   };
   const backbutton = () => {
     console.log("Volver atrás");
@@ -148,7 +166,7 @@ const Ventas = () => {
             <h1 className={styles.title}>Ventas</h1>
           </div>
           <button className={styles.exit} onClick={exitbutton}>
-            <FontAwesomeIcon icon={faXmark} clasName={styles.exit} />
+            <FontAwesomeIcon icon={faXmark} className={styles.exit} />
           </button>
         </div>
       </header>
@@ -164,9 +182,6 @@ const Ventas = () => {
             placeholder="Escriba el nombre de un producto"
             onChange={(e) => buscar(e.target.value)}
           />
-          <button className="btn btn-danger" id={styles['search-button']} onClick={buscarProductoHandler}>
-            Buscar
-          </button>
           <div className={styles['product-list']}>
             <table className={styles["product-table"]}>
               <thead className={styles["table-head"]}>
