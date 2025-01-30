@@ -10,6 +10,7 @@ const ActualizarMovimiento = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const initialData = location.state || {};
+    console.log('Initial Data:', initialData)
     const [id_Movimiento, setid_Movimiento] = useState(initialData[0] || '');
     const [cantidad_despues, setcantidad_despues] = useState(initialData[1] || '');
     const [fecha_movimiento, setfecha_movimiento] = useState(initialData[2] || '');
@@ -62,7 +63,7 @@ const ActualizarMovimiento = () => {
                 const mensaje = respuesta.data.mensaje;
                 navigate('/crud/movimiento', { state: mensaje });
             } else {
-                console.log('actualizacion no exitosa', respuesta.data)
+                console.log('actualizacion no exitosa', respuesta.data);
                 return null;
             }
         } catch (err) {
@@ -82,16 +83,16 @@ const ActualizarMovimiento = () => {
                     <h1 className={styles.title}>Actualizar</h1>
                     <form className={`${styles['contact-form']} contact-form row`} action="../../controlador/controlador.movimiento.php" method="POST">
                         <div className={`form-field col-lg-6 ${styles['form-field']}`}>
-                            <input name="id_Movimiento" id="name" value={id_Movimiento} onChange={handleChange} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} htmlFor="name">id_Movimiento</label>
+                            <input name="id_Movimiento" id="id_Movimiento" value={id_Movimiento} onChange={handleChange} className={`${styles['input-text']} js-input`} type="text" required />
+                            <label className={`${styles.label} label`} htmlFor="name">id Movimiento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="cantidad_despues" value={cantidad_despues} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="email">cantidad_despues</label>
+                            <label className={styles.label} htmlFor="email">cantidad despues</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="fecha_movimiento" value={fecha_movimiento} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="company">fecha_movimiento</label>
+                            <label className={styles.label} htmlFor="company">fecha de movimiento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="fecha_modificacion" value={fecha_modificacion} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" required />
@@ -99,11 +100,11 @@ const ActualizarMovimiento = () => {
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="estado_despues" value={estado_despues} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="phone"> estado_despues </label>
+                            <label className={styles.label} htmlFor="phone"> estado despues </label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input name="inventario_id_Inventario" value={inventario_id_Inventario} onChange={handleChange} id="text" className={`${styles['input-text']} js-input`} type="text" />
-                            <label className={styles.label} htmlFor="company">inventario_id_Inventario</label>
+                            <label className={styles.label} htmlFor="company">inventario id Inventario</label>
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
