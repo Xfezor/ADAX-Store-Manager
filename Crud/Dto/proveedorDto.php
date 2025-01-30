@@ -1,11 +1,11 @@
 <?php
 
 class proveedorDto {
-    private $idproveedor;
-    private $nombre;
-    private $telefono;
-    private $email;
-    private $id_tienda;
+    private $idproveedor = 0;
+    private $nombre = "";
+    private $telefono = "";
+    private $email = "";
+    private $id_tienda = "";
 
     //GETTERS
     public function getIdproveedor() {
