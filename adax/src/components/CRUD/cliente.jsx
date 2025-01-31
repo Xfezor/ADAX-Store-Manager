@@ -21,6 +21,9 @@ const Cliente = () => {
     const handleRegistro = () => {
         navigate("/crud/registrar_usuarios")
     }
+    const handleRegistroCliente= () => {
+        navigate("/crud/registrar_cliente");
+      };
     const handleUsuario = () => {
         navigate("/crud/usuarios")
     }
@@ -150,7 +153,7 @@ const Cliente = () => {
                                     aria-expanded="false">Cliente</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleCliente}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroCliente}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
