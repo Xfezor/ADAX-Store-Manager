@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 
 const RegistrarFactura = () => {
     const navigate = useNavigate();
-
     const [venta_id_Venta, setVenta_id_Venta] = useState('');
     const [producto_id_Producto, setProducto_id_Producto] = useState('');
     const [Cantidad, setCantidad] = useState('');
@@ -16,19 +15,10 @@ const RegistrarFactura = () => {
     const [Estado, setEstado] = useState('');
     const [error, setError] = useState('');
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (name === "venta_id_Venta") setVenta_id_Venta(value);
-        if (name === "producto_id_Producto") setProducto_id_Producto(value);
-        if (name === "Cantidad") setCantidad(Number(value)); // Convertir a número
-        if (name === "Precio") setPrecio(Number(value));    // Convertir a número
-        if (name === "Estado") setEstado(value);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validaciones
+        // Validaciones de los campos
         if (venta_id_Venta === '') {
             Swal.fire({
                 icon: "error",
@@ -38,7 +28,7 @@ const RegistrarFactura = () => {
             return;
         }
 
-        if (!producto_id_Producto) {
+        if (producto_id_Producto === '') {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -85,10 +75,10 @@ const RegistrarFactura = () => {
                 registroCrud: "registroCrud",
             });
 
-            console.log('Respuesta del servidor:', respuesta);  // Para depurar la respuesta
+            // Mostrar la respuesta de la API para depuración
+            console.log("Respuesta de la API: ", respuesta.data);
 
-            // Verificar si la respuesta tiene la propiedad 'success'
-            if (respuesta.data && respuesta.data.success) {
+            if (respuesta.data.success) {
                 Swal.fire({
                     title: 'Registro exitoso',
                     text: 'El registro fue exitoso, puede continuar con el proceso.',
@@ -100,23 +90,13 @@ const RegistrarFactura = () => {
                     }
                 });
             } else {
-                // Si no tiene la propiedad 'success' o es falsa, mostramos un mensaje de error
-                const errorMessage = respuesta.data.message || 'Error en el registro. Intente nuevamente.';
-                setError(errorMessage);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error en el registro',
-                    text: errorMessage,
-                });
+                // Mostrar el error recibido desde la API
+                console.log('Registro no exitoso', respuesta.data);
+                setError(respuesta.data.message || 'Error desconocido');
             }
         } catch (err) {
-            console.error('Error al hacer la solicitud:', err);
+            console.error(err);
             setError('Error al registrar la factura');
-            Swal.fire({
-                icon: 'error',
-                title: 'Error al registrar la factura',
-                text: 'Hubo un problema al intentar registrar la factura. Por favor, intente más tarde.',
-            });
         }
     };
 
@@ -132,7 +112,7 @@ const RegistrarFactura = () => {
                             <input
                                 name="venta_id_Venta"
                                 value={venta_id_Venta}
-                                onChange={handleChange}
+                                onChange={(e) => setVenta_id_Venta(e.target.value)}
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
                                 required
@@ -144,7 +124,7 @@ const RegistrarFactura = () => {
                             <input
                                 name="producto_id_Producto"
                                 value={producto_id_Producto}
-                                onChange={handleChange}
+                                onChange={(e) => setProducto_id_Producto(e.target.value)}
                                 id="producto_id_Producto"
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
@@ -157,7 +137,7 @@ const RegistrarFactura = () => {
                             <input
                                 name="Cantidad"
                                 value={Cantidad}
-                                onChange={handleChange}
+                                onChange={(e) => setCantidad(e.target.value)}
                                 id="Cantidad"
                                 className={`${styles['input-text']} js-input`}
                                 type="number"
@@ -170,7 +150,7 @@ const RegistrarFactura = () => {
                             <input
                                 name="Precio"
                                 value={Precio}
-                                onChange={handleChange}
+                                onChange={(e) => setPrecio(e.target.value)}
                                 id="Precio"
                                 className={`${styles['input-text']} js-input`}
                                 type="number"
@@ -183,7 +163,7 @@ const RegistrarFactura = () => {
                             <input
                                 name="Estado"
                                 value={Estado}
-                                onChange={handleChange}
+                                onChange={(e) => setEstado(e.target.value)}
                                 id="Estado"
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
@@ -203,7 +183,7 @@ const RegistrarFactura = () => {
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="registrarfacturaCrud" className={styles['submit-btn']} type="submit" value="Registrar" />
+                            <input name="registroCrud" className={styles['submit-btn']} type="submit" value="Registrar" />
                         </div>
                     </form>
                 </section>

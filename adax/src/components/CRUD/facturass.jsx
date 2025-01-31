@@ -47,7 +47,7 @@ const Factura = () => {
       navigate("/crud/roles");
     };
     const handleEntregaProductos = () => {
-      navigate("/crud/entrega_pedidos");
+      navigate("/crud/entrega_productos");
     };
     const handleInventario = () => {
       navigate("/crud/inventario");
@@ -124,7 +124,7 @@ const Factura = () => {
                                 data-bs-toggle="dropdown" aria-expanded="false">Usuarios</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleUsuario}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistroFactura}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown"><a className="nav-link dropdown-toggle " href="#top" role="button"
@@ -147,7 +147,7 @@ const Factura = () => {
                                     aria-expanded="false">Factura</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleFactura}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroFactura}>registrar</button></li>
                                 </ul>
                             </li>
                             <li className="nav-item dropdown">
@@ -232,8 +232,7 @@ const Factura = () => {
                             Eliminar
                         </button>
                     )
-                    }}id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
-            >
+                    }}id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
                             <th>venta_id_Venta</th>

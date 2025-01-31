@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';  // Solo esta línea es necesaria
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_registro.module.css';
 
+
 const ActualizarFactura = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const initialData = location.state || {}; // Asegúrate de que location.state no sea null o undefined
-
+    const initialData = location.state || {}; 
     const [venta_id_Venta, setVenta_id_Venta] = useState(initialData[0] || '');
     const [producto_id_Producto, setProducto_id_Producto] = useState(initialData[1] || '');
     const [Cantidad, setCantidad] = useState(initialData[2] || '');
     const [Precio, setPrecio] = useState(initialData[3] || '');
     const [Estado, setEstado] = useState(initialData[4] || '');
-    
-    const [errorMessage, setErrorMessage] = useState('');  // Definimos el estado de error
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -48,11 +47,11 @@ const ActualizarFactura = () => {
         try {
             const respuesta = await axios.post('http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php', {
                 actualizar: true,
-                venta_id_Venta,
-                producto_id_Producto,
-                Cantidad,
-                Precio,
-                Estado,
+                venta_id_Venta:venta_id_Venta,
+                producto_id_Producto:producto_id_Producto,
+                Cantidad:Cantidad,
+                Precio:Precio,
+                Estado:Estado,
             });
 
             if (respuesta.data) {
@@ -60,16 +59,15 @@ const ActualizarFactura = () => {
                 navigate('/crud/factura', { state: mensaje });
             } else {
                 console.log('Actualización no exitosa', respuesta.data);
-                setErrorMessage('Hubo un error al actualizar la factura.');
+                return null;
             }
         } catch (err) {
             console.error(err);
-            setErrorMessage('Hubo un error al enviar la solicitud.');
+            return null;
         }
     };
 
     const handleCancel = () => {
-        // Redirigir a la página de lista de facturas (o donde prefieras)
         navigate('/crud/factura');
     };
 
@@ -78,9 +76,7 @@ const ActualizarFactura = () => {
             <div className="form-box">
                 <section className={styles['get-in-touch']}>
                     <h1 className={styles.title}>Actualizar Factura</h1>
-                    {/* Manejando el error */}
-                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-
+                    
                     <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
                         <div className={`form-field col-lg-6 ${styles['form-field']}`}>
                             <input
@@ -90,7 +86,7 @@ const ActualizarFactura = () => {
                                 onChange={handleChange}
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                required
+                                
                             />
                             <label className={`${styles.label} label`} htmlFor="venta_id_Venta">Venta ID</label>
                         </div>
@@ -103,7 +99,7 @@ const ActualizarFactura = () => {
                                 id="producto_id_Producto"
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                required
+                                
                             />
                             <label className={styles.label} htmlFor="producto_id_Producto">Producto ID</label>
                         </div>
@@ -116,7 +112,7 @@ const ActualizarFactura = () => {
                                 id="Cantidad"
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                required
+                                
                             />
                             <label className={styles.label} htmlFor="Cantidad">Cantidad</label>
                         </div>
@@ -129,7 +125,7 @@ const ActualizarFactura = () => {
                                 id="Precio"
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                required
+                                
                             />
                             <label className={styles.label} htmlFor="Precio">Precio</label>
                         </div>
@@ -142,7 +138,7 @@ const ActualizarFactura = () => {
                                 id="Estado"
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                required
+                                
                             />
                             <label className={styles.label} htmlFor="Estado">Estado</label>
                         </div>
@@ -152,9 +148,9 @@ const ActualizarFactura = () => {
                             <button type="button" className={styles['submit-btn']} onClick={handleCancel}>Cancelar</button>
                         </div>
 
-                        {/* Botón de Actualizar - Envia el formulario */}
+                       
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <button type="submit" className={styles['submit-btn']}>Actualizar</button>
+                            <button name="modificar" className={styles['submit-btn']} type="submit"  onClick={handleSubmit}>Actualizar</button>
                         </div>
                     </form>
                 </section>
