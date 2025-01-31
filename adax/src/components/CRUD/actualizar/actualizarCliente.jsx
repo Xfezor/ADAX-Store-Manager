@@ -10,38 +10,38 @@ const ActualizarCliente = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const initialData = location.state || {};
-    const [idCliente, setIdCliente] = useState(initialData[0] || '');
-    const [documento, setDocumento] = useState(initialData[1] || '');
-    const [nombre1Cliente, setNombre1Cliente] = useState(initialData[2] || '');
-    const [nombre2Cliente, setNombre2Cliente] = useState(initialData[3] || '');
-    const [apellido1Cliente, setApellido1Cliente] = useState(initialData[4] || '');
-    const [apellido2Cliente, setApellido2Cliente] = useState(initialData[5] || '');
-    const [tipoDoc, setTipoDoc] = useState(initialData[6] || '');
+    const [id_Cliente, setId_Cliente] = useState(initialData[0] || '');
+    const [Documento, setDocumento] = useState(initialData[1] || '');
+    const [Nombre1_Cliente, setNombre1_Cliente] = useState(initialData[2] || '');
+    const [Nombre2_Cliente, setNombre2_Cliente] = useState(initialData[3] || '');
+    const [Apellido1_Cliente, setApellido1_Cliente] = useState(initialData[4] || '');
+    const [Apellido2_Cliente, setApellido2_Cliente] = useState(initialData[5] || '');
+    const [Tipo_documento, setTipo_documento] = useState(initialData[6] || '');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         switch (name) {
-            case 'idCliente':
-                setIdCliente(value);
+            case 'id_Cliente':
+                setId_Cliente(value);
                 break;
-            case 'documento':
+            case 'Documento':
                 setDocumento(value);
                 break;
-            case 'nombre1Cliente':
-                setNombre1Cliente(value);
+            case 'Nombre1_Cliente':
+                setNombre1_Cliente(value);
                 break;
-            case 'nombre2Cliente':
-                setNombre2Cliente(value);
+            case 'Nombre2_Cliente':
+                setNombre2_Cliente(value);
                 break;
-            case 'apellido1Cliente':
-                setApellido1Cliente(value);
+            case 'Apellido1_Cliente':
+                setApellido1_Cliente(value);
                 break;
-            case 'apellido2Cliente':
-                setApellido2Cliente(value);
+            case 'Apellido2_Cliente':
+                setApellido2_Cliente(value);
                 break;
-            case 'tipoDoc':
-                setTipoDoc(value);
+            case 'Tipo_documento':
+                setTipo_documento(value);
                 break;
             default:
                 break;
@@ -52,18 +52,18 @@ const ActualizarCliente = () => {
         e.preventDefault();
         try {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/cliente.php?`, {
+                id_Cliente,
+                Documento,
+                Nombre1_Cliente,
+                Nombre2_Cliente,
+                Apellido1_Cliente,
+                Apellido2_Cliente,
+                Tipo_documento,
                 actualizar: true,
-                idCliente: idCliente,
-                documento: documento,
-                nombre1Cliente: nombre1Cliente,
-                nombre2Cliente: nombre2Cliente,
-                apellido1Cliente: apellido1Cliente,
-                apellido2Cliente: apellido2Cliente,
-                tipoDoc: tipoDoc,
             });
             if (respuesta.data) {
                 const mensaje = respuesta.data.mensaje;
-                navigate('/crud/clientes', {state: mensaje});
+                navigate('/crud/cliente', {state: mensaje});
             } else {
                 console.log('actualizacion no exitosa', respuesta.data)
                 return null;
@@ -83,41 +83,49 @@ const ActualizarCliente = () => {
             <div className='form-box'>
                 <section className={styles['get-in-touch']}>
                     <h1 className={styles.title}>Actualizar Cliente</h1>
-                    <form className={`${styles['contact-form']} contact-form row`} action="../../controlador/controlador.cliente.php" method="POST">
-                        <div className={`form-field col-lg-6 ${styles['form-field']}`}>
-                            <input name="idCliente" id="idCliente" value={idCliente} onChange={handleChange} className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={`${styles.label} label`} htmlFor="idCliente">ID Cliente</label>
+
+                    <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
+                            <div className={`form-field col-lg-6 ${styles['form-field']}`}>
+                            <input 
+                            name="id_Cliente"
+                            id="id_Cliente" 
+                            value={id_Cliente} 
+                            onChange={handleChange} className={`${styles['input-text']} js-input`} 
+                            type="text"
+                            />
+                            <label className={`${styles.label} label`} htmlFor="id_Cliente">ID Cliente</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="documento" value={documento} onChange={handleChange} id="documento" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="documento">Documento</label>
+                            <input name="Documento" value={Documento} onChange={handleChange} id="Documento" className={`${styles['input-text']} js-input`} type="text" required />
+                            <label className={styles.label} htmlFor="Documento">Documento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="nombre1Cliente" value={nombre1Cliente} onChange={handleChange} id="nombre1Cliente" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="nombre1Cliente">Nombre 1</label>
+                            <input name="Nombre1_Cliente" value={Nombre1_Cliente} onChange={handleChange} id="Nombre1_Cliente" className={`${styles['input-text']} js-input`} type="text" 
+                             />
+                            <label className={styles.label} htmlFor="Nombre1_Cliente">Nombre 1</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="nombre2Cliente" value={nombre2Cliente} onChange={handleChange} id="nombre2Cliente" className={`${styles['input-text']} js-input`} type="text" />
-                            <label className={styles.label} htmlFor="nombre2Cliente">Nombre 2</label>
+                            <input name="Nombre2_Cliente" value={Nombre2_Cliente} onChange={handleChange} id="Nombre2_Cliente" className={`${styles['input-text']} js-input`} type="text" />
+                            <label className={styles.label} htmlFor="Nombre2_Cliente">Nombre 2</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="apellido1Cliente" value={apellido1Cliente} onChange={handleChange} id="apellido1Cliente" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="apellido1Cliente">Apellido 1</label>
+                            <input name="Apellido1_Cliente" value={Apellido1_Cliente} onChange={handleChange} id="Apellido1_Cliente" className={`${styles['input-text']} js-input`} type="text"  />
+                            <label className={styles.label} htmlFor="Apellido1_Cliente">Apellido 1</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="apellido2Cliente" value={apellido2Cliente} onChange={handleChange} id="apellido2Cliente" className={`${styles['input-text']} js-input`} type="text" />
-                            <label className={styles.label} htmlFor="apellido2Cliente">Apellido 2</label>
+                            <input name="Apellido2_Cliente" value={Apellido2_Cliente} onChange={handleChange} id="Apellido2_Cliente" className={`${styles['input-text']} js-input`} type="text" />
+                            <label className={styles.label} htmlFor="Apellido2_Cliente">Apellido 2</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-12`}>
-                            <input name="tipoDoc" value={tipoDoc} onChange={handleChange} id="tipoDoc" className={`${styles['input-text']} js-input`} type="text" required />
-                            <label className={styles.label} htmlFor="tipoDoc">Tipo de documento</label>
+                            <input name="Tipo_documento" value={Tipo_documento} onChange={handleChange} id="Tipo_documento" className={`${styles['input-text']} js-input`} type="text" />
+                            <label className={styles.label} htmlFor="Tipo_documento">Tipo de documento</label>
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <button type="button" className={styles['submit-btn']} onClick={handleCancel}>Cancelar</button>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>                        
+                            <button name="modificar" className={styles['submit-btn']} type="submit"  onClick={handleSubmit}>Actualizar</button>
                         </div>
                     </form>
                 </section>
