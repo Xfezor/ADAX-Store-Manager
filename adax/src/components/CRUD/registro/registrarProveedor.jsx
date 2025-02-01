@@ -18,7 +18,7 @@ const RegistrarProveedor = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { name, value } = e.target;
+        //const { name, value } = e.target;
         var idproveedor2 = document.getElementById("idproveedor").value;
         var nombre2 = document.getElementById("nombre").value;
         var telefono2 = document.getElementById("telefono").value;
