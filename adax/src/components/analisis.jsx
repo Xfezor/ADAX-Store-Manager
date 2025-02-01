@@ -64,7 +64,7 @@ function Analisis() {
     validador();
   }, [navigate])
   return (
-    <div>
+    <>
       <header>
         <div className={styles.contenedorarriba}>
           <button className={styles.back} onClick={backbutton}>
@@ -78,7 +78,6 @@ function Analisis() {
           </button>
         </div>
       </header>
-      <body>
         <div className={`container ${styles.container}`}>
           <div className={styles['txt-arriba']}>
             <h1 className="d-inline-block">Producto</h1>
@@ -119,7 +118,6 @@ function Analisis() {
           </button>
         </div>
         <div className={styles.cuadradoverde}></div>
-      </body>
       <footer>
         <div className={styles.user}>
           <h1 className={styles.username}>Usuario: "{usuario}"</h1>
@@ -135,7 +133,7 @@ function Analisis() {
           </button>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
 
