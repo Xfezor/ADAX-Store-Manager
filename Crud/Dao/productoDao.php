@@ -147,13 +147,27 @@ class productoDao
             exit();
         } elseif ($sentencia->rowcount() == 1) {
             try {
-                $query = $conn->prepare('SELECT p.Nombre,p.Marca from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
+                $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Marca from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
                 $query->bindParam(1, $idtienda);
                 $query->execute();                
                 return $query->fetchAll();
             } catch (Exception $ex) {
                 echo 'Error' . $ex->getMessage();
             }
+        }
+    }
+    public function consultaDatosProducto($id_Producto)
+    {
+        $conn = Conexion::getConexion();
+        try {
+            $query = $conn->prepare(
+                'SELECT p.id_Producto,p.Nombre,p.Precio_unit,p.Marca,p.Descripcion,p.Marca,p.Categoria,p.Presentacion,p.Fecha_vencimiento,p.Stock,p.Stock_Min
+                from producto p where id_Producto = ?;');
+            $query->bindParam(1, $id_Producto);
+            $query->execute();                
+            return $query->fetchAll();
+        } catch (Exception $ex) {
+            echo 'Error' . $ex->getMessage();
         }
     }
     public function listarProductosAppPrecio($codigo_invitacion)

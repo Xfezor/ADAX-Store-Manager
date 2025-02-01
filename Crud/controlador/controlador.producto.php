@@ -5,23 +5,17 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitid
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 // Manejar la solicitud OPTIONS
-/*if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
     http_response_code(200);
     exit();
-}*/
+}
 
 require '../Dao/productoDao.php';
 require '../Dto/productoDto.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (isset($data['regristroProducto'])) {
-    // $nombreTienda = $data['nombreTienda'];
-    // $telefono = $data['telefono'];
-    // $email = $data['email'];
-    // $contrasena = $data['contrasena'];
-    // $direccion = $data['direccion'];
-}
+
 if (isset($data['registrarProductoUnico'])) {
     $registrarProductoUnico = $data['registrarProductoUnico'];
     $nombre = $data['nombre'];
@@ -31,6 +25,9 @@ if (isset($data['registrarProductoUnico'])) {
 }
 if (isset($data['listar'])) {
     $listar = $data['listar'];
+} else if (isset($data['consultaDatosProducto'])) {
+    $consultaDatosProducto = $data['consultaDatosProducto'];
+    $id_Producto = $data['consultaDatosProducto'];
 } else if (isset($data['listarProductosApp'])) {
     $listarProductosApp = $data['listarProductosApp'];
     $codigo_invitacion = $data['codigo_invitacion'];
@@ -163,6 +160,7 @@ if (isset($_POST['registrarProducto'])) {
     foreach ($lista as $producto) {
         // Asegúrate de que cada producto sea un array o un objeto
         $response[] = [
+            $producto['id_Producto'],
             $producto['Nombre'],
             $producto['Marca'],
         ];
@@ -179,6 +177,28 @@ if (isset($_POST['registrarProducto'])) {
             $producto['Nombre'],
             $producto['Marca'],
             $producto['Precio_unit'],
+        ];
+    }
+    echo json_encode($response);
+    exit();
+}
+else if (isset($consultaDatosProducto)) {
+    $pDao = new ProductoDao();
+    $lista = $pDao->consultaDatosProducto($id_Producto);
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $producto) {
+        // Asegúrate de que cada producto sea un array o un objeto
+        $response[] = [
+            $producto['Nombre'],
+            $producto['Marca'],
+            $producto['Precio_unit'],
+            $producto['Descripcion'],
+            $producto['Marca'],
+            $producto['Categoria'],
+            $producto['Presentacion'],
+            $producto['Fecha_vencimiento'],
+            $producto['Stock'],
+            $producto['Stock_Min'],
         ];
     }
     echo json_encode($response);

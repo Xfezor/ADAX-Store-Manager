@@ -44,6 +44,10 @@ function Factura() {
         console.log("Salir");
         navigate('/inicio');
     };
+    const handleSalir = () => {
+        console.log("Salir");
+        navigate('/inicio');
+    };
 
 
     const { totalPagar, cantidadRecibida, devuelta, prodCarrito } = location.state;
@@ -88,7 +92,7 @@ function Factura() {
                         <h3 className={styles['devolver-text']}>Devuelto:</h3>
                         <h3 className={styles['devolver-cant-text']}> =${devuelta}</h3>
                     </div>
-                    <button className={styles['generar-pago']}>Salir</button>
+                    <button className={styles['generar-pago']} onClick={handleSalir}>Salir</button>
                 </div>
 
                 <div className={styles['right-container']}>

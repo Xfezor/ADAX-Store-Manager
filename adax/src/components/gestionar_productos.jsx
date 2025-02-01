@@ -8,10 +8,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from "sweetalert2";
 
-
-
-
-
 const GestionarProductos = () => {
   const navigate = useNavigate();
   const { cerrarSesion } = useContext(ContextoSesion);
@@ -53,6 +49,12 @@ const GestionarProductos = () => {
     console.log("Salir");
     navigate('/inicio');
   };
+
+
+  const verDetalles = (id_Producto) => {
+    console.log("Ver detalles del producto", id_Producto);
+    navigate("/detalle_producto", { state : { id_Producto : id_Producto } });
+  }
 
   const gestionarprov = () => {
     console.log("Gestionar proveedores");
@@ -193,10 +195,10 @@ return (
             <tbody className={styles["table-body"]}>
               {productos.map((Pro, index) => (
                 <tr className={styles.trgespro} key={index}>
-                  <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[0]}</td>
-                  <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[1]}</td>
+                  <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[1]}</td>
+                  <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[2]}</td>
                   <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
-                    <button className={`{btn btn-danger`} id={styles["detail-button"]}>
+                    <button className={`{btn btn-danger`} id={styles["detail-button"]} onClick={() => verDetalles(Pro[0])}>
                       Ver detalle
                     </button>
                   </td>
