@@ -1,15 +1,19 @@
 <?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+// Asegúrate de que no haya espacios en blanco o líneas antes de esta línea
 header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
-
+// Manejar la solicitud OPTIONS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
     http_response_code(200);
     exit();
 };
-
-require '../Dao/inventarioDao.php';
+require '../Dao/InventarioDao.php';
 require '../Dto/inventarioDto.php';
 require '../utilidades/conexion.php';
 
@@ -72,24 +76,23 @@ if (isset($registro)) {
     $response = [];
     foreach ($listarInventario as $inventario) {
         $response[] = [
-            $inventario ['id_Inventario'],
-            $inventario ['cantidadInventario'],
-            $inventario ['fechaModificacion'],
-            $inventario ['estado_revision'],
-            $inventario ['tienda_idtienda']
+            $inventario['id_Inventario'],
+            $inventario['cantidadInventario'],
+            $inventario['fechaModificacion'],
+            $inventario['estado_revision'],
+            $inventario['tienda_idtienda']
         ];
     }
     echo json_encode($response);
     exit();
-
-} else if (isset($registrocrud)){
+} else if (isset($registrocrud)) {
     $iDao = new InventarioDao();
     $iDto = new InventarioDto();
     $iDto->setId_inventario($id_inventario);
     $iDto->setCantidadInventario($CantidadInventario);
-    $iDto->setFechaModificacion( $fechaModificacion);
-    $iDto->setEstado_revision( $estado_revision);
-    $iDto->setTienda_idtienda( $tienda_idtienda);
+    $iDto->setFechaModificacion($fechaModificacion);
+    $iDto->setEstado_revision($estado_revision);
+    $iDto->setTienda_idtienda($tienda_idtienda);
 
     $mensaje = $iDao->registrarInventario($iDto);
     echo $mensaje;
@@ -97,17 +100,16 @@ if (isset($registro)) {
         echo json_encode(['success' => true]);
         exit();
     }
-}
-else if ($idInventario){
+} else if (isset($idInventario)) {
     $iDao = new InventarioDao();
     $mensaje = $iDao->eliminarInventario($idInventario);
+
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
-}
-else if (isset($actualizar)) {
+} else if (isset($actualizar)) {
     $iDao = new InventarioDao();
     $iDto = new InventarioDto();
-    $iDto->setid_inventario($id_inventario);
+    $iDto->setId_inventario($id_inventario);
     $iDto->setCantidadInventario($CantidadInventario);
     $iDto->setfechaModificacion($fechaModificacion);
     $iDto->setestado_revision($estado_revision);
