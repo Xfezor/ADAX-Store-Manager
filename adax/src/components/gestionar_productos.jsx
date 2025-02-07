@@ -180,9 +180,7 @@ return (
           id="search"
           onChange={(e) => buscar(e.target.value)}
         />
-        <button className="btn btn-danger" id={styles["search-button"]} >
-          Buscar
-        </button>
+
         <div className={styles["product-list"]}>
           <table className={styles["product-table"]}>
             <thead className={styles["table-head"]}>
@@ -225,7 +223,7 @@ return (
             id='precio'
             onChange={(e) => setPrecio(e.target.value)}
           />
-          <span style={{ 'display': 'flex', 'gap': '10px', 'marginBottom': '20px' }}>
+          <span className={styles.span} >
             <h3 className={styles["text-left"]}>Cantidad:</h3>
             <input
               type="number"

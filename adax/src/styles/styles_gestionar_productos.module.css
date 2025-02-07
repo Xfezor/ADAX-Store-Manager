@@ -103,7 +103,7 @@ body {
   grid-column: 1/-1;
 }
 .search{
-  grid-column: 1/ 5;
+  grid-column: 1/ -1;
   height: 70%;
   width: 100%;
   border: none;
@@ -129,7 +129,7 @@ body {
   border: none;
 }
 #detail-button {
-  height: 80%;
+  height: 100%;
   width: 60%;
   background-color: #df6363;
   margin: auto 0;
@@ -139,6 +139,7 @@ body {
   padding-right: 20px;
   justify-self: end;
   border: none;
+  padding: 5px;
 }
 @media only screen and (max-height: 800px){
   #search-button {
@@ -250,23 +251,25 @@ body {
   margin-block-end: 40px;
 }
 .text-left{
-  font-size: 23px;
+  font-size: 25px;
   grid-row: 3/3;
   grid-column: 1/2;
-  margin-top: 10px;
 }
 .numero{
   grid-column: 2/ 3;
   grid-row: 3/3;
-  height: 100%;
   width: 30%;
   border: none;
-  margin: auto 0;
   color: black;
-  border-radius: 15px;
+  border-radius: 10px;
   padding-left: 10px;
   padding-right: 10px;
   margin-block-end: 10px;
+}
+.span{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 .añadir-producto{
   grid-column: 1/-1;
