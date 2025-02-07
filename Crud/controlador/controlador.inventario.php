@@ -20,33 +20,52 @@ header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
 if (isset($data['registro'])) {
-    $id_Inventario = $data['id_Inventario'];
-    $cantidad_Inventario = $data['cantidadInventario'];
-    $fecha_Modficación  = $data['fechaModificacion'];
-    $estado_Revisión = $data['estado_revisión'];
-    $id_tienda = $data['tienda_idtienda'];
+    $id_inventario = $data['id_inventario'];
+    $CantidadInventario = $data['cantidadInventario'];
+    $fechaModificacion = $data['fechaModificacion'];
+    $estado_revision = $data['estado_revisión'];
+    $tienda_idtienda = $data['tienda_idtienda'];
+    $registro = $data['registro'];
 }
-
+if (isset($data['registroCrud'])) {
+    $id_inventario = $data['id_inventario'];
+    $CantidadInventario = $data['CantidadInventario'];
+    $fechaModificacion = $data['fechaModificacion'];
+    $estado_revision = $data['estado_revision'];
+    $tienda_idtienda = $data['tienda_idtienda'];
+    $registroCrud = $data['registroCrud'];
+}
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
+if (isset($data['eliminar'])) {
+    $idInventario = $data['eliminar'];
+}
+if (isset($data['actualizar'])) {
+    $id_inventario = $data['id_Inventario'];
+    $CantidadInventario = $data['cantidadInventario'];
+    $fechaModificacion = $data['fechaModificacion'];
+    $estado_revision = $data['estado_revisión'];
+    $tienda_idtienda = $data['tienda_idtienda'];
+    $actualizar = $data['actualizar'];
+}
 
-if (isset($registrarInventario)) {
+if (isset($registro)) {
     $iDao = new InventarioDao();
     $iDto = new InventarioDto();
     $iDto->setId_Inventario($id_Inventario);
     $iDto->setCantidadInventario($cantidad_Inventario);
-    $iDto->setfechaModificacion($fecha_Modficación);
-    $iDto->setestado_revision($estado_Revisión);
-    $iDto->settienda_idtienda($id_tienda);
+    $iDto->setFechaModificacion($fecha_Modficación);
+    $iDto->setEstado_revision($estado_Revisión);
+    $iDto->setTienda_idtienda($id_tienda);
 
     $mensaje = $iDao->registrarInventario($iDto);
     echo $mensaje;
     if ($mensaje == 'Registrado exitosamente') {
-        header("Location:../tablas/inventario/listarinventario.php?mensaje=" . $mensaje);
-        exit;
+        echo json_encode(['success' => true]);
+        exit();
     }
-} else if (isset($listar) || isset($GET['si'])) {
+} else if (isset($listar)) {
     $iDao = new InventarioDao;
     $iDto = new InventarioDto;
     $listarInventario = $iDao->listarTodos();
@@ -63,37 +82,37 @@ if (isset($registrarInventario)) {
     echo json_encode($response);
     exit();
 
-} else if (isset($_POST['registrocrud'])){
+} else if (isset($registrocrud)){
     $iDao = new InventarioDao();
     $iDto = new InventarioDto();
-    $iDto->setid_inventario($_POST['id_inventario']);
-    $iDto->setCantidadInventario($_POST['CantidadInventario']);
-    $iDto->setfechaModificacion($_POST['fechaModificacion']);
-    $iDto->setestado_revision($_POST['estado_revision']);
-    $iDto->settienda_idtienda($_POST['tienda_idtienda']);
+    $iDto->setId_inventario($id_inventario);
+    $iDto->setCantidadInventario($CantidadInventario);
+    $iDto->setFechaModificacion( $fechaModificacion);
+    $iDto->setEstado_revision( $estado_revision);
+    $iDto->setTienda_idtienda( $tienda_idtienda);
 
     $mensaje = $iDao->registrarInventario($iDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        header("Location:../tablas/Inventario/listarInventario.php?mensaje=registro exitoso");
-        exit;
+        echo json_encode(['success' => true]);
+        exit();
     }
 }
-else if ($_GET['id_Inventario']!=null){
+else if ($idInventario){
     $iDao = new InventarioDao();
-    $mensaje = $iDao->eliminarInventario($_GET['id_Inventario']);
-    header("Location:../tablas/Inventario/listarInventario.php?mensaje=".$mensaje);
+    $mensaje = $iDao->eliminarInventario($idInventario);
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
 }
-else if (isset($_POST['modificar'])){
+else if (isset($actualizar)) {
     $iDao = new InventarioDao();
     $iDto = new InventarioDto();
-    $iDto->setid_inventario($_POST['id_Inventario']);
-    $iDto->setCantidadInventario($_POST['CantidadInventario']);
-    $iDto->setfechaModificacion($_POST['fechaModificacion']);
-    $iDto->setestado_revision($_POST['estado_revision']);
-    $iDto->settienda_idtienda($_POST['tienda_idtienda']);
+    $iDto->setid_inventario($id_inventario);
+    $iDto->setCantidadInventario($CantidadInventario);
+    $iDto->setfechaModificacion($fechaModificacion);
+    $iDto->setestado_revision($estado_revision);
+    $iDto->settienda_idtienda($tienda_idtienda);
 
-    $mensaje =$iDao->modificarInventario($iDto);
-    header("Location:../tablas/Inventario/listarInventario.php?mensaje=".$mensaje);
+    $mensaje = $iDao->modificarInventario($iDto);
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
 }

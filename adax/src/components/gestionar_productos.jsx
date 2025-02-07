@@ -85,7 +85,7 @@ const GestionarProductos = () => {
     if (nombre === "") {
       setProductos(productosOriginales);
     } else {
-      const productosFiltrados = productosOriginales.filter((Pro) => Pro[0].toLowerCase().includes(nombre.toLowerCase()));
+      const productosFiltrados = productosOriginales.filter((Pro) => Pro[1].toLowerCase().includes(nombre.toLowerCase()));
       setProductos(productosFiltrados);
     }
   }
