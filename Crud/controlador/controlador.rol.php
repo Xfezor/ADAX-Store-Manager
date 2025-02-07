@@ -7,7 +7,8 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
-};
+}
+;
 
 require '../Dao/rolDao.php';
 require '../Dto/rolDto.php';
@@ -25,9 +26,9 @@ if (isset($data['registro'])) {
     $descripcion = $data['descripcion'];
     $registro = $data['registro'];
 }
-    if (isset($data ['registroCrud'])) {
+if (isset($data['registroCrud'])) {
     $id_Rol = $data['id_Rol'];
-    $nombreRol = $data['nombreRol'];    
+    $nombreRol = $data['nombreRol'];
     $descripcion = $data['descripcion'];
     $registroCrud = $data['registroCrud'];
 }
@@ -36,7 +37,7 @@ if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
 
-if (isset( $data['eliminar'])) {
+if (isset($data['eliminar'])) {
     $idRol = $data['eliminar'];
 }
 
@@ -58,7 +59,7 @@ if (isset($registro) || isset($_GET['no'])) {
     $mensaje = $rDao->registrarRol($rDto);
     if ($mensaje == "Rol Registrado con exito") {
         echo json_encode(['success' => true]);
-        exit;
+        exit();
     }
 } else if (isset($listar) || isset($GET['si'])) {
     $rDao = new rolDao;
@@ -67,15 +68,15 @@ if (isset($registro) || isset($_GET['no'])) {
     $response = [];
     foreach ($listaRoles as $rol) {
         $response[] = [
-            $rol ['id_Rol'],
-            $rol ['nombreRol'],
-            $rol ['descripcion']
+            $rol['id_Rol'],
+            $rol['nombreRol'],
+            $rol['descripcion']
         ];
     }
     echo json_encode($response);
     exit();
 
-}  else if (isset($registroCrud)) {
+} else if (isset($registroCrud)) {
     $rDao = new rolDao();
     $rDto = new rolDto();
     $rDto->setId_Rol($id_Rol);
@@ -102,5 +103,5 @@ if (isset($registro) || isset($_GET['no'])) {
     $rDto->setdescripcion($descripcion);
 
     $mensaje = $rDao->modificarRol(rolDto: $rDto);
-    echo json_encode( ['respuesta' => true, 'mensaje' => $mensaje]);
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
 }

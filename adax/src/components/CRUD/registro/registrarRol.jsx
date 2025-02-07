@@ -86,7 +86,7 @@ const RegistrarRoles = () => {
                     <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
                         <div className={`form-field col-lg-6 ${styles['form-field']}`}>
                             <input 
-                            name="id_Rol2" 
+                            name="" 
                             id="id_Rol" 
                             value={id_Rol} 
                             onChange={(e) => setId_Rol(e.target.value)} 

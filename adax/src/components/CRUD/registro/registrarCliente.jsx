@@ -20,9 +20,6 @@ const RegistrarCliente = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-
-   
-    
         // Validaciones
         if (id_Cliente === '') {
             Swal.fire({
@@ -83,7 +80,7 @@ const RegistrarCliente = () => {
             console.log('Respuesta de la api:', respuesta.data);  // Para depurar la respuesta
 
            
-            if (respuesta.data && respuesta.data.success) {
+            if (respuesta.data.success) {
                 Swal.fire({
                     title: 'Registro exitoso',
                     text: 'El registro fue exitoso, puede continuar con el proceso.',
