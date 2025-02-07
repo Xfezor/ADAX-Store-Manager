@@ -51,19 +51,20 @@ const ActualizarCliente = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/cliente.php?`, {
-                id_Cliente,
-                Documento,
-                Nombre1_Cliente,
-                Nombre2_Cliente,
-                Apellido1_Cliente,
-                Apellido2_Cliente,
-                Tipo_documento,
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador.cliente.php?`, {
+                id_Cliente: id_Cliente,
+                Documento: Documento,
+                Nombre1_Cliente: Nombre1_Cliente,
+                Nombre2_Cliente: Nombre2_Cliente,
+                Apellido1_Cliente: Apellido1_Cliente,
+                Apellido2_Cliente: Apellido2_Cliente,
+                Tipo_documento: Tipo_documento,
+
                 actualizar: true,
             });
             if (respuesta.data) {
                 const mensaje = respuesta.data.mensaje;
-                navigate('/crud/cliente', {state: mensaje});
+                navigate('/crud/cliente', { state: mensaje });
             } else {
                 console.log('actualizacion no exitosa', respuesta.data)
                 return null;
@@ -85,23 +86,27 @@ const ActualizarCliente = () => {
                     <h1 className={styles.title}>Actualizar Cliente</h1>
 
                     <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
-                            <div className={`form-field col-lg-6 ${styles['form-field']}`}>
-                            <input 
-                            name="id_Cliente"
-                            id="id_Cliente" 
-                            value={id_Cliente} 
-                            onChange={handleChange} className={`${styles['input-text']} js-input`} 
-                            type="text"
+                        <div className={`form-field col-lg-6 ${styles['form-field']}`}>
+                            <input
+                                name="id_Cliente"
+                                id="id_Cliente"
+                                value={id_Cliente}
+                                onChange={handleChange} className={`${styles['input-text']} js-input`}
+                                type="text"
                             />
                             <label className={`${styles.label} label`} htmlFor="id_Cliente">ID Cliente</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="Documento" value={Documento} onChange={handleChange} id="Documento" className={`${styles['input-text']} js-input`} type="text" required />
+                            <input name="Documento" value={Documento}
+                                onChange={handleChange} id="Documento"
+                                className={`${styles['input-text']} js-input`}
+                                type="text" 
+                            />
                             <label className={styles.label} htmlFor="Documento">Documento</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="Nombre1_Cliente" value={Nombre1_Cliente} onChange={handleChange} id="Nombre1_Cliente" className={`${styles['input-text']} js-input`} type="text" 
-                             />
+                            <input name="Nombre1_Cliente" value={Nombre1_Cliente} onChange={handleChange} id="Nombre1_Cliente" className={`${styles['input-text']} js-input`} type="text"
+                            />
                             <label className={styles.label} htmlFor="Nombre1_Cliente">Nombre 1</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
@@ -109,7 +114,7 @@ const ActualizarCliente = () => {
                             <label className={styles.label} htmlFor="Nombre2_Cliente">Nombre 2</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="Apellido1_Cliente" value={Apellido1_Cliente} onChange={handleChange} id="Apellido1_Cliente" className={`${styles['input-text']} js-input`} type="text"  />
+                            <input name="Apellido1_Cliente" value={Apellido1_Cliente} onChange={handleChange} id="Apellido1_Cliente" className={`${styles['input-text']} js-input`} type="text" />
                             <label className={styles.label} htmlFor="Apellido1_Cliente">Apellido 1</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
@@ -125,7 +130,7 @@ const ActualizarCliente = () => {
                             <button type="button" className={styles['submit-btn']} onClick={handleCancel}>Cancelar</button>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <button name="modificar" className={styles['submit-btn']} type="submit"  onClick={handleSubmit}>Actualizar</button>
+                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>
                         </div>
                     </form>
                 </section>

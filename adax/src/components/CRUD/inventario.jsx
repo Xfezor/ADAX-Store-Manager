@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const Inventario = () => {
 
     const navigate = useNavigate();
-    
+
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -54,6 +54,16 @@ const Inventario = () => {
     const handleVentas = () => {
         navigate("/crud/ventas")
     }
+    const handleRegistroRol = () => {
+        navigate("/crud/registrar_Rol")
+    }
+    const handleActualizarInventario = (row) => {
+        const data = row;
+        navigate("/crud/actualizar/actualizarInventario", { state: data })
+    }
+    const handleRegistroInventario = () => {
+        navigate("/crud/registrar_inventario")
+    }
     DataTable.use(DT);
     const [inventario, setInventario] = useState([]);
     // eslint-disable-next-line
@@ -61,7 +71,7 @@ const Inventario = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-    
+
     const Lista = async () => {
         try {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
@@ -73,6 +83,24 @@ const Inventario = () => {
             } else {
                 console.log('listado no exitoso', respuesta.data)
                 return null;
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
+    const Eliminar = async (idInventario) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+                eliminar: idInventario,
+            });
+            console.log(respuesta.data)
+            if (respuesta.data.respuesta) {
+                setMensaje(respuesta.data.mensaje);
+                Lista();
+            } else {
+                console.log('Eliminación no exitosa', respuesta.data.respuesta)
+                setMensaje(respuesta.data.mensaje);
             }
         } catch (err) {
             console.error(err);
@@ -152,10 +180,10 @@ const Inventario = () => {
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Roles</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleRoles}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroRol}>registrar</button></li>
                                 </ul>
                             </li>
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
                                 <ul className="dropdown-menu">
@@ -168,10 +196,10 @@ const Inventario = () => {
                                 <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventario</a>
                                 <ul className="dropdown-menu">
                                     <li><button className="dropdown-item" onClick={handleInventario}>lista</button></li>
-                                    <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
+                                    <li><button className="dropdown-item" onClick={handleRegistroInventario}>registrar</button></li>
                                 </ul>
                             </li>
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">
@@ -205,9 +233,9 @@ const Inventario = () => {
                         </form>
                     ),
                     6: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
+                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
-                        </a>
+                        </button>
                     )
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
@@ -215,8 +243,8 @@ const Inventario = () => {
                             <th style={{ 'fontWeight': 'normal' }}>Id del Inventario</th>
                             <th style={{ 'fontWeight': 'normal' }}>Cantidad Inventario</th>
                             <th style={{ 'fontWeight': 'normal' }}>Fecha de Modificón del Inventario</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Estado de revisión</th>   
-                            <th style={{ 'fontWeight': 'normal' }}>Id de la tienda</th>   
+                            <th style={{ 'fontWeight': 'normal' }}>Estado de revisión</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Id de la tienda</th>
                             <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
                             <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>

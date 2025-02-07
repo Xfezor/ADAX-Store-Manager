@@ -11,7 +11,7 @@ class clienteDto
     private $Tipo_documento = "";
     
     // GETTERS
-    public function getid_Cliente()
+    public function getId_Cliente()
     {
         return $this->id_Cliente;
     }
@@ -42,7 +42,7 @@ class clienteDto
     
 
     // SETTERS
-    public function setid_Cliente($id_Cliente)
+    public function setId_Cliente($id_Cliente)
     {
         $this->id_Cliente = $id_Cliente;
     }
