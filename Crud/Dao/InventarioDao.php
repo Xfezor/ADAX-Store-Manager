@@ -57,7 +57,7 @@ class InventarioDao
     {
         $conn = Conexion::getConexion();
         try {
-            $listarInventario = 'SELECT * from Inventario';
+            $listarInventario = 'SELECT * from inventario';
             $query = $conn->prepare($listarInventario);
             $query->execute();
             return $query->fetchAll();
