@@ -119,7 +119,8 @@ function GestionarVentas() {
                     <thead className={styles['table-head-gesven']}>
                         <tr className={styles.trventas}>
                             <th className={styles.thventas}>ID Venta</th>
-                            <th className={styles.thventas}>ID producto</th>
+                            <th className={styles.thventas}>Nombre producto</th>
+                            <th className={styles.thventas}>Marca</th>
                             <th className={styles.thventas}>Cantidad</th>
                             <th className={styles.thventas}>Precio</th>
                             <th className={styles.thventas}>Estado</th>
@@ -134,6 +135,7 @@ function GestionarVentas() {
                                 <td className={styles.tdventas}>{Fa[2]}</td>
                                 <td className={styles.tdventas}>{Fa[3]}</td>
                                 <td className={styles.tdventas}>{Fa[4]}</td>
+                                <td className={styles.tdventas}>{Fa[5]}</td>
                                 <td className={styles.tdventas}>
                                     <button type="submit" className="btn btn-danger" id={styles.detalle}>
                                         Ver detalle

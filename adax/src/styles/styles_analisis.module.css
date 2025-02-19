@@ -89,12 +89,18 @@ body {
     max-width: 85%;
 }
 .form-control{
-    max-width: 79.99%;
+    max-width: 90%;
     display: inline-block;
     margin-top: 10px;
     height: 40px;
     border-radius: 15px;
     margin-right: 10px;
+}
+.form-control2{
+  display: inline-block;
+  margin-top: 10px;
+  height: 40px;
+  border-radius: 15px;
 }
 
 #buscar{

@@ -180,7 +180,7 @@ function Analisis() {
           className={`form-control ${styles['form-control']}`}
           placeholder="Escriba el nombre de un producto"
         />
-        <select className={`form-control w-auto ${styles['form-control']}`}>
+        <select className={`form-control w-auto ${styles['form-control2']}`}>
           <option defaultValue value="none">
             Ningun filtro
           </option>
@@ -189,9 +189,6 @@ function Analisis() {
           <option value="none">Más caro</option>
           <option value="none">Más barato</option>
         </select>
-        <button className={`btn btn-danger ${styles['btn btn-danger']}`} id={styles.buscar} onClick={buscarProducto}>
-          Buscar
-        </button>
       </div>
       <div className={styles.cuadradoverde}>
         <table className={styles["product-table"]}>
