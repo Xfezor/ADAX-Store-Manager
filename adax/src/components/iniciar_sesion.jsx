@@ -115,6 +115,7 @@ const IniciarSesion = () => {
                         <FontAwesomeIcon style={{ color: "black" }} icon={faXmark} />
                     </Link>
                 </div>
+                <img src="/img/logo.webp" className={styles.logo}></img>
             </header>
 
             <div className={styles['container-main']}>

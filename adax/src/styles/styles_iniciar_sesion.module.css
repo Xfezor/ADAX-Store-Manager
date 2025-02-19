@@ -1,6 +1,7 @@
 *{
   font-family: 'Montserrat Variable', sans-serif;
 }
+
 body {
   background-color: #fcedc0;
 }
@@ -15,6 +16,7 @@ body {
   margin-top: 3em;
   align-items: center;
 }
+
 .adax {
   background-color: #df6363;
   font-family: 'Montserrat';
@@ -31,6 +33,9 @@ body {
   margin: auto;
   text-align: center;
   transform: translate(12%);
+}
+.logo {
+  display: none;
 }
 .exit {
   font-size: 45px;
@@ -64,6 +69,8 @@ body {
 .cuadradoverde .titulo {
   text-align: center;
 }
+
+
 .input {
   width: 100%;
   height: 8%;
@@ -192,4 +199,107 @@ p{
   border-radius: 0 20px 20px 0;
   background-color: #ebd8a0;
   border-left: none;
+}
+@media (max-width: 800px)  {
+  .adax {
+    display: none;
+  }
+  .exit{
+    display: none;
+  }
+  .back {
+    display: none;
+  }
+  .cuadradoverde {
+    border-radius: 5px;
+    background-color: #ebd8a0;
+    width: 90%;
+    height: 100%;
+    border-radius: 2em;
+    padding: 20px 40px;
+  }
+  .Contenedorsesion {
+    margin: auto;
+    margin-top: 2%;
+    display: flex;
+    width: 100%;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+  }
+  .logo{
+    display: block;
+    width: 100px;
+    height: 122px;
+    margin: auto;
+    margin-bottom: 10%;
+    margin-top: 10%;
+  }
+  .titulo-iniciar-sesion{
+    font-size: 25px; 
+    text-align: center;
+  }
+  .username-text{
+    font-size: 20px;
+  }
+  .contrasena{
+    font-size: 20px;
+  }
+  .toggle-buttons {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+  .btn1 {
+    border-radius: 13px 0 0 13px;
+    padding: 5px;
+    font-size: 15px;
+  }
+  
+  .btn1-active {
+    border-radius: 13px 0 0 13px;
+    padding: 5px;
+    font-size: 15px;
+  }
+  
+  .btn2 {
+    border-radius: 0 13px 13px 0;
+    padding: 5px;
+    font-size: 15px;
+  }
+  
+  .btn2-active {
+    border-radius: 0 13px 13px 0;
+    padding: 5px;
+    font-size: 15px;
+  }
+  
+  .input{
+    font-size: 14px;
+    padding: 2px 10px;
+    height: 9%;
+  }
+  p {
+    font-size: 13px;
+  }
+  a {
+    font-size: 13px;
+  }
+  #button2 {
+    width: 50%;
+    font-size: 15px;
+  }
+}
+
+@media (max-height: 800px ) {
+  #button2{
+    width: 60%;
+  }
+}
+@media (max-width: 350px) {
+  #button2{
+    width: 62%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
 }
