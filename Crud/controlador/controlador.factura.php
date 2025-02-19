@@ -107,7 +107,8 @@ if (isset($regristroFactura) || isset($_GET['no'])) {
     foreach ($lista as $factura) {
         $response[] = [
             $factura['venta_id_Venta'],
-            $factura['producto_id_Producto'],
+            $factura['Nombre'],
+            $factura['Marca'],
             $factura['Cantidad'],
             $factura['Precio'],
             $factura['Estado'],
