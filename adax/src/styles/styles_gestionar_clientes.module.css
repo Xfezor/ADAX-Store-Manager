@@ -2,11 +2,6 @@ body {
     background-color: #fcedc0;
 }
 
-.title {
-    font-weight: normal;
-    font-style: normal;
-}
-
 .contenedorarriba {
     display: flex;
     width: 100%;
@@ -67,27 +62,24 @@ body {
 .exit:hover {
     transform: scale(1.2);
 }
-.txt-arriba{
-    display: flex;
-    justify-content: space-between;
-}
-.container {
+
+.container{
     width: 100%;
     max-width: 85%;
-    margin-left: 8%;
+    margin: 0 auto;
+    padding-left:10px;
 }
-
-.form-control {
-    width: 98.8%;
+.form-control{
+    max-width: 100%;
     display: inline-block;
     margin-top: 10px;
     height: 40px;
     border-radius: 15px;
     border-color: transparent;
+    width: 99%;
     padding-left: 10px;
 }
-
-#buscar {
+#buscar{
     background-color: #df6363;
     margin: 0 0;
     margin-top: 0;
@@ -97,8 +89,36 @@ body {
     vertical-align: 1px;
     margin-left: 1.4em;
 }
-
 #buscar:hover {
+    background-color: #af3333;
+    color: black;
+}
+
+
+.cuadradoverde {
+    border-radius: 5px;
+    background-color: #ebd8a0;
+    width: 84%;
+    height: 32em;
+    margin: 0 auto;
+    border-radius: 2em;
+    margin-top: 2%;
+}
+
+#detalle{
+    background-color: #df6363;
+    margin: 0 0;
+    margin-top: 0;
+    padding: 5px 40px;
+    color: black;
+    border-radius: 15px;
+    vertical-align: 1px;
+    margin-left: 1.4em;
+    display: blox;
+    float: inline-end;
+    margin-right: 20px;
+}
+#detalle:hover{
     background-color: #af3333;
     color: black;
 }
@@ -159,40 +179,6 @@ body {
     margin-bottom: auto;
 }
 
-
-
-.cuadradoverde {
-    border-radius: 5px;
-    background-color: #ebd8a0;
-    padding: 0 0;
-    width: 84%;
-    height: 32em;
-    margin: 0 auto;
-    border-radius: 2em;
-    margin-top: 2%;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    overflow: auto;
-    overflow-x: hidden;
-}
-
-#detalle {
-    background-color: #df6363;
-    margin: 8px 0;
-    width: 80%;
-    padding: 5px;
-    color: black;
-    border-radius: 15px;
-    vertical-align: 1px;
-
-}
-
-#detalle:hover {
-    background-color: #af3333;
-    color: black;
-}
-
 .facturas-table {
     min-width: 100%;
     width: 100%;
@@ -210,6 +196,7 @@ body {
     height: 10%;
     min-height: 10%;
     max-height: 10%;
+
 }
 
 .thventas {

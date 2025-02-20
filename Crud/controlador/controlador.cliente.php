@@ -41,6 +41,10 @@ if (isset($data['registroCrud'])) {
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
+if (isset($data['listarClientesTienda'])) {
+    $listarClientesTienda = $data['listarClientesTienda'];
+    $codigoInvitacion = $data['codigo_invitacion'];
+}
 if (isset($data['eliminar'])) {
     $id = $data['eliminar'];
 }
@@ -90,7 +94,27 @@ if (isset($registroCliente) || isset($_GET['no'])) {
     }
     echo json_encode($response);
     exit();
-} else if (isset($registroCrud)) {
+}
+else if (isset($listarClientesTienda)) {
+    $cDao = new clienteDao();
+    $cDto = new clienteDto();
+    $lista = $cDao->listarClientesTienda($codigoInvitacion);
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $cliente) {
+
+        $response[] = [
+            $cliente['id_Cliente'],
+            $cliente['Documento'],
+            $cliente['Tipo_documento'],
+            $cliente['NombreCliente'],
+            $cliente['ApellidoCliente'],
+            $cliente['Correo'],
+
+        ];
+    }
+    echo json_encode($response);
+    exit();
+}else if (isset($registroCrud)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
     $cDto->setId_Cliente($id_Cliente);

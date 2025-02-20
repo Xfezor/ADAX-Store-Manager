@@ -78,6 +78,19 @@ class clienteDao
             echo 'Error' . $ex->getMessage();
         }
     }
+    public function listarClientesTienda($codigoInvitacion)
+    {
+        $conn = Conexion::getConexion();
+        try {
+            $listarcliente = 'select c.id_Cliente,c.Documento,c.Tipo_documento,c.NombreCliente,c.ApellidoCliente,c.Correo from venta v inner join cliente c on c.id_Cliente = v.cliente_id_Cliente inner join tienda t on v.tienda_idtienda = t.idtienda where t.codigo_invitacion = ?';
+            $query = $conn->prepare($listarcliente);
+            $query->bindParam(1, $codigoInvitacion);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception  $ex) {
+            echo 'Error' . $ex->getMessage();
+        }
+    }
 
     public function modificarcliente(clienteDto $clienteDto)
     {

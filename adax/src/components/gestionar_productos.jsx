@@ -58,7 +58,7 @@ const GestionarProductos = () => {
 
   const gestionarprov = () => {
     console.log("Gestionar proveedores");
-    navigate('/gestionar_proveedores');
+    navigate('/gestionar_clientes');
   }
   const [productos, setProductos] = useState([]);
   const [productosOriginales, setProductosOriginales] = useState([]);
