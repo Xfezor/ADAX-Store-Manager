@@ -1,16 +1,13 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx'
-import styles from '../styles/styles_gestionar_ventas.module.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
+import styles from '../styles/styles_gestionar_clientes.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-
-function GestionarVentas() {
-
+const GestionarClientes = () => {
     const navigate = useNavigate();
     const { cerrarSesion } = useContext(ContextoSesion);
 
@@ -36,43 +33,6 @@ function GestionarVentas() {
             );
         }
     }
-
-    const [factura, setFactura] = useState([]);
-    const [facturasOriginales, setFacturasOriginales] = useState([]);
-    const Lista = useCallback(async () => {
-        try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
-                {
-                    listarTienda: true,
-                    codigo_invitacion: codigo_invitacion,
-                }
-            );
-            if (respuesta.data) {
-                setFactura(respuesta.data);
-                setFacturasOriginales(respuesta.data);
-            } else {
-                console.log('Listado no exitoso:', respuesta.data);
-                return null;
-            }
-        } catch (err) {
-            console.error('Error al obtener los datos:', err);
-            return null;
-        }
-    },[codigo_invitacion]);
-    const buscar = (valor) => {
-        if (valor === "") {
-            setFactura(facturasOriginales);
-        } else {
-            const facturasFiltrados = facturasOriginales.filter((Fa) => {
-                const idVenta = String(Fa[0]).toLowerCase();
-                const idProducto = String(Fa[1]).toLowerCase();
-                return idVenta.includes(valor.toLowerCase()) || idProducto.includes(valor.toLowerCase());
-            });
-            setFactura(facturasFiltrados);
-        }
-    };
-
     const CRUD = () => {
         navigate('/crud/usuarios');
     }
@@ -86,6 +46,28 @@ function GestionarVentas() {
         console.log("Salir");
         navigate('/inicio');
     };
+    const [clientes, setClientes] = useState([]);
+    const Lista = useCallback(async () => {
+        try {
+            const respuesta = await axios.post(
+                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php',
+                {
+                    listarClientesTienda: true,
+                    codigo_invitacion: codigo_invitacion,
+                }
+            );
+            if (respuesta.data) {
+                setClientes(respuesta.data);
+            } else {
+                console.log('Listado no exitoso:', respuesta.data);
+                return null;
+            }
+        } catch (err) {
+            console.error('Error al obtener los datos:', err);
+            return null;
+        }
+    },[codigo_invitacion]);
+
     useEffect(() => {
         const validador = () => {
             if (localStorage.getItem('usuario') === null) {
@@ -103,31 +85,31 @@ function GestionarVentas() {
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <div className={styles.adax}>
-                        <h1 className={styles.title}>Gestionar Ventas</h1>
+                        <h1 className={styles.title}>Gestionar clientes</h1>
                     </div>
-                    <button className={styles.exit} onClick={exitbutton} to="/inicio">
+                    <button className={styles.exit} onClick={exitbutton}>
                         <FontAwesomeIcon icon={faXmark} className={styles.exit} />
                     </button>
                 </div>
             </header>
             <div className={styles.container}>
-                <h1 className={styles['text-left']}>Factura</h1>
-                <input type="text" onChange={(e) => buscar(e.target.value)} className={styles['form-control']} placeholder="Escriba un numero de venta o de producto" />
+                <h1 className={styles["text-left"]}>Clientes</h1>
+                <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
             </div>
             <div className={styles.cuadradoverde}>
                 <table id="productos" className={styles['facturas-table']}>
                     <thead className={styles['table-head-gesven']}>
                         <tr className={styles.trventas}>
-                            <th className={styles.thventas}>ID Venta</th>
-                            <th className={styles.thventas}>Nombre producto</th>
-                            <th className={styles.thventas}>Marca</th>
-                            <th className={styles.thventas}>Cantidad</th>
-                            <th className={styles.thventas}>Precio</th>
-                            <th className={styles.thventas}>Estado</th>
+                            <th className={styles.thventas}>ID Cliente</th>
+                            <th className={styles.thventas}>Documento</th>
+                            <th className={styles.thventas}>Tipo documento</th>
+                            <th className={styles.thventas}>Nombre</th>
+                            <th className={styles.thventas}>Apellido</th>
+                            <th className={styles.thventas}>Correo</th>
                         </tr>
                     </thead>
                     <tbody className={styles['table-body']}>
-                        {factura.map((Fa, index) => (
+                        {clientes.map((Fa, index) => (
                             <tr className={styles.trgespro} key={index}>
                                 <td className={styles.tdventas}>{Fa[0]}</td>
                                 <td className={styles.tdventas}>{Fa[1]}</td>
@@ -156,7 +138,7 @@ function GestionarVentas() {
                 </div>
             </footer>
         </>
-    );
+    )
 }
 
-export default GestionarVentas;
+export default GestionarClientes;
