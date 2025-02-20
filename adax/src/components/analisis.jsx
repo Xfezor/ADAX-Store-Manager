@@ -88,12 +88,6 @@ function Analisis() {
     }
     promedio = ventasSum / productosCant;
     let cant = parseInt(productos[index][2]);
-    console.log("___________");
-    console.log("cantidad: ", cant);
-    console.log("promedio: ", promedio);
-    if (cant) {
-      console.log("si hay algo en cantidad")
-    }
 
     if (cant < promedio) {
       console.log("No Popular");
