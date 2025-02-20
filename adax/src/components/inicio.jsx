@@ -20,7 +20,6 @@ const Inicio = () => {
   const tienda = JSON.parse(tienda1);
   const codigo_invitacion = JSON.parse(codigo_invitacion1);
   const rol = JSON.parse(rol1);
-  console.log(rol);
 
   const handleCerrarSesion = () => {
     cerrarSesion();

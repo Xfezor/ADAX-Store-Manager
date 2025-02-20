@@ -11,6 +11,7 @@ import Pago from './components/generar_pago.jsx';
 import Ventas from './components/ventas.jsx';
 import GestionarProductos from './components/gestionar_productos.jsx';
 import Gestionarproveedores from './components/gestionar_proveedores.jsx';
+import GestionarClientes from './components/gestionar_clientes.jsx';
 import Analisis from './components/analisis.jsx';
 import GestionarVentas from './components/gestionar_ventas.jsx';
 import DetalleFactura from './components/detalle_factura.jsx';
@@ -60,6 +61,7 @@ function App() {
           <Route path="/ventas" element={<Ventas />} />
           <Route path="/gestionar_productos" element={<GestionarProductos />} />
           <Route path="/gestionar_proveedores" element={<Gestionarproveedores />} />
+          <Route path="/gestionar_clientes" element={<GestionarClientes />} />
           <Route path="/inicio" element={<Inicio />} />
           <Route path="/analisis" element={<Analisis />} />
           <Route path="/crud/movimiento" element={<Movimiento />} />
