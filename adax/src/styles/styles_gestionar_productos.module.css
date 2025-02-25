@@ -167,6 +167,7 @@ body {
   align-items: center;
   overflow-y: scroll;
   scrollbar-width: thin;
+  height: 90%;
 }
 .trgespro {
   text-align: center;
@@ -285,17 +286,32 @@ body {
   border: none;
 }
 .proveedores{
-  background-color: #ebd8a0;
-  grid-column: 1/-1;
-  grid-row: 7/-1;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: auto;
+  background-color: #ebd8a000;
+  display: inline-flex;
   border-radius: 15px;
   align-items: center;
-  grid-template-rows: repeat(3, 1fr);
-  padding-left: 20px;
-  padding-right: 20px;
+  grid-row: 7/-1;
+  grid-column: 1 /-1;
+  align-items: start;
+  justify-content: start;
+  align-content: center;
+  justify-content: space-between;
+}
+.clientes {
+  background-color: #ebd8a0;
+  width: 48%;
+  height: 100%;
+  border-radius: 10%;
+  padding: 2%;
+}
+.prov{
+  background-color: #ebd8a0;
+  width: 48%;
+  height: 100%;
+  border-radius: 10%;
+  padding: 2%;
+
+
 }
 .big-text-proveedores{
   grid-column: 1/-1;
@@ -303,18 +319,17 @@ body {
   
 }
 .gestionar-proveedores{
-  grid-column: 1/-1;
-  grid-row: 2/-1;
   background-color: #df6363;
   font-weight: 700;
-  font-size: 40px;
+  font-size: 30px;
   border-radius: 20px;
   width: 100%;
-  height: 60%;
+  height: 30%;
   margin: auto;
   text-align: center;
   color: #212529;
   border: none;
+  margin-top: 20%;
 }
 .gestionar-proveedores:hover{
   background-color: #af3333;
