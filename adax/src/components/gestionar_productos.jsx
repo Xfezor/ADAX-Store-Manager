@@ -57,7 +57,9 @@ const GestionarProductos = () => {
   }
 
   const gestionarprov = () => {
-    console.log("Gestionar proveedores");
+    navigate('/gestionar_proveedores');
+  }
+  const gestionarclientes = () => {
     navigate('/gestionar_clientes');
   }
   const [productos, setProductos] = useState([]);
@@ -238,12 +240,22 @@ return (
           </button>
         </div>
         <div className={styles["proveedores"]}>
+          <div className={styles.prov}>
           <h1 className={styles["big-text-proveedores"]}>
             Proveedores
           </h1>
           <button className={styles["gestionar-proveedores"]} onClick={gestionarprov}>
-            Gestionar proveedores
+            Gestionar
           </button>
+          </div>
+          <div className={styles.clientes}>
+          <h1 className={styles["big-text-proveedores"]}>
+            Clientes
+          </h1>
+          <button className={styles["gestionar-proveedores"]} onClick={gestionarclientes}>
+            Gestionar
+          </button>
+          </div>
         </div>
       </div>
     </div>
