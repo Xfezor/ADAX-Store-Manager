@@ -1,19 +1,7 @@
 <?php
 class UsuarioDao
 {
-    public function buscarUsuarioPorCorreo($correo) {
-    $conexion = Conexion::getConexion();
-    try {
-        $query = "SELECT * FROM usuarios WHERE correo = ?";
-        $stmt = $conexion->prepare($query);
-        $stmt->bindParam(1, $correo, PDO::PARAM_STR);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve el usuario si existe
-    } catch (PDOException $ex) {
-        return false; // Manejo de errores
-    }
-}
- 
+    
     public function registrarUsuario(UsuarioDto $usuarioDto)
     {
         $conn = Conexion::getConexion();
