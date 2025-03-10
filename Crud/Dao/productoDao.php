@@ -17,6 +17,7 @@ class productoDao
         $Fecha_vencimiento = $productoDto->getFecha_vencimiento();
         $Stock = $productoDto->getStock();
         $Stock_Min = $productoDto->getStock_Min();
+        $estado = $productoDto->getEstado();
         $inventario_id_Inventario = $productoDto->getinventario_id_Inventario();
         try {
             $query = $conn->prepare("INSERT INTO producto(Nombre,Precio_unit,Descripcion,Marca,Categoria,Presentacion,Fecha_vencimiento,Stock,Stock_Min,inventario_id_Inventario) values (?,?,?,?,?,?,?,?,?,?);");
@@ -29,7 +30,9 @@ class productoDao
             $query->bindParam(7, $Fecha_vencimiento);
             $query->bindParam(8, $Stock);
             $query->bindParam(9, $Stock_Min);
-            $query->bindParam(10, $inventario_id_Inventario);
+            $query->bindParam(10, $estado);
+            $query->bindParam(11, $inventario_id_Inventario);
+
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -100,6 +103,7 @@ class productoDao
         $Fecha_vencimiento = $productoDto->getFecha_vencimiento();
         $Stock = $productoDto->getStock();
         $Stock_Min = $productoDto->getStock_Min();
+        $estado = $productoDto->getEstado();
         $inventario_id_Inventario = $productoDto->getinventario_id_Inventario();
         try {
             $query = $conn->prepare("INSERT INTO producto values (?,?,?,?,?,?,?,?,?,?,?);");
@@ -113,8 +117,8 @@ class productoDao
             $query->bindParam(8, $Fecha_vencimiento);
             $query->bindParam(9, $Stock);
             $query->bindParam(10, $Stock_Min);
-            $query->bindParam(11, $inventario_id_Inventario);
-
+            $query->bindParam(11, $estado);
+            $query->bindParam(12, $inventario_id_Inventario);
             $query->execute();
             $mensaje = "Registrado Exitosamente";
         } catch (Exception $ex) {
@@ -161,7 +165,7 @@ class productoDao
         $conn = Conexion::getConexion();
         try {
             $query = $conn->prepare(
-                'SELECT p.id_Producto,p.Nombre,p.Precio_unit,p.Marca,p.Descripcion,p.Marca,p.Categoria,p.Presentacion,p.Fecha_vencimiento,p.Stock,p.Stock_Min
+                'SELECT p.id_Producto,p.Nombre,p.Precio_unit,p.Marca,p.Descripcion,p.Marca,p.Categoria,p.Presentacion,p.Fecha_vencimiento,p.Stock,p.Stock_Min,p.Estado
                 from producto p where id_Producto = ?;');
             $query->bindParam(1, $id_Producto);
             $query->execute();                

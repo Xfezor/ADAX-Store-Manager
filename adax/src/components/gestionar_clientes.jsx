@@ -100,7 +100,6 @@ const GestionarClientes = () => {
                 <table id="productos" className={styles['facturas-table']}>
                     <thead className={styles['table-head-gesven']}>
                         <tr className={styles.trventas}>
-                            <th className={styles.thventas}>ID Cliente</th>
                             <th className={styles.thventas}>Documento</th>
                             <th className={styles.thventas}>Tipo documento</th>
                             <th className={styles.thventas}>Nombre</th>
@@ -111,7 +110,6 @@ const GestionarClientes = () => {
                     <tbody className={styles['table-body']}>
                         {clientes.map((Fa, index) => (
                             <tr className={styles.trgespro} key={index}>
-                                <td className={styles.tdventas}>{Fa[0]}</td>
                                 <td className={styles.tdventas}>{Fa[1]}</td>
                                 <td className={styles.tdventas}>{Fa[2]}</td>
                                 <td className={styles.tdventas}>{Fa[3]}</td>

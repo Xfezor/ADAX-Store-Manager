@@ -47,11 +47,9 @@ const Inicio = () => {
   const GestionarVentas = () => {
     navigate('/gestionar_ventas');
   };
-  const backbutton = () => {
-    console.log('Back button clicked');
-  };
   const exitbutton = () => {
     console.log('Exit button clicked');
+    navigate ('/index')
   };
 
   useEffect(() => {
@@ -66,9 +64,6 @@ const Inicio = () => {
     <>
       <header>
         <div className={styles.contenedorarriba}>
-          <button className={styles.back} onClick={backbutton}>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </button>
           <div className={styles.adax}>
             <h1 className={styles.title}>ADAX Store Manager</h1>
           </div>

@@ -199,6 +199,7 @@ else if (isset($consultaDatosProducto)) {
             $producto['Fecha_vencimiento'],
             $producto['Stock'],
             $producto['Stock_Min'],
+            $producto['Estado']
         ];
     }
     echo json_encode($response);
