@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState, useCallback } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx'
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_proveedores.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
 
 
 const GestionarProveedores = () => {
@@ -46,6 +48,27 @@ const GestionarProveedores = () => {
         console.log("Salir");
         navigate('/inicio');
     };
+    const [proveedores, setProveedores] = useState([]);
+    const Lista = useCallback(async () => {
+        try {
+            const respuesta = await axios.post(
+                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php',
+                {
+                    listarPorTienda: true,
+                    codigo_invitacion: codigo_invitacion,
+                }
+            );
+            if (respuesta.data) {
+                setProveedores(respuesta.data);
+            } else {
+                console.log('Listado no exitoso:', respuesta.data);
+                return null;
+            }
+        } catch (err) {
+            console.error('Error al obtener los datos:', err);
+            return null;
+        }
+    },[codigo_invitacion]);
 
     useEffect(() => {
         const validador = () => {
@@ -54,7 +77,8 @@ const GestionarProveedores = () => {
             };
         };
         validador();
-    }, [navigate])
+        Lista();
+    }, [navigate,Lista])
     return (
         <>
             <header>
@@ -75,28 +99,24 @@ const GestionarProveedores = () => {
                 <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
             </div>
             <div className={styles.cuadradoverde}>
-
-                <table className={`table table-warning ${styles.tablagespro}`}>
-                    <thead className={styles.theadgespro}>
-                        <tr className={styles.trgespro}>
-                            <th style={{ fontWeight: "normal" }} data-dt-column="1" rowSpan="1" colSpan="1" className={`dt-orderable-asc dt-orderable-desc ${styles.thgespro}`} aria-label="Nombre: Activate to sort" tabIndex="0">
-                                <span className="dt-column-title" role="button">Nombre</span><span className={`dt-column-order ${styles.spangespro}`}></span>
-                            </th>
-                            <th style={{ fontWeight: "normal" }} data-dt-column="2" rowSpan="1" colSpan="1" className={`dt-orderable-asc dt-orderable-desc ${styles.thgespro}`} aria-label="Precio_unit: Activate to sort" tabIndex="0">
-                                <span className="dt-column-title" role="button">Precio_unit</span><span className={`dt-column-order ${styles.spangespro}`}></span>
-                            </th>
-                            <th style={{ fontWeight: "normal" }} data-dt-column="3" rowSpan="1" colSpan="1" className={`dt-orderable-asc dt-orderable-desc ${styles.thgespro}`} aria-label="Descripción: Activate to sort" tabIndex="0">
-                                <span className="dt-column-title" role="button">Descripción</span><span className={`dt-column-order ${styles.spangespro}`}></span>
-                            </th>
-                            <th style={{ fontWeight: "normal" }} data-dt-column="4" rowSpan="1" colSpan="1" className={`dt-orderable-asc dt-orderable-desc ${styles.thgespro}`} aria-label="Marca: Activate to sort" tabIndex="0">
-                                <span className="dt-column-title" role="button">Marca</span><span className={`dt-column-order ${styles.spangespro}`}></span>
-                            </th>
-                            <th style={{ fontWeight: "normal" }} data-dt-column="5" rowSpan="1" colSpan="1" className={`dt-orderable-asc dt-orderable-desc ${styles.thgespro}`} aria-label="Categoria: Activate to sort" tabIndex="0">
-                                <span className="dt-column-title" role="button">Categoria</span><span className={`dt-column-order ${styles}`}></span>
-                            </th>
+                <table id="productos" className={styles['facturas-table']}>
+                    <thead className={styles['table-head-gesven']}>
+                        <tr className={styles.trventas}>
+                            <th className={styles.thventas}>Nombre</th>
+                            <th className={styles.thventas}>Telefono</th>
+                            <th className={styles.thventas}>Correo</th>
+                            <th className={styles.thventas}>Producto</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={styles['table-body']}>
+                        {proveedores.map((Fa, index) => (
+                            <tr className={styles.trgespro} key={index}>
+                                <td className={styles.tdventas}>{Fa[0]}</td>
+                                <td className={styles.tdventas}>{Fa[1]}</td>
+                                <td className={styles.tdventas}>{Fa[2]}</td>
+                                <td className={styles.tdventas}>{Fa[3]}</td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

@@ -196,7 +196,6 @@ body {
     height: 10%;
     min-height: 10%;
     max-height: 10%;
-
 }
 
 .thventas {
@@ -208,6 +207,14 @@ body {
     height: 10%;
     display: table-cell;
     height: 100%;
+}
+
+.thventas:first-child {
+    border-top-left-radius: 2em;
+}
+
+.thventas:last-child {
+    border-top-right-radius: 2em;
 }
 
 .tdventas {

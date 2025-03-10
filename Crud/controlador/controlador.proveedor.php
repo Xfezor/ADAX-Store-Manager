@@ -40,6 +40,10 @@ if (isset($data['registroCrud'])) {
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
+if (isset($data['listarPorTienda'])) {
+    $listarPorTienda = $data['listarPorTienda'];
+    $codigo_invitacion = $data['codigo_invitacion'];
+}
 
 if (isset($data['eliminar'])) {
     $idproveedor = $data['eliminar'];
@@ -80,6 +84,22 @@ if (isset($registro) || isset($_GET['no'])) {
             $proveedor['telefono'],
             $proveedor['email'],
             $proveedor['id_tienda']
+        ];
+    }
+    echo json_encode($response);
+    exit();
+}
+ else if (isset($listarPorTienda) || isset($_GET['si'])) {
+    $pDao = new proveedorDao();
+    $pDto = new proveedorDto();
+    $listaProveedores = $pDao->listarTodosPorTienda($codigo_invitacion);
+    $response = [];
+    foreach ($listaProveedores as $proveedor) {
+        $response[] = [
+            $proveedor['nombre'],
+            $proveedor['telefono'],
+            $proveedor['email'],
+            $proveedor['Nombre'],
         ];
     }
     echo json_encode($response);
