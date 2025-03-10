@@ -69,6 +69,20 @@ class proveedorDao
             $conn = null;
         }
     }
+    public function listarTodosPorTienda($id_tienda)
+    {
+        $conn = Conexion::getConexion();
+        try {
+            $query = $conn->prepare("SELECT p.nombre, p.telefono, p.email, pr.Nombre from proveedor p inner join tienda t on p.id_tienda = t.idtienda inner join producto pr on p.idproveedor = pr.idProveedor where t.codigo_invitacion = ?;");
+            $query->bindParam(1, $id_tienda);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception $ex) {
+            return []; 
+        } finally {
+            $conn = null;
+        }
+    }
 
     public function modificarProveedor(proveedorDto $proveedorDto)
     {

@@ -98,7 +98,6 @@ body {
 .cuadradoverde {
     border-radius: 5px;
     background-color: #ebd8a0;
-    padding: 2% 0;
     width: 84%;
     height: 32em;
     margin: 0 auto;
@@ -178,4 +177,88 @@ body {
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.facturas-table {
+    min-width: 100%;
+    width: 100%;
+    min-height: 10%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    display: table;
+    text-align: center;
+}
+
+.table-head-gesven {
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 10%;
+    min-height: 10%;
+    max-height: 10%;
+}
+
+.thventas {
+    padding: 0rem 4rem;
+    border-collapse: collapse;
+    padding-bottom: .5rem;
+    background-color: #d8c282;
+    width: 100%;
+    height: 10%;
+    display: table-cell;
+    height: 100%;
+}
+
+.thventas:first-child {
+    border-top-left-radius: 2em;
+}
+
+.thventas:last-child {
+    border-top-right-radius: 2em;
+}
+
+.tdventas {
+    text-align: center;
+    border-bottom: 1px solid #0002 ;
+    padding: 10px 0;
+}
+
+.botonbuscar {
+    text-align: center;
+}
+
+.table-body::-webkit-scrollbar {
+    width: .5rem;
+    height: .5rem;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background-color: #0004;
+}
+
+tbody .trventas {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay);
+    height: 20px;
+    max-height: 20px;
+}
+
+tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+    height: 1px;
+    line-height: 1px;
+    max-height: 1px;
+    display: none;
+}
+
+tbody .trventas .tdventas {
+    transition: .2s ease-in-out;
+}
+
+tbody .trventas.hide .tdventas {
+    padding: 0;
+    font: 0 / 0 Montserrat;
+    transition: .2s ease-in-out .5s;
 }
