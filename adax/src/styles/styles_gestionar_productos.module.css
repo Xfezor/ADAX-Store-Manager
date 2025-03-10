@@ -167,7 +167,7 @@ body {
   align-items: center;
   overflow-y: scroll;
   scrollbar-width: thin;
-  height: 90%;
+  height: 100%;
 }
 .trgespro {
   text-align: center;

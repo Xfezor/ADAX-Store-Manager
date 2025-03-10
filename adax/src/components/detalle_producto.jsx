@@ -37,6 +37,7 @@ export function Detalle() {
     descripcion: '',
     categoria: '',
     fechaVencimiento: '',
+    estado: '',
   });
 
 
@@ -85,8 +86,48 @@ export function Detalle() {
           descripcion: respuesta.data[0][3],
           categoria: respuesta.data[0][5],
           fechaVencimiento: respuesta.data[0][7],
+          estado: respuesta.data[0][10],
+
         });
-        console.log(productos);
+      } else {
+        console.log('listado no exitoso', respuesta.data)
+        return null;
+      }
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+    console.log(formValues.estado)
+  }
+  const modificarProdcto = async () => {
+    try {
+      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
+        modificarProdcto: id_Producto,
+        nombre: formValues.nombre,
+        stock : formValues.stock,
+        precio : formValues.precio,
+        stock_min : formValues.stock_min,
+        marca : formValues.marca,
+        presentacion : formValues.presentacion,
+        descripcion : formValues.descripcion,
+        categoria : formValues.categoria,
+        fechaVencimiento : formValues.fechaVencimiento,
+        estado: formValues.estado,
+      });
+      if (respuesta.data) {
+        setProductos(respuesta.data);
+        setFormValues({
+          nombre: respuesta.data[0][0],
+          stock: respuesta.data[0][8],
+          precio: respuesta.data[0][2],
+          stock_min: respuesta.data[0][9],
+          marca: respuesta.data[0][1],
+          presentacion: respuesta.data[0][6],
+          descripcion: respuesta.data[0][3],
+          categoria: respuesta.data[0][5],
+          fechaVencimiento: respuesta.data[0][7],
+          estado: respuesta.data[0][10],
+        });
       } else {
         console.log('listado no exitoso', respuesta.data)
         return null;
@@ -96,7 +137,6 @@ export function Detalle() {
       return null;
     }
   }
-
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {
@@ -105,6 +145,7 @@ export function Detalle() {
     };
     validador();
     consultarProducto();
+    console.log(formValues)
   }, []);
 
   useEffect(() => {
@@ -130,13 +171,15 @@ export function Detalle() {
         <h3 className="mt-3 text-end pe-2">Estado actual:</h3>
         <div className="mt-3">
           <div className="form-check d-inline-block pe-2 me-3">
-            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={formValues.estado === 1}
+            onChange={() => setFormValues({... formValues, estado: 1})}/>
             <label className="form-check-label" htmlFor="flexRadioDefault1">
               Disponible
             </label>
           </div>
           <div className="form-check d-inline-block p-2">
-            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" defaultChecked />
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={formValues.estado === 0}
+            onChange={() => setFormValues ({...formValues, estado: 0})} />
             <label className="form-check-label" htmlFor="flexRadioDefault2">
               No disponible
             </label>
@@ -158,7 +201,7 @@ export function Detalle() {
           <h4 className={styles["presentacion-txt"]}>Presentación</h4>
           <input className={styles["presentacion-input"]} type="text" placeholder="" value={formValues.presentacion} onChange={(e) => setFormValues({ ...formValues, presentacion: e.target.value })} />
           <h4 className={styles["descripcion-txt"]}>Descripción</h4>
-          <input className={styles["descripcion-input"]} type="number" placeholder="" value={formValues.descripcion} onChange={(e) => setFormValues({ ...formValues, descripcion: e.target.value })} />
+          <input className={styles["descripcion-input"]} type="text" placeholder="" value={formValues.descripcion} onChange={(e) => setFormValues({ ...formValues, descripcion: e.target.value })} />
           <h4 className={styles["categoria-txt"]}>Categoria</h4>
           <input className={styles["categoria-input"]} type="text" placeholder="" value={formValues.categoria} onChange={(e) => setFormValues({ ...formValues, categoria: e.target.value })} />
           <h4 className={styles["fechav-txt"]}>Fecha de vencimiento</h4>

@@ -103,6 +103,7 @@ body {
     margin: 0 auto;
     border-radius: 2em;
     margin-top: 2%;
+    overflow-y: scroll;
 }
 
 #detalle{
