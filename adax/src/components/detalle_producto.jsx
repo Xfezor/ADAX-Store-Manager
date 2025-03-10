@@ -56,7 +56,6 @@ export function Detalle() {
     navigate('/crud/usuarios');
   };
   const backbutton = () => {
-    console.log("Volver");
     navigate(-1);
   };
 
@@ -67,8 +66,6 @@ export function Detalle() {
   };
 
   const consultarProducto = async () => {
-    console.log("se esta ejecutando la funcion consultarProducto");
-    console.log("id_Producto", id_Producto);
     if (!id_Producto) return;
     try {
       const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
@@ -97,7 +94,6 @@ export function Detalle() {
       console.error(err);
       return null;
     }
-    console.log(formValues.estado)
   }
   const modificarProdcto = async () => {
     try {
@@ -145,8 +141,7 @@ export function Detalle() {
     };
     validador();
     consultarProducto();
-    console.log(formValues)
-  }, []);
+    }, []);
 
   useEffect(() => {
   }, []);
