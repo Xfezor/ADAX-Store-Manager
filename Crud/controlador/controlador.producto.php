@@ -149,6 +149,7 @@ if (isset($_POST['registrarProducto'])) {
     $pDto->setFecha_vencimiento($_POST['Fecha_vencimiento']);
     $pDto->setStock($_POST['Stock']);
     $pDto->setStock_Min($_POST['Stock_Min']);
+    $pDto->setEstado($_POST['Estado']);
     $pDto->setinventario_id_Inventario($_POST['inventario_id_Inventario']);
 
     $mensaje = $pDao->modificarProducto($pDto);

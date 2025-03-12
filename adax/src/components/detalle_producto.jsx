@@ -97,8 +97,8 @@ export function Detalle() {
   }
   const modificarProdcto = async () => {
     try {
-      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
-        modificarProdcto: id_Producto,
+      const datosproducto = {
+      modificarProducto: id_Producto,
         nombre: formValues.nombre,
         stock : formValues.stock,
         precio : formValues.precio,
@@ -109,7 +109,9 @@ export function Detalle() {
         categoria : formValues.categoria,
         fechaVencimiento : formValues.fechaVencimiento,
         estado: formValues.estado,
-      });
+      };
+      console.log(datosproducto);
+      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
       if (respuesta.data) {
         setProductos(respuesta.data);
         setFormValues({
@@ -124,8 +126,9 @@ export function Detalle() {
           fechaVencimiento: respuesta.data[0][7],
           estado: respuesta.data[0][10],
         });
+        navigate(-1);
       } else {
-        console.log('listado no exitoso', respuesta.data)
+        console.log('Modificación no exitosa', respuesta.data)
         return null;
       }
     } catch (err) {
@@ -208,7 +211,7 @@ export function Detalle() {
           <button className="btn btn-secondary" id={styles.cancelar} onClick={exitbutton}>
             Cancelar
           </button>
-          <button className="btn btn-primary" id={styles.aplicar}>
+          <button className="btn btn-primary" id={styles.aplicar} onClick={modificarProdcto}>
             Aplicar cambios
           </button>
         </div>
