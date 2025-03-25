@@ -76,7 +76,7 @@ const RegistrarFactura = () => {
             });
 
             // Mostrar la respuesta de la API para depuración
-            console.log("Respuesta de la API: ", respuesta.data);
+
 
             if (respuesta.data.success) {
                 Swal.fire({
@@ -91,7 +91,7 @@ const RegistrarFactura = () => {
                 });
             } else {
                 // Mostrar el error recibido desde la API
-                console.log('Registro no exitoso', respuesta.data);
+
                 setError(respuesta.data.message || 'Error desconocido');
             }
         } catch (err) {

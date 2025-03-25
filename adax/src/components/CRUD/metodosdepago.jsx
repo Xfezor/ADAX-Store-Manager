@@ -67,7 +67,7 @@ const Metodos_de_Pago = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php`, {
                 listar: true,
             });
-            console.log(respuesta.data);
+
             if (respuesta.data) {
                 setMetodosdepago(respuesta.data);
             } else {

@@ -40,12 +40,12 @@ const Registro = () => {
 
 
   const backbutton = () => {
-    console.log("Volver atrás");
+
     navigate(-1);
   };
 
   const exitbutton = () => {
-    console.log("Salir");
+
     navigate('/inicio');
   };
 
@@ -154,14 +154,14 @@ const Registro = () => {
       });
       return false;
     }
-    console.log("handleSubmit ejecutado");
+
     // Si todas las validaciones pasan
 
     const params = new URLSearchParams({
       tipo: isEmpleado ? "empleado" : "tienda",
 
     });
-    console.log(params.get('tipo'));
+
     if (params.get('tipo') === "empleado") {
       try {
         const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {

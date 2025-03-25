@@ -77,7 +77,7 @@ const RegistrarCliente = () => {
                 registroCrud: "registroCrud",
             });
 
-            console.log('Respuesta de la api:', respuesta.data);  // Para depurar la respuesta
+  // Para depurar la respuesta
 
            
             if (respuesta.data.success) {
@@ -92,7 +92,7 @@ const RegistrarCliente = () => {
                     }
                 });
             } else {
-                console.log('Registro no exitoso', respuesta.data);
+
                 setError(respuesta.data.message || 'Error desconocido');
             }
         } catch (err) {

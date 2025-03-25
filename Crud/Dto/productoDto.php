@@ -1,18 +1,18 @@
 <?php
 
 class productoDto {
-    private $id_Producto;
-    private $Nombre;
-    private $Precio_unit;
-    private $Descripcion;
-    private $Marca;
-    private $Categoria;
-    private $Presentacion;
+    private $id_Producto = 0;
+    private $Nombre = "";
+    private $Precio_unit = 0;
+    private $Descripción = "";
+    private $Marca = "";
+    private $Categoria = "";
+    private $Presentacion = "";
     private $Fecha_vencimiento;
-    private $Stock;
-    private $Stock_Min;
-    private $Estado;
-    private $inventario_id_Inventario;
+    private $Stock = 0;
+    private $Stock_Min = 0;
+    private $Estado = 0;
+    private $inventario_id_Inventario = 0;
 
     //GETTERS
     public function getId_Producto() {
@@ -25,7 +25,7 @@ class productoDto {
         return $this->Precio_unit;
     }
     public function getDescripcion() {
-        return $this->Descripcion;
+        return $this->Descripción;
     }
     public function getMarca() {
         return $this->Marca;
@@ -68,8 +68,8 @@ class productoDto {
     public function setMarca($Marca) {
         $this->Marca = $Marca;
     }
-    public function setCategoría($Categoría) {
-        $this->Categoría = $Categoría;
+    public function setCategoría($Categoria) {
+        $this->Categoria = $Categoria;
     }
     public function setPresentacion($Presentacion) {
         $this->Presentacion = $Presentacion;

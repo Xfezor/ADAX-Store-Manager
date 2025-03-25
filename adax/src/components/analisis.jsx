@@ -47,11 +47,10 @@ function Analisis() {
         verAnalisisCodigoInv: codigo_invitacion,
       });
       if (respuesta.data) {
-        console.log("etsitosooo", respuesta.data);
+
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
       } else {
-        console.log('listado no exitoso', respuesta.data)
         return null;
       }
     } catch (err) {
@@ -90,13 +89,13 @@ function Analisis() {
     let cant = parseInt(productos[index][2]);
 
     if (cant < promedio) {
-      console.log("No Popular");
+
       return [texto.noPopular, imagen.noPopular];
     } else if (cant === promedio) {
-      console.log("Medio Popular");
+
       return [texto.medioPopular, imagen.medioPopular];
     } else if (cant > promedio) {
-      console.log("Popular");
+
       return [texto.popular, imagen.popular];
     } else {
       return "N/A";
@@ -105,21 +104,21 @@ function Analisis() {
 
 
   const backbutton = () => {
-    console.log("Volver atrás");
+
     navigate(-1);
   };
 
   const exitbutton = () => {
-    console.log("Salir");
+
     navigate('/inicio');
   };
 
   const vermovimientos = () => {
-    console.log("Ver movimientos clicked");
+
   };
 
   const buscarProducto = () => {
-    console.log("Buscar producto clicked");
+
   };
 
   // eslint-disable-next-line

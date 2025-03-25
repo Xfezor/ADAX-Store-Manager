@@ -76,7 +76,7 @@ const RegistrarProveedor = () => {
             id_tienda: id_tienda,
             registroCrud: "registroCrud",
         });
-        console.log( respuesta.data );
+
         if (respuesta.data.success) {
             console.log('registro exitoso', respuesta.data)
             Swal.fire({

@@ -35,12 +35,10 @@ function DetalleFactura() {
         navigate('/crud/usuarios');
     };
     const backbutton = () => {
-        console.log("Volver atrás");
         navigate(-1);
     };
 
     const exitbutton = () => {
-        console.log("Salir");
         navigate('/inicio');
     };
 

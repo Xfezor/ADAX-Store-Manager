@@ -79,7 +79,7 @@ const Roles = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.rol.php`, {
                 listar: true,
             });
-            console.log(respuesta.data);
+
             if (respuesta.data) {
                 setRol(respuesta.data);
             } else {

@@ -48,7 +48,7 @@ const Inicio = () => {
     navigate('/gestionar_ventas');
   };
   const exitbutton = () => {
-    console.log('Exit button clicked');
+
     navigate ('/index')
   };
 

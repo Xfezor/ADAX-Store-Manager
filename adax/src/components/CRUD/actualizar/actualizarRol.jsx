@@ -47,7 +47,7 @@ const ActualizarRoles = () => {
                 const mensaje = respuesta.data.mensaje;
                 navigate('/crud/roles', { state: mensaje });
             } else {
-                console.log('Actualización no exitosa', respuesta.data);
+
                 return null;
             }
         } catch (err) {

@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import styles from '../styles/styles_detalle_producto.module.css';
 import axios from 'axios';
+import Swal from "sweetalert2";
+
 
 
 export function Detalle() {
@@ -61,7 +63,6 @@ export function Detalle() {
 
 
   const exitbutton = () => {
-    console.log("Salir");
     navigate('/inicio');
   };
 
@@ -87,7 +88,6 @@ export function Detalle() {
 
         });
       } else {
-        console.log('listado no exitoso', respuesta.data)
         return null;
       }
     } catch (err) {
@@ -95,40 +95,43 @@ export function Detalle() {
       return null;
     }
   }
+  const VerificarDatos = async () => {
+    Swal.fire({
+      title: "¿Modificar producto?",
+      html: "¿Estas seguro de modificar este producto?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Modificar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        modificarProdcto();
+      }
+    });
+  };
   const modificarProdcto = async () => {
     try {
       const datosproducto = {
-      modificarProducto: id_Producto,
+        modificarProducto: id_Producto,
         nombre: formValues.nombre,
-        stock : formValues.stock,
-        precio : formValues.precio,
-        stock_min : formValues.stock_min,
-        marca : formValues.marca,
-        presentacion : formValues.presentacion,
-        descripcion : formValues.descripcion,
-        categoria : formValues.categoria,
-        fechaVencimiento : formValues.fechaVencimiento,
+        stock: formValues.stock,
+        precio: formValues.precio,
+        stock_min: formValues.stock_min,
+        marca: formValues.marca,
+        presentacion: formValues.presentacion,
+        descripcion: formValues.descripcion,
+        categoria: formValues.categoria,
+        fechaVencimiento: formValues.fechaVencimiento,
         estado: formValues.estado,
       };
-      console.log(datosproducto);
+      (datosproducto);
       const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
-      if (respuesta.data) {
-        setProductos(respuesta.data);
-        setFormValues({
-          nombre: respuesta.data[0][0],
-          stock: respuesta.data[0][8],
-          precio: respuesta.data[0][2],
-          stock_min: respuesta.data[0][9],
-          marca: respuesta.data[0][1],
-          presentacion: respuesta.data[0][6],
-          descripcion: respuesta.data[0][3],
-          categoria: respuesta.data[0][5],
-          fechaVencimiento: respuesta.data[0][7],
-          estado: respuesta.data[0][10],
-        });
+      if (respuesta.data.mensaje) {
         navigate(-1);
       } else {
-        console.log('Modificación no exitosa', respuesta.data)
+
         return null;
       }
     } catch (err) {
@@ -144,7 +147,7 @@ export function Detalle() {
     };
     validador();
     consultarProducto();
-    }, []);
+  }, []);
 
   useEffect(() => {
   }, []);
@@ -170,14 +173,14 @@ export function Detalle() {
         <div className="mt-3">
           <div className="form-check d-inline-block pe-2 me-3">
             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked={formValues.estado === 1}
-            onChange={() => setFormValues({... formValues, estado: 1})}/>
+              onChange={() => setFormValues({ ...formValues, estado: 1 })} />
             <label className="form-check-label" htmlFor="flexRadioDefault1">
               Disponible
             </label>
           </div>
           <div className="form-check d-inline-block p-2">
             <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked={formValues.estado === 0}
-            onChange={() => setFormValues ({...formValues, estado: 0})} />
+              onChange={() => setFormValues({ ...formValues, estado: 0 })} />
             <label className="form-check-label" htmlFor="flexRadioDefault2">
               No disponible
             </label>
@@ -211,7 +214,7 @@ export function Detalle() {
           <button className="btn btn-secondary" id={styles.cancelar} onClick={exitbutton}>
             Cancelar
           </button>
-          <button className="btn btn-primary" id={styles.aplicar} onClick={modificarProdcto}>
+          <button className="btn btn-primary" id={styles.aplicar} onClick={VerificarDatos}>
             Aplicar cambios
           </button>
         </div>

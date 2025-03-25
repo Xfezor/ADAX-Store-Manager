@@ -67,7 +67,7 @@ const Entrega_Productos = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.entregaproductos.php`, {
                 listar: true,
             });
-            console.log(respuesta.data);
+
             if (respuesta.data) {
                 setEntregaProductos(respuesta.data);
             } else {

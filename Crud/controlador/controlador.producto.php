@@ -44,6 +44,41 @@ if (isset($data['listar'])) {
     }
     $nombreTienda = $_SESSION["nombreTienda"];
     $codigo_invitacion = $_SESSION["codigo_invitacion"];
+} else if (isset($data['modificarProducto'])) {
+    $modificarProducto = $data['modificarProducto'];
+    $id_Producto = $data['modificarProducto'];
+    $Nombre = $data['nombre'];
+    $Stock = $data['stock'];
+    $Precio_unit = $data['precio'];
+    $Stock_Min = $data['stock_min'];
+    $Marca = $data['marca'];
+    $Presentacion = $data['presentacion'];
+    $Descripcion = $data['descripcion']; // Asegúrate de que este campo se recibe
+    $Categoria = $data['categoria'];
+    $Fecha_vencimiento = $data['fechaVencimiento'];
+    $Estado = $data['estado'];
+    // echo $id_Producto;
+    // echo "<br>";
+    // echo $Nombre;
+    // echo "<br>";
+    // echo $Stock;
+    // echo "<br>";
+    // echo $Precio_unit;
+    // echo "<br>";
+    // echo $Stock_Min;
+    // echo "<br>";
+    // echo $Marca;
+    // echo "<br>";
+    // echo $Presentacion;
+    // echo "<br>";
+    // echo $Descripcion;
+    // echo "<br>";
+    // echo $Categoria;
+    // echo "<br>";
+    // echo $Fecha_vencimiento;
+    // echo "<br>";
+    // echo $Estado;
+    // echo "<br>";
 } else {
     //echo 'ocurrio un error';
 }
@@ -105,7 +140,7 @@ if (isset($_POST['registrarProducto'])) {
     $mensaje = $pDao->registrarProductoUnico($pDto, $codigo_invitacion);
     if ($mensaje === 'Registrado Exitosamente') {
         $response = ['registro' => true];
-        echo json_encode( $response);
+        echo json_encode($response);
         exit();
     }
 } else if (isset($_POST['registrarProducto'])) {
@@ -154,6 +189,24 @@ if (isset($_POST['registrarProducto'])) {
 
     $mensaje = $pDao->modificarProducto($pDto);
     header("Location:../tablas/producto/listarproducto.php?mensaje=" . $mensaje);
+} else if (isset($modificarProducto)) {
+    $pDao = new productoDao();
+    $pDto = new productoDto();
+    $pDto->setId_Producto($id_Producto);
+    $pDto->setNombre($Nombre);
+    $pDto->setPrecio_unit($Precio_unit);
+    $pDto->setDescripción($Descripcion);
+    $pDto->setMarca($Marca);
+    $pDto->setCategoría($Categoria);
+    $pDto->setPresentacion($Presentacion);
+    $pDto->setFecha_vencimiento($Fecha_vencimiento);
+    $pDto->setStock($Stock);
+    $pDto->setStock_Min($Stock_Min);
+    $pDto->setEstado($Estado);
+    $mensaje = $pDao->modificarProducto2($pDto);
+
+    echo json_encode(['mensaje' => $mensaje]);
+    exit();
 } else if (isset($listarProductosApp)) {
     $pDao = new ProductoDao();
     $lista = $pDao->listarProductosApp($codigo_invitacion);
@@ -182,8 +235,7 @@ if (isset($_POST['registrarProducto'])) {
     }
     echo json_encode($response);
     exit();
-}
-else if (isset($consultaDatosProducto)) {
+} else if (isset($consultaDatosProducto)) {
     $pDao = new ProductoDao();
     $lista = $pDao->consultaDatosProducto($id_Producto);
     $response = []; // Inicializa un array para la respuesta

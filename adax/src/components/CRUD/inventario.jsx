@@ -77,7 +77,7 @@ const Inventario = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 listar: true,
             });
-            console.log(respuesta.data);
+
             if (respuesta.data) {
                 setInventario(respuesta.data);
             } else {

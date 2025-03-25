@@ -41,18 +41,15 @@ const GestionarProductos = () => {
     navigate('/crud/usuarios');
   };
   const backbutton = () => {
-    console.log("Volver atrás");
     navigate(-1);
   };
 
   const exitbutton = () => {
-    console.log("Salir");
     navigate('/inicio');
   };
 
 
   const verDetalles = (id_Producto) => {
-    console.log("Ver detalles del producto", id_Producto);
     navigate("/detalle_producto", { state : { id_Producto : id_Producto } });
   }
 
@@ -71,11 +68,9 @@ const GestionarProductos = () => {
         codigo_invitacion: codigo_invitacion,
       });
       if (respuesta.data) {
-        console.log("etsitosooo", respuesta.data);
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
       } else {
-        console.log('listado no exitoso', respuesta.data)
         return null;
       }
     } catch (err) {
@@ -109,7 +104,6 @@ const GestionarProductos = () => {
   };
   const RegistrarProducto = async () => {
     if (nombre === "" || precio === "" || cantidad === "") {
-      console.log("si");
       Swal.fire({
         icon: 'error',
         title: 'Campos vacios',
@@ -126,7 +120,6 @@ const GestionarProductos = () => {
           codigo_invitacion: codigo_invitacion,
         });
         if (respuesta2.data.registro) {
-          console.log("exito", respuesta2.data);
           Swal.fire({
             icon: 'success',
             title: 'Producto registrado',
@@ -134,7 +127,6 @@ const GestionarProductos = () => {
           });
           Lista();
         } else {
-          console.log('registro no exitoso', respuesta2.data)
           Swal.fire({
             icon: 'error',
             title: 'El producto no se pudo registrar',

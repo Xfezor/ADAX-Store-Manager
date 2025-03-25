@@ -48,7 +48,7 @@ const Ventas = () => {
         codigo_invitacion: codigo_invitacion,
       });
       if (respuesta.data) {
-        console.log("etsitosooo", respuesta.data);
+
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
       } else {
@@ -117,10 +117,10 @@ const Ventas = () => {
     navigate('/crud/usuarios');
   }
   const generarPago = () => {
-    console.log("Generar pago");
-    console.log(prodCarrito);
+
+
     if (prodCarrito.length === 0) {
-      console.log("no hay nada en el carrito");
+
       Swal.fire({
         icon: "error",
         title: "¡Carrito vacio!",
@@ -137,11 +137,11 @@ const Ventas = () => {
     cerrarSesion();
   };
   const backbutton = () => {
-    console.log("Volver atrás");
+
     navigate(-1);
   };
   const exitbutton = () => {
-    console.log("Salir");
+
     navigate('/inicio');
   };
   // eslint-disable-next-line
