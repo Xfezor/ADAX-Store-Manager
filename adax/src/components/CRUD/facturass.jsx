@@ -76,7 +76,7 @@ const Factura = () => {
             if (respuesta.data) {
                 setFactura(respuesta.data);
             } else {
-                console.log('Listado no exitoso:', respuesta.data);
+
                 return null;
             }
         } catch (err) {

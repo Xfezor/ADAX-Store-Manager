@@ -67,7 +67,7 @@ const Ventas = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php`, {
                 listar: true,
             });
-            console.log(respuesta.data);
+
             if (respuesta.data) {
                 setVentas(respuesta.data);
             } else {

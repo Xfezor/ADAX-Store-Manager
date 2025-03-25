@@ -76,7 +76,7 @@ const RegistrarInventario = () => {
                 tienda_idtienda: tienda_idtienda,
                 registroCrud: "registroCrud",
             });
-            console.log(respuesta.data);
+
             if (respuesta.data.success) {
                 console.log('registro exitoso', respuesta.data)
                 Swal.fire({

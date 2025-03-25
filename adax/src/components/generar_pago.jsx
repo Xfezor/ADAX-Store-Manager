@@ -34,19 +34,13 @@ function Pago() {
     setCantidadRecibida(cantidadRecibida2);
     if (!devuelta) return;
     if (devuelta.toString().includes(".")) {
-      console.log("Devuelta ya formateada:", devuelta);
       return;
     }
-    console.log("Devuelta antes formateada:", devuelta);
     const devolver2 = devuelta.toString();
-    console.log("Como cadena:", devolver2);
     const reversed = devolver2.split('').reverse().join('');
-    console.log("Invertido:", reversed);
     const grouped = reversed.match(/.{1,3}/g).join(".");
-    console.log("Agrupado:", grouped);
     const finalResult = grouped.split('').reverse().join('');
-    console.log("Resultado final:", finalResult);
-    console.log(devolver2);
+
     setDevuelta(finalResult);
   }
   const handleChange = (e) => {
@@ -82,13 +76,13 @@ function Pago() {
   };
 
   const backbutton = () => {
-    console.log("Volver atrás");
+    ("Volver atrás");
 
     navigate(-1);
   };
 
   const exitbutton = () => {
-    console.log("Salir");
+    ("Salir");
 
   };
 

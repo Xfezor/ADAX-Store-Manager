@@ -36,22 +36,18 @@ function Factura() {
         navigate('/crud/usuarios');
     };
     const backbutton = () => {
-        console.log("Volver atrás");
         navigate(-1);
     };
 
     const exitbutton = () => {
-        console.log("Salir");
         navigate('/inicio');
     };
     const handleSalir = () => {
-        console.log("Salir");
         navigate('/inicio');
     };
 
 
     const { totalPagar, cantidadRecibida, devuelta, prodCarrito } = location.state;
-    console.log(totalPagar, cantidadRecibida, devuelta);
     useEffect(() => {
         const validador = () => {
             if (localStorage.getItem('usuario') === null) {

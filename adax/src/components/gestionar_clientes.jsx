@@ -38,12 +38,10 @@ const GestionarClientes = () => {
     }
 
     const backbutton = () => {
-        console.log("Volver atrás");
         navigate(-1);
     };
 
     const exitbutton = () => {
-        console.log("Salir");
         navigate('/inicio');
     };
     const [clientes, setClientes] = useState([]);
@@ -59,7 +57,6 @@ const GestionarClientes = () => {
             if (respuesta.data) {
                 setClientes(respuesta.data);
             } else {
-                console.log('Listado no exitoso:', respuesta.data);
                 return null;
             }
         } catch (err) {

@@ -68,11 +68,11 @@ const Movimiento = () => {
                 'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php',
                 { listar: true }
             );
-            console.log(respuesta.data); // Verifica los datos aquí
+ // Verifica los datos aquí
             if (respuesta.data) {
                 setMovimientos(respuesta.data);
             } else {
-                console.log('Listado no exitoso:', respuesta.data);
+
             }
         } catch (err) {
             console.error('Error al obtener los datos:', err);

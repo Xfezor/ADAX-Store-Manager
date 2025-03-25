@@ -63,7 +63,7 @@ const ActualizarMovimiento = () => {
                 const mensaje = respuesta.data.mensaje;
                 navigate('/crud/movimiento', { state: mensaje });
             } else {
-                console.log('actualizacion no exitosa', respuesta.data);
+
                 return null;
             }
         } catch (err) {

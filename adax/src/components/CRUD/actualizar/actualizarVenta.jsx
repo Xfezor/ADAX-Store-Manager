@@ -47,7 +47,7 @@ const ActualizarVentas = () => {
                 const mensaje = respuesta.data.mensaje;
                 navigate('/crud/ventas', { state: mensaje });
             } else {
-                console.log('Actualización no exitosa', respuesta.data);
+
                 return null;
             }
         } catch (err) {

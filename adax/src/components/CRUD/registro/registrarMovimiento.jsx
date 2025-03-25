@@ -87,9 +87,9 @@ const RegistrarMovimiento = () => {
                 inventario_id_Inventario: inventario_id_Inventario,
                 registroCrud: "registroCrud",
             });
-            console.log(respuesta.data);
+
             if (respuesta.data.success) {
-                console.log('registro exitoso', respuesta.data);
+
                 Swal.fire({
                     title: 'Registro exitoso',
                     text: 'El registro fue exitoso',
@@ -101,7 +101,7 @@ const RegistrarMovimiento = () => {
                     }
                 });
             } else {
-                console.log('registro no exitoso', respuesta.data);
+
                 setError('Credenciales Incorrectas');
             }
         } catch (err) {

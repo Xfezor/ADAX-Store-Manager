@@ -52,7 +52,7 @@ function GestionarVentas() {
                 setFactura(respuesta.data);
                 setFacturasOriginales(respuesta.data);
             } else {
-                console.log('Listado no exitoso:', respuesta.data);
+
                 return null;
             }
         } catch (err) {
@@ -78,12 +78,12 @@ function GestionarVentas() {
     }
 
     const backbutton = () => {
-        console.log("Volver atrás");
+
         navigate(-1);
     };
 
     const exitbutton = () => {
-        console.log("Salir");
+
         navigate('/inicio');
     };
     useEffect(() => {

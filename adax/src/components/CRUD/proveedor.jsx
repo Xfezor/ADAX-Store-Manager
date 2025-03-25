@@ -65,11 +65,11 @@ const Proveedor = () => {
             const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
                 listar: true
             });
-            console.log(respuesta.data);
+
             if (respuesta.data) {
                 setProveedor(respuesta.data);
             } else {
-                console.log('listado no exitoso', respuesta.data);
+
                 return null;
             }
         } catch (err) {

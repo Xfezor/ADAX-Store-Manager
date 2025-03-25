@@ -42,7 +42,7 @@ const ActualizarMetodosdepago = () => {
                 const mensaje = respuesta.data.mensaje;
                 navigate('/crud/metodos_pago', { state: mensaje });
             } else {
-                console.log('Actualización no exitosa', respuesta.data);
+
                 return null;
             }
         } catch (err) {

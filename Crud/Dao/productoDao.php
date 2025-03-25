@@ -231,6 +231,42 @@ class productoDao
         $cnn = null;
         return $mensaje;
     }
+    public function modificarProducto2(productoDto $productoDto)
+    {
+        $cnn = Conexion::getConexion();
+        $mensaje = "";
+        $id_Producto = $productoDto->getId_Producto();
+        $Nombre = $productoDto->getNombre() ?: null;
+        $Precio_unit = $productoDto->getPrecio_unit() ?: null;
+        $Descripcion = $productoDto->getDescripcion() ?: null;
+        $Marca = $productoDto->getMarca() ?: null;
+        $Categoria = $productoDto->getCategoria() ?: null;
+        $Presentacion = $productoDto->getPresentacion() ?: null;
+        $Fecha_vencimiento = $productoDto->getFecha_vencimiento() ?: null;
+        $Stock = $productoDto->getStock() ?: null;
+        $Stock_Min = $productoDto->getStock_Min() ?: 0;
+        $Estado = $productoDto->getEstado() ?: null;
+        try {
+            $query = $cnn->prepare("UPDATE producto SET Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=?, estado=? WHERE id_Producto=?");
+            $query->bindParam(1, $Nombre);
+            $query->bindParam(2, $Precio_unit);
+            $query->bindParam(3, $Descripcion);
+            $query->bindParam(4, $Marca);
+            $query->bindParam(5, $Categoria);
+            $query->bindParam(6, $Presentacion);
+            $query->bindParam(7, $Fecha_vencimiento);
+            $query->bindParam(8, $Stock);
+            $query->bindParam(9, $Stock_Min);
+            $query->bindParam(10, $Estado);
+            $query->bindParam(11, $id_Producto);
+            $query->execute();
+            $mensaje = "Registro actualizado";
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        }
+        $cnn = null;
+        return $mensaje;
+    }
     // obtener usuario
     public function obtenerProducto($id_Producto)
     {
