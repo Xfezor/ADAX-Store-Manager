@@ -43,10 +43,7 @@ const Ventas = () => {
   // Llamada de API
   const Lista = useCallback( async () => {
     try {
-      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
-        listarProductosAppPrecio: true,
-        codigo_invitacion: codigo_invitacion,
-      });
+      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`);
       if (respuesta.data) {
 
         setProductos(respuesta.data);
