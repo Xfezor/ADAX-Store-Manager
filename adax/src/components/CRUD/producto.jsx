@@ -64,9 +64,7 @@ const Producto = () => {
 
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
-                listar: true,
-            });
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listar=true`);
 
             if (respuesta.data) {
                 setProducto(respuesta.data);
