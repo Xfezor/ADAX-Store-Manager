@@ -69,9 +69,7 @@ export function Detalle() {
   const consultarProducto = async () => {
     if (!id_Producto) return;
     try {
-      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
-        consultaDatosProducto: id_Producto,
-      });
+      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?consultaDatosProducto=${id_Producto}`);
       if (respuesta.data) {
         setProductos(respuesta.data);
         setFormValues({
@@ -126,8 +124,7 @@ export function Detalle() {
         fechaVencimiento: formValues.fechaVencimiento,
         estado: formValues.estado,
       };
-      (datosproducto);
-      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
+      const respuesta = await axios.put(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
       if (respuesta.data.mensaje) {
         navigate(-1);
       } else {

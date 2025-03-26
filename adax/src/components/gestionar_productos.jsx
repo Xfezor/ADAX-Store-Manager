@@ -48,7 +48,6 @@ const GestionarProductos = () => {
     navigate('/inicio');
   };
 
-
   const verDetalles = (id_Producto) => {
     navigate("/detalle_producto", { state : { id_Producto : id_Producto } });
   }
@@ -63,10 +62,7 @@ const GestionarProductos = () => {
   const [productosOriginales, setProductosOriginales] = useState([]);
   const Lista = useCallback(async () => {
     try {
-      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
-        listarProductosApp: true,
-        codigo_invitacion: codigo_invitacion,
-      });
+      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion} `);
       if (respuesta.data) {
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);

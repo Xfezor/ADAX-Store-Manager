@@ -1,7 +1,7 @@
 <?php
 
 header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 // Manejar la solicitud OPTIONS
@@ -16,25 +16,48 @@ require '../Dto/productoDto.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['registrarProductoUnico'])) {
-    $registrarProductoUnico = $data['registrarProductoUnico'];
-    $nombre = $data['nombre'];
-    $precio = $data['precio'];
-    $cantidad = $data['cantidad'];
-    $codigo_invitacion = $data['codigo_invitacion'];
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        if (isset($_GET['id_Producto'])) {
+            $id_Producto = $_GET['id_Producto'];
+        } else if (isset($_GET['listarProductosApp'])) {
+            $listarProductosApp = $_GET['listarProductosApp'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
+        } else if (isset($_GET['consultaDatosProducto'])) {
+            $consultaDatosProducto = $_GET['consultaDatosProducto'];
+            $id_Producto = $_GET['consultaDatosProducto'];
+        } else if (isset($_GET['listarProductosAppPrecio'])) {
+            $listarProductosAppPrecio = $_GET['listarProductosAppPrecio'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
+        } else if (isset($data['listar'])) {
+            $listar = $data['listar'];
+        }
+        break;
+    case 'POST':
+        if (isset($data['registrarProducto'])) {
+            $registrarProducto = $data['registrarProducto'];
+        } else if (isset($data['registrarProductoUnico'])) {
+            $registrarProductoUnico = $data['registrarProductoUnico'];
+            $nombre = $data['nombre'];
+            $precio = $data['precio'];
+            $cantidad = $data['cantidad'];
+            $codigo_invitacion = $data['codigo_invitacion'];
+        }
+        break;
+    case 'PUT':
+        if (isset($data['modificarProducto'])) {
+            $modificarProducto = $data['modificarProducto'];
+        }
+        break;
+    case 'DELETE':
+        if (isset($_GET['id_Producto'])) {
+            $id_Producto = $_GET['id_Producto'];
+        }
+        break;
+    default:
+        break;
 }
-if (isset($data['listar'])) {
-    $listar = $data['listar'];
-} else if (isset($data['consultaDatosProducto'])) {
-    $consultaDatosProducto = $data['consultaDatosProducto'];
-    $id_Producto = $data['consultaDatosProducto'];
-} else if (isset($data['listarProductosApp'])) {
-    $listarProductosApp = $data['listarProductosApp'];
-    $codigo_invitacion = $data['codigo_invitacion'];
-} else if (isset($data['listarProductosAppPrecio'])) {
-    $listarProductosAppPrecio = $data['listarProductosAppPrecio'];
-    $codigo_invitacion = $data['codigo_invitacion'];
-} else if (isset($_SESSION['nombre1'])) {
+if (isset($_SESSION['nombre1'])) {
     require '../Dao/usuariosDao.php';
     require '../Dto/usuariosDto.php';
     require '../Dao/tiendaDao.php';
@@ -53,32 +76,10 @@ if (isset($data['listar'])) {
     $Stock_Min = $data['stock_min'];
     $Marca = $data['marca'];
     $Presentacion = $data['presentacion'];
-    $Descripcion = $data['descripcion']; // Asegúrate de que este campo se recibe
+    $Descripcion = $data['descripcion'];
     $Categoria = $data['categoria'];
     $Fecha_vencimiento = $data['fechaVencimiento'];
     $Estado = $data['estado'];
-    // echo $id_Producto;
-    // echo "<br>";
-    // echo $Nombre;
-    // echo "<br>";
-    // echo $Stock;
-    // echo "<br>";
-    // echo $Precio_unit;
-    // echo "<br>";
-    // echo $Stock_Min;
-    // echo "<br>";
-    // echo $Marca;
-    // echo "<br>";
-    // echo $Presentacion;
-    // echo "<br>";
-    // echo $Descripcion;
-    // echo "<br>";
-    // echo $Categoria;
-    // echo "<br>";
-    // echo $Fecha_vencimiento;
-    // echo "<br>";
-    // echo $Estado;
-    // echo "<br>";
 } else {
     //echo 'ocurrio un error';
 }
@@ -98,7 +99,6 @@ if (isset($_POST['registrarProducto'])) {
     $mensaje = $pDao->registrarProducto($pDto);
     echo $mensaje;
     if ($mensaje === 'Registrado Exitosamente') {
-        // Registration successful, redirect to login page or success page
         header("Location:../../PAGINA/registro.php?registro=exitoso");
         exit();
     }
