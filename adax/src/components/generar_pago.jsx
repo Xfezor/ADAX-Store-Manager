@@ -10,7 +10,8 @@ function Pago() {
   const [medioDePago, setMedioDePago] = useState('0');
   const navigate = useNavigate();
   const location = useLocation();
-  const prodCarrito = location.state;
+  const prodCarrito = location.state?.prodCarrito || [];
+  
   const { cerrarSesion } = useContext(ContextoSesion);
 
   const usuario1 = localStorage.getItem('usuario');
@@ -28,6 +29,7 @@ function Pago() {
   const [totalPagar2, setTotalPagar2] = useState(0);
   const [cantidadRecibida, setCantidadRecibida] = useState(0);
   const [devuelta, setDevuelta] = useState(0);
+
 
   const formater = (cantidadRecibida, devuelta) => {
     const cantidadRecibida2 = cantidadRecibida.toString().split('').reverse().join('').match(/.{1,3}/g).join(".").split('').reverse().join('');
@@ -76,9 +78,8 @@ function Pago() {
   };
 
   const backbutton = () => {
-    ("Volver atrás");
-
-    navigate(-1);
+    console.log("Volver atrás");
+    navigate(-1, { state: { prodCarrito } });
   };
 
   const exitbutton = () => {
