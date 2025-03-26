@@ -70,7 +70,14 @@ const Ventas = () => {
   }
 
   // Producto carrito
-  const [prodCarrito, setProdCarrito] = useState([]);
+  const [prodCarrito, setProdCarrito] = useState(() => {
+    const carritoGuardado = localStorage.getItem('prodCarrito');
+    return carritoGuardado ? JSON.parse(carritoGuardado) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('prodCarrito', JSON.stringify(prodCarrito));
+  }, [prodCarrito]);
   
   // Funcion para añadir el producto al carrito
   const agregarProducto = (index) => {
@@ -117,10 +124,7 @@ const Ventas = () => {
     navigate('/crud/usuarios');
   }
   const generarPago = () => {
-
-
     if (prodCarrito.length === 0) {
-
       Swal.fire({
         icon: "error",
         title: "¡Carrito vacio!",
@@ -129,7 +133,7 @@ const Ventas = () => {
       });
       return;
     } else {
-      navigate('/generar_pago', { state: prodCarrito });
+      navigate('/generar_pago', { state: {prodCarrito} });
 
     };
   };
@@ -138,7 +142,7 @@ const Ventas = () => {
   };
   const backbutton = () => {
 
-    navigate(-1);
+    navigate('/inicio');
   };
   const exitbutton = () => {
 
@@ -148,7 +152,7 @@ const Ventas = () => {
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {
-        navigate("/inicio");
+        navigate("inicio");
       };
     };
 
