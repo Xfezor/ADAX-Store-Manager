@@ -159,6 +159,16 @@ const Ventas = () => {
     validador();
     Lista();
   }, [Lista,navigate])
+  useEffect(() => {
+    const handlePopState = () => {
+        navigate('/inicio', { replace: true, state: null });
+    };
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+        window.removeEventListener('popstate', handlePopState);
+    };
+}, [prodCarrito, navigate]);
   return (
     <>
       <header>
