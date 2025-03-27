@@ -88,8 +88,22 @@ function Pago() {
   };
 
   const handleGenerarFactura = () => {
-    navigate("/factura", {state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
+    navigate("/factura", {replace: true, state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
+    localStorage.removeItem('prodCarrito');
   }
+  console.log(location.state);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      navigate('/inicio', { replace: true, state: null });
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  })
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {

@@ -20,7 +20,6 @@ function Factura() {
     const tienda = JSON.parse(tienda1);
     const codigo_invitacion = JSON.parse(codigo_invitacion1);
     const rol = JSON.parse(rol1);
-
     const handleCerrarSesion = () => {
         cerrarSesion();
     };
@@ -44,14 +43,35 @@ function Factura() {
         console.log("Salir");
         navigate('/inicio');
     };
+    const { totalPagar, cantidadRecibida, devuelta, prodCarrito } = location.state || {};
+
+    // Botón "Salir"
     const handleSalir = () => {
+        // Limpia el carrito y redirige a ventas
         localStorage.removeItem('prodCarrito');
         console.log("Salir");
-        navigate('/ventas');
+        navigate('/ventas', { replace: true, state: null });
     };
+    useEffect(() => {
+        const handlePopState = () => {
+            navigate('/inicio', { replace: true, state: null });
+        };
+
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [navigate]);
+
+    useEffect (() => {
+        if(!location.state) {
+            navigate('/ventas', { replace: true, state: null });
+        }
+    }, [location.state, navigate]);
 
 
-    const { totalPagar, cantidadRecibida, devuelta, prodCarrito } = location.state;
+
     console.log(totalPagar, cantidadRecibida, devuelta,prodCarrito);
     useEffect(() => {
         const validador = () => {
