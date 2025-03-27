@@ -294,7 +294,7 @@ class productoDao
             $query = $cnn->prepare('DELETE FROM producto WHERE id_Producto= ?');
             $query->bindParam(1, $id_Producto);
             $query->execute();
-            $mensaje = "Registro eliminado";
+            $mensaje = "Producto eliminado";
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }

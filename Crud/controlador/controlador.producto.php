@@ -168,7 +168,13 @@ if (isset($_POST['registrarProducto'])) {
     if ($_GET['id_Producto'] != null) {
         $pDao = new productoDao();
         $mensaje = $pDao->eliminarProducto($_GET['id_Producto']);
-        header("Location:../tablas/producto/listarproducto.php?mensaje=" . $mensaje);
+        if ($mensaje === 'Producto eliminado') {
+            $response = ['Operacion' => true];
+            echo json_encode($response);
+            exit();
+        }
+        $response = ['Operacion' => false];
+        echo json_encode($response);
         exit();
     }
 } else if (isset($_POST['modificarProducto'])) {

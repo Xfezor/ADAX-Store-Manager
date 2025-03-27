@@ -105,11 +105,35 @@ export function Detalle() {
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        modificarProdcto();
+        modificarProducto();
       }
     });
   };
-  const modificarProdcto = async () => {
+  const VerificarDatos2 = async () => {
+    Swal.fire({
+      title: "¿Eliminar producto?",
+      html: "¿Estas seguro de eliminar este producto?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#639be6",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        eliminarProducto();
+      }
+    });
+  };
+  const Error = async () => {
+    Swal.fire({
+      title: "Error",
+      html: "Se produjo un error, por favor intente mas tarde",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  };
+  const modificarProducto = async () => {
     try {
       const datosproducto = {
         modificarProducto: id_Producto,
@@ -129,6 +153,20 @@ export function Detalle() {
         navigate(-1);
       } else {
 
+        return null;
+      }
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+  }
+  const eliminarProducto = async () => {
+    try {
+      const respuesta = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${id_Producto}`);
+      if (respuesta.data.Operacion) {
+        navigate(-1);
+      } else {
+        Error();
         return null;
       }
     } catch (err) {
@@ -205,7 +243,7 @@ export function Detalle() {
           <h4 className={styles["fechav-txt"]}>Fecha de vencimiento</h4>
           <input className={styles["fechav-input"]} type="date" placeholder="" value={formValues.fechaVencimiento} onChange={(e) => setFormValues({ ...formValues, fechaVencimiento: e.target.value })} />
 
-          <button className="btn btn-danger" id={styles.borrar} onClick={backbutton}>
+          <button className="btn btn-danger" id={styles.borrar} onClick={VerificarDatos2}>
             Eliminar producto
           </button>
           <button className="btn btn-secondary" id={styles.cancelar} onClick={exitbutton}>
