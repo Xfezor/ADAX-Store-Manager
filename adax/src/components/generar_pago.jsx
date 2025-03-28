@@ -88,7 +88,6 @@ function Pago() {
 
   const handleGenerarFactura = () => {
     navigate("/factura", {replace: true, state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
-    localStorage.removeItem('prodCarrito');
   }
 
   useEffect(() => {
