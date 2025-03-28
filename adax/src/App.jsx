@@ -16,6 +16,7 @@ import Analisis from './components/analisis.jsx';
 import GestionarVentas from './components/gestionar_ventas.jsx';
 import DetalleFactura from './components/detalle_factura.jsx';
 import DetalleProducto from './components/detalle_producto.jsx';
+import Movimientos from './components/movimientos.jsx';
 import Usuarios from './components/CRUD/usuarios.jsx';
 import RegistrarUsuarios from './components/CRUD/registro/registrarUsuarios.jsx';
 import RegistrarProveedor from './components/CRUD/registro/registrarProveedor.jsx';
@@ -68,6 +69,7 @@ function App() {
           <Route path="/gestionar_ventas" element={<GestionarVentas />} />
           <Route path="/detalle_factura" element={<DetalleFactura />} />
           <Route path="/detalle_producto" element={<DetalleProducto />} />
+          <Route path="/movimientos" element={<Movimientos />} />
           <Route path="/crud/usuarios" element={<Usuarios />} />
           <Route path="/crud/registrar_usuarios" element={<RegistrarUsuarios />} />
           <Route path="/crud/registrar_proveedor" element={<RegistrarProveedor />} />

@@ -64,6 +64,17 @@ class MovimientoDao{
             echo 'Error'. $ex->getMessage();
         }
     }
+    public function listarTodosPorTienda(){
+        $conn = Conexion::getConexion();
+        try {
+            $listarMovimiento = 'SELECT m.id_Movimiento,m.cantidad_despues,m.fecha_movimiento,m.fecha_modificacion,m.estado_despues from movimientos m inner join inventario i on i.id_Inventario = m.inventario_id_Inventario inner join tienda t on i.tienda_idtienda = t.idtienda where t.codigo_invitacion = 94; ';
+            $query = $conn->prepare($listarMovimiento);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception  $ex) {
+            echo 'Error'. $ex->getMessage();
+        }
+    }
 
     public function modificarMovimiento(MovimientoDto $MovimientoDto){
         $cnn = Conexion::getConexion();
