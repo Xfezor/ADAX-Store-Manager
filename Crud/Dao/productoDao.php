@@ -209,9 +209,10 @@ class productoDao
         $Fecha_vencimiento = $productoDto->getFecha_vencimiento();
         $Stock = $productoDto->getStock();
         $Stock_Min = $productoDto->getStock_Min();
+        $estado = $productoDto->getEstado();
         $inventario_id_Inventario = $productoDto->getinventario_id_Inventario();
         try {
-            $query = $cnn->prepare("UPDATE producto SET id_Producto=?, Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=? , Stock_Min=?,inventario_id_Inventario=? WHERE id_Producto=?");
+            $query = $cnn->prepare("UPDATE producto SET id_Producto=?, Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=? , Stock_Min=?, estado=?, inventario_id_Inventario=? WHERE id_Producto=?");
             $query->bindParam(1, $id_Producto);
             $query->bindParam(2, $Nombre);
             $query->bindParam(3, $Precio_unit);
@@ -222,6 +223,7 @@ class productoDao
             $query->bindParam(8, $Fecha_vencimiento);
             $query->bindParam(9, $Stock);
             $query->bindParam(10, $Stock_Min);
+            $query->bindParam(11, $estado); ;
             $query->bindParam(11, $inventario_id_Inventario);
             $query->execute();
             $mensaje = "Registro actualizado";
