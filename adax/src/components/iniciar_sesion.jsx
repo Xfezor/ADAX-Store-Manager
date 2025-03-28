@@ -40,7 +40,22 @@ const IniciarSesion = () => {
         const regex = /@.*\./;
         return regex.test(valor);
     };
-
+    const Error = async () => {
+        Swal.fire({
+            title: "Error",
+            html: "Se produjo un error, por favor intente mas tarde",
+            icon: "error",
+            confirmButtonText: "Ok",
+        });
+    };
+    const Incorrect = async () => {
+        Swal.fire({
+            title: "Credenciales incorrectas",
+            html: "Usuario o contraseña incorrectos",
+            icon: "warning",
+            confirmButtonText: "Ok",
+        });
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
@@ -58,13 +73,13 @@ const IniciarSesion = () => {
             });
             return;
         } else {
-            if (contrasena === ""){
+            if (contrasena === "") {
                 Swal.fire({
                     icon: 'error',
                     title: 'Contraseña vacia',
                     text: 'Por favor ingrese una contraseña'
                 });
-                return; 
+                return;
             } else {
                 const params = new URLSearchParams({
                     tipo: isEmpleado ? 'empleado' : 'tienda', // Determina el tipo según el estado
@@ -79,16 +94,15 @@ const IniciarSesion = () => {
                         const tienda = respuesta.data.nombreTienda;
                         const rol = respuesta.data.rol;
                         const codigo_invitacion = respuesta.data.codigo_invitacion;
-                        iniciarSesion(usuarioData,tienda,codigo_invitacion,rol);
-                        console.log('inicio de sesion exitoso', respuesta.data)
+                        iniciarSesion(usuarioData, tienda, codigo_invitacion, rol);
                         navigate('/inicio');
                     } else {
-                        console.log('inicio de sesion no exitoso', respuesta.data)
                         setError('Credenciales Incorrectas', respuesta.data.success);
+                        Incorrect();
                     }
                 } catch (err) {
-                    console.error(err);
                     setError('Error al iniciar sesión');
+                    Error();
                 }
             }
         }
@@ -97,12 +111,12 @@ const IniciarSesion = () => {
     // eslint-disable-next-line
     useEffect(() => {
         const validadorSesion = () => {
-            if (localStorage.getItem('usuario')){
+            if (localStorage.getItem('usuario')) {
                 navigate("/inicio");
             };
         }
         validadorSesion();
-    },[navigate])
+    }, [navigate])
 
     return (
         <>
@@ -145,8 +159,8 @@ const IniciarSesion = () => {
                                 ¿Olvidaste tu contraseña?&nbsp;
                                 <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
                             </p>
-                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
                             {error && <p style={{ color: 'red' }}>{error}</p>}
+                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
                         </div>
                     </form>
                 ) : (
@@ -177,8 +191,9 @@ const IniciarSesion = () => {
                                 ¿Olvidaste tu contraseña?&nbsp;
                                 <Link to="/restablecer_contrasena" className={styles.aIniciarSesion}> Aquí </Link>
                             </p>
-                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
                             {error && <p style={{ color: 'red' }}>{error}</p>}
+                            <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
+                            
                         </div>
                     </form>
                 )}

@@ -41,6 +41,12 @@ function DetalleFactura() {
     const exitbutton = () => {
         navigate('/inicio');
     };
+    const [codInv, setCodInv] = useState("?");
+    const CodInv = () => {
+        if (rol === 2 || rol === 1) {
+            setCodInv(codigo_invitacion);
+        }
+    };
 
     useEffect(() => {
         const validador = () => {
@@ -49,7 +55,8 @@ function DetalleFactura() {
             };
         };
         validador();
-    }, [navigate])
+        CodInv();
+    }, [navigate,codInv])
     return (
         <>
             <header>
@@ -119,7 +126,7 @@ function DetalleFactura() {
                 <div className={styles.user}>
                     <h1 className={styles.username}>Usuario: "{usuario}"</h1>
                     <h1 className={styles.username}>Tienda: "{tienda}"</h1>
-                    <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
+                    <h1 className={styles.username}>Codigo invitacion: "{codInv}"</h1>
                     <RolCrud />
                     <button
                         className="btn btn-danger"

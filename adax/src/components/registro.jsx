@@ -49,6 +49,22 @@ const Registro = () => {
     navigate('/inicio');
   };
 
+  const Error = async () => {
+    Swal.fire({
+      title: "Error",
+      html: "Se produjo un error, por favor intente mas tarde",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  };
+  const Incorrect = async () => {
+    Swal.fire({
+      title: "Credenciales incorrectas",
+      html: "Usuario o contraseña incorrectos",
+      icon: "warning",
+      confirmButtonText: "Ok",
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Obtener valores del formulario
@@ -191,11 +207,11 @@ const Registro = () => {
 
         } else {
           console.log('registro no exitoso', respuesta.data)
-          setError('Credenciales Incorrectas', respuesta.data.success);
+          Incorrect();
         }
       } catch (err) {
         console.error(err);
-        setError('Error al iniciar sesión');
+        Error();
       }
     };
   };

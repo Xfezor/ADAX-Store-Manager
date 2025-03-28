@@ -78,7 +78,6 @@ function Pago() {
   };
 
   const backbutton = () => {
-    console.log("Volver atrás");
     navigate(-1, { state: { prodCarrito } });
   };
 
@@ -91,7 +90,6 @@ function Pago() {
     navigate("/factura", {replace: true, state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
     localStorage.removeItem('prodCarrito');
   }
-  console.log(location.state);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -104,6 +102,12 @@ function Pago() {
       window.removeEventListener('popstate', handlePopState);
     };
   })
+  const [codInv, setCodInv] = useState("?");
+  const CodInv = () => {
+    if (rol === 2 || rol === 1) {
+      setCodInv(codigo_invitacion);
+    }
+  };
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {
@@ -111,7 +115,8 @@ function Pago() {
       };
     };
     validador();
-  }, [navigate])
+    CodInv();
+  }, [navigate,codInv])
 
   useEffect(() => {
     const calcularTotal = (prodCarrito) => {
@@ -196,7 +201,7 @@ function Pago() {
         <div className={styles.user}>
           <h1 className={styles.username}>Usuario: "{usuario}"</h1>
           <h1 className={styles.username}>Tienda: "{tienda}"</h1>
-          <h1 className={styles.username}>Codigo invitacion: "{codigo_invitacion}"</h1>
+          <h1 className={styles.username}>Codigo invitacion: "{codInv}"</h1>
           <RolCrud />
           <button
             className="btn btn-danger"

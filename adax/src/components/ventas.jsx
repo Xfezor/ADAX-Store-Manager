@@ -145,7 +145,12 @@ const Ventas = () => {
 
     navigate('/inicio');
   };
-  // eslint-disable-next-line
+  const [codInv, setCodInv] = useState("?");
+  const CodInv = () => {
+    if (rol === 2 || rol === 1) {
+      setCodInv(codigo_invitacion);
+    }
+  };
   useEffect(() => {
     const validador = () => {
       if (localStorage.getItem('usuario') === null) {
@@ -155,7 +160,8 @@ const Ventas = () => {
 
     validador();
     Lista();
-  }, [Lista,navigate])
+    CodInv();
+  }, [Lista,navigate,codInv])
   useEffect(() => {
     const handlePopState = () => {
         navigate('/inicio', { replace: true, state: null });
