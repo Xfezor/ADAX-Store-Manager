@@ -1,7 +1,68 @@
 <?php
+
 class UsuarioDao
 {
-    
+       public function buscarUsuarioPorCorreo($correo) {
+        $conexion = Conexion::getConexion(); // Obtener conexión
+        try {
+            $query = "SELECT * FROM usuarios WHERE correo = ?";
+            $stmt = $conexion->prepare($query);
+            $stmt->bindParam(1, $correo, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve el usuario si existe
+        } catch (PDOException $ex) {
+            error_log("Error al buscar usuario: " . $ex->getMessage());
+            return false; // Manejo de errores
+        }
+    }
+        public function actualizarPassword($correo, $newPassword) {
+            $conexion = Conexion::getConexion(); // Obtener conexión a la base de datos
+            try {
+                $query = $conexion->prepare("UPDATE usuarios SET contrasena = ? WHERE correo = ?");
+                $query->bindParam(1, $newPassword, PDO::PARAM_STR);
+                $query->bindParam(2, $correo, PDO::PARAM_STR);
+                return $query->execute(); // Ejecutar la consulta y devolver el resultado
+            } catch (PDOException $ex) {
+                error_log("Error al actualizar la contraseña: " . $ex->getMessage());
+                return false; // Manejo de errores
+            }
+        }
+
+        public function guardarCodigoEnUsuarios($correo, $codigo) {
+            $conexion = Conexion::getConexion();
+            try {
+                // Actualizar la columna `codigo` en la tabla `usuarios`
+                $query = "UPDATE usuarios SET codigo = ? WHERE correo = ?";
+                $stmt = $conexion->prepare($query);
+                $stmt->bindParam(1, $codigo, PDO::PARAM_STR);
+                $stmt->bindParam(2, $correo, PDO::PARAM_STR);
+        
+                return $stmt->execute(); // Retorna true si la actualización fue exitosa
+            } catch (PDOException $ex) {
+                error_log("Error al guardar el código en la tabla usuarios: " . $ex->getMessage());
+                return false;
+            }
+        }
+
+        public function verificarCodigo($correo, $codigo) {
+            $conexion = Conexion::getConexion();
+            $query = "SELECT codigo FROM usuarios WHERE correo = ?";
+            $stmt = $conexion->prepare($query);
+            $stmt->bindParam(1, $correo, PDO::PARAM_STR);
+            $stmt->execute();
+            
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            if ($resultado) {
+                if ($resultado['codigo'] === $codigo) {
+                    return ['status' => 'success', 'message' => 'Código correcto'];
+                } else {
+                    return ['status' => 'error', 'message' => 'Código incorrecto'];
+                }
+            } else {
+                return ['status' => 'error', 'message' => 'El correo no existe'];
+            }
+        }
     public function registrarUsuario(UsuarioDto $usuarioDto)
     {
         $conn = Conexion::getConexion();

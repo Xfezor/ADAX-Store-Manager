@@ -1,30 +1,91 @@
 <?php
 // Asegúrate de que no haya espacios en blanco o líneas antes de esta línea
-header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
-header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: http://localhost:3000"); // Cambiar * por tu frontend
+header("Access-Control-Allow-Credentials: true"); // Permitir credenciales (cookies, sesiones, auth)
+header("Access-Control-Allow-Methods: POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Headers permitidos
+
+
 // Manejar la solicitud OPTIONS
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
-;
 
 require '../Dao/usuariosDao.php';
 require '../Dto/usuariosDto.php';
 require '../utilidades/conexion.php';
+require '../servicios/contrasena.php';
 
-
+  
 // Deshabilitar el caché
 header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP 1.1
 header("Pragma: no-cache"); // HTTP 1.0
 header("Expires: 0"); // Proxies
 
 
-
 $data = json_decode(file_get_contents('php://input'), true);
+
+// Verificar que se haya proporcionado el correo
+if (!isset($data['correo'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Correo no proporcionado']);
+    exit();
+}
+
+$correo = $data['correo'];
+$usuarioDao = new UsuarioDao();
+
+// Si se solicita enviar el código de verificación
+if (isset($data['action']) && $data['action'] === 'enviar_codigo') {
+    // **Verificar si el correo existe**
+    $usuario = $usuarioDao->buscarUsuarioPorCorreo($correo);
+    if (!$usuario) {
+        echo json_encode(['status' => 'error', 'message' => 'El correo no está registrado']);
+        exit();
+    }
+    $respuestaCorreo = Correo::enviarCodigoVerificacion($correo);
+    echo $respuestaCorreo;
+    exit();
+}
+
+if (isset($data['action']) && $data['action'] === 'verificar_codigo') {
+    if (!isset($data['correo']) || !isset($data['codigo'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Datos incompletos']);
+        exit();
+    }
+
+    $correo = $data['correo'];
+    $codigo = $data['codigo'];
+
+    // Instancia de UsuarioDao
+    $usuarioDao = new UsuarioDao();
+    $respuesta = $usuarioDao->verificarCodigo($correo, $codigo);
+
+    echo json_encode($respuesta);
+    exit();
+}
+if (isset($data['olvido']) && isset($data['reset'])) {
+    // Verificar que se haya proporcionado la nueva contraseña
+    if (!isset($data['password']) || empty($data['password'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Contraseña no proporcionada']);
+        exit();
+    }
+    
+    $newPassword = $data['password'];
+    $usuario = $usuarioDao->buscarUsuarioPorCorreo($correo);
+    if (!$usuario) {
+        echo json_encode(['status' => 'error', 'message' => 'El correo no está registrado']);
+        exit();
+    }
+    $resultado = $usuarioDao->actualizarPassword($correo, $newPassword);
+    
+    if ($resultado) {
+        echo json_encode(['status' => 'success', 'message' => 'Contraseña actualizada correctamente']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'No se pudo actualizar la contraseña']);
+    }
+    exit();
+}
 if (isset($data['registro'])) {
     $documento = $data['documento'];
     $tipodoc = $data['tipoDoc'];
