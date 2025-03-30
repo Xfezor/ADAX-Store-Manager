@@ -138,8 +138,8 @@ const Ventas = () => {
     cerrarSesion();
   };
   const backbutton = () => {
-
-    navigate('/inicio');
+    localStorage.removeItem('prodCarrito');
+    navigate('/inicio', { replace: true, state: null });
   };
   const exitbutton = () => {
 
