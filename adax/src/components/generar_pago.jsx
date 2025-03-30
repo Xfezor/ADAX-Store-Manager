@@ -5,9 +5,9 @@ import styles from '../styles/styles_generar_pago.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 function Pago() {
-  const [medioDePago, setMedioDePago] = useState('0');
   const navigate = useNavigate();
   const location = useLocation();
   const prodCarrito = location.state?.prodCarrito || [];
@@ -24,11 +24,13 @@ function Pago() {
   const codigo_invitacion = JSON.parse(codigo_invitacion1);
   const rol = JSON.parse(rol1);
 
-
+  const [medioDePago, setMedioDePago] = useState(0);
   const [totalPagar, setTotalPagar] = useState(0);
   const [totalPagar2, setTotalPagar2] = useState(0);
   const [cantidadRecibida, setCantidadRecibida] = useState(0);
   const [devuelta, setDevuelta] = useState(0);
+  const [documentoCliente, setDocumentoCliente] = useState("");
+  const [tipoDocumento, setTipoDocumento] = useState(0);
 
 
   const formater = (cantidadRecibida, devuelta) => {
@@ -129,6 +131,8 @@ function Pago() {
     };
     calcularTotal(prodCarrito);
   }, []);
+  const RegistrarVenta = async () => {
+  }
   return (
     <>
       <header>
@@ -158,14 +162,41 @@ function Pago() {
               <option value="4">Tarjeta de debito</option>
             </select>
             <h2 className={styles['cantidad-text']}>Cantidad recibida: </h2>
-            <input className={styles.cant} type="text" placeholder="Escriba la cantidad..." onChange={(e) => handleChange(e.target.value)} />
+            <input className={styles.cant} type="number" placeholder="Escriba la cantidad..." onChange={(e) => handleChange(e.target.value)} />
             <h3 className={styles['total-recived']}> =${cantidadRecibida}</h3>
+            <h3 className={styles['documento-text']}>Documento del Cliente</h3>
+            <input className={styles['documento-input']} type="number" placeholder="Escriba el documento" id='documentoCliente' onChange={(e) => setDocumentoCliente(e.target.value)}/>       
             <h3 className={styles['total-text']}>Total a pagar:</h3>
             <h3 className={styles['total-cant-text']}> =${totalPagar}</h3>
             <h3 className={styles['devolver-text']}>Devolver:</h3>
             <h3 className={styles['devolver-cant-text']}> =${devuelta}</h3>
           </div>
-          <button className={styles['generar-pago']} onClick={handleGenerarFactura}>
+          <button className={styles['generar-pago']} onClick={() => {
+                    const cantidadRecibidaNumerica = parseFloat(cantidadRecibida.toString().replace(/\./g, ""));
+                    const totalPagarNumerico = parseFloat(totalPagar.toString().replace(/\./g, ""));
+                    console.log(cantidadRecibidaNumerica)
+
+                    if (!cantidadRecibidaNumerica || isNaN(cantidadRecibidaNumerica) || cantidadRecibidaNumerica <= 0) {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Ingrese una cantidad válida',
+                      });
+                      console.log(`Cantidad recibida: ${cantidadRecibidaNumerica}, Total a pagar: ${totalPagar}`);
+                      return;
+                    }
+                    console.log(`Resta (totalPagar - cantidadRecibida): ${cantidadRecibidaNumerica - totalPagarNumerico}`, cantidadRecibida, totalPagar);
+                    if (cantidadRecibidaNumerica < totalPagarNumerico) {
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'La cantidad recibida es menor al total a pagar',
+                      });
+                      return;
+                    }
+                    handleGenerarFactura();
+                    RegistrarVenta();
+                  }}>
             Confirmar y generar factura
           </button>
         </div>

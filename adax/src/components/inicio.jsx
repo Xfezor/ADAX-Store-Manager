@@ -26,10 +26,10 @@ const Inicio = () => {
   };
   const RolCrud = () => {
     if (rol === 1) {
-    return(
-      <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
-      </button>
-    );
+      return (
+        <button onClick={CRUD} className={`btn btn-danger`} id={styles.cerrarsesion}>CRUD
+        </button>
+      );
     }
   };
   const [codInv, setCodInv] = useState("?");
@@ -55,18 +55,18 @@ const Inicio = () => {
   };
   const exitbutton = () => {
 
-    navigate ('/index')
+    navigate('/index')
   };
 
   useEffect(() => {
     const validador = () => {
-        if (localStorage.getItem('usuario') === null) {
-            navigate("/iniciar_sesion");
-        };
+      if (localStorage.getItem('usuario') === null) {
+        navigate("/iniciar_sesion");
+      };
     };
     validador();
     CodInv();
-}, [navigate,codInv])
+  }, [navigate, codInv])
   return (
     <>
       <header>
