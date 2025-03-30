@@ -12,6 +12,9 @@ class UsuarioDto
     private $correo = "";
     private $rol_id_Rol = "";
     private $codigo_invitacion;
+    
+    private $codigo="";
+
 
     // GETTERS
     public function getDocumento()
@@ -54,6 +57,10 @@ class UsuarioDto
     {
         return $this->codigo_invitacion;
     }
+    public function getCodigo()
+    {
+        return $this->codigo;
+    }
 
     // SETTERS
     public function setDocumento($documento)
@@ -95,5 +102,9 @@ class UsuarioDto
     public function setCodigoInvitacion($codigo_invitacion)
     {
         $this->codigo_invitacion = $codigo_invitacion;
+    }
+    public function setCodigo($codigo)
+    {
+        $this->codigo = $codigo;
     }
 }
