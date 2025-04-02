@@ -11,10 +11,10 @@ const RecuperarContraseña = ({ navigation }) => {
       setError('El correo electrónico es obligatorio.');
       return;
     }
-    setError(''); // Limpiar el error si el correo es válido
+    setError('');
     console.log('Enviar código a:', email);
-    // Aquí puedes agregar la lógica para enviar el código
-    navigation.navigate('OlvidoContrasenaCodigo'); // Redirige a la pantalla de código de verificación
+   
+    navigation.navigate('OlvidoContrasenaCodigo'); 
   };
 
   return (

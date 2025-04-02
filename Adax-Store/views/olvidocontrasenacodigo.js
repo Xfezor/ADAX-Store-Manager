@@ -13,8 +13,8 @@ const PantallaRecuperarContrasena = ({ navigation }) => {
             setError("El código de verificación es obligatorio.");
             return;
         }
-        setError(""); // Limpiar error si hay un código válido
-        navigation.navigate("OlvidoContrasena"); // Cambia "NuevaPantalla" por la pantalla destino
+        setError("");
+        navigation.navigate("OlvidoContrasena");
     };
 
     return (
@@ -29,7 +29,7 @@ const PantallaRecuperarContrasena = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            {/* Moviendo los elementos debajo del encabezado */}
+          
             <View style={{ marginTop: 150, alignItems: "center", width: "100%" }}>
                 <Text style={styles.titulo}>¿Olvidaste tu contraseña?</Text>
                 
