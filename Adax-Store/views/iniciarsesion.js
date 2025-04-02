@@ -7,7 +7,7 @@ const IniciarSesion = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('empleado');
   
   // Variables de conexión
-  const serverIP = "192.168.1.66"; // Asegúrate de que esta sea la IP correcta de tu servidor
+  const serverIP = "192.168.0.12"; // Asegúrate de que esta sea la IP correcta de tu servidor
   const serverPort = "80"; // Puerto predeterminado para HTTP
 
   const login = async () => {
@@ -45,14 +45,14 @@ const IniciarSesion = ({ navigation }) => {
 
         <View style={styles.tabContainer}>
           <TouchableOpacity
-            style={[styles.tab, selectedTab === 'Usuario' && styles.activeTab]}
-            onPress={() => setSelectedTab('Usuario')}
+            style={[styles.tab, selectedTab === 'empleado' && styles.activeTab]}
+            onPress={() => setSelectedTab('empleado')}
           >
-            <Text style={styles.tabText}>Usuario</Text>
+            <Text style={styles.tabText}>Empleado</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.tab, selectedTab === 'Tienda' && styles.activeTab]}
-            onPress={() => setSelectedTab('Tienda')}
+            style={[styles.tab, selectedTab === 'tienda' && styles.activeTab]}
+            onPress={() => setSelectedTab('tienda')}
           >
             <Text style={styles.tabText}>Tienda</Text>
           </TouchableOpacity>
