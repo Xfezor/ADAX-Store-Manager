@@ -4,28 +4,47 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [selectedTab, setSelectedTab] = useState('Usuario');
+  const [selectedTab, setSelectedTab] = useState('empleado');
+  const serverIP = "192.168.0.12"; // Reemplaza con la IP de tu servidor
+  const serverPort = "80"; // Reemplaza con el puerto de tu servidor (si es necesario)
+
+  const login = async () => {
+    // Handle login logic here
+    fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle successful login
+        console.log('Login successful:', data);
+      })
+      .catch(error => {
+        // Handle login error
+        console.error('Login error:', error);
+      });
+
+  }
 
   return (
     <View style={styles.container}>
       <Text style={styles.clock}>9:31</Text>
       <Image source={require('./assets/logo.png')} style={styles.logo} />
-      
+
       <View style={styles.card}>
         <Text style={styles.title}>Iniciar Sesión</Text>
 
         <View style={styles.tabContainer}>
           <TouchableOpacity
-            style={[styles.tab, selectedTab === 'Usuario' && styles.activeTab]}
-            onPress={() => setSelectedTab('Usuario')}
+            style={[styles.tab, selectedTab === 'empleado' && styles.activeTab]}
+            onPress={() => setSelectedTab('empleado')}
           >
-            <Text style={styles.tabText}>Usuario</Text>
+            <Text style={styles.tabText}>empleado</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.tab, selectedTab === 'Tienda' && styles.activeTab]}
-            onPress={() => setSelectedTab('Tienda')}
+            style={[styles.tab, selectedTab === 'tienda' && styles.activeTab]}
+            onPress={() => setSelectedTab('tienda')}
           >
-            <Text style={styles.tabText}>Tienda</Text>
+            <Text style={styles.tabText}>tienda</Text>
           </TouchableOpacity>
         </View>
 
@@ -56,7 +75,7 @@ const LoginScreen = () => {
           <Text style={styles.link}>¿Olvidaste tu contraseña? Ingresa <Text style={styles.highlight}>Aquí</Text></Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={login}>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>

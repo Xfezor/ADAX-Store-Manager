@@ -75,7 +75,6 @@ function Factura() {
 
 
 
-    console.log(totalPagar, cantidadRecibida, devuelta, prodCarrito);
     useEffect(() => {
         const validador = () => {
             if (localStorage.getItem('usuario') === null) {
