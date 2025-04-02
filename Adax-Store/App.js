@@ -2,12 +2,12 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-// Importar las vistas (asegúrate de que las rutas sean correctas)
+
 import OlvidoContrasenaCodigo from "./views/olvidocontrasenacodigo";
 import OlvidoContrasenaCorreo from "./views/olvidocontrasenacorreo";
 import IniciarSesion from "./views/iniciarsesion";
 import OlvidoContrasena from "./views/contrasenaolvidar";
-import Actualizar from "./views/actualizar"; // Importa el nuevo archivo
+import Actualizar from "./views/actualizar"; 
 
 const Stack = createStackNavigator();
 
