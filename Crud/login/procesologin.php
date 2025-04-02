@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-// Si la sesión está activa, redirigir al index
-if (isset($_SESSION['nombre1'])) {
-    header('Location: ../../PAGINA/inicio.php');
-    exit();
-}
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
@@ -29,7 +24,23 @@ $data = json_decode(file_get_contents('php://input'), true);
 $email = $data['email'] ?? null;
 $contra = $data['contrasena'] ?? null;
 
-if ($_GET["tipo"] === "empleado") {
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'POST':
+        $email = $_POST['email'] ?? null;
+        $contra = $_POST['contrasena'] ?? null;
+        break;
+    case 'GET':
+        $tipo = $_GET['tipo'] ?? null;
+        $email = $_GET['email'] ?? null;
+        $contra = $_GET['contrasena'] ?? null;
+        break;
+    default:
+        echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+        exit();
+}
+
+
+if ($tipo === "empleado") {
 
     $sentencia = $cnn->prepare("SELECT * FROM usuarios WHERE correo = ? and (select desencriptarClaveCorreo('$email')) = ?;");
     $sentencia->execute([$email, $contra]);
@@ -50,7 +61,7 @@ if ($_GET["tipo"] === "empleado") {
         echo json_encode(['success' => false]);
         exit();
     }
-} elseif ($_GET["tipo"] === "tienda") {
+} elseif ($tipo === "tienda") {
     $sentencia = $cnn->prepare("SELECT * FROM tienda WHERE correo = ? and (select desencriptarClaveCorreoTienda('$email')) = ?;");
     $sentencia->execute([$email, $contra]);
     $valor = $sentencia->fetch(PDO::FETCH_OBJ);
@@ -58,10 +69,10 @@ if ($_GET["tipo"] === "empleado") {
         echo json_encode(['success' => false]);
         exit();
     } elseif ($sentencia->rowcount() == 1) {
-        $_SESSION['nombre1'] = $valor->correo;
-        $_SESSION['codigo_invitacion'] = $valor->codigo_invitacion;
-        $_SESSION['nombreTienda'] = $valor->nombreTienda;
-        echo json_encode(['success' => true]);
+        $cod = $valor->codigo_invitacion;
+        $nombreTienda = $valor->nombreTienda;
+        $rol = 3;
+        echo json_encode(['success' => true, 'codigo_invitacion' => $cod, 'nombreTienda' => $nombreTienda, 'rol' => $rol]);
         exit();
     } else {
         echo json_encode(['success' => false]);
@@ -74,7 +85,7 @@ if ($_POST["tipo"] === "empleado") {
     $sentencia->execute([$email, $contra]);
     $valor = $sentencia->fetch(PDO::FETCH_OBJ);
     if ($valor === FALSE) {
-        header('Location:../../PAGINA/iniciar_sesion.php?error=1');
+        echo json_encode(['success' => false]);
         exit();
     } elseif ($sentencia->rowcount() == 1) {
         $sentencia = $cnn->prepare("SELECT nombreTienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
@@ -86,7 +97,7 @@ if ($_POST["tipo"] === "empleado") {
         if ($valor->rol_id_Rol === 1) {
             $_SESSION['rol_id_Rol'] = $valor->rol_id_Rol;
         }
-        header('Location:../../PAGINA/inicio.php');
+        echo json_encode(['success' => true]);
         exit();
     }
 } elseif ($_POST["tipo"] === "tienda") {
@@ -104,4 +115,3 @@ if ($_POST["tipo"] === "empleado") {
         exit();
     }
 }
-?>

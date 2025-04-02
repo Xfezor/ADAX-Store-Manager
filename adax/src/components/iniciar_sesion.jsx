@@ -85,10 +85,7 @@ const IniciarSesion = () => {
                     tipo: isEmpleado ? 'empleado' : 'tienda', // Determina el tipo según el estado
                 });
                 try {
-                    const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/login/procesologin.php?${params.toString()}`, {
-                        email: email,
-                        contrasena: password,
-                    });
+                    const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/login/procesologin.php?${params.toString()}&email=${email}&contrasena=${contrasena}`);
                     if (respuesta.data.success) {
                         const usuarioData = email;
                         const tienda = respuesta.data.nombreTienda;
