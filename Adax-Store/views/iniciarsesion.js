@@ -1,50 +1,60 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 
-const LoginScreen = () => {
+const IniciarSesion = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [selectedTab, setSelectedTab] = useState('empleado');
-  const serverIP = "192.168.0.12"; // Reemplaza con la IP de tu servidor
-  const serverPort = "80"; // Reemplaza con el puerto de tu servidor (si es necesario)
+  
+  // Variables de conexión
+  const serverIP = "192.168.1.66"; // Asegúrate de que esta sea la IP correcta de tu servidor
+  const serverPort = "80"; // Puerto predeterminado para HTTP
 
   const login = async () => {
-    // Handle login logic here
-    fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
-      method: 'GET',
-    })
-      .then(response => response.json())
-      .then(data => {
-        // Handle successful login
-        console.log('Login successful:', data);
-      })
-      .catch(error => {
-        // Handle login error
-        console.error('Login error:', error);
+    try {
+      const response = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
+        method: 'GET',
       });
+      const data = await response.json();
+      console.log('Login successful:', data);
+      // Si el login es exitoso, navega a la pantalla de Actualizar
+      navigation.navigate('Actualizar');
+    } catch (error) {
+      console.error('Login error:', error);
+      Alert.alert('Error', 'No se pudo iniciar sesión. Intente de nuevo.');
+    }
+  };
 
-  }
+  const handleLogin = () => {
+    // Verificar si los campos de correo y contraseña están completos
+    if (!email || !password) {
+      Alert.alert('Campos incompletos', 'Por favor ingresa tu correo electrónico y contraseña.');
+      return;
+    }
+    // Ejecuta la función de login
+    login();
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.clock}>9:31</Text>
-      <Image source={require('./assets/logo.png')} style={styles.logo} />
-
+      <Image source={require('../assets/logo2.png')} style={styles.logo} />
+      
       <View style={styles.card}>
         <Text style={styles.title}>Iniciar Sesión</Text>
 
         <View style={styles.tabContainer}>
           <TouchableOpacity
-            style={[styles.tab, selectedTab === 'empleado' && styles.activeTab]}
-            onPress={() => setSelectedTab('empleado')}
+            style={[styles.tab, selectedTab === 'Usuario' && styles.activeTab]}
+            onPress={() => setSelectedTab('Usuario')}
           >
-            <Text style={styles.tabText}>empleado</Text>
+            <Text style={styles.tabText}>Usuario</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.tab, selectedTab === 'tienda' && styles.activeTab]}
-            onPress={() => setSelectedTab('tienda')}
+            style={[styles.tab, selectedTab === 'Tienda' && styles.activeTab]}
+            onPress={() => setSelectedTab('Tienda')}
           >
-            <Text style={styles.tabText}>tienda</Text>
+            <Text style={styles.tabText}>Tienda</Text>
           </TouchableOpacity>
         </View>
 
@@ -69,13 +79,18 @@ const LoginScreen = () => {
         />
 
         <TouchableOpacity>
-          <Text style={styles.link}>¿Eres usuario nuevo? Regístrate <Text style={styles.highlight}>Aquí</Text></Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.link}>¿Olvidaste tu contraseña? Ingresa <Text style={styles.highlight}>Aquí</Text></Text>
+          <Text style={styles.link}>
+            ¿Eres usuario nuevo? Regístrate <Text style={styles.highlight}>Aquí</Text>
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={login}>
+        <TouchableOpacity onPress={() => navigation.navigate('OlvidoContrasenaCorreo')}>
+          <Text style={styles.link}>
+            ¿Olvidaste tu contraseña? Ingresa <Text style={styles.highlight}>Aquí</Text>
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>
@@ -182,5 +197,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
-
+export default IniciarSesion;
