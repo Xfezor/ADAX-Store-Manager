@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
-        'reference' => 'f33411d849dce2988f9753e7306ef46ba9f7c0b4',
+        'pretty_version' => 'dev-React',
+        'version' => 'dev-React',
+        'reference' => '47157bb58cca68f2519b742de1b99275f3e65e94',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => 'f33411d849dce2988f9753e7306ef46ba9f7c0b4',
+            'pretty_version' => 'dev-React',
+            'version' => 'dev-React',
+            'reference' => '47157bb58cca68f2519b742de1b99275f3e65e94',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
