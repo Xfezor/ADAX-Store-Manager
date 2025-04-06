@@ -1,68 +1,112 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const RecuperarContraseña = ({ navigation }) => {
-  const [email, setEmail] = useState('');
+  const [correo, setCorreo] = useState('');
   const [error, setError] = useState('');
+  const [cargando, setCargando] = useState(false);
 
-  const handleSendCode = () => {
-    if (email.trim() === '') {
-      setError('El correo electrónico es obligatorio.');
-      return;
+  const validarCorreo = () => {
+    if (!correo.trim()) return setError('El correo es obligatorio'), false;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) 
+      return setError('Correo no válido'), false;
+    return setError(''), true;
+  };
+
+  const enviarCodigo = async () => {
+    if (!validarCorreo()) return;
+    
+    setCargando(true);
+    try {
+      const respuesta = await fetch(
+        'http://192.168.1.66/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'enviar_codigo', correo: correo })
+        }
+      );
+
+      const datos = await respuesta.json();
+      
+      if (datos.message?.includes('enviado correctamente') || datos.status === 'success') {
+        navigation.navigate('OlvidoContrasenaCodigo', { email: correo });
+        setTimeout(() => Alert.alert('Éxito', datos.message || 'Código enviado'), 500);
+      } else if (datos.message?.includes('no registrado')) {
+        setError('Este correo no está registrado');
+      } else {
+        throw new Error(datos.message || 'Error al enviar código');
+      }
+    } catch (error) {
+      Alert.alert('Error', error.message.includes('Network') 
+        ? 'Error de conexión' 
+        : error.message
+      );
+    } finally {
+      setCargando(false);
     }
-    setError('');
-    console.log('Enviar código a:', email);
-   
-    navigation.navigate('OlvidoContrasenaCodigo'); 
   };
 
   return (
-    <View style={styles.contenedor}>
+    <View style={estilos.contenedor}>
       <StatusBar backgroundColor="#EBD8A0" barStyle="dark-content" />
-      <View style={styles.encabezado}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <View style={estilos.encabezado}>
+        <Image source={require('../assets/logo.png')} style={estilos.logo} />
         <TouchableOpacity onPress={() => navigation.navigate('IniciarSesion')}>
-          <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
+          <Ionicons name="close" size={40} color="black" />
         </TouchableOpacity>
       </View>
-      <Text style={styles.titulo}>¿Olvidaste tu contraseña?</Text>
-      <View style={styles.cajaInformacion}>
-        <Text style={styles.textoInformacion}>
-          Escriba el correo asociado con su cuenta, así le podremos enviar un código de confirmación para poder cambiar la contraseña.
+
+      <Text style={estilos.titulo}>¿Olvidaste tu contraseña?</Text>
+
+      <View style={estilos.cajaInformacion}>
+        <Text style={estilos.textoInformacion}>
+          Ingresa el correo asociado a tu cuenta para recibir un código de verificación.
         </Text>
       </View>
-      <Text style={styles.etiqueta}>Correo</Text>
+
+      <Text style={estilos.etiqueta}>Correo</Text>
       <TextInput
-        style={styles.entrada}
+        style={estilos.entrada}
         placeholder="Correo Electrónico"
         placeholderTextColor="#999"
-        value={email}
-        onChangeText={setEmail}
+        value={correo}
+        onChangeText={setCorreo}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
-      {error ? <Text style={styles.errorTexto}>{error}</Text> : null}
-      <TouchableOpacity style={styles.boton} onPress={handleSendCode}>
-        <Text style={styles.textoBoton}>Enviar Código</Text>
+
+      {error ? <Text style={estilos.textoError}>{error}</Text> : null}
+
+      <TouchableOpacity 
+        style={[estilos.boton, cargando && estilos.botonDeshabilitado]} 
+        onPress={enviarCodigo}
+        disabled={cargando}
+      >
+        <Text style={estilos.textoBoton}>
+          {cargando ? 'Enviando...' : 'Enviar Código'}
+        </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+// Estilos optimizados
+const estilos = StyleSheet.create({
   contenedor: {
     flex: 1,
     backgroundColor: '#FCE7B5',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
     paddingTop: 150,
     paddingHorizontal: 20,
+    alignItems: 'center'
   },
   encabezado: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    height: 90,
+    height: 130,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -75,36 +119,32 @@ const styles = StyleSheet.create({
   logo: {
     width: 120,
     height: 70,
-    resizeMode: 'contain',
-  },
-  iconoCerrar: {
-    width: 40,
-    height: 40,
+    resizeMode: 'contain'
   },
   titulo: {
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#000',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   cajaInformacion: {
     backgroundColor: '#E2C673',
     padding: 10,
     borderRadius: 10,
     marginBottom: 15,
-    maxWidth: 300,
+    maxWidth: 300
   },
   textoInformacion: {
     color: 'black',
     fontSize: 14,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   etiqueta: {
     fontSize: 25,
     fontWeight: 'bold',
     color: '#000',
-    marginBottom: 5,
+    marginBottom: 5
   },
   entrada: {
     width: '80%',
@@ -114,13 +154,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: '#ddd',
-    marginBottom: 20,
-    textAlign: 'left',
+    marginBottom: 20
   },
-  errorTexto: {
+  textoError: {
     color: 'red',
     fontSize: 14,
-    marginBottom: 10,
+    marginBottom: 10
   },
   boton: {
     backgroundColor: '#D9534F',
@@ -131,12 +170,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     height: 50,
+    minWidth: 150
+  },
+  botonDeshabilitado: {
+    backgroundColor: '#AAAAAA'
   },
   textoBoton: {
     color: 'black',
     fontSize: 17,
-    fontWeight: 'bold',
-  },
+    fontWeight: 'bold'
+  }
 });
 
 export default RecuperarContraseña;
