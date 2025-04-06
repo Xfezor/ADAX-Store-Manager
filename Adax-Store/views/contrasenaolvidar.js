@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { 
-    View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar 
+    View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert 
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const Contrasena = ({ navigation }) => {
+const Contrasena = ({ navigation, route }) => {
     const [nuevaContrasena, setNuevaContrasena] = useState("");
     const [repetirContrasena, setRepetirContrasena] = useState("");
     const [error, setError] = useState("");
 
-    const handleContinuar = () => {
+    const handleContinuar = async () => {
         if (nuevaContrasena.trim() === "" || repetirContrasena.trim() === "") {
             setError("Ambos campos de contraseña son obligatorios.");
             return;
@@ -20,15 +20,40 @@ const Contrasena = ({ navigation }) => {
             return;
         }
 
-        setError(""); 
-        navigation.navigate("NuevaPantalla"); 
+        setError("");
+
+        try {
+            const response = await fetch("http://192.168.1.66/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    action: "cambiar_contrasena",
+                    correo: route.params.email, // Asegúrate de que esto venga desde la pantalla anterior
+                    nuevaContrasena: nuevaContrasena
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+                Alert.alert("Éxito", "Contraseña actualizada correctamente", [
+                    { text: "OK", onPress: () => navigation.navigate("IniciarSesion") }
+                ]);
+            } else {
+                setError(data.message || "Error al cambiar la contraseña");
+            }
+        } catch (err) {
+            setError("Error de red o del servidor");
+            console.error(err);
+        }
     };
 
     return (
         <View style={styles.contenedor}>
             <StatusBar backgroundColor="#EBD8A0" barStyle="dark-content" />
-            
-        
+
             <View style={styles.encabezado}>
                 <Image source={require('../assets/logo.png')} style={styles.logo} />
                 <TouchableOpacity onPress={() => navigation.navigate('IniciarSesion')}>
@@ -36,7 +61,6 @@ const Contrasena = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-         
             <View style={styles.cuerpo}>
                 <Text style={styles.titulo}>Nueva Contraseña</Text>
                 

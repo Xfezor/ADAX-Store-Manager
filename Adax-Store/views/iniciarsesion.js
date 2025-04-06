@@ -7,7 +7,7 @@ const IniciarSesion = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('empleado');
   
   // Variables de conexión
-  const serverIP = "192.168.10.16"; // Asegúrate de que esta sea la IP correcta de tu servidor
+  const serverIP = "192.168.1.66"; // Asegúrate de que esta sea la IP correcta de tu servidor
   const serverPort = "80"; // Puerto predeterminado para HTTP
 
   const login = async () => {
