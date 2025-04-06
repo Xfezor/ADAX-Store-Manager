@@ -7,7 +7,7 @@ const IniciarSesion = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('empleado');
   
   // Variables de conexión
-  const serverIP = "192.168.0.12"; // Asegúrate de que esta sea la IP correcta de tu servidor
+  const serverIP = "192.168.10.16"; // Asegúrate de que esta sea la IP correcta de tu servidor
   const serverPort = "80"; // Puerto predeterminado para HTTP
 
   const login = async () => {
@@ -18,7 +18,7 @@ const IniciarSesion = ({ navigation }) => {
       const data = await response.json();
       console.log('Login successful:', data);
       // Si el login es exitoso, navega a la pantalla de Actualizar
-      navigation.navigate('Actualizar');
+      navigation.navigate('MenuPrincipal');
     } catch (error) {
       console.error('Login error:', error);
       Alert.alert('Error', 'No se pudo iniciar sesión. Intente de nuevo.');
@@ -37,7 +37,6 @@ const IniciarSesion = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.clock}>9:31</Text>
       <Image source={require('../assets/logo2.png')} style={styles.logo} />
       
       <View style={styles.card}>
@@ -79,7 +78,7 @@ const IniciarSesion = ({ navigation }) => {
         />
 
         <TouchableOpacity>
-          <Text style={styles.link}>
+          <Text style={styles.link} onPress={() => navigation.navigate('RegistrarUsuario')}>
             ¿Eres usuario nuevo? Regístrate <Text style={styles.highlight}>Aquí</Text>
           </Text>
         </TouchableOpacity>
