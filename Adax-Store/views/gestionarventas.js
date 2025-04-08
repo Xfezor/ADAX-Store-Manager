@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const GestionarVentas = () => {
+const GestionarVentas = ({}) => {
   const [busqueda, setBusqueda] = useState('');
   const productos = [
     { nombre: 'Papaya', cantidad: 'Diana', precio: '$2500' },
@@ -61,19 +61,19 @@ const GestionarVentas = () => {
 
       <View style={styles.bottomNav}>
         <View style={styles.navItem}>
-          <Image source={require('../assets/images/productos.png')} style={styles.icon} />
+          <Image source={require('../assets/producto.png')} style={styles.icon} />
           <Text style={styles.navText}>Productos</Text>
         </View>
         <View style={styles.navItem}>
-          <Image source={require('../assets/images/ventas.jpeg')} style={styles.icon} />
+          <Image source={require('../assets/ventas.png')} style={styles.icon} />
           <Text style={styles.navText}>Ventas</Text>
         </View>
         <View style={styles.navItem}>
-          <Image source={require('../assets/images/analisis.png')} style={styles.icon} />
+          <Image source={require('../assets/analisis.png')} style={styles.icon} />
           <Text style={styles.navText}>Análisis</Text>
         </View>
         <View style={styles.navItem}>
-          <Image source={require('../assets/images/gestionar.jpeg')} style={styles.icon} />
+          <Image source={require('../assets/gestionar_Ventas.png')} style={styles.icon} />
           <Text style={styles.navText}>Gestionar Ventas</Text>
         </View>
       </View>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   tableHeader: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 },
   tableHeaderBox: { flex: 1, backgroundColor: '#D5C08F', padding: 5, borderRadius: 5, alignItems: 'center' },
   tableHeaderText: { fontWeight: 'bold' },
-  productList: { maxHeight: 400 }, // Altura maxima para el scroll
+  productList: { maxHeight: 400 },
   productRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: 1, borderBottomColor: '#ccc' },
   productText: { flex: 1, textAlign: 'center' },
 
@@ -107,8 +107,9 @@ const styles = StyleSheet.create({
 
   bottomNav: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10, borderTopWidth: 1, marginTop: 10 },
   navItem: { alignItems: 'center' },
-  icon: { width: 40, height: 40, borderRadius: 20 },
+  icon: { width: 40, height: 40},
   navText: { fontSize: 12, fontWeight: 'bold' },
 });
 
 export default GestionarVentas;
+
