@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Methods: GET, POST, PATCH, DELETE, PUT, OPTIONS"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 
@@ -19,46 +19,56 @@ header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['registro'])) {
-    $idproveedor = $data['idproveedor'];
-    $nombre = $data['nombre'];
-    $telefono = $data['telefono'];
-    $email = $data['email'];
-    $id_tienda = $data['id_tienda'];
-    $registro = $data['registro'];
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        if (isset($_GET['listar'])) {
+            $listar = $_GET['listar'];
+        } else if (isset($_GET['listarPorTienda'])) {
+            $listarPorTienda = $_GET['listarPorTienda'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
+        } else if (isset($_GET['listarProductos'])){
+            $listarProductos = $_GET['listarProductos'];
+            $idproveedor = $_GET['idproveedor'];
+        }
+        break;
+    case 'POST':
+        if (isset($data['registro'])) {
+            $idproveedor = $data['idproveedor'];
+            $nombre = $data['nombre'];
+            $telefono = $data['telefono'];
+            $email = $data['email'];
+            $id_tienda = $data['id_tienda'];
+            $registro = $data['registro'];
+        } else if (isset($data['registroCrud'])) {
+            $idproveedor = $data['idproveedor'];
+            $nombre = $data['nombre'];
+            $telefono = $data['telefono'];
+            $email = $data['email'];
+            $id_tienda = $data['id_tienda'];
+            $registroCrud = $data['registroCrud'];
+        }
+        break;
+    case 'PUT':
+        if (isset($data['actualizar'])) {
+            $idproveedor = $data['idproveedor'];
+            $nombre = $data['nombre'];
+            $telefono = $data['telefono'];
+            $email = $data['email'];
+            $id_tienda = $data['id_tienda'];
+            $actualizar = $data['actualizar'];
+        }
+        break;
+    case 'DELETE':
+        if (isset($_GET['eliminar'])) {
+            $idproveedor = $_GET['eliminar'];
+        }
+        break;
+    default:
+        break;
 }
 
-if (isset($data['registroCrud'])) {
-    $idproveedor = $data['idproveedor'];
-    $nombre = $data['nombre'];
-    $telefono = $data['telefono'];
-    $email = $data['email'];
-    $id_tienda = $data['id_tienda'];
-    $registroCrud = $data['registroCrud'];
-}
 
-if (isset($data['listar'])) {
-    $listar = $data['listar'];
-}
-if (isset($data['listarPorTienda'])) {
-    $listarPorTienda = $data['listarPorTienda'];
-    $codigo_invitacion = $data['codigo_invitacion'];
-}
-
-if (isset($data['eliminar'])) {
-    $idproveedor = $data['eliminar'];
-}
-
-if (isset($data['actualizar'])) {
-    $idproveedor = $data['idproveedor'];
-    $nombre = $data['nombre'];
-    $telefono = $data['telefono'];
-    $email = $data['email'];
-    $id_tienda = $data['id_tienda'];
-    $actualizar = $data['actualizar'];
-}
-
-if (isset($registro) || isset($_GET['no'])) {
+if (isset($registro)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $pDto->setidproveedor($idproveedor);
@@ -72,7 +82,7 @@ if (isset($registro) || isset($_GET['no'])) {
         echo json_encode(['success' => true]);
         exit;
     }
-} else if (isset($listar) || isset($_GET['si'])) {
+} else if (isset($listar)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $listaProveedores = $pDao->listarTodos();
@@ -89,7 +99,7 @@ if (isset($registro) || isset($_GET['no'])) {
     echo json_encode($response);
     exit();
 }
- else if (isset($listarPorTienda) || isset($_GET['si'])) {
+ else if (isset($listarPorTienda)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $listaProveedores = $pDao->listarTodosPorTienda($codigo_invitacion);
@@ -99,12 +109,26 @@ if (isset($registro) || isset($_GET['no'])) {
             $proveedor['nombre'],
             $proveedor['telefono'],
             $proveedor['email'],
-            $proveedor['Nombre'],
+            $proveedor['idproveedor']
         ];
     }
     echo json_encode($response);
     exit();
-} else if (isset($registroCrud)) {
+} else if (isset($listarProductos)) {
+    $pDao = new proveedorDao();
+    $pDto = new proveedorDto();
+    $listaProveedores = $pDao->listarProductos($idproveedor);
+    $response = [];
+    foreach ($listaProveedores as $proveedor) {
+        $response[] = [
+            $proveedor['Nombre'],
+            $proveedor['Marca']
+        ];
+    }
+    echo json_encode($response);
+    exit();
+}
+ else if (isset($registroCrud)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $pDto->setidproveedor($idproveedor);

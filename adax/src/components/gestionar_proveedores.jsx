@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+import Swal from "sweetalert2";
 
 
 const GestionarProveedores = () => {
@@ -48,16 +48,60 @@ const GestionarProveedores = () => {
 
         navigate('/inicio');
     };
+    // const cargando = async () => {
+    //     let timerInterval;
+    //     Swal.fire({
+    //         title: "Cargando...",
+    //         html: "Por favor espere, tiempo restante <b></b> milisegundos.",
+    //         timer: 50,
+    //         timerProgressBar: true,
+    //         didOpen: () => {
+    //             Swal.showLoading();
+    //             const timer = Swal.getPopup().querySelector("b");
+    //             timerInterval = setInterval(() => {
+    //                 timer.textContent = `${Swal.getTimerLeft()}`;
+    //             }, 100);
+    //         },
+    //         willClose: () => {
+    //             clearInterval(timerInterval);
+    //         }
+    //     }).then((result) => {
+    //         /* Read more about handling dismissals below */
+    //         if (result.dismiss === Swal.DismissReason.timer) {
+    //             productosAlert();
+    //         }
+    //     });
+    // }
+    const productosAlert = async () => {
+
+        Swal.fire({
+            title: "Lista de productos",
+            html: `${productos.map((producto, index) => `<p key=${index}>${producto[0]}</p>`).join('<br>')}`,
+            icon: "info",
+            confirmButtonText: "Ok",
+        });
+    };
+    var [productos, setProductos] = useState([]);
+    const verProductos = (async (idproveedor) => {
+        try {
+            setProductos([]);
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarProductos=true&idproveedor=${idproveedor}`);
+            if (respuesta.data) {
+                productos = (respuesta.data);
+                productosAlert();
+            } else {
+                return null;
+            }
+        } catch (err) {
+            console.error('Error al obtener los datos:', err);
+            return null;
+        }
+    });
+
     const [proveedores, setProveedores] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php',
-                {
-                    listarPorTienda: true,
-                    codigo_invitacion: codigo_invitacion,
-                }
-            );
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarPorTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setProveedores(respuesta.data);
             } else {
@@ -68,13 +112,13 @@ const GestionarProveedores = () => {
             console.error('Error al obtener los datos:', err);
             return null;
         }
-    },[codigo_invitacion]);
+    }, [codigo_invitacion]);
 
     const [codInv, setCodInv] = useState("?");
     const CodInv = () => {
-      if (rol === 2 || rol === 1) {
-        setCodInv(codigo_invitacion);
-      }
+        if (rol === 2 || rol === 1) {
+            setCodInv(codigo_invitacion);
+        }
     };
     useEffect(() => {
         const validador = () => {
@@ -85,7 +129,7 @@ const GestionarProveedores = () => {
         validador();
         Lista();
         CodInv();
-    }, [navigate,Lista,codInv])
+    }, [navigate, Lista, codInv])
     return (
         <>
             <header>
@@ -121,7 +165,9 @@ const GestionarProveedores = () => {
                                 <td className={styles.tdventas}>{Fa[0]}</td>
                                 <td className={styles.tdventas}>{Fa[1]}</td>
                                 <td className={styles.tdventas}>{Fa[2]}</td>
-                                <td className={styles.tdventas}>{Fa[3]}</td>
+                                <td className={styles.tdventas}>
+                                    <button className={styles.detail_button} onClick={() => verProductos(Fa[3])}>Ver Productos</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

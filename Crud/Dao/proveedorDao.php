@@ -69,12 +69,26 @@ class proveedorDao
             $conn = null;
         }
     }
-    public function listarTodosPorTienda($id_tienda)
+    public function listarTodosPorTienda($codigo_invitacion)
     {
         $conn = Conexion::getConexion();
         try {
-            $query = $conn->prepare("SELECT p.nombre, p.telefono, p.email, pr.Nombre from proveedor p inner join tienda t on p.id_tienda = t.idtienda inner join producto pr on p.idproveedor = pr.idProveedor where t.codigo_invitacion = ?;");
-            $query->bindParam(1, $id_tienda);
+            $query = $conn->prepare("SELECT pr.nombre, pr.telefono, pr.email, p.Nombre, pr.idproveedor from proveedor pr inner join producto p on pr.idproveedor = p.idProveedor inner join tienda t on pr.id_tienda = t.idtienda where t.codigo_invitacion = ? group by pr.idproveedor;");
+            $query->bindParam(1, $codigo_invitacion);
+            $query->execute();
+            return $query->fetchAll();
+        } catch (Exception $ex) {
+            return []; 
+        } finally {
+            $conn = null;
+        }
+    }
+    public function listarProductos($idproveedor)
+    {
+        $conn = Conexion::getConexion();
+        try {
+            $query = $conn->prepare("SELECT p.Nombre, p.Marca from producto p inner join proveedor pr on pr.idproveedor = p.idProveedor where p.idproveedor = ?;");
+            $query->bindParam(1, $idproveedor);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception $ex) {

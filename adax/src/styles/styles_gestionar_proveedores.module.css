@@ -171,7 +171,19 @@ body {
     background-color: #af3333;
     color: black;
 }
-
+.detail_button {
+    height: 100%;
+    width: 60%;
+    background-color: #df6363;
+    margin: auto 0;
+    color: black;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-self: end;
+    border: none;
+    padding: 5px;
+  }
 .username {
     font-size: 25px;
     align-content: center;
