@@ -13,6 +13,7 @@ import RegistrarTiendas2 from "./views/RegistrarTiendas2";
 import OlvidoContrasena from "./views/contrasenaolvidar";
 import MenuPrincipal from "./views/menuPrincipal";
 import Actualizar from "./views/actualizar"; 
+import GestionarVentas from "./views/gestionarventas";
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ export default function App() {
     <Stack.Screen name="RegistrarTiendas2" component={RegistrarTiendas2} />
     <Stack.Screen name="MenuPrincipal" component={MenuPrincipal} />
     <Stack.Screen name="Actualizar" component={Actualizar} />
+    <Stack.Screen name="GestionarVentas" component={GestionarVentas} />
     </Stack.Navigator>
     </NavigationContainer>
   );

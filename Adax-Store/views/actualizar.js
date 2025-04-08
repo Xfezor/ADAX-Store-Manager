@@ -3,16 +3,55 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image,
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 
-const ActualizarDatos = () => {
+const ActualizarDatos = ({ navigation }) => {
+  const [documento, setDocumento] = useState("");
   const [tipoDocumento, setTipoDocumento] = useState("CC");
   const [modalVisible, setModalVisible] = useState(false);
+  const [primerNombre, setPrimerNombre] = useState("");
+  const [segundoNombre, setSegundoNombre] = useState("");
+  const [primerApellido, setPrimerApellido] = useState("");
+  const [segundoApellido, setSegundoApellido] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const [serverIP, setServerIP] = useState('192.168.10.16');
+  const [serverPort, setServerPort] = useState('80'); 
 
+  const ObtnerDatosClienteSesion = async () => {
+    try { 
+      const response = await fetch(`https://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuario.php?obtenerUsuario=${documento}`, {
+        method: 'GET',
+      });
+      const data = await response.json();
+      console.log('Datos del cliente:', data);
+      if (data) {
+        setPrimerNombre(data.primer_nombre);
+        setSegundoNombre(data.segundo_nombre);
+        setPrimerApellido(data.primer_apellido);
+        setSegundoApellido(data.segundo_apellido);
+        setCorreo(data.correo);
+        setTipoDocumento(data.tipo_documento);
+      } else {
+        console.log('No se encontraron datos para el documento proporcionado.');
+      }
+    }
+    catch (error) {
+      console.error('Error al obtener los datos del cliente:', error);
+    }
+  }
   return (
     <View style={styles.contenedor}>
       <StatusBar backgroundColor="#EBD8A0" barStyle="dark-content" />
       <View style={styles.encabezado}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Icono presionado");
+            navigation.navigate('MenuPrincipal');
+          }}
+        >
+          <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
+        </TouchableOpacity>
+
       </View>
       <ScrollView contentContainerStyle={styles.scrollContenedor}>
         <View style={styles.encabezadoContenedor}>
@@ -22,49 +61,30 @@ const ActualizarDatos = () => {
           <Text style={styles.etiqueta}>Nombres</Text>
           <TextInput style={styles.entrada} placeholder="Primer Nombre" />
           <TextInput style={styles.entrada} placeholder="Segundo Nombre (opcional)" />
-          
+
           <Text style={styles.etiqueta}>Apellidos</Text>
           <TextInput style={styles.entrada} placeholder="Primer Apellido" />
           <TextInput style={styles.entrada} placeholder="Segundo Apellido (opcional)" />
-          
+
           <Text style={styles.etiqueta}>Tipo de Documento</Text>
-          <TouchableOpacity style={styles.entrada} onPress={() => setModalVisible(true)}>
-            <Text> 
-              {tipoDocumento === "CC" ? "Cédula de Ciudadanía" : 
-              tipoDocumento === "TI" ? "Tarjeta de Identidad" : 
-              tipoDocumento === "CE" ? "Cédula de Extranjería" : "Pasaporte"}
-            </Text>
-          </TouchableOpacity>
-          
-          <Modal visible={modalVisible} animationType="slide" transparent={true}>
-            <View style={styles.modalContenedor}>
-              <View style={styles.modalContenido}>
-                <Picker
-                  selectedValue={tipoDocumento}
-                  onValueChange={(itemValue) => {
-                    setTipoDocumento(itemValue);
-                    setModalVisible(false);
-                  }}
-                >
-                  <Picker.Item label="Cédula de Ciudadanía" value="CC" />
-                  <Picker.Item label="Tarjeta de Identidad" value="TI" />
-                  <Picker.Item label="Cédula de Extranjería" value="CE" />
-                  <Picker.Item label="Pasaporte" value="PA" />
-                </Picker>
-              </View>
-            </View>
-          </Modal>
-          
+          <View style={styles.entradaTipoDoc}> 
+            <Picker
+              selectedValue={tipoDocumento}
+              onValueChange={(itemValue) => setTipoDocumento(itemValue)}
+            >
+              <Picker.Item label="Cédula de Ciudadanía" value="CC" />
+              <Picker.Item label="Tarjeta de Identidad" value="TI" />
+              <Picker.Item label="Cédula de Extranjería" value="CE" />
+              <Picker.Item label="Pasaporte" value="PA" />
+            </Picker>
+          </View>
           <Text style={styles.etiqueta}>Correo</Text>
           <TextInput style={styles.entrada} placeholder="Correo Electrónico" />
-          
           <Text style={styles.etiqueta}>Contraseña</Text>
           <TextInput style={styles.entrada} placeholder="********" secureTextEntry />
-          
           <TouchableOpacity style={styles.botonEnlace}>
             <Text style={styles.textoEnlace}>¿Quieres cambiar tu contraseña? Haz clic aquí</Text>
           </TouchableOpacity>
-          
           <TouchableOpacity style={styles.botonConfirmar}>
             <Text style={styles.textoBotonConfirmar}>Confirmar</Text>
           </TouchableOpacity>
@@ -80,7 +100,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FCEDC0",
   },
   encabezado: {
-    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
@@ -99,20 +118,15 @@ const styles = StyleSheet.create({
     height: 70,
     resizeMode: "contain",
   },
-  iconoCerrar: {
-    width: 40,
-    height: 40,
-  },
   scrollContenedor: {
-    paddingTop: 130,
-    paddingHorizontal: 16,
+    alignItems: "center",
   },
   encabezadoContenedor: {
     alignItems: "center",
-    paddingVertical: 10,
+    paddingVertical: 20,
   },
   encabezadoTexto: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#000",
   },
@@ -120,24 +134,39 @@ const styles = StyleSheet.create({
     backgroundColor: "#EBD8A0",
     padding: 16,
     borderRadius: 10,
-    marginHorizontal: 48,
-    marginTop: 4,
-    minHeight: 400,
+    height: 'auto',
+    width: '85%',
+    marginBottom: 20,
   },
   etiqueta: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "600",
     color: "#000",
     marginTop: 12,
   },
   entrada: {
     borderWidth: 1,
-    borderColor: "#aaa",
+    borderColor: "none",
     borderRadius: 16,
-    padding: 10,
     marginTop: 5,
     backgroundColor: "#fff",
+    padding: 5,
+    paddingLeft: 15,
+    height: 30, 
+    justifyContent: "center",
+    fontSize: 14,
   },
+  entradaTipoDoc: {
+    borderWidth: 1,
+    borderColor: "none",
+    borderRadius: 16,
+    marginTop: 5,
+    backgroundColor: "#fff",
+    height: 30, 
+    justifyContent: "center",
+    fontSize: 14,
+  },
+  
   modalContenedor: {
     flex: 1,
     justifyContent: "center",
@@ -161,11 +190,12 @@ const styles = StyleSheet.create({
   },
   botonConfirmar: {
     backgroundColor: "#F85F6A",
-    paddingVertical: 16,
-    paddingHorizontal: 24,
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 10,
     alignSelf: "center",
+    height: 40,
+    width: "50%",
+    justifyContent: "center",
   },
   textoBotonConfirmar: {
     color: "black",

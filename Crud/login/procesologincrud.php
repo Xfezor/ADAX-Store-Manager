@@ -26,6 +26,7 @@ if ($_POST["tipo"] === "usuario") {
         exit(); 
     } elseif ($sentencia->rowcount() == 1) {
         $_SESSION['nombre1'] = $valor->nombre1;
+        $_SESSION['documento'] = $valor->documento;
         header('Location:../tablas/tablas.php');
         exit(); 
     }
@@ -38,6 +39,7 @@ if ($_POST["tipo"] === "usuario") {
         exit(); 
     } elseif ($sentencia->rowcount() == 1) {
         $_SESSION['nombre1'] = $valor->correo;
+        $_SESSION['documento'] = $valor->documento;
         header('Location:../tablas/tablas.php');
         exit(); 
     }
