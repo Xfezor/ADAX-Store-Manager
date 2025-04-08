@@ -43,11 +43,8 @@ function Analisis() {
   const [productosOriginales, setProductosOriginales] = useState([]);
   const Lista = useCallback(async () => {
     try {
-      const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?`, {
-        verAnalisisCodigoInv: codigo_invitacion,
-      });
+      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigo_invitacion}`);
       if (respuesta.data) {
-
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
       } else {

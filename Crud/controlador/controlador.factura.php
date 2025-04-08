@@ -20,53 +20,63 @@ header("Pragma: no-cache"); // HTTP 1.0
 header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (isset($data['regristroFactura'])) {
-    $venta_id_Venta = $data['venta_id_Venta'];
-    $producto_id_Producto = $data['producto_id_Producto'];
-    $Cantidad = $data['Cantidad'];
-    $Precio = $data['Precio'];
-    $Estado = $data['Estado'];
-    $regristroFactura = $data['regristroFactura'];
-}
-if (isset($data['registroCrud'])) {
-    $venta_id_Venta = $data['venta_id_Venta'];
-    $producto_id_Producto = $data['producto_id_Producto'];
-    $Cantidad = $data['Cantidad'];
-    $Precio = $data['Precio'];
-    $Estado = $data['Estado'];
-    $registroCrud = $data['registroCrud'];
-}
-if (isset($data['listar'])) {
-    $listar = $data['listar'];
-}
-if (isset($data['listarTienda'])) {
-    $listarTienda = $data['listarTienda'];
-    $codigo_invitacion = $data['codigo_invitacion'];
-}
-if (isset($data['eliminar'])) {
-    $id = $data['eliminar'];
-}
-if (isset($data['actualizar'])) {
-    $venta_id_Venta = $data['venta_id_Venta'];
-    $producto_id_Producto = $data['producto_id_Producto'];
-    $Cantidad = $data['Cantidad'];
-    $Precio = $data['Precio'];
-    $Estado = $data['Estado'];
-    $actualizar = $data['actualizar'];
-}
-if (isset($data['actualizar'])) {
-    $venta_id_Venta = $data['venta_id_Venta'];
-    $producto_id_Producto = $data['producto_id_Producto'];
-    $Cantidad = $data['Cantidad'];
-    $Precio = $data['Precio'];
-    $Estado = $data['Estado'];
-    $actualizar = $data['actualizar'];
-}
-if (isset($data['verAnalisisCodigoInv'])) {
-    $verAnalisisCodigoInv = $data['verAnalisisCodigoInv'];
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        if (isset($_GET['listar'])) {
+            $listar = $_GET['listar'];
+        }
+        else if (isset($_GET['listarTienda'])) {
+            $listarTienda = $_GET['listarTienda'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
+        }
+        else if (isset($_GET['verAnalisisCodigoInv'])) {
+            $verAnalisisCodigoInv = $_GET['verAnalisisCodigoInv'];
+        } 
+        else if (isset($_GET['listarProductos'])) {
+            $listarProductos = $_GET['listarProductos'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
+            $venta_id_Venta = $_GET['venta_id_Venta'];
+        }
+        break;
+    case 'POST':
+        if (isset($data['regristroFactura'])) {
+            $venta_id_Venta = $data['venta_id_Venta'];
+            $producto_id_Producto = $data['producto_id_Producto'];
+            $Cantidad = $data['Cantidad'];
+            $Precio = $data['Precio'];
+            $Estado = $data['Estado'];
+            $regristroFactura = $data['regristroFactura'];
+        }
+        else if (isset($data['registroCrud'])) {
+            $venta_id_Venta = $data['venta_id_Venta'];
+            $producto_id_Producto = $data['producto_id_Producto'];
+            $Cantidad = $data['Cantidad'];
+            $Precio = $data['Precio'];
+            $Estado = $data['Estado'];
+            $registroCrud = $data['registroCrud'];
+        }
+        break;
+    case 'PUT':
+        if (isset($data['actualizar'])) {
+            $venta_id_Venta = $data['venta_id_Venta'];
+            $producto_id_Producto = $data['producto_id_Producto'];
+            $Cantidad = $data['Cantidad'];
+            $Precio = $data['Precio'];
+            $Estado = $data['Estado'];
+            $actualizar = $data['actualizar'];
+        }
+        break;
+    case 'DELETE':
+        if (isset($data['eliminar'])) {
+            $id = $data['eliminar'];
+        }
+        break;
+    default:
+        break;
 }
 
-if (isset($regristroFactura) || isset($_GET['no'])) {
+
+if (isset($regristroFactura)) {
     $fDao = new facturaDao();
     $fDto = new facturaDto();
     $fDto->setVenta_id_Venta($venta_id_Venta);
@@ -117,7 +127,20 @@ if (isset($regristroFactura) || isset($_GET['no'])) {
     echo json_encode($response);
     exit();
 }
-
+else if (isset($listarProductos)) {
+    $fDao = new facturaDao();
+    $fDto = new facturaDto();
+    $lista = $fDao->listarProductos($codigo_invitacion, $venta_id_Venta);
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $factura) {
+        $response[] = [
+            $factura['Nombre'],
+            $factura['cantidad'],
+        ];
+    }
+    echo json_encode($response);
+    exit();
+}
 
 else if (isset($registroCrud)) {
     $fDao = new facturaDao();

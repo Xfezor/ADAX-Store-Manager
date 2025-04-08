@@ -47,13 +47,7 @@ const GestionarClientes = () => {
     const [clientes, setClientes] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php',
-                {
-                    listarClientesTienda: true,
-                    codigo_invitacion: codigo_invitacion,
-                }
-            );
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?listarClientesTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setClientes(respuesta.data);
             } else {
@@ -114,11 +108,12 @@ const GestionarClientes = () => {
                     <tbody className={styles['table-body']}>
                         {clientes.map((Fa, index) => (
                             <tr className={styles.trgespro} key={index}>
+                                <td className={styles.tdventas}>{Fa[0]}</td>
                                 <td className={styles.tdventas}>{Fa[1]}</td>
                                 <td className={styles.tdventas}>{Fa[2]}</td>
                                 <td className={styles.tdventas}>{Fa[3]}</td>
                                 <td className={styles.tdventas}>{Fa[4]}</td>
-                                <td className={styles.tdventas}>{Fa[5]}</td>
+
                             </tr>
                         ))}
                     </tbody>

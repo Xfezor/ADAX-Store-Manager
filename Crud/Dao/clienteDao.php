@@ -82,7 +82,7 @@ class clienteDao
     {
         $conn = Conexion::getConexion();
         try {
-            $listarcliente = 'select c.id_Cliente,c.Documento,c.Tipo_documento,c.NombreCliente,c.ApellidoCliente,c.Correo from venta v inner join cliente c on c.id_Cliente = v.cliente_id_Cliente inner join tienda t on v.tienda_idtienda = t.idtienda where t.codigo_invitacion = ?';
+            $listarcliente = 'select c.Documento,c.Tipo_documento,c.NombreCliente,c.ApellidoCliente,c.correo from venta v inner join cliente c on c.Documento = v.cliente_documento_Cliente inner join tienda t on v.tienda_idtienda = t.idtienda where t.codigo_invitacion = ?';
             $query = $conn->prepare($listarcliente);
             $query->bindParam(1, $codigoInvitacion);
             $query->execute();
@@ -96,7 +96,6 @@ class clienteDao
     {
         $cnn = Conexion::getConexion();
         $mensaje = "";
-        $id_Cliente = $clienteDto->getId_Cliente();
         $Documento = $clienteDto->getDocumento();
         $Nombre1_Cliente = $clienteDto->getNombre1_Cliente();
         $Nombre2_Cliente = $clienteDto->getNombre2_Cliente();
@@ -104,14 +103,15 @@ class clienteDao
         $Apellido2_Cliente = $clienteDto->getApellido2_Cliente();
         $Tipo_documento = $clienteDto->getTipo_documento();
         try {
-            $query = $cnn->prepare("UPDATE cliente SET Documento=?, Nombre1_Cliente=?, Nombre2_Cliente=?, Apellido1_Cliente=?, Apellido2_Cliente=?, Tipo_documento=? WHERE id_Cliente=?");
+            $query = $cnn->prepare("UPDATE cliente SET Documento=?, Nombre1_Cliente=?, Nombre2_Cliente=?, Apellido1_Cliente=?, Apellido2_Cliente=?, Tipo_documento=? WHERE Documento=?");
             $query->bindParam(1,$Documento);
             $query->bindParam(2,$Nombre1_Cliente);
             $query->bindParam(3,$Nombre2_Cliente);
             $query->bindParam(4,$Apellido1_Cliente);
             $query->bindParam(5,$Apellido2_Cliente);
             $query->bindParam(6,$Tipo_documento);
-            $query->bindParam(7,$id_Cliente);
+            $query->bindParam(7,$Documento);
+            
             $query->execute();
             $mensaje= "Registro actualizado"; 
         } catch (Exception  $ex) {
