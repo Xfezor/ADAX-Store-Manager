@@ -94,7 +94,7 @@ const Inicio = () => {
               <h1 className={styles.textogrande}>Ventas</h1>
             </div>
             <div className={styles.btn} id="Gv" onClick={GestionarVentas}>
-              <h1 className={styles.textogrande}>Gestionar Ventas</h1>
+              <h1 className={styles.textogrande}>Gestionar Facturas</h1>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 
@@ -19,45 +19,60 @@ header("Pragma: no-cache"); // HTTP 1.0
 header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (isset($data['registroCliente'])) {
-    $id_Cliente = $data['id_Cliente'];
-    $Documento = $data['Documento'];
-    $Nombre1_Cliente = $data['Nombre1_Cliente'];
-    $Nombre2_Cliente = $data['Nombre2_Cliente'];
-    $Apellido1_Cliente = $data['Apellido1_Cliente'];
-    $Apellido2_Cliente = $data['Apellido2_Cliente'];
-    $Tipo_documento = $data['Tipo_documento'];
+
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+        if (isset($_GET['listar'])) {
+            $listar = $_GET['listar'];
+        }
+        if (isset($_GET['listarClientesTienda'])) {
+            $listarClientesTienda = $_GET['listarClientesTienda'];
+            $codigoInvitacion = $_GET['codigo_invitacion'];
+        }
+        break;
+    case 'POST':
+        if (isset($data['registroCliente'])) {
+            $id_Cliente = $data['id_Cliente'];
+            $Documento = $data['Documento'];
+            $Nombre1_Cliente = $data['Nombre1_Cliente'];
+            $Nombre2_Cliente = $data['Nombre2_Cliente'];
+            $Apellido1_Cliente = $data['Apellido1_Cliente'];
+            $Apellido2_Cliente = $data['Apellido2_Cliente'];
+            $Tipo_documento = $data['Tipo_documento'];
+        }
+        if (isset($data['registroCrud'])) {
+            $id_Cliente = $data['id_Cliente'];
+            $Documento = $data['Documento'];
+            $Nombre1_Cliente = $data['Nombre1_Cliente'];
+            $Nombre2_Cliente = $data['Nombre2_Cliente'];
+            $Apellido1_Cliente = $data['Apellido1_Cliente'];
+            $Apellido2_Cliente = $data['Apellido2_Cliente'];
+            $Tipo_documento = $data['Tipo_documento'];
+            $registroCrud = $data['registroCrud'];
+        }
+        break;
+    case 'PUT':
+        if (isset($data['actualizar'])) {
+            $Documento = $data['Documento'];
+            $Nombre1_Cliente = $data['Nombre1_Cliente'];
+            $Nombre2_Cliente = $data['Nombre2_Cliente'];
+            $Apellido1_Cliente = $data['Apellido1_Cliente'];
+            $Apellido2_Cliente = $data['Apellido2_Cliente'];
+            $Tipo_documento = $data['Tipo_documento'];
+            $actualizar = $data['actualizar'];
+        }
+        break;
+    case 'DELETE':
+        if (isset($data['eliminar'])) {
+            $id = $data['eliminar'];
+        }
+        break;
+    default:
+        break;
 }
-if (isset($data['registroCrud'])) {
-    $id_Cliente = $data['id_Cliente'];
-    $Documento = $data['Documento'];
-    $Nombre1_Cliente = $data['Nombre1_Cliente'];
-    $Nombre2_Cliente = $data['Nombre2_Cliente'];
-    $Apellido1_Cliente = $data['Apellido1_Cliente'];
-    $Apellido2_Cliente = $data['Apellido2_Cliente'];
-    $Tipo_documento = $data['Tipo_documento'];
-    $registroCrud = $data['registroCrud'];
-}
-if (isset($data['listar'])) {
-    $listar = $data['listar'];
-}
-if (isset($data['listarClientesTienda'])) {
-    $listarClientesTienda = $data['listarClientesTienda'];
-    $codigoInvitacion = $data['codigo_invitacion'];
-}
-if (isset($data['eliminar'])) {
-    $id = $data['eliminar'];
-}
-if (isset($data['actualizar'])) {
-    $Documento = $data['Documento'];
-    $Nombre1_Cliente = $data['Nombre1_Cliente'];
-    $Nombre2_Cliente = $data['Nombre2_Cliente'];
-    $Apellido1_Cliente = $data['Apellido1_Cliente'];
-    $Apellido2_Cliente = $data['Apellido2_Cliente'];
-    $Tipo_documento = $data['Tipo_documento'];
-    $actualizar = $data['actualizar'];
-}
-if (isset($registroCliente) || isset($_GET['no'])) {
+
+
+if (isset($registroCliente)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
     $cDto->setId_Cliente($id_Cliente);
@@ -74,7 +89,7 @@ if (isset($registroCliente) || isset($_GET['no'])) {
         echo json_encode(['success' => true]);
         exit();
     }
-} else if (isset($listar) || isset($_GET['si'])) {
+} else if (isset($listar)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
     $lista = $cDao->listarTodos();
@@ -82,7 +97,6 @@ if (isset($registroCliente) || isset($_GET['no'])) {
     foreach ($lista as $cliente) {
 
         $response[] = [
-            $cliente['id_Cliente'],
             $cliente['Documento'],
             $cliente['Nombre1_Cliente'],
             $cliente['Nombre2_Cliente'],
@@ -101,15 +115,12 @@ else if (isset($listarClientesTienda)) {
     $lista = $cDao->listarClientesTienda($codigoInvitacion);
     $response = []; // Inicializa un array para la respuesta
     foreach ($lista as $cliente) {
-
         $response[] = [
-            $cliente['id_Cliente'],
             $cliente['Documento'],
             $cliente['Tipo_documento'],
             $cliente['NombreCliente'],
             $cliente['ApellidoCliente'],
-            $cliente['Correo'],
-
+            $cliente['correo'],
         ];
     }
     echo json_encode($response);

@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import Swal from "sweetalert2";
 
 
 function GestionarVentas() {
@@ -36,18 +37,51 @@ function GestionarVentas() {
             );
         }
     }
-
+    const productosAlert = async () => {
+        Swal.fire({
+            title: "Lista de productos",
+            html: `
+                <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                    <thead>
+                        <tr>
+                            <th style="border-bottom: 1px solid #ddd; padding: 8px;">Producto</th>
+                            <th style="border-bottom: 1px solid #ddd; padding: 8px;">Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${productos.map((producto) => `
+                            <tr>
+                                <td style="border-bottom: 1px solid #ddd; padding: 8px;">${producto[0]}</td>
+                                <td style="border-bottom: 1px solid #ddd; padding: 8px;">${producto[1]}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `,
+            confirmButtonText: "Ok",
+        });
+    };
+    var [productos, setProductos] = useState([]);
+    const verProductos = (async (venta_id_Venta) => {
+        try {
+            setProductos([]);
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarProductos=true&codigo_invitacion=${codigo_invitacion}&venta_id_Venta=${venta_id_Venta}`);
+            if (respuesta.data) {
+                productos = (respuesta.data);
+                productosAlert();
+            } else {
+                return null;
+            }
+        } catch (err) {
+            console.error('Error al obtener los datos:', err);
+            return null;
+        }
+    });
     const [factura, setFactura] = useState([]);
     const [facturasOriginales, setFacturasOriginales] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
-                {
-                    listarTienda: true,
-                    codigo_invitacion: codigo_invitacion,
-                }
-            );
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setFactura(respuesta.data);
                 setFacturasOriginales(respuesta.data);
@@ -110,7 +144,7 @@ function GestionarVentas() {
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </button>
                     <div className={styles.adax}>
-                        <h1 className={styles.title}>Gestionar Ventas</h1>
+                        <h1 className={styles.title}>Gestionar Facturas</h1>
                     </div>
                     <button className={styles.exit} onClick={exitbutton} to="/inicio">
                         <FontAwesomeIcon icon={faXmark} className={styles.exit} />
@@ -126,22 +160,22 @@ function GestionarVentas() {
                     <thead className={styles['table-head-gesven']}>
                         <tr className={styles.trventas}>
                             <th className={styles.thventas}>ID Venta</th>
-                            <th className={styles.thventas}>Nombre producto</th>
-                            <th className={styles.thventas}>Marca</th>
-                            <th className={styles.thventas}>Cantidad</th>
+                            <th className={styles.thventas}>Cantidad Productos</th>
                             <th className={styles.thventas}>Precio</th>
                             <th className={styles.thventas}>Estado</th>
+                            <th className={styles.thventas}>Productos</th>
                         </tr>
                     </thead>
                     <tbody className={styles['table-body']}>
                         {factura.map((Fa, index) => (
                             <tr className={styles.trgespro} key={index}>
                                 <td className={styles.tdventas}>{Fa[0]}</td>
-                                <td className={styles.tdventas}>{Fa[1]}</td>
-                                <td className={styles.tdventas}>{Fa[2]}</td>
                                 <td className={styles.tdventas}>{Fa[3]}</td>
                                 <td className={styles.tdventas}>{Fa[4]}</td>
                                 <td className={styles.tdventas}>{Fa[5]}</td>
+                                <td className={styles.tdventas}>
+                                    <button className={styles.detail_button} onClick={() => verProductos(Fa[0])}>Ver Productos</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
