@@ -26,6 +26,21 @@ header("Expires: 0"); // Proxies
 
 $data = json_decode(file_get_contents('php://input'), true);
 
+//Obtener el método de la solicitud para la App movil (get, post, put, delete)
+
+switch ($_SERVER['REQUEST_METHOD']) {// obtener datos del usuario de la sesion
+    case 'GET':
+        if (isset($_GET['obtenerUsuario'])) { // Obtener datos del usuario
+            $obtenerUsuario = $_GET['obtenerUsuario'];
+            $doc = $_GET['obtenerUsuario'];
+        }
+    case 'PUT':
+        if (isset($data['documento'])) {
+            $actualizar = $data['documento'];
+        }
+    break;
+}
+
 // Verificar que se haya proporcionado el correo
 if (!isset($data['correo'])) {
     echo json_encode(['status' => 'error', 'message' => 'Correo no proporcionado']);
@@ -130,6 +145,10 @@ if (isset($data['actualizar'])){
     $idRol = $data['idRol'];
     $actualizar = $data['actualizar'];
 }
+if (isset($data['obtenerUsuario'])) {
+    $doc = $data['obtenerUsuario'];
+    $obtenerUsuario = $data['obtenerUsuario'];
+}
 
 if (isset($registro) || isset($_GET['no'])) {
     $uDao = new UsuarioDao();
@@ -216,4 +235,25 @@ if (isset($registro) || isset($_GET['no'])) {
     $mensaje = $uDao->modificarUsuario($uDto);
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
 
+} else if (isset($obtenerUsuario)) {
+    $uDao = new UsuarioDao();
+    $lista = $uDao->obtenerUsuario($doc);
+    $response = []; // Inicializa un array para la respuesta
+    foreach ($lista as $usuario) {
+        // Asegúrate de que cada usuario sea un array o un objeto
+        $response[] = [
+            $usuario['documento'],
+            $usuario['tipo_doc'],
+            preg_replace('/[^\x20-\x7E]/', '', $usuario['contrasena']),
+            $usuario['nombre1'],
+            $usuario['nombre2'],
+            $usuario['apellido1'],
+            $usuario['apellido2'],
+            $usuario['correo'],
+            $usuario['rol_id_Rol'],
+            $usuario['codigo_invitacion'],
+            $usuario['tienda_idtienda'] // Asegúrate de que este método exista
+        ];
+    }
+    echo json_encode(['status' => 'error', 'message' => 'Acción no válida']);
 }
