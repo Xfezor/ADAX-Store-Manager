@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-
 const popularImages = {
   popular: require('../assets/popular.png'),
   mediopopular: require('../assets/mediopopular.png'),
@@ -18,7 +17,6 @@ const popularImages = {
 };
 
 const ADAXApp = ({ navigation }) => {
-  // Datos para la tabla con imágenes
   const tableData = [
     { 
       id: '5', 
@@ -32,25 +30,25 @@ const ADAXApp = ({ navigation }) => {
       nombre: 'Pitaya', 
       cantidad: '1', 
       popularidad: 'No Popular',
-      icono: 'nopopular' 
-    },
-    { 
-      id: '3', 
-      nombre: 'Mango', 
-      cantidad: '15', 
-      popularidad: 'Medio Popular',
-      icono: 'mediopopular' 
+      icono: 'nopopular'
     }
   ];
 
   const menuOptions = [
-    { label: 'Productos', icon: null },
-    { label: 'Ventas', icon: require('../assets/ventas.png') },
-    { label: 'Análisis', icon: null },
-    { label: 'Gestión Venta', icon: null }
-  ];
+    { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
+    { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },        
+    { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },   
+    { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' }, 
+];
 
-  // Renderizar estado de popularidad con imagen
+const handleNavigation = (route) => {
+  if (route) {
+      navigation.navigate(route);
+  } else {
+      console.log(`Ruta no definida para esta opción.`);
+  }
+};
+
   const renderPopularidad = (item) => {
     const imageSource = popularImages[item.icono];
     
@@ -74,25 +72,37 @@ const ADAXApp = ({ navigation }) => {
     <View style={styles.container}>
       <StatusBar backgroundColor="#EBD8A0" barStyle="dark-content" />
       
-      {/* Encabezado */}
       <View style={styles.encabezado}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <TouchableOpacity onPress={() => navigation.navigate('IniciarSesion')}>
+        <TouchableOpacity onPress={() => navigation.navigate('MenuPrincipal')}>
           <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
         </TouchableOpacity>
       </View>
 
-      {/* Contenido principal */}
       <ScrollView 
         style={styles.scrollContainer}
         contentContainerStyle={styles.scrollContent}
       >
-        <Text style={styles.tituloPrincipal}>Dashboard</Text>
-        
-        {/* Tabla de productos */}
-        <Text style={styles.subtitulo}>Inventario Actual</Text>
+        <View style={styles.tituloContainer}>
+          <Text style={styles.tituloPrincipal}>Analisis</Text>
+          
+          <View style={styles.leyendaPopularidad}>
+            <View style={styles.leyendaItem}>
+              <Image source={require('../assets/popular.png')} style={styles.leyendaIcono} />
+              <Text style={styles.leyendaTexto}>Popular</Text>
+            </View>
+            <View style={styles.leyendaItem}>
+              <Image source={require('../assets/mediopopular.png')} style={styles.leyendaIcono} />
+              <Text style={styles.leyendaTexto}>Medio Popular</Text>
+            </View>
+            <View style={styles.leyendaItem}>
+              <Image source={require('../assets/nopopular.png')} style={styles.leyendaIcono} />
+              <Text style={styles.leyendaTexto}>No Popular</Text>
+            </View>
+          </View>
+        </View>
+
         <View style={styles.tablaContenedor}>
-          {/* Encabezados de tabla */}
           <View style={styles.filaEncabezado}>
             <Text style={[styles.celda, styles.encabezadoCelda]}>ID</Text>
             <Text style={[styles.celda, styles.encabezadoCelda]}>Producto</Text>
@@ -100,30 +110,54 @@ const ADAXApp = ({ navigation }) => {
             <Text style={[styles.celda, styles.encabezadoCelda]}>Estado</Text>
           </View>
           
-          {/* Filas de datos */}
-          {tableData.map((item) => (
-            <View key={item.id} style={styles.filaDatos}>
-              <Text style={styles.celda}>{item.id}</Text>
-              <Text style={styles.celda}>{item.nombre}</Text>
-              <Text style={styles.celda}>{item.cantidad}</Text>
-              <View style={styles.celda}>
-                {renderPopularidad(item)}
+          <View style={[styles.filaDatos, { backgroundColor: '#EBD8A0' }]}>
+            <Text style={styles.celda}>5</Text>
+            <Text style={styles.celda}>Papaya</Text>
+            <Text style={styles.celda}>20</Text>
+            <View style={styles.celda}>
+              <View style={styles.popularidadContainer}>
+                <Image source={require('../assets/popular.png')} style={styles.iconoPopularidad} />
+                <Text style={styles.textoPopularidad}>Popular</Text>
               </View>
             </View>
-          ))}
+          </View>
+          
+          <View style={[styles.filaDatos, { backgroundColor: '#EBD8A0' }]}>
+            <Text style={styles.celda}>1</Text>
+            <Text style={styles.celda}>Pitaya</Text>
+            <Text style={styles.celda}>1</Text>
+            <View style={styles.celda}>
+              <View style={styles.popularidadContainer}>
+                <Image source={require('../assets/nopopular.png')} style={styles.iconoPopularidad} />
+                <Text style={styles.textoPopularidad}>No Popular</Text>
+              </View>
+            </View>
+          </View>
+          
+          <View style={[styles.filaDatos, { backgroundColor: '#EBD8A0' }]}>
+            <Text style={styles.celda}></Text>
+            <Text style={styles.celda}></Text>
+            <Text style={styles.celda}></Text>
+            <Text style={styles.celda}></Text>
+          </View>
         </View>
       </ScrollView>
 
-      {/* Menú inferior */}
       <View style={styles.menuInferior}>
         {menuOptions.map((opcion, index) => (
-          <TouchableOpacity 
-            key={index} 
-            style={styles.opcionMenu}
-            onPress={() => console.log(`Seleccionado: ${opcion.label}`)}
+          <TouchableOpacity
+              key={index}
+              style={styles.opcionMenu}
+              onPress={() => handleNavigation(opcion.route)}
           >
-            {opcion.icon && (
-              <Image source={opcion.icon} style={styles.iconoMenu} />
+            {opcion.icon ? (
+              <Image 
+                source={opcion.icon} 
+                style={styles.iconoMenu}
+                resizeMode="contain"
+              />
+            ) : (
+              <View style={styles.iconoPlaceholder} />
             )}
             <Text style={styles.textoMenu}>{opcion.label}</Text>
           </TouchableOpacity>
@@ -136,47 +170,67 @@ const ADAXApp = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FDF5E6',
+    backgroundColor: '#FCEDC0',
   },
   encabezado: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 110,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#EBD8A0',
-    paddingVertical: 15,
     paddingHorizontal: 20,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    elevation: 4,
+    paddingTop: 28,
+    borderBottomLeftRadius: 28,
+    borderBottomRightRadius: 28,
     zIndex: 2,
   },
   logo: {
     width: 120,
-    height: 50,
+    height: 70,
     resizeMode: 'contain',
   },
   iconoCerrar: {
-    padding: 5,
+    padding: 10,
   },
   scrollContainer: {
     flex: 1,
   },
   scrollContent: {
     padding: 20,
-    paddingTop: 30,
+    paddingTop: 150,
+    paddingBottom: 150,
+  },
+  tituloContainer: {
+    marginBottom: 20,
+    paddingLeft: 10,
   },
   tituloPrincipal: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  subtitulo: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#444',
     marginBottom: 15,
+    textAlign: 'left',
+  },
+  leyendaPopularidad: {
+    marginTop: 10,
+  },
+  leyendaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  leyendaIcono: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  leyendaTexto: {
+    fontSize: 16,
+    color: '#333',
   },
   tablaContenedor: {
     borderWidth: 1,
@@ -184,6 +238,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     marginBottom: 30,
+    minHeight: 250,
   },
   filaEncabezado: {
     flexDirection: 'row',
@@ -194,9 +249,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopWidth: 1,
     borderColor: '#EEE',
-    paddingVertical: 10,
-    backgroundColor: '#FFF',
+    paddingVertical: 15,
     alignItems: 'center',
+    minHeight: 60,
   },
   celda: {
     flex: 1,
@@ -228,24 +283,38 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   menuInferior: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 120,
     flexDirection: 'row',
     justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: '#EBD8A0',
-    paddingVertical: 15,
-    borderTopWidth: 1,
-    borderColor: '#D4B96A',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingHorizontal: 10,
+    elevation: 10,
   },
   opcionMenu: {
     alignItems: 'center',
-    minWidth: 70,
+    justifyContent: 'center',
+    minWidth: 80,
+    height: 80,
   },
   iconoMenu: {
-    width: 24,
-    height: 24,
+    width: 32,
+    height: 32,
+    marginBottom: 5,
+  },
+  iconoPlaceholder: {
+    width: 32,
+    height: 32,
     marginBottom: 5,
   },
   textoMenu: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '500',
   },
 });
