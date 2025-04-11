@@ -14,6 +14,10 @@ import OlvidoContrasena from "./views/contrasenaolvidar";
 import MenuPrincipal from "./views/menuPrincipal";
 import Actualizar from "./views/actualizar"; 
 import GestionarVentas from "./views/gestionarventas";
+import Analisis from "./views/analisis";
+import Productos from "./views/productos";
+import Venta from "./views/venta";
+
 
 const Stack = createStackNavigator();
 
@@ -35,6 +39,9 @@ export default function App() {
     <Stack.Screen name="MenuPrincipal" component={MenuPrincipal} />
     <Stack.Screen name="Actualizar" component={Actualizar} />
     <Stack.Screen name="GestionarVentas" component={GestionarVentas} />
+    <Stack.Screen name="Analisis" component={Analisis} />
+    <Stack.Screen name="Productos" component={Productos} />
+    <Stack.Screen name="Venta" component={Venta} />
     </Stack.Navigator>
     </NavigationContainer>
   );

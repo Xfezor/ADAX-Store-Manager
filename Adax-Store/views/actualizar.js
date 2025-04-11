@@ -13,7 +13,7 @@ const ActualizarDatos = ({ navigation }) => {
   const [segundoApellido, setSegundoApellido] = useState("");
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-  const [serverIP, setServerIP] = useState('192.168.10.16');
+  const [serverIP, setServerIP] = useState('192.168.1.66');
   const [serverPort, setServerPort] = useState('80'); 
 
   const ObtnerDatosClienteSesion = async () => {

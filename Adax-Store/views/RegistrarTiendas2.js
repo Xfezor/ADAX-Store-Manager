@@ -4,19 +4,33 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 const RegistrarTiendas2 = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/logo.png')} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <View style={styles.formContainer}>
         <Text style={styles.title}>Registrarse</Text>
 
         <View style={styles.form}>
           <Text style={styles.label}>Correo Electrónico</Text>
-          <TextInput style={styles.input} placeholder="Ingresa su correo electrónico" placeholderTextColor="#AFAFAF" />
+          <TextInput
+            style={styles.input}
+            placeholder="Ingresa su correo electrónico"
+            placeholderTextColor="#AFAFAF"
+          />
 
           <Text style={styles.label}>Contraseña</Text>
-          <TextInput style={styles.input} placeholder="Ingresa su contraseña" placeholderTextColor="#AFAFAF" secureTextEntry={true} />
+          <TextInput
+            style={styles.input}
+            placeholder="Ingresa su contraseña"
+            placeholderTextColor="#AFAFAF"
+            secureTextEntry={true}
+          />
 
           <Text style={styles.label}>Confirmar Contraseña</Text>
-          <TextInput style={styles.input} placeholder="Repite la contraseña" placeholderTextColor="#AFAFAF" secureTextEntry={true} />
+          <TextInput
+            style={styles.input}
+            placeholder="Repite la contraseña"
+            placeholderTextColor="#AFAFAF"
+            secureTextEntry={true}
+          />
 
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>Registrarse</Text>
@@ -54,7 +68,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    fontWeight: 'Montserrat',
+    fontFamily: 'Montserrat-Bold',
     marginBottom: 10,
     color: '#000',
     textAlign: 'center',
@@ -64,7 +78,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 20,
-    fontWeight: 'Montserrat',
+    fontFamily: 'Montserrat-Bold',
     marginTop: 10,
     color: '#000',
   },
@@ -77,6 +91,7 @@ const styles = StyleSheet.create({
     color: '#333',
     borderWidth: 1,
     borderColor: '#D3A86A',
+    fontFamily: 'Montserrat-Regular',
   },
   button: {
     backgroundColor: '#F85F6A',
@@ -90,7 +105,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 20,
-    fontWeight: 'Montserrat',
+    fontFamily: 'Montserrat-Bold',
   },
 });
 

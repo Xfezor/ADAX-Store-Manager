@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 
-const GestionarVentas = ({}) => {
+const GestionarVentas = ({ navigation }) => {
   const [busqueda, setBusqueda] = useState('');
+  
   const productos = [
     { nombre: 'Papaya', cantidad: 'Diana', precio: '$2500' },
     { nombre: 'Arroz Premium', cantidad: 'Diana', precio: '$2800' },
@@ -12,6 +13,21 @@ const GestionarVentas = ({}) => {
     { nombre: 'Borrador', cantidad: 'Norma', precio: '$500' },
     { nombre: 'Tijeras', cantidad: 'Norma', precio: '$3000' },
   ];
+
+  const menuOptions = [
+    { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
+    { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },
+    { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },
+    { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' },
+  ];
+
+  const handleNavigation = (route) => {
+    if (route) {
+      navigation.navigate(route);
+    } else {
+      console.log(`Ruta no definida para esta opción.`);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,6 +39,7 @@ const GestionarVentas = ({}) => {
       </View>
 
       <Text style={styles.title}>Gestionar Ventas</Text>
+      
       <TextInput 
         style={styles.searchInput} 
         placeholder="Escriba el código de la venta a buscar"
@@ -32,9 +49,18 @@ const GestionarVentas = ({}) => {
       />
 
       <View style={styles.infoContainer}>
-        <View style={styles.smallBox}><Text style={styles.infoTitle}>Id Venta</Text><Text>15</Text></View>
-        <View style={styles.smallBox}><Text style={styles.infoTitle}>Precio Total</Text><Text>$7300</Text></View>
-        <View style={styles.smallBox}><Text style={styles.infoTitle}>Cliente</Text><Text>1011522703</Text></View>
+        <View style={styles.smallBox}>
+          <Text style={styles.infoTitle}>Id Venta</Text>
+          <Text>15</Text>
+        </View>
+        <View style={styles.smallBox}>
+          <Text style={styles.infoTitle}>Precio Total</Text>
+          <Text>$7300</Text>
+        </View>
+        <View style={styles.smallBox}>
+          <Text style={styles.infoTitle}>Cliente</Text>
+          <Text>1011522703</Text>
+        </View>
       </View>
 
       <View style={styles.tableContainer}>
@@ -60,22 +86,16 @@ const GestionarVentas = ({}) => {
       </View>
 
       <View style={styles.bottomNav}>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/producto.png')} style={styles.icon} />
-          <Text style={styles.navText}>Productos</Text>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/ventas.png')} style={styles.icon} />
-          <Text style={styles.navText}>Ventas</Text>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/analisis.png')} style={styles.icon} />
-          <Text style={styles.navText}>Análisis</Text>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/gestionar_Ventas.png')} style={styles.icon} />
-          <Text style={styles.navText}>Gestionar Ventas</Text>
-        </View>
+        {menuOptions.map((option, index) => (
+          <TouchableOpacity 
+            key={index} 
+            style={styles.navItem} 
+            onPress={() => handleNavigation(option.route)}
+          >
+            <Image source={option.icon} style={styles.icon} />
+            <Text style={styles.navText}>{option.label}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );
@@ -100,16 +120,14 @@ const styles = StyleSheet.create({
   productRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: 1, borderBottomColor: '#ccc' },
   productText: { flex: 1, textAlign: 'center' },
 
-
   statusContainer: { flexDirection: 'row', alignItems: 'center', marginVertical: 10, backgroundColor: '#EBD8A0', padding: 10, borderRadius: 10 },
   statusLabel: { fontWeight: 'bold', marginRight: 10 },
   statusText: { color: '#555' },
 
   bottomNav: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10, borderTopWidth: 1, marginTop: 10 },
   navItem: { alignItems: 'center' },
-  icon: { width: 40, height: 40},
+  icon: { width: 40, height: 40 },
   navText: { fontSize: 12, fontWeight: 'bold' },
 });
 
 export default GestionarVentas;
-

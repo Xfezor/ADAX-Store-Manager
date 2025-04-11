@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Animated, slideAnim } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -24,36 +24,49 @@ const MenuPrincipal = ({ navigation }) => {
         }).start(() => setVisible(false));
     };
 
+    const menuOptions = [
+        { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
+        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },       // Añade 'Ventas' como ruta
+        { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },   // Añade 'Analisis' como ruta
+        { label: 'GestionarVentas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' }, // Añade 'GestionarVentas' como ruta
+    ];
 
+    const handleNavigation = (route) => {
+        if (route) {
+            navigation.navigate(route);
+        } else {
+            console.log(`Ruta no definida para esta opción.`);
+        }
+    };
 
     return (
         <View style={styles.contenedor}>
             {visible && (
                 <TouchableWithoutFeedback
-                onPress={cerrarMenu} // Solo cierra el menú al tocar el área gris
-              >
-                <View style={styles.menuOverlay}>
-                  <TouchableWithoutFeedback>
-                    {/* Este segundo TouchableWithoutFeedback evita que el toque en el menú cierre el overlay */}
-                    <View style={styles.menu}>
-                      <Image source={require('../assets/logoUsuario.png')} style={styles.logoUsuario} />
-                      <Text style={styles.menuItem}>Juan Camilo Rivas Moreno</Text>
-                      <Text style={styles.menuItem}>Empleado</Text>
-                      <Image source={require('../assets/tipoDocumento.png')} style={styles.logoTipoDoc} />
-                      <Text style={styles.menuItem}>Documento: C.C. 1015687426</Text>
-                      <Image source={require('../assets/logoTienda.png')} style={styles.logoTienda} />
-                      <Text style={styles.menuItem}>Super Market Japón</Text>
-                      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Actualizar')}>
-                        <Text style={styles.buttonText}>Actualizar Información</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('IniciarSesion')}>
-                        <Text style={styles.buttonText}>Cerrar Sesión</Text>
-                      </TouchableOpacity>
+                    onPress={cerrarMenu} // Solo cierra el menú al tocar el área gris
+                >
+                    <View style={styles.menuOverlay}>
+                        <TouchableWithoutFeedback>
+                            {/* Este segundo TouchableWithoutFeedback evita que el toque en el menú cierre el overlay */}
+                            <View style={styles.menu}>
+                                <Image source={require('../assets/logoUsuario.png')} style={styles.logoUsuario} />
+                                <Text style={styles.menuItem}>Juan Camilo Rivas Moreno</Text>
+                                <Text style={styles.menuItem}>Empleado</Text>
+                                <Image source={require('../assets/tipoDocumento.png')} style={styles.logoTipoDoc} />
+                                <Text style={styles.menuItem}>Documento: C.C. 1015687426</Text>
+                                <Image source={require('../assets/logoTienda.png')} style={styles.logoTienda} />
+                                <Text style={styles.menuItem}>Super Market Japón</Text>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Actualizar')}>
+                                    <Text style={styles.buttonText}>Actualizar Información</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('IniciarSesion')}>
+                                    <Text style={styles.buttonText}>Cerrar Sesión</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableWithoutFeedback>
                     </View>
-                  </TouchableWithoutFeedback>
-                </View>
-              </TouchableWithoutFeedback>
-              
+                </TouchableWithoutFeedback>
+
             )}
 
             <View style={styles.encabezado}>
@@ -77,46 +90,46 @@ const MenuPrincipal = ({ navigation }) => {
                 <View style={styles.contenedoresMenuPrincipal}>
                     <Image source={require('../assets/estanteProductos.png')} style={styles.imagenesContenedorMenu} />
                     <View style={styles.contenedorIndividual}>
-                        <Text style={styles.seccionTitulo}>Ventas de Hoy</Text>
+                        <Text style={styles.seccionTitulo}>Productos en Stock</Text>
                         <View style={styles.contenedorImagenTexto}>
-                            <Text style={styles.TextoVentasHoy}>1500</Text>
+                            <Text style={styles.TextoVentasHoy}>250</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.contenedoresMenuPrincipal}>
                     <Image source={require('../assets/ventasPendientes.png')} style={styles.imagenesContenedorMenu} />
                     <View style={styles.contenedorIndividual}>
-                        <Text style={styles.seccionTitulo}>Ventas de Hoy</Text>
+                        <Text style={styles.seccionTitulo}>Ventas Pendientes</Text>
                         <View style={styles.contenedorImagenTexto}>
-                            <Text style={styles.TextoVentasHoy}>1500</Text>
+                            <Text style={styles.TextoVentasHoy}>15</Text>
                         </View>
                     </View>
                 </View>
                 <View style={styles.contenedoresMenuPrincipalBajoStock}>
-                <Text style={styles.seccionTituloBajoStock}>Productos con Bajo Stock</Text>
+                    <Text style={styles.seccionTituloBajoStock}>Productos con Bajo Stock</Text>
                 </View>
                 {/* Actividad Reciente */}
                 <View style={styles.contenedorActividadReciente}>
+                    <Text style={styles.seccionTitulo}>Actividad Reciente</Text>
+                    {/* Aquí podrías añadir la lista de actividad reciente */}
                 </View>
             </View>
-            {/* <View style={styles.bottomNav}>
-                <View style={styles.navItem}>
-                    <Image source={require('../assets/producto.png')} style={styles.icon} />
-                    <Text style={styles.navText}>Productos</Text>
-                </View>
-                <View style={styles.navItem}>
-                    <Image source={require('../assets/ventas.jpeg')} style={styles.icon} />
-                    <Text style={styles.navText}>Ventas</Text>
-                </View>
-                <View style={styles.navItem}>
-                    <Image source={require('../assets/analisis.png')} style={styles.icon} />
-                    <Text style={styles.navText}>Análisis</Text>
-                </View>
-                <View style={styles.navItem}>
-                    <Image source={require('../assets/gestionar.jpeg')} style={styles.icon} />
-                    <Text style={styles.navText}>Gestionar Ventas</Text>
-                </View>
-            </View> */}
+
+            {/* Menú inferior (Footer) */}
+            <View style={styles.menuInferior}>
+                {menuOptions.map((opcion, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.opcionMenu}
+                        onPress={() => handleNavigation(opcion.route)}
+                    >
+                        {opcion.icon && (
+                            <Image source={opcion.icon} style={styles.iconoMenu} />
+                        )}
+                        <Text style={styles.textoMenu}>{opcion.label}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
     );
 };
@@ -132,6 +145,7 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         paddingHorizontal: 20,
         marginTop: 90, // Add space for the header
+        marginBottom: 170, // Increased margin to accommodate taller buttons
     },
     encabezado: {
         position: 'absolute',
@@ -198,7 +212,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOpacity: 1.2,
         shadowOffset: { width: 8, height: 8 }, // Distribuye la sombra más lejos
-        elevation: 30,    },
+        elevation: 30,     },
     logoTienda: {
         marginTop: 20,
         width: 50,
@@ -310,7 +324,33 @@ const styles = StyleSheet.create({
         color: '#333',
         paddingLeft: 15,
     },
-
+    menuInferior: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#EBD8A0',
+        paddingVertical: 45, // Increased vertical padding
+        // borderTopWidth: 1,
+        borderColor: '#D4B96A',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        height: 110, // Increased height
+    },
+    opcionMenu: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    iconoMenu: {
+        width: 30, // Increased icon size
+        height: 30, // Increased icon size
+        marginBottom: 7, // Adjusted margin
+        resizeMode: 'contain',
+    },
+    textoMenu: {
+        fontSize: 14, // Increased text size
+        fontWeight: '500',
+        textAlign: 'center',
+    },
 });
 
 export default MenuPrincipal;

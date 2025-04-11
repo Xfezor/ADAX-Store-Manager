@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 const RegistrarTienda = () => {
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/logo.png')} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <View style={styles.formContainer}>
         <Text style={styles.title}>Registrar Tienda</Text>
 
