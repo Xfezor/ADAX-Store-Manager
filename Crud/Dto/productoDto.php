@@ -13,6 +13,7 @@ class productoDto {
     private $Stock_Min = 0;
     private $Estado = 0;
     private $inventario_id_Inventario = 0;
+    private $idProveedor = 0;
 
     //GETTERS
     public function getId_Producto() {
@@ -51,6 +52,10 @@ class productoDto {
     public function getinventario_id_Inventario() {
         return $this->inventario_id_Inventario;
     }
+    public function getIdProveedor() {
+        return $this->idProveedor;
+    }
+
 
     //SETTERS
     public function setId_Producto($id_Producto) {
@@ -88,5 +93,8 @@ class productoDto {
     }
     public function setinventario_id_Inventario($inventario_id_Inventario) {
         $this->inventario_id_Inventario = $inventario_id_Inventario;
+    }
+    public function setIdProveedor($idProveedor) {
+        $this->idProveedor = $idProveedor;
     }
 }

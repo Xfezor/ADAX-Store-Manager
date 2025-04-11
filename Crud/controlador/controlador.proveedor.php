@@ -29,6 +29,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         } else if (isset($_GET['listarProductos'])){
             $listarProductos = $_GET['listarProductos'];
             $idproveedor = $_GET['idproveedor'];
+        } else if (isset($_GET['listarNombreID'])) {
+            $listarNombreID = $_GET['listarNombreID'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
         }
         break;
     case 'POST':
@@ -46,6 +49,13 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $email = $data['email'];
             $id_tienda = $data['id_tienda'];
             $registroCrud = $data['registroCrud'];
+        }
+        else if (isset($data['agregarProveedor'])){
+            $nombre = $data['nombre'];
+            $telefono = $data['telefono'];
+            $email = $data['email'];
+            $codigo_invitacion = $data['codigo_invitacion'];
+            $agregarProveedor = $data['agregarProveedor'];
         }
         break;
     case 'PUT':
@@ -82,7 +92,19 @@ if (isset($registro)) {
         echo json_encode(['success' => true]);
         exit;
     }
-} else if (isset($listar)) {
+}
+else if (isset($agregarProveedor)) {
+    $pDao = new proveedorDao();
+    $pDto = new proveedorDto();
+    $pDto->setNombre($nombre);
+    $pDto->setTelefono($telefono);
+    $pDto->setEmail($email);
+
+    $mensaje = $pDao->añadirProveedorTienda($pDto, $codigo_invitacion);
+    echo json_encode($mensaje);
+    exit();
+}
+ else if (isset($listar)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $listaProveedores = $pDao->listarTodos();
@@ -114,7 +136,21 @@ if (isset($registro)) {
     }
     echo json_encode($response);
     exit();
-} else if (isset($listarProductos)) {
+} else if (isset($listarNombreID)) {
+    $pDao = new proveedorDao();
+    $pDto = new proveedorDto();
+    $listaProveedores = $pDao->listarNombreID($codigo_invitacion);
+    $response = [];
+    foreach ($listaProveedores as $proveedor) {
+        $response[] = [
+            $proveedor['nombre'],
+            $proveedor['idproveedor']
+        ];
+    }
+    echo json_encode($response);
+    exit();
+}
+ else if (isset($listarProductos)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $listaProveedores = $pDao->listarProductos($idproveedor);

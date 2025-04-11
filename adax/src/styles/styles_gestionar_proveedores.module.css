@@ -79,6 +79,18 @@ body {
     width: 99%;
     padding-left: 10px;
 }
+#movimientos {
+    height: fit-content;
+    width: fit-content;
+    background-color: #df6363;
+    margin: auto 0;
+    color: black;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-self: end;
+    text-align: center;
+}
 #buscar{
     background-color: #df6363;
     margin: 0 0;

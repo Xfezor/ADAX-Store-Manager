@@ -164,9 +164,7 @@ class productoDao
     {
         $conn = Conexion::getConexion();
         try {
-            $query = $conn->prepare(
-                'SELECT p.id_Producto,p.Nombre,p.Precio_unit,p.Marca,p.Descripcion,p.Marca,p.Categoria,p.Presentacion,p.Fecha_vencimiento,p.Stock,p.Stock_Min,p.Estado
-                from producto p where id_Producto = ?;');
+            $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Precio_unit,p.Marca,p.Descripcion,p.Marca,p.Categoria,p.Presentacion,p.Fecha_vencimiento,p.Stock,p.Stock_Min,p.Estado,pr.nombre,pr.idProveedor from producto p inner join proveedor pr on p.idProveedor = pr.idproveedor where id_Producto = ?;');
             $query->bindParam(1, $id_Producto);
             $query->execute();                
             return $query->fetchAll();
@@ -248,8 +246,10 @@ class productoDao
         $Stock = $productoDto->getStock() ?: null;
         $Stock_Min = $productoDto->getStock_Min() ?: 0;
         $Estado = $productoDto->getEstado() ?: null;
+        $idProveedor = $productoDto->getIdProveedor() ?: 0;
+
         try {
-            $query = $cnn->prepare("UPDATE producto SET Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=?, estado=? WHERE id_Producto=?");
+            $query = $cnn->prepare("UPDATE producto SET Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=?, estado=?, idProveedor=? WHERE id_Producto=?");
             $query->bindParam(1, $Nombre);
             $query->bindParam(2, $Precio_unit);
             $query->bindParam(3, $Descripcion);
@@ -260,7 +260,8 @@ class productoDao
             $query->bindParam(8, $Stock);
             $query->bindParam(9, $Stock_Min);
             $query->bindParam(10, $Estado);
-            $query->bindParam(11, $id_Producto);
+            $query->bindParam(11, $idProveedor);
+            $query->bindParam(12, $id_Producto);
             $query->execute();
             $mensaje = "Registro actualizado";
         } catch (Exception $ex) {

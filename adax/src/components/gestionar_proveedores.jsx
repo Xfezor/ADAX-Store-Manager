@@ -3,7 +3,7 @@ import { ContextoSesion } from '../context/sesion.jsx'
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/styles_gestionar_proveedores.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faListSquares } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from "sweetalert2";
@@ -39,8 +39,36 @@ const GestionarProveedores = () => {
         navigate('/crud/usuarios');
     }
 
+    const eliminarAlerta = (id) => {
+        console.log(id);
+        Swal.fire({
+            title: "Eliminar proveedor",
+            html: "¿Está seguro de que desea eliminar este proveedor?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Eliminar(id);
+                Swal.fire("Eliminado!", "", "success");
+            }
+        });
+    }
+    const Eliminar = async (id) => {
+        try {
+            const respuesta = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?eliminar=${id}`);
+            if (respuesta.data.respuesta) {
+                Lista();
+            } else {
+                console.log('no exitoso', respuesta.data.respuesta)
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
     const backbutton = () => {
-
         navigate(-1);
     };
 
@@ -48,30 +76,64 @@ const GestionarProveedores = () => {
 
         navigate('/inicio');
     };
-    // const cargando = async () => {
-    //     let timerInterval;
-    //     Swal.fire({
-    //         title: "Cargando...",
-    //         html: "Por favor espere, tiempo restante <b></b> milisegundos.",
-    //         timer: 50,
-    //         timerProgressBar: true,
-    //         didOpen: () => {
-    //             Swal.showLoading();
-    //             const timer = Swal.getPopup().querySelector("b");
-    //             timerInterval = setInterval(() => {
-    //                 timer.textContent = `${Swal.getTimerLeft()}`;
-    //             }, 100);
-    //         },
-    //         willClose: () => {
-    //             clearInterval(timerInterval);
-    //         }
-    //     }).then((result) => {
-    //         /* Read more about handling dismissals below */
-    //         if (result.dismiss === Swal.DismissReason.timer) {
-    //             productosAlert();
-    //         }
-    //     });
-    // }
+
+    const productsadd = async () => {
+        Swal.fire({
+            title: "Añadir nuevo proveedor",
+            html: `
+                <input type="text" id="nombre" class="swal2-input" placeholder="Nombre">
+                <input type="tel" id="telefono" class="swal2-input" placeholder="Teléfono">
+                <input type="email" id="email" class="swal2-input" placeholder="Correo electrónico">
+            `,
+            showCancelButton: true,
+            confirmButtonText: "Agregar",
+            cancelButtonText: "Cancelar",
+            preConfirm: () => {
+                const nombre = document.getElementById('nombre').value;
+                const telefono = parseInt(document.getElementById('telefono').value);
+                const email = document.getElementById('email').value;
+
+                if (!nombre || !telefono || !email) {
+                    Swal.showValidationMessage('Por favor llene todos los campos');
+                    return false;
+                }
+                console.log(telefono);
+                return { nombre, telefono, email };
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const { nombre, telefono, email } = result.value;
+                agregarProveedor(nombre, parseInt(telefono), email);
+                Swal.fire("Agregado!", "", "success");
+            }
+        });
+    };
+
+    const agregarProveedor = async (nombre, telefono, email) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`,
+                {
+                    agregarProveedor: true,
+                    nombre: nombre,
+                    telefono: telefono,
+                    email: email,
+                    codigo_invitacion: codigo_invitacion
+                }
+            );
+            if (respuesta.data) {
+                setProveedores(respuesta.data);
+            } else {
+
+                return null;
+            }
+        } catch (err) {
+            console.error('Error al obtener los datos:', err);
+            return null;
+        }
+        Lista();
+
+    };
+
     const productosAlert = async () => {
 
         Swal.fire({
@@ -146,7 +208,18 @@ const GestionarProveedores = () => {
                 </div>
             </header>
             <div className={styles.container}>
-                <h1 className={styles["text-left"]}>Proveedores</h1>
+                <div className='d-flex justify-content-between align-items-center mb-3 pe-3'>
+                    <h1 className={styles["text-left"]}>Proveedores</h1>
+                    <button
+                        className="btn btn-danger d-inline-block"
+                        id={styles.movimientos}
+                        name="Buscar"
+                        onClick={productsadd}
+                    >
+                        Añadir proveedor
+                    </button>
+                </div>
+
                 <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
             </div>
             <div className={styles.cuadradoverde}>
@@ -157,6 +230,7 @@ const GestionarProveedores = () => {
                             <th className={styles.thventas}>Telefono</th>
                             <th className={styles.thventas}>Correo</th>
                             <th className={styles.thventas}>Producto</th>
+                            <th className={styles.thventas}>Acciones</th>
                         </tr>
                     </thead>
                     <tbody className={styles['table-body']}>
@@ -168,6 +242,11 @@ const GestionarProveedores = () => {
                                 <td className={styles.tdventas}>
                                     <button className={styles.detail_button} onClick={() => verProductos(Fa[3])}>Ver Productos</button>
                                 </td>
+                                {(rol === 1 || rol === 3) && (
+                                    <td className={styles.tdventas}>
+                                        <button className={styles.detail_button} onClick={() => eliminarAlerta(Fa[3])}>Eliminar</button>
+                                    </td>
+                                )}
                             </tr>
                         ))}
                     </tbody>

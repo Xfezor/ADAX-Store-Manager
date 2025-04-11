@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 
 
 
-export function Detalle() {
+export function DatosUsuario() {
   const navigate = useNavigate();
   const location = useLocation();
   const { cerrarSesion } = useContext(ContextoSesion);
@@ -40,11 +40,9 @@ export function Detalle() {
     categoria: '',
     fechaVencimiento: '',
     estado: '',
-    idProveedor: '',
-    nombrepr: '',
+    idProveedor: ''
   });
 
-  const [proveedoresDatos, setProveedoresDatos] = useState([]);
 
   const handleCerrarSesion = () => {
     cerrarSesion();
@@ -64,26 +62,11 @@ export function Detalle() {
     navigate(-1);
   };
 
-  const cancelbutton = () =>{
-    navigate(-1);
-  };
+
   const exitbutton = () => {
     navigate('/inicio');
   };
-  const consultarProveedor = async () => {
-    if (!id_Producto) return;
-    try {
-      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarNombreID=true&codigo_invitacion=${codigo_invitacion}`);
-      if (respuesta.data) {
-        setProveedoresDatos(respuesta.data);
-      } else {
-        return null;
-      }
-    } catch (err) {
-      console.error(err);
-      return null;
-    }
-  }
+
   const consultarProducto = async () => {
     if (!id_Producto) return;
     try {
@@ -101,10 +84,8 @@ export function Detalle() {
           categoria: respuesta.data[0][5],
           fechaVencimiento: respuesta.data[0][7],
           estado: respuesta.data[0][10],
-          nombrepr: respuesta.data[0][11],
-          idProveedor: respuesta.data[0][12],
+          idProveedor: respuesta.data[0][11],
         });
-
       } else {
         return null;
       }
@@ -154,7 +135,6 @@ export function Detalle() {
     });
   };
   const modificarProducto = async () => {
-    console.log(formValues.idProveedor);
     try {
       const datosproducto = {
         modificarProducto: id_Producto,
@@ -168,7 +148,6 @@ export function Detalle() {
         categoria: formValues.categoria,
         fechaVencimiento: formValues.fechaVencimiento,
         estado: formValues.estado,
-        idProveedor: formValues.idProveedor,
       };
       const respuesta = await axios.put(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
       if (respuesta.data.mensaje) {
@@ -211,7 +190,6 @@ export function Detalle() {
     validador();
     consultarProducto();
     CodInv();
-    consultarProveedor();
   }, [codInv]);
 
   useEffect(() => {
@@ -225,7 +203,6 @@ export function Detalle() {
           </button>
           <div className={styles.adax}>
             <h1 className={styles.title}>Detalle Producto</h1>
-
           </div>
           <button className={styles.exit} onClick={exitbutton}>
             <FontAwesomeIcon icon={faXmark} className={styles.exit} />
@@ -273,28 +250,11 @@ export function Detalle() {
           <input className={styles["categoria-input"]} type="text" placeholder="" value={formValues.categoria} onChange={(e) => setFormValues({ ...formValues, categoria: e.target.value })} />
           <h4 className={styles["fechav-txt"]}>Fecha de vencimiento</h4>
           <input className={styles["fechav-input"]} type="date" placeholder="" value={formValues.fechaVencimiento} onChange={(e) => setFormValues({ ...formValues, fechaVencimiento: e.target.value })} />
-          <h4 className={styles["proveedorActual-txt"]}>Proveedor actual</h4>
-          <input className={styles["proveedorActual-input"]} type="text" placeholder="" value={formValues.nombrepr} readOnly/>
-          <h4 className={styles["proveedor-txt"]}>Cambiar proveedor</h4>
-          <select
-            name=""
-            id="proveedores"
-            className={styles["proveedor-input"]}
-            value={formValues.idProveedor}
-            onChange={(e) => setFormValues({ ...formValues, idProveedor: parseInt(e.target.value) })}
-          >
-            <option value="">Seleccione un proveedor</option>
-            {proveedoresDatos.map((proveedor) => (
-              <option key={proveedor[1]} value={proveedor[1]}>
-                {proveedor[0]}
-              </option>
-            ))}
-          </select>
 
           <button className="btn btn-danger" id={styles.borrar} onClick={VerificarDatos2}>
             Eliminar producto
           </button>
-          <button className="btn btn-secondary" id={styles.cancelar} onClick={cancelbutton}>
+          <button className="btn btn-secondary" id={styles.cancelar} onClick={exitbutton}>
             Cancelar
           </button>
           <button className="btn btn-primary" id={styles.aplicar} onClick={VerificarDatos}>
