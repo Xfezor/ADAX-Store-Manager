@@ -3,9 +3,9 @@
 class proveedorDto {
     private $idproveedor = 0;
     private $nombre = "";
-    private $telefono = "";
+    private $telefono = 0;
     private $email = "";
-    private $id_tienda = "";
+    private $id_tienda = 0;
 
     //GETTERS
     public function getIdproveedor() {

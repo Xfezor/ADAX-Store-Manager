@@ -92,7 +92,7 @@ body {
     background-color: #ebd8a0;
     padding: 2% 0;
     width: 84%;
-    height: 32em;
+    height: 38em;
     margin: 0 auto;
     border-radius: 2em;
     margin-top: 2%;
@@ -100,8 +100,7 @@ body {
     grid-template-columns: 2fr 2fr 2fr 2fr 2fr 2fr;
     padding-left: 10%;
     padding-right: 10%;
-    grid-template-rows: repeat(9, 1fr);
-
+    grid-template-rows: repeat(11, 1fr);
     row-gap: 5px;
     column-gap: 15px;
 }
@@ -191,6 +190,26 @@ body {
     grid-column: 5/7;
     grid-row: 6/6;
 }
+.proveedorActual-txt{
+    grid-column: 1/5;
+    grid-row: 7/7;
+}
+.proveedorActual-input{
+    grid-column: 1/5;
+    grid-row: 8/8;
+    width: 100%;
+}
+.proveedor-txt{
+    grid-column: 5/7;
+    grid-row: 7/7;
+}
+.proveedor-input{
+    grid-column: 5/7;
+    grid-row: 8/8;
+    width: 100%;
+}
+
+
 .user {
     width: 98.5%;
     height: 45px;
@@ -214,7 +233,7 @@ body {
     margin: auto 0;
     color: black;
     border-radius: 15px;
-    grid-row: 8/8;
+    grid-row: 10/10;
     grid-column: 1/1;
 }
 
@@ -229,7 +248,7 @@ body {
     margin: auto 0;
     color: black;
     border-radius: 15px;
-    grid-row: 8/8;
+    grid-row: 10/10;
     grid-column: 5/5;
     justify-self:end;
 }
@@ -246,7 +265,7 @@ body {
     color: white;
     border-radius: 15px;
     border: 1px solid #537081;
-    grid-row: 8/8;
+    grid-row: 10/10;
     grid-column: 6/6;
     justify-self:end;
 }

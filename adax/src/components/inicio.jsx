@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ContextoSesion } from '../context/sesion.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark, faGear } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/styles_inicio.module.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,8 +52,10 @@ const Inicio = () => {
   const GestionarVentas = () => {
     navigate('/gestionar_ventas');
   };
+  const backbutton = () => {
+    navigate(-1);
+  };
   const exitbutton = () => {
-
     navigate('/index')
   };
 
@@ -71,6 +72,9 @@ const Inicio = () => {
     <>
       <header>
         <div className={styles.contenedorarriba}>
+          <button className={styles.back} onClick={backbutton}>
+            <FontAwesomeIcon icon={faGear} />
+          </button>
           <div className={styles.adax}>
             <h1 className={styles.title}>ADAX Store Manager</h1>
           </div>

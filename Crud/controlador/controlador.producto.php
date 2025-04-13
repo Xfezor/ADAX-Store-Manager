@@ -47,6 +47,18 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'PUT':
         if (isset($data['modificarProducto'])) {
             $modificarProducto = $data['modificarProducto'];
+            $id_Producto = $data['modificarProducto'];
+            $Nombre = $data['nombre'];
+            $Stock = $data['stock'];
+            $Precio_unit = $data['precio'];
+            $Stock_Min = $data['stock_min'];
+            $Marca = $data['marca'];
+            $Presentacion = $data['presentacion'];
+            $Descripcion = $data['descripcion'];
+            $Categoria = $data['categoria'];
+            $Fecha_vencimiento = $data['fechaVencimiento'];
+            $Estado = $data['estado'];
+            $idProveedor = $data['idProveedor'];
         }
         break;
     case 'DELETE':
@@ -57,32 +69,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     default:
         break;
 }
-if (isset($_SESSION['nombre1'])) {
-    require '../Dao/usuariosDao.php';
-    require '../Dto/usuariosDto.php';
-    require '../Dao/tiendaDao.php';
-    require '../Dto/tiendaDto.php';
-    if (isset($_SESSION["rol_id_Rol"])) {
-        $rol_id_Rol = $_SESSION["rol_id_Rol"];
-    }
-    $nombreTienda = $_SESSION["nombreTienda"];
-    $codigo_invitacion = $_SESSION["codigo_invitacion"];
-} else if (isset($data['modificarProducto'])) {
-    $modificarProducto = $data['modificarProducto'];
-    $id_Producto = $data['modificarProducto'];
-    $Nombre = $data['nombre'];
-    $Stock = $data['stock'];
-    $Precio_unit = $data['precio'];
-    $Stock_Min = $data['stock_min'];
-    $Marca = $data['marca'];
-    $Presentacion = $data['presentacion'];
-    $Descripcion = $data['descripcion'];
-    $Categoria = $data['categoria'];
-    $Fecha_vencimiento = $data['fechaVencimiento'];
-    $Estado = $data['estado'];
-} else {
-    //echo 'ocurrio un error';
-}
+
 if (isset($_POST['registrarProducto'])) {
     $pDao = new productoDao();
     $pDto = new productoDto();
@@ -177,7 +164,7 @@ if (isset($_POST['registrarProducto'])) {
         echo json_encode($response);
         exit();
     }
-} else if (isset($_POST['modificarProducto'])) {
+} else if (isset($_POST['modificarProducto2'])) {
     $pDao = new productoDao();
     $pDto = new productoDto();
     $pDto->setId_Producto($_POST['id_Producto']);
@@ -195,7 +182,9 @@ if (isset($_POST['registrarProducto'])) {
 
     $mensaje = $pDao->modificarProducto($pDto);
     header("Location:../tablas/producto/listarproducto.php?mensaje=" . $mensaje);
-} else if (isset($modificarProducto)) {
+}
+
+else if (isset($modificarProducto)) {
     $pDao = new productoDao();
     $pDto = new productoDto();
     $pDto->setId_Producto($id_Producto);
@@ -209,6 +198,7 @@ if (isset($_POST['registrarProducto'])) {
     $pDto->setStock($Stock);
     $pDto->setStock_Min($Stock_Min);
     $pDto->setEstado($Estado);
+    $pDto->setIdProveedor($idProveedor);
     $mensaje = $pDao->modificarProducto2($pDto);
 
     echo json_encode(['mensaje' => $mensaje]);
@@ -258,7 +248,9 @@ if (isset($_POST['registrarProducto'])) {
             $producto['Fecha_vencimiento'],
             $producto['Stock'],
             $producto['Stock_Min'],
-            $producto['Estado']
+            $producto['Estado'],
+            $producto['nombre'],
+            $producto['idProveedor'],
         ];
     }
     echo json_encode($response);
