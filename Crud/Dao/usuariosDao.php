@@ -191,7 +191,7 @@ class UsuarioDao
         $query = $cnn->prepare('SELECT * FROM usuarios WHERE documento=?');
         $query->bindParam(1, $doc);
         $query->execute();
-        return $query->fetch();
+        return $query->fetchAll();
     
     } catch (Exception  $ex) {
         $mensaje= $ex->getMessage();

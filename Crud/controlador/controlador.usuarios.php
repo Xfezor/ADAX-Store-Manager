@@ -34,6 +34,12 @@ switch ($_SERVER['REQUEST_METHOD']) {// obtener datos del usuario de la sesion
             $obtenerUsuario = $_GET['obtenerUsuario'];
             $doc = $_GET['obtenerUsuario'];
         }
+    case 'POST':
+        if(isset($data['action'])){
+            $action = $data['action'];
+            $correo = $data['correo'];
+        }
+    break;
     case 'PUT':
         if (isset($data['documento'])) {
             $actualizar = $data['documento'];
@@ -41,13 +47,7 @@ switch ($_SERVER['REQUEST_METHOD']) {// obtener datos del usuario de la sesion
     break;
 }
 
-// Verificar que se haya proporcionado el correo
-if (!isset($data['correo'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Correo no proporcionado']);
-    exit();
-}
 
-$correo = $data['correo'];
 $usuarioDao = new UsuarioDao();
 
 // Si se solicita enviar el código de verificación
@@ -238,22 +238,27 @@ if (isset($registro) || isset($_GET['no'])) {
 } else if (isset($obtenerUsuario)) {
     $uDao = new UsuarioDao();
     $lista = $uDao->obtenerUsuario($doc);
-    $response = []; // Inicializa un array para la respuesta
-    foreach ($lista as $usuario) {
-        // Asegúrate de que cada usuario sea un array o un objeto
-        $response[] = [
-            $usuario['documento'],
-            $usuario['tipo_doc'],
-            preg_replace('/[^\x20-\x7E]/', '', $usuario['contrasena']),
-            $usuario['nombre1'],
-            $usuario['nombre2'],
-            $usuario['apellido1'],
-            $usuario['apellido2'],
-            $usuario['correo'],
-            $usuario['rol_id_Rol'],
-            $usuario['codigo_invitacion'],
-            $usuario['tienda_idtienda'] // Asegúrate de que este método exista
-        ];
+
+    if (is_array($lista) && !empty($lista)) {
+        $response = []; // Inicializa un array para la respuesta
+        foreach ($lista as $usuario) {
+            $response[] = [
+                $usuario['documento'],
+                $usuario['tipo_doc'],
+                preg_replace('/[^\x20-\x7E]/', '', $usuario['contrasena']),
+                $usuario['nombre1'],
+                $usuario['nombre2'],
+                $usuario['apellido1'],
+                $usuario['apellido2'],
+                $usuario['correo'],
+                $usuario['rol_id_Rol'],
+                $usuario['codigo_invitacion'],
+                $usuario['tienda_idtienda']
+            ];
+        }
+        echo json_encode(['status' => 'success', 'data' => $response]);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }
-    echo json_encode(['status' => 'error', 'message' => 'Acción no válida']);
+    exit(); // Detener la ejecución después de enviar la respuesta
 }
