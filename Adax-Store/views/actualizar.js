@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, StatusBar, Modal } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image, StatusBar, Modal, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ActualizarDatos = ({ navigation }) => {
   const [documento, setDocumento] = useState(null);
-  const [tipoDocumento, setTipoDocumento] = useState("CC");
-  const [modalVisible, setModalVisible] = useState(false);
-  const [primerNombre, setPrimerNombre] = useState("");
-  const [segundoNombre, setSegundoNombre] = useState("");
-  const [primerApellido, setPrimerApellido] = useState("");
-  const [segundoApellido, setSegundoApellido] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [serverIP, setServerIP] = useState('192.168.1.66');
+  const [serverIP, setServerIP] = useState('192.168.10.13');
   const [serverPort, setServerPort] = useState('80');
+  const [formData, setFormData] = useState({
+    documento: "",
+    tipoDocumento: "",
+    primerNombre: "",
+    segundoNombre: "",
+    primerApellido: "",
+    segundoApellido: "",
+    correo: "",
+
+  });
 
   useEffect(() => {
     const ObtenerDocumentoSesion = async () => {
@@ -27,7 +29,7 @@ const ActualizarDatos = ({ navigation }) => {
         } else {
           console.log('No se encontró el documento guardado.');
         }
-    } catch (error) {
+      } catch (error) {
         console.error('Error al obtener el documento guardado:', error);
       }
     }
@@ -35,31 +37,97 @@ const ActualizarDatos = ({ navigation }) => {
   }, []);
   useEffect(() => {
     if (documento) {
-      ObtenerDatosClienteSesion();
+      ObtenerDatosUsuarioSesion();
+
     }
   }, [documento]);
-
-  const ObtenerDatosClienteSesion = async () => {
+  const ObtenerDatosUsuarioSesion = async () => {
     try {
-      const response = await fetch(`https://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuario.php?obtenerUsuario=${documento}`, {
-        method: 'GET',
-      });
-      const data = await response.json();
-      console.log('Datos del usuario:', data);
-      if (data) {
-        setPrimerNombre(data.primer_nombre);
-        setSegundoNombre(data.segundo_nombre);
-        setPrimerApellido(data.primer_apellido);
-        setSegundoApellido(data.segundo_apellido);
-        setCorreo(data.correo);
-        setTipoDocumento(data.tipo_documento);
+      const respuesta = await fetch(
+        `http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?obtenerUsuario=${documento}`,
+        { method: "GET" }
+      );
+      if (respuesta.ok) {
+        const datos = await respuesta.json();
+        console.log("JSON completo recibido:", datos);
+        // Validación estricta de 'data'
+        if (datos.data && Array.isArray(datos.data) && datos.data.length > 0) {
+          const datosUsuario = datos.data[0];
+          const tipoDocumento = datosUsuario[1] || "";
+          const primerNombre = datosUsuario[3] || "";
+          const segundoNombre = datosUsuario[4] || "";
+          const primerApellido = datosUsuario[5] || "";
+          const segundoApellido = datosUsuario[6] || "";
+          const correo = datosUsuario[7] || "";
+          const rol = datosUsuario[8] || "";
+          const codinv = datosUsuario[9] || "";
+          // Actualiza el estado 'formData'
+          setFormData({
+            documento: documento || "",
+            primerNombre: primerNombre || "",
+            segundoNombre: segundoNombre || "",
+            primerApellido: primerApellido || "",
+            segundoApellido: segundoApellido || "",
+            tipoDocumento: tipoDocumento || "",
+            correo: correo || "",
+          });
 
-      } else {
-        console.log('No se encontraron datos para el documento proporcionado.');
-      }
+          console.log("Datos asignados al formulario:", formData);
+        } else {
+          console.error("La propiedad 'data' no contiene un array válido o está vacía.");
+        }
+        } else {
+          console.error("Error al obtener datos del servidor. Código:", respuesta.status);
+        }
+      } catch (error) {
+      console.error("Error al procesar la solicitud:", error);
     }
-    catch (error) {
-      console.error('Error al obtener los datos del cliente:', error);
+  }
+  const VerificarDatos = () => {
+    if (!formData.primerNombre || !formData.primerApellido || !formData.tipoDocumento || !formData.correo) {
+      Alert.alert("Campos incompletos", "Por favor completa todos los campos obligatorios.");
+      return;
+    } else {
+    actualizarUsuarioSesion();
+    }
+  }
+  //Prueba dar click en borton confirmar y mostrar en consola los datos nuevos
+  const actualizarUsuarioSesion = async () => {
+    console.log("Datos enviados al servidor:", JSON.stringify({
+      documento: formData.documento,
+      nombre1: formData.primerNombre,
+      nombre2: formData.segundoNombre,
+      apellido1: formData.primerApellido,
+      apellido2: formData.segundoApellido,
+      tipoDoc: formData.tipoDocumento,
+      correo: formData.correo,
+      actualizarApp: true,
+  }));
+      try {
+      const respuesta = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`,
+        {
+          method: "PUT",
+          headers: {"Content-Type": "application/json" },
+          body: JSON.stringify({
+            documento: formData.documento,
+            nombre1: formData.primerNombre,
+            nombre2: formData.segundoNombre,
+            apellido1: formData.primerApellido,
+            apellido2: formData.segundoApellido,
+            tipoDoc: formData.tipoDocumento,
+            email: formData.correo,
+            actualizarApp: true,
+          }),
+      }
+    );
+    const data = await respuesta.json();
+    if (data.success) {
+      Alert.alert("Éxito", "Datos actualizados correctamente.");
+      navigation.navigate("MenuPrincipal");
+    }
+    console.log("Respuesta del servidor:", data.mensaje);
+  } catch (error) {
+      console.error("Error al enviar los datos:", error);
     }
   }
   return (
@@ -85,37 +153,38 @@ const ActualizarDatos = ({ navigation }) => {
           <Text style={styles.etiqueta}>Nombres</Text>
           <TextInput
             style={styles.entrada}
-            value={primerNombre} // Usa el estado correspondiente
+            value={formData.primerNombre}
             placeholder="Primer Nombre"
-            onChangeText={(text) => setPrimerNombre(text)} // Actualiza el estado
+            onChangeText={(text) => setFormData({ ...formData, primerNombre: text })}
           />
           <TextInput
             style={styles.entrada}
-            value={segundoNombre} // Usa el estado correspondiente
+            value={formData.segundoNombre}
             placeholder="Segundo Nombre (opcional)"
-            onChangeText={(text) => setSegundoNombre(text)} // Actualiza el estado
+            onChangeText={(text) => setFormData({ ...formData, segundoNombre: text })}
           />
 
           <Text style={styles.etiqueta}>Apellidos</Text>
           <TextInput
             style={styles.entrada}
-            value={primerApellido} // Usa el estado correspondiente
+            value={formData.primerApellido}
             placeholder="Primer Apellido"
-            onChangeText={(text) => setPrimerApellido(text)} // Actualiza el estado
+            onChangeText={(text) => setFormData({ ...formData, primerApellido: text })}
           />
           <TextInput
             style={styles.entrada}
-            value={segundoApellido} // Usa el estado correspondiente
+            value={formData.segundoApellido}
             placeholder="Segundo Apellido (opcional)"
-            onChangeText={(text) => setSegundoApellido(text)} // Actualiza el estado
+            onChangeText={(text) => setFormData({ ...formData, segundoApellido: text })}
           />
 
           <Text style={styles.etiqueta}>Tipo de Documento</Text>
           <View style={styles.entradaTipoDoc}>
             <Picker
-              selectedValue={tipoDocumento}
-              onValueChange={(itemValue) => setTipoDocumento(itemValue)}
+              selectedValue={formData.tipoDocumento}
+              onValueChange={(itemValue) => setFormData({ ...formData, tipoDocumento: itemValue })}
             >
+              <Picker.Item label="Seleccione un tipo de documento" value="" />
               <Picker.Item label="Cédula de Ciudadanía" value="CC" />
               <Picker.Item label="Tarjeta de Identidad" value="TI" />
               <Picker.Item label="Cédula de Extranjería" value="CE" />
@@ -126,24 +195,11 @@ const ActualizarDatos = ({ navigation }) => {
           <Text style={styles.etiqueta}>Correo</Text>
           <TextInput
             style={styles.entrada}
-            value={correo} // Usa el estado correspondiente
+            value={formData.correo}
             placeholder="Correo Electrónico"
-            onChangeText={(text) => setCorreo(text)} // Actualiza el estado
+            onChangeText={(text) => setFormData({ ...formData, correo: text })}
           />
-
-          <Text style={styles.etiqueta}>Contraseña</Text>
-          <TextInput
-            style={styles.entrada}
-            value={contrasena} // Usa el estado correspondiente
-            placeholder="********"
-            secureTextEntry
-            onChangeText={(text) => setContrasena(text)} // Actualiza el estado
-          />
-
-          <TouchableOpacity style={styles.botonEnlace}>
-            <Text style={styles.textoEnlace}>¿Quieres cambiar tu contraseña? Haz clic aquí</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.botonConfirmar}>
+          <TouchableOpacity style={styles.botonConfirmar} onPress={() => VerificarDatos()}>
             <Text style={styles.textoBotonConfirmar}>Confirmar</Text>
           </TouchableOpacity>
         </View>
@@ -262,5 +318,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
 
 export default ActualizarDatos;

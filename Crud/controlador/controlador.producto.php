@@ -182,9 +182,7 @@ if (isset($_POST['registrarProducto'])) {
 
     $mensaje = $pDao->modificarProducto($pDto);
     header("Location:../tablas/producto/listarproducto.php?mensaje=" . $mensaje);
-}
-
-else if (isset($modificarProducto)) {
+} else if (isset($modificarProducto)) {
     $pDao = new productoDao();
     $pDto = new productoDto();
     $pDto->setId_Producto($id_Producto);

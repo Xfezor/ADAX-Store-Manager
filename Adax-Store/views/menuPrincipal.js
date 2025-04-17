@@ -1,12 +1,27 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Animated } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedback, Animated, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const MenuPrincipal = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
     const slideAnim = useRef(new Animated.Value(300)).current;
+    const [documento , setDocumento] = useState('');
 
+    const ObtenerDocumentoSesion = async () => {
+        try {
+            const documentoGuardado = await AsyncStorage.getItem('documento');
+            if (documentoGuardado) {
+                setDocumento(documentoGuardado);
+                // console.log('Documento guardado:', documentoGuardado);
+            } else {
+                console.log('No se encontró el documento guardado.');
+            }
+        } catch (error) {
+            console.error('Error al obtener el documento guardado:', error);
+        }
+    }
+    ObtenerDocumentoSesion();
     const abrirMenu = () => {
         setVisible(true);
         Animated.timing(slideAnim, {
@@ -108,14 +123,11 @@ const MenuPrincipal = ({ navigation }) => {
                 <View style={styles.contenedoresMenuPrincipalBajoStock}>
                     <Text style={styles.seccionTituloBajoStock}>Productos con Bajo Stock</Text>
                 </View>
-                {/* Actividad Reciente */}
                 <View style={styles.contenedorActividadReciente}>
                     <Text style={styles.seccionTitulo}>Actividad Reciente</Text>
-                    {/* Aquí podrías añadir la lista de actividad reciente */}
                 </View>
             </View>
 
-            {/* Menú inferior (Footer) */}
             <View style={styles.menuInferior}>
                 {menuOptions.map((opcion, index) => (
                     <TouchableOpacity
