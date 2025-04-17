@@ -25,13 +25,12 @@ DROP TABLE IF EXISTS `cliente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cliente` (
-  `id_Cliente` int(11) NOT NULL,
-  `Documento` int(10) DEFAULT NULL,
+  `Documento` int(10) NOT NULL,
   `Tipo_documento` varchar(15) DEFAULT NULL,
   `NombreCliente` varchar(20) DEFAULT NULL,
   `ApellidoCliente` varchar(20) DEFAULT NULL,
   `correo` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id_Cliente`)
+  PRIMARY KEY (`Documento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,7 +40,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES (1,1012345678,'CC','Juan','GarcÃ­a',NULL),(2,1012345680,'CC','Ana','MartÃ­nez',NULL),(3,1023456789,'CC','Carlos','HernÃ¡ndez',NULL),(4,1034567801,'TI','Laura','LÃ³pez',NULL),(5,1045678902,'CC','Jorge','RamÃ­rez',NULL),(6,1056789013,'TI','Marta','Morales',NULL),(7,1067890124,'CC','David','GÃ³mez',NULL),(8,1078901235,'TI','Paola','Reyes',NULL),(9,1089012346,'CC','Felipe','SÃ¡nchez',NULL),(10,1090123457,'TI','Sandra','Guerrero',NULL),(11,1101234568,'CC','Sergio','Castillo',NULL),(12,1112345679,'TI','Isabella','Acosta',NULL),(13,1123456790,'CC','AndrÃ©s','BermÃºdez',NULL),(14,1134567802,'TI','Daniela','JimÃ©nez',NULL),(15,1145678903,'CC','Javier','Cordero',NULL),(16,1156789014,'TI','VerÃ³nica','GarcÃ­a',NULL),(17,1167890125,'CC','Esteban','MÃ©ndez',NULL),(18,1178901236,'TI','Juliana','GÃ³mez',NULL),(19,1189012347,'CC','Mauricio','Salazar',NULL),(20,1190123458,'TI','Natalia','Herrera',NULL),(21,1201234569,'CC','Alejandro','PÃ©rez',NULL),(22,1212345681,'TI','Lina','RÃ­os',NULL),(23,1223456791,'CC','Ã“scar','CÃ¡rdenas',NULL),(24,1234567803,'TI','Claudia','GarcÃ­a',NULL),(25,1245678904,'CC','Fernando','Zapata',NULL),(26,1256789015,'TI','Catherine','GutiÃ©rrez',NULL),(27,1267890126,'CC','Juan','Moreno',NULL),(28,1278901237,'TI','MarÃ­a','Rivas',NULL),(29,1289012348,'CC','Ricardo','CastaÃ±o',NULL),(30,1290123459,'TI','Melissa','Castro',NULL);
+INSERT INTO `cliente` VALUES (1012345678,'CC','Juan','GarcÃ­a','juan.garcia@gmail.com'),(1012345680,'CC','Ana','MartÃ­nez',NULL),(1023456789,'CC','Carlos','HernÃ¡ndez',NULL),(1034567801,'TI','Laura','LÃ³pez',NULL),(1045678902,'CC','Jorge','RamÃ­rez',NULL),(1056789013,'TI','Marta','Morales',NULL),(1067890124,'CC','David','GÃ³mez',NULL),(1078901235,'TI','Paola','Reyes',NULL),(1089012346,'CC','Felipe','SÃ¡nchez',NULL),(1090123457,'TI','Sandra','Guerrero',NULL),(1101234568,'CC','Sergio','Castillo',NULL),(1112345679,'TI','Isabella','Acosta',NULL),(1123456790,'CC','AndrÃ©s','BermÃºdez',NULL),(1134567802,'TI','Daniela','JimÃ©nez',NULL),(1145678903,'CC','Javier','Cordero',NULL),(1156789014,'TI','VerÃ³nica','GarcÃ­a',NULL),(1167890125,'CC','Esteban','MÃ©ndez',NULL),(1178901236,'TI','Juliana','GÃ³mez',NULL),(1189012347,'CC','Mauricio','Salazar',NULL),(1190123458,'TI','Natalia','Herrera',NULL),(1201234569,'CC','Alejandro','PÃ©rez',NULL),(1212345681,'TI','Lina','RÃ­os',NULL),(1223456791,'CC','Ã“scar','CÃ¡rdenas',NULL),(1234567803,'TI','Claudia','GarcÃ­a',NULL),(1245678904,'CC','Fernando','Zapata',NULL),(1256789015,'TI','Catherine','GutiÃ©rrez',NULL),(1267890126,'CC','Juan','Moreno',NULL),(1278901237,'TI','MarÃ­a','Rivas',NULL),(1289012348,'CC','Ricardo','CastaÃ±o',NULL),(1290123459,'TI','Melissa','Castro',NULL);
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,8 +54,9 @@ DROP TABLE IF EXISTS `entregaproductos`;
 CREATE TABLE `entregaproductos` (
   `proveedor_idproveedor` int(11) NOT NULL,
   `producto_id_Producto` int(11) NOT NULL,
-  `fecha_Entrega` date DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
+  `fecha_Entrega` date NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `estado` varchar(45) NOT NULL,
   PRIMARY KEY (`proveedor_idproveedor`,`producto_id_Producto`),
   KEY `fk_entregaproductos_producto1_idx` (`producto_id_Producto`),
   CONSTRAINT `fk_entregaproductos_producto1` FOREIGN KEY (`producto_id_Producto`) REFERENCES `producto` (`id_Producto`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -70,9 +70,33 @@ CREATE TABLE `entregaproductos` (
 
 LOCK TABLES `entregaproductos` WRITE;
 /*!40000 ALTER TABLE `entregaproductos` DISABLE KEYS */;
-INSERT INTO `entregaproductos` VALUES (2,2,'2024-08-02',150),(3,3,'2024-08-03',200),(4,4,'2024-08-04',250),(5,5,'2024-08-05',300),(6,6,'2024-08-06',350),(7,7,'2024-08-07',400),(8,8,'2024-08-08',450),(9,9,'2024-08-09',500),(10,10,'2024-08-10',550),(11,11,'2024-08-11',600),(12,12,'2024-08-12',650),(13,13,'2024-08-13',700),(14,14,'2024-08-14',750),(15,15,'2024-08-15',800),(16,16,'2024-08-16',850),(17,17,'2024-08-17',900),(18,18,'2024-08-18',950),(19,19,'2024-08-19',1000),(20,20,'2024-08-20',1050),(21,21,'2024-08-21',1100),(22,22,'2024-08-22',1150),(23,23,'2024-08-23',1200),(24,24,'2024-08-24',1250),(26,26,'2024-08-26',1350),(27,27,'2024-08-27',1400),(28,28,'2024-08-28',1450),(29,29,'2024-08-29',1500),(30,30,'2024-08-30',1550);
+INSERT INTO `entregaproductos` VALUES (2,2,'2024-08-02',150,'entregado'),(3,3,'2024-08-03',10,'entregado'),(4,4,'2024-08-04',8,'entregado'),(5,5,'2024-08-05',300,''),(6,6,'2024-08-06',350,''),(7,7,'2024-08-07',400,''),(8,8,'2024-08-08',450,''),(9,9,'2024-08-09',500,''),(10,10,'2024-08-10',550,''),(11,11,'2024-08-11',600,''),(12,12,'2024-08-12',650,''),(13,13,'2024-08-13',700,''),(14,14,'2024-08-14',750,''),(15,15,'2024-08-15',800,''),(16,16,'2024-08-16',850,''),(17,17,'2024-08-17',900,''),(18,18,'2024-08-18',950,''),(19,19,'2024-08-19',1000,''),(20,20,'2024-08-20',1050,''),(21,21,'2024-08-21',1100,''),(22,22,'2024-08-22',1150,''),(23,23,'2024-08-23',1200,''),(24,24,'2024-08-24',1250,''),(26,26,'2024-08-26',1350,''),(27,27,'2024-08-27',1400,''),(28,28,'2024-08-28',1450,''),(29,29,'2024-08-29',1500,''),(30,30,'2024-08-30',1550,'');
 /*!40000 ALTER TABLE `entregaproductos` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trg_actualizastock_despuesentrega
+AFTER update ON entregaproductos
+FOR EACH ROW
+BEGIN
+    IF NEW.estado = 'entregado' AND OLD.estado != 'entregado' THEN 
+		UPDATE producto
+        SET Stock = stock + NEW.cantidad
+        WHERE id_Producto = NEW.producto_id_Producto;
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `factura`
@@ -100,9 +124,57 @@ CREATE TABLE `factura` (
 
 LOCK TABLES `factura` WRITE;
 /*!40000 ALTER TABLE `factura` DISABLE KEYS */;
-INSERT INTO `factura` VALUES (3,5,3,150,'Pagado'),(3,6,1,80,'Pagado'),(5,9,1,50,'Pagado'),(5,10,2,180,'Pagado'),(7,3,1,1200,'Pendiente'),(7,4,1,800,'Pendiente'),(10,9,2,50,'Pagado'),(10,10,1,180,'Pagado'),(13,5,1,150,'Pagado'),(13,6,2,80,'Pagado'),(15,9,1,50,'Pagado'),(15,10,3,180,'Pagado'),(17,3,1,1200,'Pendiente'),(17,4,1,800,'Pendiente'),(20,9,2,50,'Pagado'),(20,10,2,180,'Pagado'),(23,5,2,150,'Pagado'),(23,6,2,80,'Pagado'),(24,7,1,600,'Pendiente'),(24,8,1,120,'Pendiente'),(25,9,1,50,'Pagado'),(25,10,2,180,'Pagado');
+INSERT INTO `factura` VALUES (3,5,1,150,'Pagado'),(3,6,1,80,'Pagado'),(5,9,1,50,'Pagado'),(5,10,2,180,'Pagado'),(7,3,1,1200,'Pendiente'),(7,4,1,800,'Pendiente'),(10,9,2,50,'Pagado'),(10,10,1,180,'Pagado'),(13,5,1,150,'Pagado'),(13,6,2,80,'Pagado'),(15,9,1,50,'Pagado'),(15,10,3,180,'Pagado'),(17,3,1,1200,'Pendiente'),(17,4,1,800,'Pendiente'),(20,9,2,50,'Pagado'),(20,10,2,180,'Pagado'),(23,5,2,150,'Pagado'),(23,6,2,80,'Pagado'),(24,7,1,600,'Pendiente'),(24,8,1,120,'Pendiente'),(25,8,20,800,'Pagado'),(25,9,1,50,'Pagado'),(25,10,2,180,'Pagado'),(25,11,1,40,'Pendiente'),(25,12,10,300,'Pagado');
 /*!40000 ALTER TABLE `factura` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trg_actualziarstock_despuesfactura
+AFTER INSERT ON factura
+FOR EACH ROW
+BEGIN
+	IF NEW.estado = 'pagado' THEN
+		UPDATE producto
+		SET Stock = Stock-NEW.cantidad
+		where id_producto = NEW.producto_id_Producto;
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trg_actualizarstock_actualizar_esatdofactura
+AFTER UPDATE ON factura
+FOR EACH ROW
+BEGIN
+	IF OLD.Estado != 'Pagado' and NEW.Estado = 'Pagado' THEN
+		UPDATE producto
+		SET Stock = Stock-NEW.Cantidad
+		where id_Producto = NEW.producto_id_Producto;
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `inventario`
@@ -166,15 +238,19 @@ DROP TABLE IF EXISTS `movimientos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `movimientos` (
   `id_Movimiento` int(11) NOT NULL AUTO_INCREMENT,
-  `cantidad_despues` int(11) DEFAULT NULL,
-  `fecha_movimiento` date DEFAULT NULL,
-  `fecha_modificacion` date DEFAULT NULL,
-  `estado_despues` varchar(45) DEFAULT NULL,
+  `id_Producto_id` int(5) NOT NULL,
+  `stock_antes` int(11) NOT NULL,
+  `entradas` int(5) NOT NULL,
+  `salidas` int(5) NOT NULL,
+  `stock_despues` int(11) NOT NULL,
+  `fecha_movimiento` date NOT NULL,
   `inventario_id_Inventario` int(11) NOT NULL,
   PRIMARY KEY (`id_Movimiento`),
   KEY `fk_movimientos_inventario1_idx` (`inventario_id_Inventario`),
+  KEY `fk_producto_id` (`id_Movimiento`),
+  KEY `fk_producto_id_idx` (`id_Producto_id`),
   CONSTRAINT `fk_movimientos_inventario1` FOREIGN KEY (`inventario_id_Inventario`) REFERENCES `inventario` (`id_Inventario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -183,7 +259,7 @@ CREATE TABLE `movimientos` (
 
 LOCK TABLES `movimientos` WRITE;
 /*!40000 ALTER TABLE `movimientos` DISABLE KEYS */;
-INSERT INTO `movimientos` VALUES (33,200,'2024-08-18','2024-08-12','Revisado',2),(34,60,'2024-08-18','2024-08-13','Revisado',3),(35,120,'2024-08-18','2024-08-14','Revisado',4),(36,90,'2024-08-18','2024-08-15','Revisado',5),(37,100,'2024-08-18','2024-08-16','Revisado',6),(38,75,'2024-08-18','2024-08-17','Revisado',7),(39,130,'2024-08-18','2024-08-18','Revisado',8),(40,110,'2024-08-18','2024-08-19','Revisado',9),(41,85,'2024-08-18','2024-08-20','Revisado',10),(42,95,'2024-08-18','2024-08-21','Revisado',11),(43,140,'2024-08-18','2024-08-22','Revisado',12),(44,70,'2024-08-18','2024-08-23','Revisado',13),(45,105,'2024-08-18','2024-08-24','Revisado',14),(46,125,'2024-08-18','2024-08-25','Revisado',15),(47,80,'2024-08-18','2024-08-26','Revisado',16),(48,90,'2024-08-18','2024-08-27','Revisado',17),(49,115,'2024-08-18','2024-08-28','Revisado',18),(50,100,'2024-08-18','2024-08-29','Revisado',19),(51,85,'2024-08-18','2024-08-30','Revisado',20),(52,95,'2024-08-18','2024-08-31','Revisado',21),(53,110,'2024-08-18','2024-09-01','Revisado',22),(54,120,'2024-08-18','2024-09-02','Revisado',23),(55,75,'2024-08-18','2024-09-03','Revisado',24),(56,135,'2024-08-18','2024-09-04','Revisado',26),(58,100,'2024-08-18','2024-09-06','Revisado',27),(59,115,'2024-08-18','2024-09-07','Revisado',28),(60,90,'2024-08-18','2024-09-08','Revisado',29);
+INSERT INTO `movimientos` VALUES (33,0,0,0,0,0,'2024-08-18',2),(34,0,0,0,0,0,'2024-08-18',3),(35,0,0,0,0,0,'2024-08-18',4),(36,0,0,0,0,0,'2024-08-18',5),(37,0,0,0,0,0,'2024-08-18',6),(38,0,0,0,0,0,'2024-08-18',7),(39,0,0,0,0,0,'2024-08-18',8),(40,0,0,0,0,0,'2024-08-18',9),(41,0,0,0,0,0,'2024-08-18',10),(42,0,0,0,0,0,'2024-08-18',11),(43,0,0,0,0,0,'2024-08-18',12),(44,0,0,0,0,0,'2024-08-18',13),(45,0,0,0,0,0,'2024-08-18',14),(46,0,0,0,0,0,'2024-08-18',15),(47,0,0,0,0,0,'2024-08-18',16),(48,0,0,0,0,0,'2024-08-18',17),(49,0,0,0,0,0,'2024-08-18',18),(50,0,0,0,0,0,'2024-08-18',19),(51,0,0,0,0,0,'2024-08-18',20),(52,0,0,0,0,0,'2024-08-18',21),(53,0,0,0,0,0,'2024-08-18',22),(54,0,0,0,0,0,'2024-08-18',23),(55,0,0,0,0,0,'2024-08-18',24),(56,0,0,0,0,0,'2024-08-18',26),(58,0,0,0,0,0,'2024-08-18',27),(59,0,0,0,0,0,'2024-08-18',28),(60,0,0,0,0,0,'2024-08-18',29),(61,2,0,5,0,0,'2025-03-31',3),(62,2,0,0,5,0,'2025-03-31',3),(63,2,100,0,1,99,'2025-03-31',3),(64,2,99,0,6,105,'2025-03-31',3),(65,2,105,0,5,110,'2025-03-31',3),(66,2,110,40,0,150,'2025-03-31',3),(68,2,150,150,0,300,'2025-04-01',3),(69,3,30,10,0,40,'2025-04-01',3),(70,11,95,0,5,90,'2025-04-01',11),(71,4,40,8,0,48,'2025-04-01',3),(72,12,100,0,10,90,'2025-04-01',12),(73,45,13,0,3,10,'2025-04-09',3);
 /*!40000 ALTER TABLE `movimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +289,7 @@ CREATE TABLE `producto` (
   KEY `fk_producto_proveedor1_idx` (`idProveedor`),
   CONSTRAINT `fk_producto_inventario1` FOREIGN KEY (`inventario_id_Inventario`) REFERENCES `inventario` (`id_Inventario`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_producto_proveedor1` FOREIGN KEY (`idProveedor`) REFERENCES `proveedor` (`idproveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,9 +298,70 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (2,'Smartphone Samsung Galaxy',750,'Smartphone con cÃ¡mara de 64MP','Samsung','ElectrÃ³nica','Unidad','2025-10-30',100,20,1,3,3),(3,'Televisor LG OLED',1200,'Televisor con pantalla OLED de 55 pulgadas','LG','ElectrÃ³nica','Unidad','2025-11-15',30,5,1,3,3),(4,'Refrigerador Samsung',800,'Refrigerador de 500 litros','Samsung','ElectrodomÃ©stico','Unidad','2026-03-10',40,8,1,3,5),(5,'Aspiradora Rowenta',150,'Aspiradora de 1500W con bolsa','Rowenta','ElectrodomÃ©stico','Unidad','2025-07-22',60,15,1,3,4),(6,'Cafetera Philips',80,'Cafetera de 12 tazas','Philips','ElectrodomÃ©stico','Unidad','2025-05-30',75,20,1,3,2),(7,'CÃ¡mara Canon EOS',600,'CÃ¡mara rÃ©flex digital con lente de 18-55mm','Canon','ElectrÃ³nica','Unidad','2025-09-01',25,5,1,3,1),(8,'Microwave Panasonic',120,'Microondas de 20 litros','Panasonic','ElectrodomÃ©stico','Unidad','2025-06-15',90,10,1,3,3),(9,'Plancha T-fal',50,'Plancha de vapor antiadherente','T-fal','ElectrodomÃ©stico','Unidad','2024-12-31',85,10,1,3,3),(10,'Air Fryer Philips',180,'Freidora de aire de 1.8 litros','Philips','ElectrodomÃ©stico','Unidad','2025-01-20',70,15,0,3,3),(11,'Teclado Logitech',40,'Teclado mecÃ¡nico con retroiluminaciÃ³n','Logitech','ElectrÃ³nica','Unidad','2025-04-10',95,25,0,11,NULL),(12,'RatÃ³n Logitech',30,'RatÃ³n inalÃ¡mbrico con baterÃ­a recargable','Logitech','ElectrÃ³nica','Unidad','2025-02-28',100,30,0,12,NULL),(13,'Silla Gamer DXRacer',350,'Silla ergonÃ³mica para gaming','DXRacer','Muebles','Unidad','2025-08-15',20,5,0,13,NULL),(14,'Escritorio de Madera',200,'Escritorio de madera de 120x60 cm','MarcaEjemplo','Muebles','Unidad','2025-11-30',35,10,0,14,NULL),(15,'Auriculares Sony WH-1000XM4',300,'Auriculares inalÃ¡mbricos con cancelaciÃ³n de ruido','Sony','ElectrÃ³nica','Unidad','2025-12-01',45,10,0,15,NULL),(16,'Impresora HP DeskJet',100,'Impresora a color multifunciÃ³n','HP','ElectrÃ³nica','Unidad','2025-07-10',55,15,0,16,NULL),(17,'Teclado Gaming Corsair',80,'Teclado mecÃ¡nico RGB para gaming','Corsair','ElectrÃ³nica','Unidad','2025-09-05',60,20,0,17,NULL),(18,'Monitor Acer 24 pulgadas',220,'Monitor Full HD de 24 pulgadas','Acer','ElectrÃ³nica','Unidad','2025-10-20',50,10,1,18,NULL),(19,'BaterÃ­a externa Anker',45,'BaterÃ­a externa de 10000mAh','Anker','ElectrÃ³nica','Unidad','2025-03-15',80,25,1,19,NULL),(20,'Tablet Samsung Galaxy Tab',350,'Tablet con pantalla de 10.4 pulgadas','Samsung','ElectrÃ³nica','Unidad','2025-06-01',30,8,1,20,NULL),(21,'Silla de Oficina Ergohuman',400,'Silla ergonÃ³mica con ajuste lumbar','Ergohuman','Muebles','Unidad','2025-08-10',25,5,0,21,NULL),(22,'LÃ¡mpara LED Philips',60,'LÃ¡mpara LED regulable','Philips','ElectrodomÃ©stico','Unidad','2025-04-15',70,12,1,22,NULL),(23,'Barra de sonido JBL',150,'Barra de sonido con Bluetooth','JBL','ElectrÃ³nica','Unidad','2025-09-30',40,10,0,23,NULL),(24,'Estufa a gas Teka',180,'Estufa a gas de 4 quemadores','Teka','ElectrodomÃ©stico','Unidad','2025-12-15',35,7,1,24,NULL),(26,'SartÃ©n T-fal',70,'SartÃ©n antiadherente de 30 cm','T-fal','ElectrodomÃ©stico','Unidad','2025-05-01',85,15,1,26,NULL),(27,'Cuchillos de Cocina Zwilling',90,'Juego de cuchillos de acero inoxidable','Zwilling','ElectrodomÃ©stico','Juego','2025-11-20',55,10,1,27,NULL),(28,'Reloj Garmin Forerunner',200,'Reloj deportivo con GPS','Garmin','ElectrÃ³nica','Unidad','2025-07-25',30,8,1,28,NULL),(29,'Caja de herramientas Stanley',120,'Caja de herramientas con 100 piezas','Stanley','Herramientas','Unidad','2025-10-01',40,10,1,29,NULL),(30,'Ventilador Orbegozo',90,'Ventilador de pie con 3 velocidades','Orbegozo','ElectrodomÃ©stico','Unidad','2025-08-01',50,12,1,30,NULL),(31,'papaya',1500,'Fruta','Mercadito tintala','Fruta','unidad','2025-01-08',20,0,1,3,NULL);
+INSERT INTO `producto` VALUES (2,'Samsung S24 Ultra',750,'Smartphone con cÃ¡mara de 64MP','Samsung','ElectrÃ³nic','Unidad','2025-10-30',300,20,1,3,5),(3,'Televisor LG OLED',1200,'Televisor con pantalla OLED de 55 pulgadas','LG','ElectrÃ³nica','Unidad','2025-11-15',40,5,1,3,3),(4,'Refrigerador Samsung',800,'Refrigerador de 500 litros','Samsung','ElectrodomÃ©stico','Unidad','2026-03-10',48,8,1,3,5),(5,'Aspiradora Rowenta',150,'Aspiradora de 1500W con bolsa','Rowenta','ElectrodomÃ©stico','Unidad','2025-07-22',60,15,1,3,4),(6,'Cafetera Philips',80,'Cafetera de 12 tazas','Philips','ElectrodomÃ©stico','Unidad','2025-05-30',75,20,1,3,2),(7,'CÃ¡mara Canon EOS',600,'CÃ¡mara rÃ©flex digital con lente de 18-55mm','Canon','ElectrÃ³nica','Unidad','2025-09-01',25,5,1,3,1),(8,'Microwave Panasonic',120,'Microondas de 20 litros','Panasonic','ElectrodomÃ©stico','Unidad','2025-06-15',90,10,1,3,3),(9,'Plancha T-fal',50,'Plancha de vapor antiadherente','T-fal','ElectrodomÃ©stico','Unidad','2024-12-31',85,10,1,3,3),(10,'Air Fryer Philips',180,'Freidora de aire de 1.8 litros','Philips','ElectrodomÃ©stico','Unidad','2025-01-20',70,15,0,3,3),(11,'Teclado Logitech',40,'Teclado mecÃ¡nico con retroiluminaciÃ³n','Logitech','ElectrÃ³nica','Unidad','2025-04-10',90,25,0,11,NULL),(12,'RatÃ³n Logitech',30,'RatÃ³n inalÃ¡mbrico con baterÃ­a recargable','Logitech','ElectrÃ³nica','Unidad','2025-02-28',90,30,0,12,NULL),(13,'Silla Gamer DXRacer',350,'Silla ergonÃ³mica para gaming','DXRacer','Muebles','Unidad','2025-08-15',20,5,0,13,NULL),(14,'Escritorio de Madera',200,'Escritorio de madera de 120x60 cm','MarcaEjemplo','Muebles','Unidad','2025-11-30',35,10,0,14,NULL),(15,'Auriculares Sony WH-1000XM4',300,'Auriculares inalÃ¡mbricos con cancelaciÃ³n de ruido','Sony','ElectrÃ³nica','Unidad','2025-12-01',45,10,0,15,NULL),(16,'Impresora HP DeskJet',100,'Impresora a color multifunciÃ³n','HP','ElectrÃ³nica','Unidad','2025-07-10',55,15,0,16,NULL),(17,'Teclado Gaming Corsair',80,'Teclado mecÃ¡nico RGB para gaming','Corsair','ElectrÃ³nica','Unidad','2025-09-05',60,20,0,17,NULL),(18,'Monitor Acer 24 pulgadas',220,'Monitor Full HD de 24 pulgadas','Acer','ElectrÃ³nica','Unidad','2025-10-20',50,10,1,18,NULL),(19,'BaterÃ­a externa Anker',45,'BaterÃ­a externa de 10000mAh','Anker','ElectrÃ³nica','Unidad','2025-03-15',80,25,1,19,NULL),(20,'Tablet Samsung Galaxy Tab',350,'Tablet con pantalla de 10.4 pulgadas','Samsung','ElectrÃ³nica','Unidad','2025-06-01',30,8,1,20,NULL),(21,'Silla de Oficina Ergohuman',400,'Silla ergonÃ³mica con ajuste lumbar','Ergohuman','Muebles','Unidad','2025-08-10',25,5,0,21,NULL),(22,'LÃ¡mpara LED Philips',60,'LÃ¡mpara LED regulable','Philips','ElectrodomÃ©stico','Unidad','2025-04-15',70,12,1,22,NULL),(23,'Barra de sonido JBL',150,'Barra de sonido con Bluetooth','JBL','ElectrÃ³nica','Unidad','2025-09-30',40,10,0,23,NULL),(24,'Estufa a gas Teka',180,'Estufa a gas de 4 quemadores','Teka','ElectrodomÃ©stico','Unidad','2025-12-15',35,7,1,24,NULL),(26,'SartÃ©n T-fal',70,'SartÃ©n antiadherente de 30 cm','T-fal','ElectrodomÃ©stico','Unidad','2025-05-01',85,15,1,26,NULL),(27,'Cuchillos de Cocina Zwilling',90,'Juego de cuchillos de acero inoxidable','Zwilling','ElectrodomÃ©stico','Juego','2025-11-20',55,10,1,27,NULL),(28,'Reloj Garmin Forerunner',200,'Reloj deportivo con GPS','Garmin','ElectrÃ³nica','Unidad','2025-07-25',30,8,1,28,NULL),(29,'Caja de herramientas Stanley',120,'Caja de herramientas con 100 piezas','Stanley','Herramientas','Unidad','2025-10-01',40,10,1,29,NULL),(30,'Ventilador Orbegozo',90,'Ventilador de pie con 3 velocidades','Orbegozo','ElectrodomÃ©stico','Unidad','2025-08-01',50,12,1,30,NULL),(31,'papaya',1500,'Fruta','Mercadito tintala','Fruta','unidad','2025-01-08',20,0,1,3,NULL);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER trg_entradas_salidas_productos
+AFTER UPDATE ON producto
+FOR EACH ROW
+BEGIN
+    -- Verificar si el stock ha aumentado
+    IF NEW.Stock > OLD.Stock THEN
+        -- Registrar la entrada cuando el stock aumenta
+        INSERT INTO movimientos (
+            id_Producto_id,
+            stock_antes,
+            entradas,
+            salidas,
+            fecha_movimiento,
+            stock_despues,
+            inventario_id_inventario
+        ) VALUES (
+			NEW.id_Producto,
+            OLD.Stock,
+			NEW.Stock - OLD.Stock,
+            0,
+            NOW(),
+            NEW.Stock,
+            NEW.inventario_id_inventario
+        );
+    END IF;
+    
+    if NEW.STOCK < OLD.Stock THEN
+		INSERT INTO movimientos (
+            id_Producto_id,
+            stock_antes,
+            entradas,
+            salidas,
+            fecha_movimiento,
+            stock_despues,
+            inventario_id_inventario
+        ) 
+        VALUES (
+			NEW.id_Producto,
+            OLD.Stock,
+            0,
+			OLD.Stock - NEW.Stock,
+            NOW(),
+            NEW.Stock,
+            NEW.inventario_id_inventario
+        );
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `proveedor`
@@ -234,15 +371,15 @@ DROP TABLE IF EXISTS `proveedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `proveedor` (
-  `idproveedor` int(11) NOT NULL,
+  `idproveedor` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
-  `telefono` int(10) DEFAULT NULL,
+  `telefono` int(11) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `id_tienda` int(11) DEFAULT NULL,
   PRIMARY KEY (`idproveedor`),
   KEY `id_tienda_fk_idx` (`id_tienda`),
   CONSTRAINT `id_tienda_fk` FOREIGN KEY (`id_tienda`) REFERENCES `tienda` (`idtienda`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -251,7 +388,7 @@ CREATE TABLE `proveedor` (
 
 LOCK TABLES `proveedor` WRITE;
 /*!40000 ALTER TABLE `proveedor` DISABLE KEYS */;
-INSERT INTO `proveedor` VALUES (1,'ElectroMundo S.A.S.',12345678,'info@electromundo.com.co',3),(2,'Muebles y DecoraciÃ³n Ltda.',8765432,'contacto@mueblesdecoracion.com.co',3),(3,'TechnoGadgets',3456789,'ventas@technogadgets.com.co',3),(4,'ElectrodomÃ©sticos del Norte',2345679,'info@electrodomesticosnorte.com',3),(5,'Central Herramientas S.A.',4567890,'ventas@centralherramientas.com',3),(6,'Hogar y Estilo',6789012,'contacto@hogaryestilo.com.co',3),(7,'Computech Ltda.',7890123,'ventas@computechltda.com',7),(8,'ElectroPlus S.A.S.',8901234,'info@electroplus.com.co',8),(9,'Muebles y MÃ¡s',9012345,'ventas@mueblesymas.com.co',9),(10,'TecnologÃ­a Avanzada',123456,'info@tecnologiaavanzada.com',10),(11,'ElectroCentro Ltda.',1234567,'contacto@electrocentroltda.com',11),(12,'Mobiliario Urbano',2345670,'ventas@mobiliariourbano.com.co',12),(13,'TechMaster S.A.S.',3456780,'info@techmaster.com.co',13),(14,'Electrohogar Ltda.',4567891,'contacto@electrohogar.com.co',14),(15,'ElectroTrend S.A.S.',5678901,'ventas@electrotrend.com',15),(16,'Muebles & MÃ¡s',6789013,'info@mueblesymas.com.co',16),(17,'SmartElectro S.A.S.',7890124,'ventas@smartelectro.com.co',17),(18,'ElectroCasa Ltda.',8901235,'contacto@electrocasa.com.co',18),(19,'TecnologÃ­a Hogar',9012346,'ventas@tecnologiahogar.com',19),(20,'ElectroService Ltda.',123457,'info@electroservice.com.co',20),(21,'Muebles del Hogar',1234568,'ventas@mueblesdelhogar.com.co',21),(22,'TechnoTools S.A.S.',2345671,'contacto@technotools.com.co',22),(23,'ElectroPower Ltda.',3456781,'ventas@electropower.com.co',23),(24,'HogarTech S.A.S.',4567892,'info@hogartech.com.co',24),(25,'ElectroMax Ltda.',5678902,'contacto@electromax.com.co',24),(26,'Muebles BogotÃ¡',6789014,'ventas@mueblesbogota.com.co',26),(27,'TechWorld Ltda.',7890125,'info@techworld.com.co',27),(28,'ElectroFÃ¡cil S.A.S.',8901236,'ventas@electrofacil.com.co',28),(29,'Mobiliario Actual',9012347,'contacto@mobiliarioactual.com',29),(30,'ElectroSmart Ltda.',123458,'info@electrosmart.com.co',30);
+INSERT INTO `proveedor` VALUES (1,'ElectroMundo S.A.S.',12345678,'info@electromundo.com.co',3),(2,'Muebles y DecoraciÃ³n Ltda.',8765432,'contacto@mueblesdecoracion.com.co',3),(3,'TechnoGadgets',3456789,'ventas@technogadgets.com.co',3),(4,'ElectrodomÃ©sticos del Norte',2345679,'info@electrodomesticosnorte.com',3),(5,'Central Herramientas S.A.',4567890,'ventas@centralherramientas.com',3),(6,'Hogar y Estilo',6789012,'contacto@hogaryestilo.com.co',3),(7,'Computech Ltda.',7890123,'ventas@computechltda.com',7),(8,'ElectroPlus S.A.S.',8901234,'info@electroplus.com.co',8),(9,'Muebles y MÃ¡s',9012345,'ventas@mueblesymas.com.co',9),(10,'TecnologÃ­a Avanzada',123456,'info@tecnologiaavanzada.com',10),(11,'ElectroCentro Ltda.',1234567,'contacto@electrocentroltda.com',11),(12,'Mobiliario Urbano',2345670,'ventas@mobiliariourbano.com.co',12),(13,'TechMaster S.A.S.',3456780,'info@techmaster.com.co',13),(14,'Electrohogar Ltda.',4567891,'contacto@electrohogar.com.co',14),(15,'ElectroTrend S.A.S.',5678901,'ventas@electrotrend.com',15),(16,'Muebles & MÃ¡s',6789013,'info@mueblesymas.com.co',16),(17,'SmartElectro S.A.S.',7890124,'ventas@smartelectro.com.co',17),(18,'ElectroCasa Ltda.',8901235,'contacto@electrocasa.com.co',18),(19,'TecnologÃ­a Hogar',9012346,'ventas@tecnologiahogar.com',19),(20,'ElectroService Ltda.',123457,'info@electroservice.com.co',20),(21,'Muebles del Hogar',1234568,'ventas@mueblesdelhogar.com.co',21),(22,'TechnoTools S.A.S.',2345671,'contacto@technotools.com.co',22),(23,'ElectroPower Ltda.',3456781,'ventas@electropower.com.co',23),(24,'HogarTech S.A.S.',4567892,'info@hogartech.com.co',24),(25,'ElectroMax Ltda.',5678902,'contacto@electromax.com.co',24),(26,'Muebles BogotÃ¡',6789014,'ventas@mueblesbogota.com.co',26),(27,'TechWorld Ltda.',7890125,'info@techworld.com.co',27),(28,'ElectroFÃ¡cil S.A.S.',8901236,'ventas@electrofacil.com.co',28),(29,'Mobiliario Actual',9012347,'contacto@mobiliarioactual.com',29),(30,'ElectroSmart Ltda.',123458,'info@electrosmart.com.co',30),(36,'Sistematics S.A.S',2147483647,'sistematics@gmail.com',3);
 /*!40000 ALTER TABLE `proveedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +444,7 @@ CREATE TABLE `tienda` (
 
 LOCK TABLES `tienda` WRITE;
 /*!40000 ALTER TABLE `tienda` DISABLE KEYS */;
-INSERT INTO `tienda` VALUES (1,'Marianitas','calle 92 bis',0,'mari@gmail.com',_binary 'ï¿½ï¿½ï¿½Gï¿½/\0ï¿½ï¿½-\0ï¿½ï¿½vWHÙƒï¿½4ï¿½ï¿½	ï¿½lï¿½;ï¿½)bï¿½ï¿½ï¿½!ï¿½\\ï¿½ï¿½:$*ï¿½Ô²ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Gï¿½:ï¿½3eï¿½#n\Z',126),(2,'ElectroShop BogotÃ¡','Av. BoyacÃ¡ # 71-45',3123456789,'info@electroshopbogota.com','',93),(3,'LibrerÃ­a El Saber','Calle 72 # 6-14',3145678901,'ventas@libreriaelsaber.com','',94),(4,'Farmacia La Salud','Carrera 15 # 101-34',3178901234,'atencion@farmacialasalud.com','',95),(5,'Moda y Estilo','Calle 85 # 10-20',3189012345,'info@modayestilo.com','',96),(6,'Deportes y MÃ¡s','Calle 53 # 21-12',3190123456,'contacto@deportesymas.com','',97),(7,'Tienda de Abarrotes La Familia','Cra 19 # 32-15',3201234567,'ventas@tiendafamilia.com','',98),(8,'Muebles y DecoraciÃ³n','Av. JimÃ©nez # 5-60',3212345678,'info@mueblesdecoracion.com','',99),(9,'JugueterÃ­a Divertida','Cra 10 # 22-30',3223456789,'contacto@jugueteriadivertida.com','',100),(10,'PanaderÃ­a El Trigo','Calle 50 # 8-90',3234567890,'info@panaderiaeltrigo.com','',101),(11,'CafÃ© Gourmet','Cra 9 # 45-67',3245678901,'contacto@cafegourmet.com','',102),(12,'Ropa y Moda','Av. Caracas # 48-20',3256789012,'info@ropaymoda.com','',103),(13,'TecnologÃ­a al DÃ­a','Calle 26 # 11-25',3267890123,'ventas@tecnologiaaldia.com','',104),(14,'LÃ¡cteos y MÃ¡s','Cra 7 # 10-45',3278901234,'info@lacteosymas.com','',105),(15,'Tienda de Vinos','Calle 94 # 17-30',3289012345,'contacto@tiendadevinos.com','',106),(16,'ZapaterÃ­a El Paso','Cra 22 # 5-90',3290123456,'info@zapateriaalpaso.com','',107),(17,'Delicatessen Gourmet','Calle 55 # 12-65',3301234567,'ventas@delicatessengourmet.com','',108),(18,'ElectrodomÃ©sticos Centro','Av. El Dorado # 20-40',3312345678,'contacto@electrodomesticoscentro.com','',109),(19,'FloristerÃ­a Elegante','Cra 3 # 21-75',3323456789,'info@floristeriaelegante.com','',110),(20,'Tienda de Deportes','Calle 17 # 3-60',3334567890,'contacto@tiendadeportes.com','',111),(21,'PastelerÃ­a La Dulce Vida','Cra 12 # 45-89',3345678901,'info@pastelerialadulcevida.com','',112),(22,'Centro de Belleza','Av. Chile # 25-40',3356789012,'contacto@centrobelleza.com','',113),(23,'Muebles Modernos','Calle 8 # 18-90',3367890123,'ventas@mueblesmodernos.com','',114),(24,'Juguetes para Todos','Cra 11 # 25-15',3378901234,'info@juguetesparatodos.com','',115),(26,'PerfumerÃ­a y CosmÃ©ticos','Cra 16 # 30-45',3390123456,'info@perfumeriaycosmeticos.com','',117),(27,'Tiendas El Ahorro','Calle 32 # 22-90',3401234567,'contacto@tiendaselahorro.com','',118),(28,'Tienda de TecnologÃ­a','Av. San MartÃ­n # 50-60',3412345678,'ventas@tiendatecnologia.com','',119),(29,'LibrerÃ­a y PapelerÃ­a','Cra 8 # 15-70',3423456789,'info@libreriaypapeleria.com','',120),(30,'Ropa y Calzado','Calle 46 # 22-80',3434567890,'contacto@ropaycalzado.com','',121),(31,'La esquina','calle 56',3125256732,'esquinastienda@gmail.com',_binary 'ï¿½ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½;<Dl*ï¿½',1),(80,'Margaritas','calle 32',123412,'tienda@gmail.com',_binary 'İ‚(Jï¿½ï¿½?ï¿½ï¿½_Ö¦Ù¥',122),(90,'Los rosales','calle 6a',3156782834,'losrosalestienda@gmail.com',_binary 'ï¿½UjI\0ï¿½uÈª00vG',123),(91,'Polleria 22','calle 82a',317462345,'pollosla22@gmail.com',_binary 'ï¿½ï¿½xeï¿½ï¿½ï¿½9ï¿½]ykï¿½ï¿½t',124),(129,'Prueba','Calle 83 #89a-34',3156793467,'prueba@gmail.com',_binary 'I¦.q=•-\ãUT\í\r°',127),(163,'dasd','asd',12334,'asd@gmail.com',_binary '\×\r´/+‚!\íLD\Ì\íz\È\ãVƒ—f\İc\í+Y·ã™',11),(169,'Peregrinos','',0,'peregrinos@gmail.com',_binary 'ñ…\0œrİ©ó¨\ÚvõU\ãVƒ—f\İc\í+Y·ã™',2),(178,'Peregrinitos','',0,'pregrinitos@gmail.com',_binary '\ÌW/\Êf\Ôp89K9\Â\'\\',0),(191,'Peregrinitosss','',0,'peregrinitos@gmail.com',_binary '\ÌW/\Êf\Ôp89K9\Â\'\\',116);
+INSERT INTO `tienda` VALUES (1,'Marianitas','calle 92 bis',0,'mari@gmail.com',_binary 'ï¿½ï¿½ï¿½Gï¿½/\0ï¿½ï¿½-\0ï¿½ï¿½vWHÙƒï¿½4ï¿½ï¿½	ï¿½lï¿½;ï¿½)bï¿½ï¿½ï¿½!ï¿½\\ï¿½ï¿½:$*ï¿½Ô²ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Gï¿½:ï¿½3eï¿½#n\Z',126),(2,'ElectroShop BogotÃ¡','Av. BoyacÃ¡ # 71-45',3123456789,'info@electroshopbogota.com','',93),(3,'LibrerÃ­a El Saber','Calle 72 # 6-14',3145678901,'ventas@libreriaelsaber.com','',94),(4,'Farmacia La Salud','Carrera 15 # 101-34',3178901234,'atencion@farmacialasalud.com','',95),(5,'Moda y Estilo','Calle 85 # 10-20',3189012345,'info@modayestilo.com','',96),(6,'Deportes y MÃ¡s','Calle 53 # 21-12',3190123456,'contacto@deportesymas.com','',97),(7,'Tienda de Abarrotes La Familia','Cra 19 # 32-15',3201234567,'ventas@tiendafamilia.com','',98),(8,'Muebles y DecoraciÃ³n','Av. JimÃ©nez # 5-60',3212345678,'info@mueblesdecoracion.com','',99),(9,'JugueterÃ­a Divertida','Cra 10 # 22-30',3223456789,'contacto@jugueteriadivertida.com','',100),(10,'PanaderÃ­a El Trigo','Calle 50 # 8-90',3234567890,'info@panaderiaeltrigo.com','',101),(11,'CafÃ© Gourmet','Cra 9 # 45-67',3245678901,'contacto@cafegourmet.com','',102),(12,'Ropa y Moda','Av. Caracas # 48-20',3256789012,'info@ropaymoda.com','',103),(13,'TecnologÃ­a al DÃ­a','Calle 26 # 11-25',3267890123,'ventas@tecnologiaaldia.com','',104),(14,'LÃ¡cteos y MÃ¡s','Cra 7 # 10-45',3278901234,'info@lacteosymas.com','',105),(15,'Tienda de Vinos','Calle 94 # 17-30',3289012345,'contacto@tiendadevinos.com','',106),(16,'ZapaterÃ­a El Paso','Cra 22 # 5-90',3290123456,'info@zapateriaalpaso.com','',107),(17,'Delicatessen Gourmet','Calle 55 # 12-65',3301234567,'ventas@delicatessengourmet.com','',108),(18,'ElectrodomÃ©sticos Centro','Av. El Dorado # 20-40',3312345678,'contacto@electrodomesticoscentro.com','',109),(19,'FloristerÃ­a Elegante','Cra 3 # 21-75',3323456789,'info@floristeriaelegante.com','',110),(20,'Tienda de Deportes','Calle 17 # 3-60',3334567890,'contacto@tiendadeportes.com','',111),(21,'PastelerÃ­a La Dulce Vida','Cra 12 # 45-89',3345678901,'info@pastelerialadulcevida.com','',112),(22,'Centro de Belleza','Av. Chile # 25-40',3356789012,'contacto@centrobelleza.com','',113),(23,'Muebles Modernos','Calle 8 # 18-90',3367890123,'ventas@mueblesmodernos.com','',114),(24,'Juguetes para Todos','Cra 11 # 25-15',3378901234,'info@juguetesparatodos.com','',115),(26,'PerfumerÃ­a y CosmÃ©ticos','Cra 16 # 30-45',3390123456,'info@perfumeriaycosmeticos.com','',117),(27,'Tiendas El Ahorro','Calle 32 # 22-90',3401234567,'contacto@tiendaselahorro.com','',118),(28,'Tienda de TecnologÃ­a','Av. San MartÃ­n # 50-60',3412345678,'ventas@tiendatecnologia.com','',119),(29,'LibrerÃ­a y PapelerÃ­a','Cra 8 # 15-70',3423456789,'info@libreriaypapeleria.com','',120),(30,'Ropa y Calzado','Calle 46 # 22-80',3434567890,'contacto@ropaycalzado.com','',121),(31,'La esquina','calle 56',3125256732,'esquinastienda@gmail.com',_binary 'ï¿½ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½;<Dl*ï¿½',1),(80,'Margaritas','calle 32',123412,'tienda@gmail.com',_binary 'İ‚(Jï¿½ï¿½?ï¿½ï¿½_Ö¦Ù¥',122),(90,'Los rosales','calle 6a',3156782834,'losrosalestienda@gmail.com',_binary 'ï¿½UjI\0ï¿½uÈª00vG',123),(91,'Polleria 22','calle 82a',317462345,'pollosla22@gmail.com',_binary 'ï¿½ï¿½xeï¿½ï¿½ï¿½9ï¿½]ykï¿½ï¿½t',124),(129,'Prueba','Calle 83 #89a-34',3156793467,'prueba@gmail.com',_binary 'Iï¿½.q=ï¿½-ï¿½UTï¿½\rï¿½',127),(163,'dasd','asd',12334,'asd@gmail.com',_binary 'ï¿½\rï¿½/+ï¿½!ï¿½LDï¿½ï¿½zï¿½ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™',11),(169,'Peregrinos','',0,'peregrinos@gmail.com',_binary 'ï¿½\0ï¿½rİ©ï¿½ï¿½vï¿½Uï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™',2),(178,'Peregrinitos','',0,'pregrinitos@gmail.com',_binary 'ï¿½W/ï¿½fï¿½p89K9ï¿½\'\\',0),(191,'Peregrinitosss','',0,'peregrinitos@gmail.com',_binary 'ï¿½W/ï¿½fï¿½p89K9ï¿½\'\\',116);
 /*!40000 ALTER TABLE `tienda` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -317,32 +454,9 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `adaxstore`.`encriptarContrasenasTienda`
-BEFORE INSERT ON `adaxstore`.`tienda`
-FOR EACH ROW
-begin
-set new.contrasena = AES_ENCRYPT(new.contrasena, "adaxdecripter2024");
-end */;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER before_insert_tienda
-BEFORE INSERT ON tienda
-FOR EACH ROW
-BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `before_insert_tienda` BEFORE INSERT ON `tienda` FOR EACH ROW BEGIN
     SET NEW.codigo_invitacion = NEW.idtienda + 100;
 
     -- AsegÃºrate de que el valor sea Ãºnico
@@ -362,12 +476,26 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `adaxstore`.`actualizarContrasenaEncriptadaTienda`
-BEFORE UPDATE ON `adaxstore`.`tienda`
-FOR EACH ROW
-begin
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `encriptarContrasenasTienda` BEFORE INSERT ON `tienda` FOR EACH ROW begin
+set new.contrasena = AES_ENCRYPT(new.contrasena, "adaxdecripter2024");
+end */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `actualizarContrasenaEncriptadaTienda` BEFORE UPDATE ON `tienda` FOR EACH ROW begin
 set new.contrasena = aes_encrypt(new.contrasena, "adaxdecripter2024");
 end */;;
 DELIMITER ;
@@ -395,8 +523,10 @@ CREATE TABLE `usuarios` (
   `rol_id_Rol` int(11) NOT NULL,
   `codigo_invitacion` int(11) NOT NULL,
   `tienda_idtienda` int(11) DEFAULT NULL,
+  `codigo` varchar(6) NOT NULL,
   PRIMARY KEY (`documento`),
   UNIQUE KEY `documento_UNIQUE` (`documento`),
+  UNIQUE KEY `correo` (`correo`),
   KEY `fk_usuarios_rol1_idx` (`rol_id_Rol`),
   KEY `fk_usuarios_tienda1_idx` (`tienda_idtienda`),
   CONSTRAINT `fk_usuarios_rol1` FOREIGN KEY (`rol_id_Rol`) REFERENCES `rol` (`id_Rol`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -410,7 +540,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'TI',_binary 'zï¿½`ï¿½ï¿½ï¿½Eï¿½G/ï¿½ï¿½ï¿½xbO>~0Âƒï¿½ï¿½Yï¿½N\\ï¿½%','Damian','','Camacho','','da@gmail.com',2,123,1),(2,'CC',_binary 'ï¿½ï¿½ï¿½Gï¿½/\0ï¿½ï¿½-\0ï¿½ï¿½vWHÙƒï¿½4ï¿½ï¿½	ï¿½lï¿½;ï¿½)bï¿½ï¿½ï¿½!ï¿½\\ï¿½ï¿½:$*ï¿½Ô²ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½Gï¿½:ï¿½3eï¿½#n\Z','Mariana','','Jimenez','','marianita@gmail.com',2,123,2),(10001,'CE',_binary 'ió=÷©CLf«—Š_\Øù','Damianohjhkjhjk','','Camacho','','damiancho@gmail.com',3,94,3),(1001331,'CC',_binary 'sï¿½eï¿½ï¿½lï¿½&ï¿½ï¿½ï¿½Z(ï¿½yï¿½ï¿½.ï¿½\n ï¿½Gï¿½ï¿½ï¿½ï¿½#','javier','','lopez','','javier23@gmail.com',2,0,2),(101088908,'CC',_binary 'ï¿½ï¿½ï¿½\"@ï¿½ï¿½ï¿½ï¿½pï¿½*S','Santiago','','Martinez','','matinotes95@gmail.com',1,0,3),(1000133145,'CC',_binary '’\ru\ÏĞ’ k\Ê\Ö3û1s\ã','Santiago','','Martinez','','martinotes@gmail.com',2,123,90),(1000145674,'CC',_binary 'ş\nÜ×n‹L\Ğ/“¨','SI','','Si','','si@gmail.com',2,123,90),(1000234567,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Maria','Fernanda','Lopez','Castro','maria.lopez@example.com',2,0,7),(1000345678,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Andres','Felipe','Rodriguez','Sierra','andres.rodriguez@example.com',3,0,1),(1000456789,'CC','','Laura','Isabel','Hernandez','Martinez','laura.hernandez@example.com',1,0,1),(1000567890,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Carlos','Andres','Mendoza','Valencia','carlos.mendoza@example.com',2,0,4),(1000678901,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Valentina','Paredes','Cruz','GarcÃ­a','valentina.paredes@example.com',3,0,2),(1000789012,'CC','','Sebastian','Gonzalez','Ardila','Ospina','sebastian.gonzalez@example.com',1,0,2),(1000890123,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Catalina','Cruz','Cardenas','Rodriguez','catalina.cruz@example.com',2,0,2),(1000901234,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Nicolas','Sanchez','Henao','Rivas','nicolas.sanchez@example.com',3,0,3),(1001012345,'CC','','Sofia','Torres','Morales','SuÃ¡rez','sofia.torres@example.com',1,0,1),(1001123456,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Daniela','Ramirez','Cano','Loaiza','daniela.ramirez@example.com',2,0,3),(1001234567,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Alejandro','Hernandez','Mora','Hurtado','alejandro.hernandez@example.com',3,0,4),(1001345678,'CC','','Isabella','Mendoza','PÃ©rez','Orjuela','isabella.mendoza@example.com',1,0,1),(1001456789,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Jorge','Martinez','GÃ³mez','MÃ©ndez','jorge.martinez@example.com',2,0,4),(1001567890,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Camila','Guerra','PatiÃ±o','GarcÃ­a','camila.guerra@example.com',3,0,5),(1001678901,'CC','','Felipe','Castro','Bermudez','GarcÃ­a','felipe.castro@example.com',1,0,2),(1001789012,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Mariana','Pineda','Pineda','Arboleda','mariana.pineda@example.com',2,0,8),(1001890123,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','David','Gomez','Arias','Correa','david.gomez@example.com',3,0,6),(1001901234,'CC','','Juliana','Ospina','Bermudez','Jaramillo','juliana.ospina@example.com',1,0,1),(1002012345,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Mateo','Guerrero','Reyes','PatiÃ±o','mateo.guerrero@example.com',2,0,3),(1002123456,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Valeria','Rojas','Martinez','Vargas','valeria.rojas@example.com',3,0,7),(1002234567,'CC','','Lucas','Vega','Ospina','Castro','lucas.vega@example.com',1,0,1),(1002345678,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Natalia','Cano','GuzmÃ¡n','GarcÃ­a','natalia.cano@example.com',2,0,9),(1002456789,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Juanita','Jaramillo','Mendoza','Ardila','juanita.jaramillo@example.com',3,0,8),(1002567890,'CC','','Mateo','Vargas','Pineda','Cano','mateo.vargas@example.com',1,0,1),(1002678901,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Emilia','Cordero','GÃ³mez','Cano','emilia.cordero@example.com',2,0,10),(1002789012,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Samir','Alvarez','RincÃ³n','Mora','samir.alvarez@example.com',3,0,9),(1002890123,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Paola','Martinez','PatiÃ±o','Ospina','paola.martinez@example.com',1,0,1),(1002901234,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','JuliÃ¡n','RincÃ³n','GuzmÃ¡n','Rivas','julian.rincon@example.com',2,0,5),(1003012345,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Diana','Uribe','Salazar','SÃ¡nchez','diana.uribe@example.com',3,0,10),(1003234567,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Carolina','Sierra','LÃ³pez','CastaÃ±o','carolina.sierra@example.com',2,0,6),(1003345678,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','SebastiÃ¡n','MartÃ­nez','Ospina','MÃ©ndez','sebastian.martinez@example.com',3,0,11),(1010101011,'CC',_binary '¶<-\Õ$\ì–$\á.\è»\Æ2','jajaja','','jhajajaj','','sisas@gmail.com',1,123,90),(1234567891,'CC',_binary 'ió=÷©CLf«—Š_\Øù','Damiancho','','Camacho','','damono600@gmail.com',1,94,3);
+INSERT INTO `usuarios` VALUES (1,'TI',_binary '¡\Í>ö&l7—S\'±Fø<«¨\r2sªD>\Z§óÃ•œ\\<—aP‰š)şŸ†¼¦g/˜<\ZÀ1dú\Æ˜ş@™','Damian','','Camacho','','da@gmail.com',2,123,1,'421502'),(2,'CC',_binary '÷E{8%²9yœx\ænŠ\Ô,#œ.\ïü\Z—_\ètÅ®','Mariana','','Jimenez','','marianita@gmail.com',2,123,2,''),(10001,'CE',_binary 'iï¿½=ï¿½ï¿½ï¿½CLfï¿½ï¿½ï¿½_ï¿½ï¿½','Damianohjhkjhjk','','Camacho','','damiancho@gmail.com',3,94,3,''),(1001331,'CC',_binary 'sï¿½eï¿½ï¿½lï¿½&ï¿½ï¿½ï¿½Z(ï¿½yï¿½ï¿½.ï¿½\n ï¿½Gï¿½ï¿½ï¿½ï¿½#','javier','','lopez','','javier23@gmail.com',2,0,2,''),(101088908,'CC',_binary '”\× œ€¨È‹şû\Şó\'or[¢5ö¨„Ix=­‹b(%\\o¢ş\ä¹X¢\Æzk¯™œ„\á\ÎĞ»„\å€:sş*#ğ’¤€2¦µté†§\ïp\Z<‘C\ä\Ø\ãVƒ—f\İc\í+Y·ã™','Santiago','','Martinez','','matinotes956@gmail.com',1,0,3,'440243'),(102369956,'CC',_binary '\å¬½_ú\×³:imŒ›','Juan','','Perez','GonzÃ¡lez','juan.perez@example.com',2,123,2,''),(1000133145,'CC',_binary 'ï¿½\ruï¿½Ğ’ï¿½kï¿½ï¿½3ï¿½1sï¿½','Santiago','','Martinez','','martinotes@gmail.com',2,123,90,''),(1000145674,'CC',_binary 'ï¿½\nÜ×nï¿½Lï¿½/ï¿½ï¿½','SI','','Si','','si@gmail.com',2,123,90,''),(1000234567,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Maria','Fernanda','Lopez','Castro','maria.lopez@example.com',2,0,7,''),(1000345678,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Andres','Felipe','Rodriguez','Sierra','andres.rodriguez@example.com',3,0,1,''),(1000456789,'CC','','Laura','Isabel','Hernandez','Martinez','laura.hernandez@example.com',1,0,1,''),(1000567890,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Carlos','Andres','Mendoza','Valencia','carlos.mendoza@example.com',2,0,4,''),(1000678901,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Valentina','Paredes','Cruz','GarcÃ­a','valentina.paredes@example.com',3,0,2,''),(1000789012,'CC','','Sebastian','Gonzalez','Ardila','Ospina','sebastian.gonzalez@example.com',1,0,2,''),(1000890123,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Catalina','Cruz','Cardenas','Rodriguez','catalina.cruz@example.com',2,0,2,''),(1000901234,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Nicolas','Sanchez','Henao','Rivas','nicolas.sanchez@example.com',3,0,3,''),(1001012345,'CC','','Sofia','Torres','Morales','SuÃ¡rez','sofia.torres@example.com',1,0,1,''),(1001123456,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Daniela','Ramirez','Cano','Loaiza','daniela.ramirez@example.com',2,0,3,''),(1001234567,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Alejandro','Hernandez','Mora','Hurtado','alejandro.hernandez@example.com',3,0,4,''),(1001345678,'CC','','Isabella','Mendoza','PÃ©rez','Orjuela','isabella.mendoza@example.com',1,0,1,''),(1001456789,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Jorge','Martinez','GÃ³mez','MÃ©ndez','jorge.martinez@example.com',2,0,4,''),(1001567890,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Camila','Guerra','PatiÃ±o','GarcÃ­a','camila.guerra@example.com',3,0,5,''),(1001678901,'CC','','Felipe','Castro','Bermudez','GarcÃ­a','felipe.castro@example.com',1,0,2,''),(1001789012,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Mariana','Pineda','Pineda','Arboleda','mariana.pineda@example.com',2,0,8,''),(1001890123,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','David','Gomez','Arias','Correa','david.gomez@example.com',3,0,6,''),(1001901234,'CC','','Juliana','Ospina','Bermudez','Jaramillo','juliana.ospina@example.com',1,0,1,''),(1002012345,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Mateo','Guerrero','Reyes','PatiÃ±o','mateo.guerrero@example.com',2,0,3,''),(1002123456,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Valeria','Rojas','Martinez','Vargas','valeria.rojas@example.com',3,0,7,''),(1002234567,'CC','','Lucas','Vega','Ospina','Castro','lucas.vega@example.com',1,0,1,''),(1002345678,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Natalia','Cano','GuzmÃ¡n','GarcÃ­a','natalia.cano@example.com',2,0,9,''),(1002456789,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Juanita','Jaramillo','Mendoza','Ardila','juanita.jaramillo@example.com',3,0,8,''),(1002567890,'CC','','Mateo','Vargas','Pineda','Cano','mateo.vargas@example.com',1,0,1,''),(1002678901,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Emilia','Cordero','GÃ³mez','Cano','emilia.cordero@example.com',2,0,10,''),(1002789012,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Samir','Alvarez','RincÃ³n','Mora','samir.alvarez@example.com',3,0,9,''),(1002890123,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Paola','Martinez','PatiÃ±o','Ospina','paola.martinez@example.com',1,0,1,''),(1002901234,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','JuliÃ¡n','RincÃ³n','GuzmÃ¡n','Rivas','julian.rincon@example.com',2,0,5,''),(1003012345,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Diana','Uribe','Salazar','SÃ¡nchez','diana.uribe@example.com',3,0,10,''),(1003234567,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','Carolina','Sierra','LÃ³pez','CastaÃ±o','carolina.sierra@example.com',2,0,6,''),(1003345678,'CC',_binary 'ï¿½Vï¿½ï¿½fï¿½cï¿½+Yï¿½ã™','SebastiÃ¡n','MartÃ­nez','Ospina','MÃ©ndez','sebastian.martinez@example.com',3,0,11,''),(1010101011,'CC',_binary 'ï¿½<-ï¿½$ï¿½$ï¿½.ï¿½ï¿½ï¿½2','jajaja','','jhajajaj','','sisas@gmail.com',1,123,90,''),(1011322703,'CC',_binary 'W \Ë™\äÁ&\ŞW—Ál\Ä;\'\Ø\Éõ‰C°$1Y/P\×L\ÎW«^FJS1¦#õ¢@¤\Øó“7€ká‚•`\Îşh™!#t@\ä\Ò÷¿=ˆ‚şhûF\âÇ½XP3Ì’(\ê~$½”\å„4‡\\hC\Ô2\îH6Irõ´¹\rTØ³.\Â\ë•_É ¹§\Ä\nM-D\Õ‹?Y\àh?S°\ëR3²q™\ä}\à\"ş’Š½\Ù\êœdV•­ûK GfùŒ,.$\ÚS\'ÒŠ\Ğw 4\Z6´g³©ñÃ£%ı–*/\Ô?p¬Ki\ã#ÀU—Á?ñ=¦+jŒ\êqÀ\å3l²œBPo¼YÁ#ùª\â','Santiago',NULL,'MartÃ­nez','Molina','martinotes95@gmail.com',1,94,3,'476716'),(1021674896,'CC',_binary '%€\ZF\Û\Ã\ÙDö.“(Jzè£¢©U¸z©-­Ôv¤/\ÇH²4\Æ\nü]‹M8Z¤¡+Iuu€D_¢|\ÖjóE-³¨\Ä·°i·[g;½/¥8ñA‡±¢\Ü\ê\îÛ—œ¥‘k\é¦\\o¢ş\ä¹X¢\Æzk¯™œ„\á\ÎĞ»„\å€:sş*#ğ’¤€2¦µté†§\ïp\Z<‘C\ä\Ø\ãVƒ—f\İc\í+Y·ã™','Evelyn','','Giraldo','Torres','evelynestefaniagiraldotorres@gmail.com',1,123,3,'282829'),(1234567891,'CC',_binary 'ió=÷©CLf«—Š_\Øù','Damiancho','','Camacho','','damono600@gmail.com',1,94,3,'907555');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -420,12 +550,9 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger encriptarContrasenas
-before insert on usuarios
-for each row
-begin
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `encriptarContrasenas` BEFORE INSERT ON `usuarios` FOR EACH ROW begin
 set new.contrasena = AES_ENCRYPT(new.contrasena, "adaxdecripter2024");
 end */;;
 DELIMITER ;
@@ -440,12 +567,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger actualizarContrasenaEncriptada
-before update on usuarios
-for each row
-begin
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `actualizarContrasenaEncriptada` BEFORE UPDATE ON `usuarios` FOR EACH ROW begin
 set new.contrasena = aes_encrypt(new.contrasena, "adaxdecripter2024");
 end */;;
 DELIMITER ;
@@ -466,23 +590,22 @@ CREATE TABLE `venta` (
   `FechaVenta` date DEFAULT NULL,
   `HoraVenta` time NOT NULL,
   `EstadoVenta` varchar(10) NOT NULL,
-  `cliente_id_Cliente` int(11) NOT NULL,
+  `cliente_documento_Cliente` int(11) NOT NULL,
   `tienda_idtienda` int(11) NOT NULL,
   `metododepago_ID_Met_pago` int(11) NOT NULL,
   `usuarios_documento` bigint(20) NOT NULL,
   `usuarios_tienda_idtienda` int(11) NOT NULL,
   PRIMARY KEY (`id_Venta`,`usuarios_documento`,`usuarios_tienda_idtienda`),
-  KEY `fk_venta_cliente1_idx` (`cliente_id_Cliente`),
   KEY `fk_venta_tienda1_idx` (`tienda_idtienda`),
   KEY `fk_venta_metodo de pago1_idx` (`metododepago_ID_Met_pago`),
   KEY `fk_venta_usuarios1_idx` (`usuarios_documento`,`usuarios_tienda_idtienda`),
   KEY `fk_venta_usuarios2` (`usuarios_tienda_idtienda`),
-  CONSTRAINT `fk_venta_cliente1` FOREIGN KEY (`cliente_id_Cliente`) REFERENCES `cliente` (`id_Cliente`) ON DELETE CASCADE ON UPDATE CASCADE,
+  KEY `fk_venta_cliente_documento1_idx` (`cliente_documento_Cliente`),
   CONSTRAINT `fk_venta_metodo de pago1` FOREIGN KEY (`metododepago_ID_Met_pago`) REFERENCES `metododepago` (`ID_Met_pago`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_venta_tienda1` FOREIGN KEY (`tienda_idtienda`) REFERENCES `tienda` (`idtienda`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_venta_usuarios1` FOREIGN KEY (`usuarios_documento`) REFERENCES `usuarios` (`documento`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_venta_usuarios2` FOREIGN KEY (`usuarios_tienda_idtienda`) REFERENCES `usuarios` (`tienda_idtienda`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -491,7 +614,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (3,'2024-05-14','14:44:00','Anulada',3,3,3,2,2),(5,'2024-05-16','00:00:00','Pendiente',5,5,5,1001331,2),(7,'2024-05-18','00:00:00','Completa',7,2,2,101088908,3),(10,'2024-05-21','21:11:00','Completa',10,5,5,1000456789,2),(13,'2024-05-24','00:44:00','Completa',13,3,3,1000678901,2),(15,'2024-05-26','00:00:00','Anulada',15,5,5,1000890123,2),(17,'2024-05-28','00:00:00','Pendiente',17,2,2,1000901234,3),(20,'2024-05-31','07:11:00','Pendiente',20,5,5,1001234567,4),(23,'2024-06-03','10:44:00','Pendiente',23,3,3,1001456789,2),(24,'2024-06-04','11:55:00','Anulada',24,4,4,1001567890,3),(25,'2024-06-05','00:00:00','Completa',25,5,5,1001678901,2),(27,'2024-06-07','00:00:00','Anulada',27,2,2,1001789012,8),(28,'2024-06-08','00:00:00','Completa',28,3,3,1001890123,6),(30,'2024-06-10','17:11:00','Anulada',30,5,5,1002012345,3);
+INSERT INTO `venta` VALUES (3,'2024-05-14','14:44:00','Anulada',1012345678,3,3,2,2),(5,'2024-05-16','00:00:00','Pendiente',1023456789,3,5,1001331,2),(7,'2024-05-18','00:00:00','Completa',1167890125,3,2,101088908,3),(10,'2024-05-21','21:11:00','Completa',10,5,5,1000456789,2),(13,'2024-05-24','00:44:00','Completa',1190123458,3,3,1000678901,2),(15,'2024-05-26','00:00:00','Anulada',15,5,5,1000890123,2),(17,'2024-05-28','00:00:00','Pendiente',17,2,2,1000901234,3),(20,'2024-05-31','07:11:00','Pendiente',20,5,5,1001234567,4),(23,'2024-06-03','10:44:00','Pendiente',23,3,3,1001456789,2),(24,'2024-06-04','11:55:00','Anulada',24,4,4,1001567890,3),(25,'2024-06-05','00:00:00','Completa',25,5,5,1001678901,2),(27,'2024-06-07','00:00:00','Anulada',27,2,2,1001789012,8),(28,'2024-06-08','00:00:00','Completa',28,3,3,1001890123,6),(30,'2024-06-10','17:11:00','Anulada',30,5,5,1002012345,3),(31,'2025-04-01','00:00:00','Completa',1,2,1,1011322703,3);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -510,9 +633,9 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClave`(docu int) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClave`(`docu` INT) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
 BEGIN
 declare contrasenaDesencriptada varchar(45);
 select aes_decrypt(contrasena, "adaxdecripter2024") into contrasenaDesencriptada from usuarios where documento = docu;
@@ -529,9 +652,9 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClaveCorreo`(`email` VARCHAR(45)) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
 BEGIN
@@ -556,9 +679,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClaveCorreoTienda`(email varchar(45)) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClaveCorreoTienda`(`email` VARCHAR(45)) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
 BEGIN
 declare contrasenaDesencriptada varchar(45);
 select aes_decrypt(contrasena, "adaxdecripter2024") into contrasenaDesencriptada from tienda where correo = email;
@@ -577,9 +700,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClaveTienda`(docu int) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
+CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClaveTienda`(`docu` INT) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
 BEGIN
 declare contrasenaDesencriptada varchar(45);
 select aes_decrypt(contrasena, "adaxdecripter2024") into contrasenaDesencriptada from tienda where documento = docu;
@@ -598,7 +721,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `obtener_historial_movimientos`(`id_Venta` INT(11)) RETURNS decimal(10,2)
 BEGIN
@@ -621,7 +744,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `obtener_stock_producto`(`p_id_producto` INT(11)) RETURNS int(11)
 BEGIN
@@ -642,7 +765,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `producto_mas_vendido`() RETURNS int(11)
 BEGIN
@@ -673,7 +796,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `total_cliente`() RETURNS int(11)
 BEGIN  
@@ -695,7 +818,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` FUNCTION `Total_venta`(`dia_venta` DATE) RETURNS decimal(10,2)
 BEGIN
@@ -725,7 +848,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `BucarProductospopularidad`(IN `Nivel_popu` VARCHAR(20))
 BEGIN
@@ -754,7 +877,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `BuscarFactura`(IN `id_fac` INT(11))
 BEGIN
@@ -774,7 +897,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Fechasdesdehasta`(IN `fecha1` DATE, IN `fecha2` DATE)
 BEGIN
@@ -796,7 +919,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarProducto`(IN `id_Producto` INT(11), IN `Nombre` VARCHAR(100), IN `Precio_unit` DOUBLE, IN `Cantidad` INT(11))
 BEGIN
@@ -819,7 +942,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ModificarProducto`(IN `id_Producto ` INT(11), IN `NuevoNombre` VARCHAR(100), IN `NuevaCantidad ` INT(11), IN `NuevoPrecio` DOUBLE, IN `NuevoStockMinimo` INT(11), IN `NuevaPresentacion ` VARCHAR(100), IN `NuevaMarca` VARCHAR(100), IN `PromocionActual ` VARCHAR(100), IN `NuevaCategoria ` VARCHAR(50), IN `NuevaFechaVencimiento` DATE)
 BEGIN
@@ -849,7 +972,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `monstrar_proveedor_de_producto`(IN `p_id_Producto` INT(11))
 BEGIN 
@@ -873,7 +996,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_proveedor_de_producto`(IN `p_id_Producto` INT(11))
 BEGIN 
@@ -897,7 +1020,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `RecuperarContrasenaUsuario`(IN `p_correo ` VARCHAR(100))
 BEGIN
@@ -926,7 +1049,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `RecuperarContrasenaUsuario2`(IN `p_correo` VARCHAR(100))
 BEGIN
@@ -960,4 +1083,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-28  7:46:33
+-- Dump completed on 2025-04-17 14:14:11
