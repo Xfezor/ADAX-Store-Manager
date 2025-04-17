@@ -123,10 +123,12 @@ function Movimientos() {
                     <thead className={styles["table-head"]}>
                         <tr className={styles.trgespro}>
                             <th className={styles.thgespro}>ID</th>
-                            <th className={styles.thgespro}>Cantidad en el inventario</th>
+                            <th className={styles.thgespro}>Producto</th>
+                            <th className={styles.thgespro}>Stock antes</th>
+                            <th className={styles.thgespro}>Entradas</th>
+                            <th className={styles.thgespro}>Salidas</th>
+                            <th className={styles.thgespro}>Stock despues</th>
                             <th className={styles.thgespro}>Fecha del movimiento</th>
-                            <th className={styles.thgespro}>Fecha de modificacion</th>
-                            <th className={styles.thgespro}>Estado</th>
                         </tr>
                     </thead>
                     <tbody className={styles["table-body"]}>
@@ -138,6 +140,8 @@ function Movimientos() {
                                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[2]}</td>
                                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[3]}</td>
                                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[4]}</td>
+                                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[5]}</td>
+                                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[6]}</td>
 
                                 </tr>
                             )

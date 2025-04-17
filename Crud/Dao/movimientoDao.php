@@ -64,11 +64,12 @@ class MovimientoDao{
             echo 'Error'. $ex->getMessage();
         }
     }
-    public function listarTodosPorTienda(){
+    public function listarTodosPorTienda($codigo_invitacion){
         $conn = Conexion::getConexion();
         try {
-            $listarMovimiento = 'SELECT m.id_Movimiento,m.cantidad_despues,m.fecha_movimiento,m.fecha_modificacion,m.estado_despues from movimientos m inner join inventario i on i.id_Inventario = m.inventario_id_Inventario inner join tienda t on i.tienda_idtienda = t.idtienda where t.codigo_invitacion = 94; ';
+            $listarMovimiento = 'SELECT m.id_Movimiento, (select p.Nombre from producto p where m.id_Producto_id = p.id_Producto) as Producto, m.stock_antes, m.entradas, m.salidas, m.stock_despues, m.fecha_movimiento from movimientos m inner join inventario i on i.id_Inventario = m.inventario_id_Inventario inner join tienda t on i.tienda_idtienda = t.idtienda inner join producto p on p.inventario_id_Inventario = i.id_Inventario where t.codigo_invitacion = ?;';
             $query = $conn->prepare($listarMovimiento);
+            $query->bindParam(1, $codigo_invitacion);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception  $ex) {

@@ -28,6 +28,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $listar = $_GET['listar'];
         } else if (isset($_GET['listarPorTienda'])) {
             $listarPorTienda = $_GET['listarPorTienda'];
+            $codigo_invitacion = $_GET['listarPorTienda'];
         }
         break;
     case 'POST':
@@ -90,16 +91,18 @@ if (isset($_POST['registro'])) {
 else if (isset($listarPorTienda)) {
     $mDao = new MovimientoDao();
     $mDto = new MovimientoDto();
-    $lista = $mDao->listarTodosPorTienda();
+    $lista = $mDao->listarTodosPorTienda($codigo_invitacion);
     $response = [];
     foreach ($lista as $movimiento) {
         // Asegúrate de que cada  sea un array o un objeto
         $response[] = [
             $movimiento['id_Movimiento'],
-            $movimiento['cantidad_despues'],
+            $movimiento['Producto'],
+            $movimiento['stock_antes'],
+            $movimiento['entradas'],
+            $movimiento['salidas'],
+            $movimiento['stock_despues'],
             $movimiento['fecha_movimiento'],
-            $movimiento['fecha_modificacion'],
-            $movimiento['estado_despues'],
         ];
     }
     echo json_encode($response);
