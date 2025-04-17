@@ -1,15 +1,48 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, BackHandler } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const IniciarSesion = ({ navigation }) => {
+const IniciarSesion = ({ navigation, route }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [selectedTab, setSelectedTab] = useState('empleado');
-  
+
   // Variables de conexión
-  const serverIP = "192.168.1.66"; // Asegúrate de que esta sea la IP correcta de tu servidor
+  const serverIP = "192.168.10.13"; // Asegúrate de que esta sea la IP correcta de tu servidor
   const serverPort = "80"; // Puerto predeterminado para HTTP
 
+
+  // Funcion para que no se devuelva a la pantalla anterior sino que cierre la app
+  useEffect(() => {
+    const handleBackPress = () => {
+      Alert.alert(
+        "Salir de la aplicación",
+        "¿Estás seguro de que quieres salir?",
+        [
+          { text: "Cancelar", style: "cancel" },
+          { text: "Salir", onPress: () => BackHandler.exitApp() },
+        ]
+      );
+      return true;
+    };
+  
+    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
+      if (route.name === 'IniciarSesion') {
+        e.preventDefault(); // Detén el regreso predeterminado
+        handleBackPress();
+      }
+    });
+    
+    if (route.name === 'IniciarSesion') {
+      BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+    }
+  
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
+      unsubscribe(); // Limpia el listener cuando la pantalla se desmonta
+    };
+  }, [navigation]);
+  
   const login = async () => {
     try {
       const response = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
@@ -17,7 +50,6 @@ const IniciarSesion = ({ navigation }) => {
       });
       const data = await response.json();
       console.log('Login successful:', data);
-      // Si el login es exitoso, navega a la pantalla de Actualizar
       navigation.navigate('MenuPrincipal');
     } catch (error) {
       console.error('Login error:', error);
@@ -38,7 +70,7 @@ const IniciarSesion = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo2.png')} style={styles.logo} />
-      
+
       <View style={styles.card}>
         <Text style={styles.title}>Iniciar Sesión</Text>
 

@@ -41,8 +41,15 @@ switch ($_SERVER['REQUEST_METHOD']) {// obtener datos del usuario de la sesion
         }
     break;
     case 'PUT':
-        if (isset($data['documento'])) {
-            $actualizar = $data['documento'];
+        if (isset($data['actualizarApp'])) {
+            $documento = $data['documento'] ?? null;
+            $nombre1 = $data['nombre1'] ?? null;
+            $nombre2 = $data['nombre2'] ?? null;
+            $apellido1 = $data['apellido1'] ?? null;
+            $apellido2 = $data['apellido2'] ?? null;
+            $tipodoc = $data['tipoDoc'] ?? null;
+            $email = $data['email'] ?? null;
+            $actualizarApp = $data['actualizarApp'];
         }
     break;
 }
@@ -132,7 +139,7 @@ if (isset($data['listar'])) {
 if (isset($data['eliminar'])) {
     $id = $data['eliminar'];
 }
-if (isset($data['actualizar'])){
+if (isset($data['actualizar']) ){
     $documento = $data['documento'];
     $tipodoc = $data['tipoDoc'];
     $contrasena = $data['contrasena'];
@@ -218,7 +225,7 @@ if (isset($registro) || isset($_GET['no'])) {
     $mensaje = $uDao->eliminarUsuario($id);
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
-} else if (isset($actualizar)) {
+} else if (isset($actualizar) && !isset($actualizarApp)) {
     $uDao = new UsuarioDao();
     $uDto = new UsuarioDto();
     $uDto->setDocumento($documento);
@@ -261,4 +268,18 @@ if (isset($registro) || isset($_GET['no'])) {
         echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
     }
     exit(); // Detener la ejecución después de enviar la respuesta
+} else if (isset($actualizarApp)) {
+    $uDao = new UsuarioDao();
+    $uDto = new UsuarioDto();
+    $uDto->setDocumento($documento);
+    $uDto->setNombre1($nombre1);
+    $uDto->setNombre2($nombre2);
+    $uDto->setApellido1($apellido1);
+    $uDto->setApellido2($apellido2);    
+    $uDto->setTipo_doc($tipodoc);
+    $uDto->setCorreo($email);
+
+    $mensaje = $uDao->modificarUsuarioApp($uDto);
+    echo json_encode(['success' => true, 'mensaje' => $mensaje]);
+    exit();
 }

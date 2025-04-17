@@ -55,7 +55,8 @@ if ($tipo === "empleado") {
         $cod = $valor->codigo_invitacion;
         $nombreTienda = $valor2->nombreTienda;
         $rol = $valor->rol_id_Rol;
-        echo json_encode(['success' => true, 'codigo_invitacion' => $cod, 'nombreTienda' => $nombreTienda, 'rol' => $rol]);
+        $documento = $valor->documento;
+        echo json_encode(['success' => true, 'codigo_invitacion' => $cod, 'nombreTienda' => $nombreTienda, 'rol' => $rol, 'documento' => $documento]);
         exit();
     } else {
         echo json_encode(['success' => false]);
