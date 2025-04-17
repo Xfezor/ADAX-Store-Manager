@@ -18,28 +18,31 @@ const ADAXApp = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
     const [codigoTienda, setCodigoTienda] = useState(null);
 
+  
     useEffect(() => {
         const obtenerCodigo = async () => {
             try {
                 const codigo = await AsyncStorage.getItem('codigo_invitacion');
+                console.log("CÓDIGO DE TIENDA ACTUAL:", codigo); // <-- para verificar
                 if (codigo !== null) {
                     setCodigoTienda(codigo);
                 } else {
                     setErrorMsg('No se encontró el código de la tienda.');
-                    setLoading(false);
                 }
             } catch (error) {
                 console.error('Error al obtener el código de la tienda:', error);
                 setErrorMsg('Error al acceder al almacenamiento local.');
+            } finally {
                 setLoading(false);
             }
         };
         obtenerCodigo();
     }, []);
 
+
     useEffect(() => {
         if (codigoTienda) {
-            const URL = `http://192.168.1.66/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
+            const URL = `http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
             fetch(URL)
                 .then(async response => {
                     const text = await response.text();
@@ -66,6 +69,7 @@ const ADAXApp = ({ navigation }) => {
         }
     }, [codigoTienda]);
 
+    // Función para calcular popularidad según la cantidad vendida
     const calcularPopularidad = (cantidad) => {
         const cantidadNumerica = Number(cantidad);
         if (cantidadNumerica > 100) return { texto: 'Popular', icono: 'popular' };
@@ -73,6 +77,7 @@ const ADAXApp = ({ navigation }) => {
         return { texto: 'No Popular', icono: 'nopopular' };
     };
 
+    // Función para renderizar el icono de popularidad
     const renderPopularidad = (item) => {
         const cantidad = item?.cantidad;
         const popularidadData = calcularPopularidad(cantidad);
@@ -90,21 +95,24 @@ const ADAXApp = ({ navigation }) => {
         );
     };
 
+   
     const menuOptions = [
         { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
-        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },
+        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'VentaCarrito' },
         { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },
         { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' },
     ];
 
+    // Manejo de navegación al seleccionar una opción del menú
     const handleNavigation = (route) => {
         if (route) navigation.navigate(route);
     };
 
+    
     if (loading) {
         return (
             <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
-                <Text>Cargando análisis para la tienda {codigoTienda}...</Text>
+                <Text>Cargando análisis para la tienda...</Text>
             </View>
         );
     }

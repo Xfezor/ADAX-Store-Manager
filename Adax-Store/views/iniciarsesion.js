@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity,
+  StyleSheet, Image, Alert
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const IniciarSesion = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [selectedTab, setSelectedTab] = useState('empleado');
-  
+
   // Variables de conexión
-  const serverIP = "192.168.1.66"; // Asegúrate de que esta sea la IP correcta de tu servidor
-  const serverPort = "80"; // Puerto predeterminado para HTTP
+  const serverIP = "192.168.1.11"; // Tu IP local
+  const serverPort = "80";
 
   const login = async () => {
     try {
@@ -16,29 +20,39 @@ const IniciarSesion = ({ navigation }) => {
         method: 'GET',
       });
       const data = await response.json();
-      console.log('Login successful:', data);
-      // Si el login es exitoso, navega a la pantalla de Actualizar
-      navigation.navigate('MenuPrincipal');
+      console.log('Respuesta del login:', data);
+
+      if (data.success) {
+        // Guardar el código de invitación o tienda
+        const codigo = data.codigo_invitacion || data.codigo_tienda || '';
+        if (codigo) {
+          await AsyncStorage.setItem('codigo_invitacion', codigo.toString());
+          console.log('Código guardado en AsyncStorage:', codigo);
+        }
+
+        // Navegar a la pantalla principal
+        navigation.navigate('MenuPrincipal');
+      } else {
+        Alert.alert('Error', 'Correo o contraseña incorrectos.');
+      }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Error en login:', error);
       Alert.alert('Error', 'No se pudo iniciar sesión. Intente de nuevo.');
     }
   };
 
-  const handleLogin = () => {
-    // Verificar si los campos de correo y contraseña están completos
+   const handleLogin = () => {
     if (!email || !password) {
       Alert.alert('Campos incompletos', 'Por favor ingresa tu correo electrónico y contraseña.');
       return;
     }
-    // Ejecuta la función de login
     login();
   };
 
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo2.png')} style={styles.logo} />
-      
+
       <View style={styles.card}>
         <Text style={styles.title}>Iniciar Sesión</Text>
 
@@ -77,8 +91,8 @@ const IniciarSesion = ({ navigation }) => {
           secureTextEntry
         />
 
-        <TouchableOpacity>
-          <Text style={styles.link} onPress={() => navigation.navigate('RegistrarUsuario')}>
+        <TouchableOpacity onPress={() => navigation.navigate('RegistrarUsuario')}>
+          <Text style={styles.link}>
             ¿Eres usuario nuevo? Regístrate <Text style={styles.highlight}>Aquí</Text>
           </Text>
         </TouchableOpacity>
@@ -104,13 +118,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-  },
-  clock: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    fontSize: 16,
-    color: '#333',
   },
   logo: {
     width: 120,

@@ -1,207 +1,476 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import React, { useState, useEffect } from 'react';
+import {
+    View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView,
+    Image, Keyboard, Alert
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 const VentaCarrito = () => {
-  const [busqueda, setBusqueda] = useState('');
-  const [carrito, setCarrito] = useState([
-    { nombre: 'Papaya', precio: 2000, cantidad: 1 },
-    { nombre: 'Arroz Diana Premium', precio: 3000, cantidad: 2 },
-  ]);
-  const [documento, setDocumento] = useState('');
+    const navigation = useNavigation();
+    const isFocused = useIsFocused();
+    const [busqueda, setBusqueda] = useState('');
+    const [carrito, setCarrito] = useState({});
+    const [documento, setDocumento] = useState('');
+    const [codigoTienda, setCodigoTienda] = useState(null);
+    const [cargandoTienda, setCargandoTienda] = useState(true);
+    const [productosDisponibles, setProductosDisponibles] = useState([]);
+    const [cargandoProductos, setCargandoProductos] = useState(false);
 
-  const modificarCantidad = (index, delta) => {
-    const nuevoCarrito = [...carrito];
-    nuevoCarrito[index].cantidad = Math.max(1, nuevoCarrito[index].cantidad + delta);
-    setCarrito(nuevoCarrito);
-  };
+    const menuOptions = [
+        { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
+        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'VentaCarrito' },
+        { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },
+        { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' },
+    ];
 
-  const calcularTotal = () => {
-    return carrito.reduce((total, item) => total + item.precio * item.cantidad, 0);
-  };
+    useEffect(() => {
+        const cargarDatos = async () => {
+            try {
+                setCargandoTienda(true);
+                const codigoGuardado = await AsyncStorage.getItem('codigo_invitacion');
+                if (!codigoGuardado) {
+                    Alert.alert('Tienda no configurada', 'No se encontró información de la tienda.');
+                    return;
+                }
+                setCodigoTienda(codigoGuardado);
+                await cargarProductos(codigoGuardado);
+            } catch (error) {
+                Alert.alert('Error', 'No se pudo cargar la información de la tienda');
+            } finally {
+                setCargandoTienda(false);
+            }
+        };
+        cargarDatos();
+    }, [isFocused]);
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <TouchableOpacity>
-          <MaterialIcons name="menu" size={30} color="black" />
-        </TouchableOpacity>
-      </View>
+    const cargarProductos = async (codigo) => {
+        setCargandoProductos(true);
+        try {
+            const response = await fetch(
+                `http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
+            );
+            const data = await response.json();
+            if (Array.isArray(data)) {
+                const productosFormateados = data.filter(item => Array.isArray(item) && item.length >= 3)
+                    .map((item, index) => ({
+                        id: `${item[1]}_${index}`,
+                        nombre: item[0],
+                        precio: parseFloat(item[2]) || 0,
+                        originalId: item[1],
+                    }));
+                setProductosDisponibles(productosFormateados);
+            } else {
+                Alert.alert('Error', 'Los datos recibidos no son válidos');
+            }
+        } catch (error) {
+            Alert.alert('Error', 'No se pudo cargar la lista de productos');
+        } finally {
+            setCargandoProductos(false);
+        }
+    };
 
-      <Text style={styles.title}>Venta</Text>
+    const modificarCantidad = (productoId, delta) => {
+        setCarrito(prev => {
+            const nuevo = { ...prev };
+            const cantidadActual = nuevo[productoId] || 0;
+            const nuevaCantidad = Math.max(0, cantidadActual + delta);
+            if (nuevaCantidad > 0) nuevo[productoId] = nuevaCantidad;
+            else delete nuevo[productoId];
+            return nuevo;
+        });
+    };
 
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Escriba el código o nombre del producto"
-        placeholderTextColor="#555"
-        value={busqueda}
-        onChangeText={setBusqueda}
-      />
+    const calcularTotal = () => {
+        return Object.keys(carrito).reduce((total, id) => {
+            const p = productosDisponibles.find(p => p.id === id);
+            return p ? total + p.precio * carrito[id] : total;
+        }, 0).toFixed(2);
+    };
 
-      <Text style={styles.title}>Carrito</Text>
+    const buscarProducto = () => {
+        if (!codigoTienda) {
+            Alert.alert('Tienda no configurada', 'No se encontró información de la tienda');
+            return;
+        }
+        if (busqueda.trim() === '') {
+            Alert.alert('Error', 'Ingresa un término de búsqueda');
+            return;
+        }
+        const termino = busqueda.toLowerCase().trim();
+        const encontrado = productosDisponibles.find(p => p.nombre.toLowerCase().includes(termino));
+        if (encontrado) {
+            setCarrito(prev => ({
+                ...prev,
+                [encontrado.id]: (prev[encontrado.id] || 0) + 1,
+            }));
+        } else {
+            Alert.alert('Aviso', 'Producto no encontrado');
+        }
+        Keyboard.dismiss();
+        setBusqueda('');
+    };
 
-      <View style={styles.carritoContainer}>
-        <View style={styles.tableHeader}>
-          <Text style={styles.headerText}>Nombre</Text>
-          <Text style={styles.headerText}>Precio</Text>
-          <Text style={styles.headerText}>Cantidad</Text>
-          <Text style={styles.headerText}>Operación</Text>
-        </View>
-        <ScrollView style={styles.scroll}>
-          {carrito.map((item, index) => (
-            <View key={index} style={styles.row}>
-              <Text style={styles.cell}>{item.nombre}</Text>
-              <Text style={styles.cell}>{item.precio}</Text>
-              <Text style={styles.cell}>{item.cantidad}</Text>
-              <View style={styles.buttonGroup}>
-                <TouchableOpacity onPress={() => modificarCantidad(index, 1)} style={styles.opButton}>
-                  <Text style={styles.opText}>+1</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => modificarCantidad(index, -1)} style={styles.opButton}>
-                  <Text style={styles.opText}>-1</Text>
-                </TouchableOpacity>
-              </View>
+    const registrarVenta = async () => {
+        if (!documento) {
+            Alert.alert('Error', 'Ingresa el documento del cliente');
+            return;
+        }
+
+        const productosVenta = Object.keys(carrito).map(id => {
+            const p = productosDisponibles.find(p => p.id === id);
+            return {
+                nombre: p.nombre,
+                cantidad: carrito[id],
+                precio_unitario: p.precio,
+                id: p.originalId,
+            };
+        }).filter(p => p.cantidad > 0);
+
+        if (productosVenta.length === 0) {
+            Alert.alert('Error', 'No hay productos en el carrito');
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                'http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php?registrarVenta=true',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ documento, codigo_tienda: codigoTienda, productos: productosVenta })
+                }
+            );
+            const resultado = await response.json();
+            if (resultado.success) {
+                Alert.alert('Éxito', 'Venta registrada correctamente');
+                setCarrito({});
+                setDocumento('');
+            } else {
+                Alert.alert('Error', resultado.message || 'No se pudo registrar la venta');
+            }
+        } catch (error) {
+            Alert.alert('Error', 'No se pudo conectar con el servidor');
+        }
+    };
+
+    const generarPago = () => {
+        const productosEnCarrito = productosDisponibles
+            .filter(item => carrito[item.id] > 0)
+            .map(item => ({
+                id: item.id,
+                nombre: item.nombre,
+                precio: item.precio,
+                cantidad: carrito[item.id],
+                subtotal: item.precio * carrito[item.id]
+            }));
+
+        navigation.navigate('Venta', {
+            productos: productosEnCarrito,
+            total: calcularTotal()
+        });
+    };
+
+    const handleNavigation = (route) => {
+        navigation.navigate(route);
+    };
+
+    if (cargandoTienda) {
+        return (
+            <View style={styles.cargandoContainer}>
+                <Text>Cargando información de la tienda...</Text>
             </View>
-          ))}
-        </ScrollView>
-      </View>
+        );
+    }
 
-      <View style={styles.docContainer}>
-        <Text style={styles.label}>Documento</Text>
-        <TextInput
-          style={styles.docInput}
-          placeholder="Ingrese el documento"
-          placeholderTextColor="#555"
-          value={documento}
-          onChangeText={setDocumento}
-        />
-      </View>
+    return (
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <Image source={require('../assets/logo.png')} style={styles.logo} />
+                <Text style={styles.tiendaText}>
+                    Tienda: {codigoTienda || 'No configurada'}
+                </Text>
+            </View>
 
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalLabel}>Precio Total</Text>
-        <Text style={styles.total}>${calcularTotal()}</Text>
-        <TouchableOpacity style={styles.pagoBtn}>
-          <Text style={styles.pagoText}>Generar Pago</Text>
-        </TouchableOpacity>
-      </View>
+            <Text style={styles.title}>Venta</Text>
 
-      <View style={styles.bottomNav}>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/producto.png')} style={styles.icon} />
-          <Text style={styles.navText}>Productos</Text>
+            <TextInput
+                style={styles.searchInput}
+                placeholder="Buscar producto por nombre"
+                placeholderTextColor="#555"
+                value={busqueda}
+                onChangeText={setBusqueda}
+                onSubmitEditing={buscarProducto}
+                returnKeyType="search"
+            />
+
+            {cargandoProductos && <Text style={{ textAlign: 'center' }}>Cargando productos...</Text>}
+
+            <Text style={styles.title}>Carrito</Text>
+            <View style={styles.carritoContainer}>
+                <View style={styles.tableHeader}>
+                    <Text style={[styles.headerText, { flex: 2 }]}>Producto</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>Precio</Text>
+                    <Text style={[styles.headerText, { flex: 1 }]}>Cantidad</Text>
+                    <Text style={[styles.headerText, { flex: 2 }]}>Acciones</Text>
+                </View>
+
+                <ScrollView style={styles.scroll}>
+                    {productosDisponibles.length > 0 ? (
+                        productosDisponibles.map((item) => (
+                            <View key={item.id} style={styles.row}>
+                                <Text style={[styles.cell, { flex: 2 }]} numberOfLines={1}>
+                                    {item.nombre}
+                                </Text>
+                                <Text style={[styles.cell, { flex: 1 }]}>{`$${item.precio.toFixed(2)}`}</Text>
+                                <Text style={[styles.cell, { flex: 1, textAlign: 'center' }]}>
+                                    {carrito[item.id] || 0}
+                                </Text>
+                                <View style={[styles.cell, { flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }]}>
+                                    <TouchableOpacity
+                                        style={styles.cantidadBtn}
+                                        onPress={() => modificarCantidad(item.id, -1)}
+                                    >
+                                        <Text style={styles.cantidadText}>-</Text>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={styles.cantidadBtn}
+                                        onPress={() => modificarCantidad(item.id, 1)}
+                                    >
+                                        <Text style={styles.cantidadText}>+</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        ))
+                    ) : (
+                        <Text style={styles.carritoVacio}>No hay productos disponibles</Text>
+                    )}
+                </ScrollView>
+            </View>
+
+            <View style={styles.docContainer}>
+                <Text style={styles.label}>Documento del cliente:</Text>
+                <TextInput
+                    style={styles.docInput}
+                    placeholder="Número de documento"
+                    placeholderTextColor="#555"
+                    value={documento}
+                    onChangeText={setDocumento}
+                    keyboardType="numeric"
+                />
+            </View>
+
+            <View style={styles.totalContainer}>
+                <Text style={styles.totalLabel}>Total a pagar:</Text>
+                <Text style={styles.total}>{`$${calcularTotal()}`}</Text>
+
+                <TouchableOpacity style={styles.pagoBtn} onPress={generarPago}>
+                    <Text style={styles.pagoBtnText}>Generar Pago</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.menuInferior}>
+                {menuOptions.map((opcion, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.opcionMenu}
+                        onPress={() => handleNavigation(opcion.route)}
+                    >
+                        <Image source={opcion.icon} style={styles.iconoMenu} />
+                        <Text style={styles.labelMenu}>{opcion.label}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/ventas.jpeg')} style={styles.icon} />
-          <Text style={styles.navText}>Ventas</Text>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/analisis.png')} style={styles.icon} />
-          <Text style={styles.navText}>Análisis</Text>
-        </View>
-        <View style={styles.navItem}>
-          <Image source={require('../assets/gestionar.jpeg')} style={styles.icon} />
-          <Text style={styles.navText}>Gestionar Ventas</Text>
-        </View>
-      </View>
-    </View>
-  );
+    );
 };
-
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FCEDC0', padding: 20 },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#EBD8A0',
-    padding: 15,
-    borderRadius: 10,
-  },
-  logo: { width: 100, height: 50, resizeMode: 'contain' },
-  title: { fontSize: 20, fontWeight: 'bold', marginTop: 10 },
-  searchInput: {
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginVertical: 10,
-    color: '#000',
-  },
-
-  carritoContainer: {
-    backgroundColor: '#EBD8A0',
-    borderRadius: 10,
-    padding: 10,
-    maxHeight: 250,
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-    paddingBottom: 5,
-  },
-  headerText: { flex: 1, fontWeight: 'bold', textAlign: 'center' },
-  scroll: { marginVertical: 5 },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
-    paddingVertical: 5,
-  },
-  cell: { flex: 1, textAlign: 'center' },
-  buttonGroup: { flexDirection: 'row', justifyContent: 'center', flex: 1 },
-  opButton: {
-    backgroundColor: '#D9534F',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 5,
-    marginHorizontal: 2,
-  },
-  opText: { color: '#FFF', fontWeight: 'bold' },
-
-  docContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
-  label: { fontWeight: 'bold', marginRight: 10 },
-  docInput: {
-    backgroundColor: '#FFF',
-    padding: 8,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    flex: 1,
-  },
-
-  totalContainer: {
-    backgroundColor: '#EBD8A0',
-    borderRadius: 10,
-    padding: 15,
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  totalLabel: { fontWeight: 'bold', fontSize: 16 },
-  total: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
-  pagoBtn: {
-    backgroundColor: '#D9534F',
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-  },
-  pagoText: { color: '#FFF', fontWeight: 'bold', fontSize: 16 },
-
-  bottomNav: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    backgroundColor: '#EBD8A0',
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  navItem: { alignItems: 'center' },
-  icon: { width: 40, height: 40, borderRadius: 20 },
-  navText: { fontSize: 12, fontWeight: 'bold' },
+    container: {
+        flex: 1,
+        backgroundColor: '#FCEDC0',
+        padding: 20,
+        paddingBottom: 0
+    },
+    cargandoContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FCEDC0'
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#EBD8A0',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 15,
+    },
+    logo: {
+        width: 100,
+        height: 50,
+        resizeMode: 'contain'
+    },
+    tiendaText: {
+        fontWeight: 'bold',
+        color: '#D9534F',
+        fontSize: 16
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginVertical: 10,
+        color: '#333',
+        textAlign: 'center'
+    },
+    searchInput: {
+        backgroundColor: '#FFF',
+        padding: 12,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        marginVertical: 10,
+        color: '#000',
+        fontSize: 16,
+    },
+    carritoContainer: {
+        backgroundColor: '#FFF',
+        borderRadius: 10,
+        padding: 10,
+        maxHeight: 250,
+        borderWidth: 1,
+        borderColor: '#EBD8A0',
+        marginBottom: 15,
+    },
+    carritoVacio: {
+        textAlign: 'center',
+        padding: 20,
+        color: '#777',
+        fontStyle: 'italic'
+    },
+    tableHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomWidth: 1,
+        borderColor: '#EBD8A0',
+        paddingBottom: 8,
+        marginBottom: 5,
+    },
+    headerText: {
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#333',
+        fontSize: 14
+    },
+    scroll: {
+        marginVertical: 5
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#EBD8A0',
+        paddingVertical: 8,
+    },
+    cell: {
+        textAlign: 'center',
+        color: '#333',
+        fontSize: 14,
+        paddingHorizontal: 2
+    },
+    cantidadBtn: {
+        backgroundColor: '#D9534F',
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 3
+    },
+    cantidadText: {
+        color: '#FFF',
+        fontWeight: 'bold',
+        fontSize: 16,
+    },
+    docContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 15
+    },
+    label: {
+        fontWeight: 'bold',
+        marginRight: 10,
+        color: '#333',
+        fontSize: 16,
+        flex: 1
+    },
+    docInput: {
+        backgroundColor: '#FFF',
+        padding: 10,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        flex: 2,
+        color: '#000',
+        fontSize: 16,
+    },
+    totalContainer: {
+        backgroundColor: '#EBD8A0',
+        borderRadius: 10,
+        padding: 15,
+        marginVertical: 15,
+        alignItems: 'center',
+    },
+    totalLabel: {
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: '#333'
+    },
+    total: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginVertical: 10,
+        color: '#D9534F'
+    },
+    pagoBtn: {
+        backgroundColor: '#D9534F',
+        paddingVertical: 12,
+        paddingHorizontal: 40,
+        borderRadius: 10,
+        opacity: 1
+    },
+    pagoText: {
+        color: '#FFF',
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    menuInferior: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#EBD8A0',
+        paddingVertical: 15,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        marginHorizontal: -20,
+        paddingHorizontal: 20,
+    },
+    opcionMenu: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
+    iconoMenu: {
+        width: 28,
+        height: 28,
+        marginBottom: 5,
+    },
+    textoMenu: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center',
+    },
 });
 
 export default VentaCarrito;

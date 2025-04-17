@@ -12,11 +12,13 @@ import RegistrarTienda from "./views/RegistrarTienda";
 import RegistrarTiendas2 from "./views/RegistrarTiendas2";
 import OlvidoContrasena from "./views/contrasenaolvidar";
 import MenuPrincipal from "./views/menuPrincipal";
-import Actualizar from "./views/actualizar"; 
 import GestionarVentas from "./views/gestionarventas";
 import Analisis from "./views/analisis";
 import Productos from "./views/productos";
 import Venta from "./views/venta";
+import Actualizar from "./views/actualizar"; 
+import ModificarProducto from "./views/modificarproducto";
+import VentaCarrito from "./views/VentaCarrito";
 
 
 const Stack = createStackNavigator();
@@ -42,6 +44,8 @@ export default function App() {
     <Stack.Screen name="Analisis" component={Analisis} />
     <Stack.Screen name="Productos" component={Productos} />
     <Stack.Screen name="Venta" component={Venta} />
+    <Stack.Screen name="VentaCarrito" component={VentaCarrito} />
+    <Stack.Screen name="ModificaProducto" component={ModificarProducto} />
     </Stack.Navigator>
     </NavigationContainer>
   );

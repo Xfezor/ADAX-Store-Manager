@@ -1,37 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'; // Importa useNavigation
-import { Ionicons } from '@expo/vector-icons'; // Importa Ionicons para el icono del menú
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Productos = () => {
   const [busqueda, setBusqueda] = useState('');
-  const productos = [
-    { nombre: 'Papaya', marca: '', detalle: 'Ver Detalle' },
-    { nombre: 'Arroz Premium', marca: 'Diana', detalle: 'Ver Detalle' },
-    { nombre: 'Lapiz Norma 2A', marca: 'Norma', detalle: 'Ver Detalle' },
-    { nombre: 'Cuaderno Rayado', marca: 'Éxito', detalle: 'Ver Detalle' },
-    { nombre: 'Bolígrafo Azul', marca: 'BIC', detalle: 'Ver Detalle' },
-    { nombre: 'Resaltador Amarillo', marca: 'Pelikan', detalle: 'Ver Detalle' },
-    { nombre: 'Resaltador Verde', marca: 'Pelikan', detalle: 'Ver Detalle' },
-    { nombre: 'Resaltador Naranja', marca: 'Pelikan', detalle: 'Ver Detalle' },
-    { nombre: 'Resaltador Rojo', marca: 'Pelikan', detalle: 'Ver Detalle' },
-  ];
+  const [productos, setProductos] = useState([]);
+  const [productosOriginales, setProductosOriginales] = useState([]);
+  const navigation = useNavigation();
 
-  const navigation = useNavigation(); // Inicializa navigation
+  const cargarProductos = async () => {
+    try {
+      const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
+      if (!codigo_invitacion) {
+        console.warn('No se encontró el código de invitación en AsyncStorage');
+        return;
+      }
+
+      const response = await fetch(`http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`);
+      const data = await response.json();
+
+      console.log('Productos recibidos:', data);
+
+      if (Array.isArray(data)) {
+        setProductos(data);
+        setProductosOriginales(data);
+      } else {
+        console.warn('La respuesta no es un array:', data);
+      }
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+    }
+  };
+
+  const filtrarProductos = (texto) => {
+    setBusqueda(texto);
+    if (texto === '') {
+      setProductos(productosOriginales);
+    } else {
+      const filtrados = productosOriginales.filter((producto) =>
+        (producto[1] || '').toLowerCase().includes(texto.toLowerCase())
+      );
+      setProductos(filtrados);
+    }
+  };
+
+  const verDetalle = (producto) => {
+    if (producto && producto[0]) {
+      navigation.navigate('ModificaProducto', { idProducto: producto[0] });
+    } else {
+      console.warn('El producto seleccionado no tiene un ID válido:', producto);
+
+    }
+  };
+
+  useEffect(() => {
+    cargarProductos();
+  }, []);
 
   const menuOptions = [
     { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
-    { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },   
-    { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },   // Añade 'Analisis' como ruta
-    { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' }, // Añade 'GestionarVentas' como ruta
-];
+    { label: 'Venta', icon: require('../assets/ventas.png'), route: 'VentaCarrito' },
+    { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },
+    { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' },
+  ];
 
   const handleNavigation = (route) => {
     if (route) {
       navigation.navigate(route);
-    } else {
-      console.log(`Ruta no definida para esta opción.`);
     }
   };
 
@@ -39,7 +76,7 @@ const Productos = () => {
     <View style={styles.container}>
       <View style={styles.encabezado}>
         <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <TouchableOpacity onPress={() => { /* Aquí puedes definir la acción del menú */ console.log('Abrir menú'); }}>
+        <TouchableOpacity onPress={() => console.log('Abrir menú')}>
           <MaterialIcons name="menu" size={40} color="black" />
         </TouchableOpacity>
       </View>
@@ -50,7 +87,7 @@ const Productos = () => {
         placeholder="Escriba el nombre del producto"
         placeholderTextColor="#555"
         value={busqueda}
-        onChangeText={setBusqueda}
+        onChangeText={filtrarProductos}
       />
 
       <View style={styles.tableContainer}>
@@ -62,10 +99,17 @@ const Productos = () => {
         <ScrollView style={styles.productList}>
           {productos.map((producto, index) => (
             <View key={index} style={styles.productRow}>
-              <Text style={styles.productText}>{producto.nombre}</Text>
-              <Text style={styles.productText}>{producto.marca}</Text>
-              <TouchableOpacity style={styles.detailButton}>
-                <Text style={styles.detailButtonText}>{producto.detalle}</Text>
+              <Text style={styles.productText}>
+                {producto[1] || 'Sin nombre'}
+              </Text>
+              <Text style={styles.productText}>
+                {producto[2] || 'Sin marca'}
+              </Text>
+              <TouchableOpacity
+                style={styles.detailButton}
+                onPress={() => verDetalle(producto)}
+              >
+                <Text style={styles.detailButtonText}>Ver Detalle</Text>
               </TouchableOpacity>
             </View>
           ))}
@@ -100,16 +144,16 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    height: 90, // Ajusta la altura según sea necesario
+    height: 90,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: 'rgba(235,216,160,255)', // El mismo color de fondo
+    backgroundColor: 'rgba(235,216,160,255)',
     paddingHorizontal: 10,
-    paddingTop: 28, // Considera el paddingTop para el status bar
+    paddingTop: 28,
     borderBottomLeftRadius: 28,
     borderBottomRightRadius: 28,
-    zIndex: 2, // Asegura que esté por encima del contenido
+    zIndex: 2,
   },
   logo: {
     width: 100,
@@ -119,7 +163,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 100, // Ajusta el marginTop para que no se superponga con el encabezado
+    marginTop: 100,
     marginBottom: 10,
     paddingHorizontal: 20,
   },
