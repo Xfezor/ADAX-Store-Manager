@@ -1,31 +1,51 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity,
-  StyleSheet, Image, Alert
+  StyleSheet, Image, Alert, BackHandler
 } from 'react-native';
-=======
-import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert, BackHandler } from 'react-native';
->>>>>>> bb8e0c18aa7ff169a7d7a1174e18e70b7abaa7c4
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const IniciarSesion = ({ navigation, route }) => {
+const IniciarSesion = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [selectedTab, setSelectedTab] = useState('empleado');
 
   // Variables de conexión
-<<<<<<< HEAD
   const serverIP = "192.168.1.11"; // Tu IP local
   const serverPort = "80";
-=======
-  const serverIP = "192.168.10.13"; // Asegúrate de que esta sea la IP correcta de tu servidor
-  const serverPort = "80"; // Puerto predeterminado para HTTP
->>>>>>> bb8e0c18aa7ff169a7d7a1174e18e70b7abaa7c4
 
+  const login = async () => {
+    try {
+      const response = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
+        method: 'GET',
+      });
+      const data = await response.json();
+      console.log('Respuesta del login:', data);
 
-  // Funcion para que no se devuelva a la pantalla anterior sino que cierre la app
+      if (data.success) {
+        const codigo = data.codigo_invitacion || data.codigo_tienda || '';
+        if (codigo) {
+          await AsyncStorage.setItem('codigo_invitacion', codigo.toString());
+          console.log('Código guardado en AsyncStorage:', codigo);
+        }
+        navigation.navigate('MenuPrincipal');
+      } else {
+        Alert.alert('Error', 'Correo o contraseña incorrectos.');
+      }
+    } catch (error) {
+      console.error('Error en login:', error);
+      Alert.alert('Error', 'No se pudo iniciar sesión. Intente de nuevo.');
+    }
+  };
+
+  const handleLogin = () => {
+    if (!email || !password) {
+      Alert.alert('Campos incompletos', 'Por favor ingresa tu correo electrónico y contraseña.');
+      return;
+    }
+    login();
+  };
+
   useEffect(() => {
     const handleBackPress = () => {
       Alert.alert(
@@ -38,63 +58,13 @@ const IniciarSesion = ({ navigation, route }) => {
       );
       return true;
     };
-  
-    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-      if (route.name === 'IniciarSesion') {
-        e.preventDefault(); // Detén el regreso predeterminado
-        handleBackPress();
-      }
-    });
-    
-    if (route.name === 'IniciarSesion') {
-      BackHandler.addEventListener("hardwareBackPress", handleBackPress);
-    }
-  
+
+    BackHandler.addEventListener("hardwareBackPress", handleBackPress);
+
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
-      unsubscribe(); // Limpia el listener cuando la pantalla se desmonta
     };
-  }, [navigation]);
-  
-  const login = async () => {
-    try {
-      const response = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
-        method: 'GET',
-      });
-      const data = await response.json();
-<<<<<<< HEAD
-      console.log('Respuesta del login:', data);
-
-      if (data.success) {
-        // Guardar el código de invitación o tienda
-        const codigo = data.codigo_invitacion || data.codigo_tienda || '';
-        if (codigo) {
-          await AsyncStorage.setItem('codigo_invitacion', codigo.toString());
-          console.log('Código guardado en AsyncStorage:', codigo);
-        }
-
-        // Navegar a la pantalla principal
-        navigation.navigate('MenuPrincipal');
-      } else {
-        Alert.alert('Error', 'Correo o contraseña incorrectos.');
-      }
-=======
-      console.log('Login successful:', data);
-      navigation.navigate('MenuPrincipal');
->>>>>>> bb8e0c18aa7ff169a7d7a1174e18e70b7abaa7c4
-    } catch (error) {
-      console.error('Error en login:', error);
-      Alert.alert('Error', 'No se pudo iniciar sesión. Intente de nuevo.');
-    }
-  };
-
-   const handleLogin = () => {
-    if (!email || !password) {
-      Alert.alert('Campos incompletos', 'Por favor ingresa tu correo electrónico y contraseña.');
-      return;
-    }
-    login();
-  };
+  }, []);
 
   return (
     <View style={styles.container}>
