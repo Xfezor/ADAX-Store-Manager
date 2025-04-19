@@ -12,8 +12,7 @@ const IniciarSesion = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [selectedTab, setSelectedTab] = useState('empleado');
 
-  // Variables de conexión
-  const serverIP = "192.168.0.20"; // Tu IP local
+  const serverIP = "192.168.0.20";
   const serverPort = "80";
 
   const login = async () => {
@@ -23,8 +22,6 @@ const IniciarSesion = ({ navigation }) => {
 
       if (response.data.success) {
         const token = response.data.token;
-
-        // Para obtener los datos del usuario
         const userData = jwtDecode(token);
         const codigo = userData.data.codigo_invitacion;
 
@@ -112,11 +109,19 @@ const IniciarSesion = ({ navigation }) => {
           secureTextEntry
         />
 
-        <TouchableOpacity onPress={() => navigation.navigate('RegistrarUsuario')}>
-          <Text style={styles.link}>
-            ¿Eres usuario nuevo? Regístrate <Text style={styles.highlight}>Aquí</Text>
-          </Text>
-        </TouchableOpacity>
+        {selectedTab === 'tienda' ? (
+          <TouchableOpacity onPress={() => navigation.navigate('RegistrarTienda')}>
+            <Text style={styles.link}>
+              ¿Eres una tienda nueva? Regístrate <Text style={styles.highlight}>Aquí</Text>
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => navigation.navigate('RegistrarUsuario')}>
+            <Text style={styles.link}>
+              ¿Eres usuario nuevo? Regístrate <Text style={styles.highlight}>Aquí</Text>
+            </Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity onPress={() => navigation.navigate('OlvidoContrasenaCorreo')}>
           <Text style={styles.link}>

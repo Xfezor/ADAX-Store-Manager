@@ -1,8 +1,9 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
+header("Access-Control-Allow-Origin: *"); 
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); 
+header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
 header('Content-Type: application/json');
+
 // Manejar la solicitud OPTIONS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     // Si es una solicitud OPTIONS, simplemente devuelve un 200 OK
@@ -15,19 +16,16 @@ require '../Dto/tiendaDto.php';
 require '../utilidades/conexion.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
-if (isset($data['registroTienda'])) {
+
+$registroTienda = isset($data['registroTienda']) ? $data['registroTienda'] : false;
+
+if ($registroTienda) {
     $nombreTienda = $data['nombreTienda'];
     $telefono = $data['telefono'];
     $email = $data['email'];
     $contrasena = $data['contrasena'];
     $direccion = $data['direccion'];
-}
-if (isset($data['listar'])) {
-    $listar = $data['listar'];
-}
 
-
-if (isset($registroTienda)) {
     $tDao = new tiendaDao();
     $tDto = new tiendaDto();
     $tDto->setNombreTienda($nombreTienda);
@@ -37,27 +35,32 @@ if (isset($registroTienda)) {
     $tDto->setContrasena($contrasena);
 
     $mensaje = $tDao->registrarTienda($tDto);
+
     if ($mensaje === 'Registrado Exitosamente') {
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'mensaje' => $mensaje]);
+        exit();
+    } else {
+        echo json_encode(['success' => false, 'mensaje' => $mensaje]);
         exit();
     }
-} else if (isset($listar) ||isset($_GET['si'])) {
+} else if (isset($data['listar'])) {
+    $listar = $data['listar'];
     $tDao = new TiendaDao();
-    $tDto = new tiendaDto();
     $lista = $tDao->listarTodos();
-    $response = []; // Inicializa un array para la respuesta
+    $response = [];
+
     foreach ($lista as $tienda) {
-        // Asegúrate de que cada tienda sea un array o un objeto
         $response[] = [
-            $tienda['idtienda'],
-            $tienda['nombreTienda'],
-            $tienda['direccion'],
-            $tienda['telefono'],
-            $tienda['correo'],
-            preg_replace('/[^\x20-\x7E]/', '', $tienda['contrasena']),
-            $tienda['codigo_invitacion'],
-    ];
+            'idtienda' => $tienda['idtienda'],
+            'nombreTienda' => $tienda['nombreTienda'],
+            'direccion' => $tienda['direccion'],
+            'telefono' => $tienda['telefono'],
+            'correo' => $tienda['correo'],
+            'contrasena' => preg_replace('/[^\x20-\x7E]/', '', $tienda['contrasena']),
+            'codigo_invitacion' => $tienda['codigo_invitacion']
+        ];
     }
+
     echo json_encode($response);
     exit();
 } else if (isset($_POST['registrocrud'])) {
@@ -72,12 +75,16 @@ if (isset($registroTienda)) {
     $tDto->setCodigo_invitacion($_POST['codigo_invitacion']);
 
     $mensaje = $tDao->registrarTiendaCrud($tDto);
-    echo $mensaje;
+
     if ($mensaje === 'Registrado Exitosamente') {
+        echo json_encode(['success' => true, 'mensaje' => $mensaje]);
         header("Location:../tablas/tienda/listartienda.php?mensaje=registro exitoso");
-        exit;
+        exit();
+    } else {
+        echo json_encode(['success' => false, 'mensaje' => $mensaje]);
+        exit();
     }
-} else if ($_GET['idtienda'] != null) {
+} else if (isset($_GET['idtienda']) && $_GET['idtienda'] != null) {
     $tDao = new tiendaDao();
     $mensaje = $tDao->eliminarTienda($_GET['idtienda']);
     header("Location:../tablas/tienda/listartienda.php?mensaje=" . $mensaje);
@@ -95,4 +102,7 @@ if (isset($registroTienda)) {
 
     $mensaje = $tDao->modificarTienda($tDto);
     header("Location:../tablas/tienda/listartienda.php?mensaje=" . $mensaje);
+    exit();
 }
+
+echo json_encode(['success' => false, 'error' => 'Petición no válida']);

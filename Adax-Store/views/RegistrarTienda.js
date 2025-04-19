@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
-const RegistrarTienda = () => {
+const RegistrarTienda = ({ navigation }) => {
+  const [nombreTienda, setNombreTienda] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [telefono, setTelefono] = useState('');
+
+  const handleSiguiente = () => {
+    if (nombreTienda && direccion && telefono) {
+      // Navegar a la siguiente pantalla con los datos
+      navigation.navigate('RegistrarTiendas2', { nombreTienda, direccion, telefono });
+    } else {
+      alert('Por favor complete todos los campos.');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require('../assets/logo.png')} style={styles.logo} />
@@ -10,15 +23,33 @@ const RegistrarTienda = () => {
 
         <View style={styles.form}>
           <Text style={styles.label}>Nombre Tienda</Text>
-          <TextInput style={styles.input} placeholder="Ingrese el nombre de la tienda *" placeholderTextColor="#AFAFAF" />
+          <TextInput
+            style={styles.input}
+            placeholder="Ingrese el nombre de la tienda *"
+            placeholderTextColor="#AFAFAF"
+            value={nombreTienda}
+            onChangeText={setNombreTienda}
+          />
 
           <Text style={styles.label}>Dirección Tienda</Text>
-          <TextInput style={styles.input} placeholder="Dirección de la tienda (opcional)" placeholderTextColor="#AFAFAF" />
+          <TextInput
+            style={styles.input}
+            placeholder="Dirección de la tienda (opcional)"
+            placeholderTextColor="#AFAFAF"
+            value={direccion}
+            onChangeText={setDireccion}
+          />
 
           <Text style={styles.label}>Teléfono</Text>
-          <TextInput style={styles.input} placeholder="Teléfono (opcional)" placeholderTextColor="#AFAFAF" />
+          <TextInput
+            style={styles.input}
+            placeholder="Teléfono (opcional)"
+            placeholderTextColor="#AFAFAF"
+            value={telefono}
+            onChangeText={setTelefono}
+          />
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSiguiente}>
             <Text style={styles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
