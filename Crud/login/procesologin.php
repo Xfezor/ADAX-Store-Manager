@@ -1,6 +1,9 @@
 <?php
-session_start();
 
+require_once '../vendor/autoload.php';
+use Firebase\JWT\JWT;
+
+define('JWT_SECRET', 'TuHZMVZsVTNmMdNqHzesZqK9ULWSkEVQFJGwW7emBa2lsWlRvS');
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
@@ -15,7 +18,7 @@ header('Content-Type: application/json');
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
-    
+
 }
 
 require '../utilidades/conexion.php';
@@ -52,11 +55,23 @@ if ($tipo === "empleado") {
         $sentencia = $cnn->prepare("SELECT nombreTienda,idtienda FROM tienda WHERE codigo_invitacion = $valor->codigo_invitacion;");
         $sentencia->execute();
         $valor2 = $sentencia->fetch(PDO::FETCH_OBJ);
-        $cod = $valor->codigo_invitacion;
-        $nombreTienda = $valor2->nombreTienda;
-        $rol = $valor->rol_id_Rol;
-        $documento = $valor->documento;
-        echo json_encode(['success' => true, 'codigo_invitacion' => $cod, 'nombreTienda' => $nombreTienda, 'rol' => $rol, 'documento' => $documento]);
+        $payload = [
+            'iat' => time(),
+            'exp' => time() + (60 * 60), // Token válido por 1 hora
+            'data' => [
+                'documento' => $valor->documento,
+                'codigo_invitacion' => $valor->codigo_invitacion,
+                'nombreTienda' => $valor2->nombreTienda,
+                'rol' => $valor->rol_id_Rol
+            ]
+        ];
+
+        $token = JWT::encode($payload, JWT_SECRET, 'HS256');
+        
+        echo json_encode([
+            'success' => true, 
+            'token' => $token,
+        ]);
         exit();
     } else {
         echo json_encode(['success' => false]);

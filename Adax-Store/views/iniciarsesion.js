@@ -4,6 +4,8 @@ import {
   StyleSheet, Image, Alert, BackHandler
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 
 const IniciarSesion = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -11,19 +13,21 @@ const IniciarSesion = ({ navigation }) => {
   const [selectedTab, setSelectedTab] = useState('empleado');
 
   // Variables de conexión
-  const serverIP = "192.168.1.11"; // Tu IP local
+  const serverIP = "192.168.0.20"; // Tu IP local
   const serverPort = "80";
 
   const login = async () => {
     try {
-      const response = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`, {
-        method: 'GET',
-      });
-      const data = await response.json();
-      console.log('Respuesta del login:', data);
+      const response = await axios.get(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`);
+      console.log('Respuesta del login:', response.data);
 
-      if (data.success) {
-        const codigo = data.codigo_invitacion || data.codigo_tienda || '';
+      if (response.data.success) {
+        const token = response.data.token;
+
+        // Para obtener los datos del usuario
+        const userData = jwtDecode(token);
+        const codigo = userData.data.codigo_invitacion;
+
         if (codigo) {
           await AsyncStorage.setItem('codigo_invitacion', codigo.toString());
           console.log('Código guardado en AsyncStorage:', codigo);
@@ -120,8 +124,8 @@ const IniciarSesion = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
+        <TouchableOpacity style={styles.botonConfirmar} onPress={handleLogin}>
+          <Text style={styles.textoBotonConfirmar}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -217,6 +221,21 @@ const styles = StyleSheet.create({
     color: '#FFF',
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  botonConfirmar: {
+    backgroundColor: "#F85F6A",
+    borderRadius: 10,
+    marginTop: 10,
+    alignSelf: "center",
+    height: 40,
+    width: "50%",
+    justifyContent: "center",
+  },
+  textoBotonConfirmar: {
+    color: "black",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

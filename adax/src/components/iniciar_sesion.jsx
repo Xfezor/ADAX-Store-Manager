@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import axios from 'axios';
+import axiosInstance from '../utils/axios';
+import { jwtDecode } from "jwt-decode";
 
 
 const IniciarSesion = () => {
@@ -81,11 +83,17 @@ const IniciarSesion = () => {
                 try {
                     const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/login/procesologin.php?${params.toString()}&email=${email}&contrasena=${contrasena}`);
                     if (respuesta.data.success) {
+                        const token = respuesta.data.token;
+                        localStorage.setItem('token', token);
+
+                        // Para obtener los datos del usuario
+                        const userData = jwtDecode(token);
                         const usuarioData = email;
-                        const tienda = respuesta.data.nombreTienda;
-                        const rol = respuesta.data.rol;
-                        const codigo_invitacion = respuesta.data.codigo_invitacion;
-                        iniciarSesion(usuarioData, tienda, codigo_invitacion, rol);
+                        const tienda = userData.data.nombreTienda;
+                        const rol = userData.data.rol;
+                        const codigo_invitacion = userData.data.codigo_invitacion;
+
+                        iniciarSesion(usuarioData, tienda, codigo_invitacion, rol, token);
                         navigate('/inicio');
                     } else {
                         setError('Credenciales Incorrectas', respuesta.data.success);
@@ -184,7 +192,7 @@ const IniciarSesion = () => {
                             </p>
                             {error && <p style={{ color: 'red' }}>{error}</p>}
                             <button className="btn btn-danger" type="submit" id={styles.button2}>Iniciar Sesión</button>
-                            
+
                         </div>
                     </form>
                 )}
