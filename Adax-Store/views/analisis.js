@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ip, port} from '../utils/ipconfig.js';
 
 const popularImages = {
     popular: require('../assets/popular.png'),
@@ -17,8 +18,6 @@ const ADAXApp = ({ navigation }) => {
     const [errorMsg, setErrorMsg] = useState(null);
     const [loading, setLoading] = useState(true);
     const [codigoTienda, setCodigoTienda] = useState(null);
-    const serverIP = "192.168.0.20";
-    const serverPort = "80";
 
     useEffect(() => {
         const obtenerCodigo = async () => {
@@ -43,7 +42,7 @@ const ADAXApp = ({ navigation }) => {
 
     useEffect(() => {
         if (codigoTienda) {
-            const URL = `http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
+            const URL = `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
             fetch(URL)
                 .then(async response => {
                     const text = await response.text();
