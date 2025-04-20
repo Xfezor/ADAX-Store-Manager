@@ -17,8 +17,9 @@ const ADAXApp = ({ navigation }) => {
     const [errorMsg, setErrorMsg] = useState(null);
     const [loading, setLoading] = useState(true);
     const [codigoTienda, setCodigoTienda] = useState(null);
+    const serverIP = "192.168.0.20";
+    const serverPort = "80";
 
-  
     useEffect(() => {
         const obtenerCodigo = async () => {
             try {
@@ -42,7 +43,7 @@ const ADAXApp = ({ navigation }) => {
 
     useEffect(() => {
         if (codigoTienda) {
-            const URL = `http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
+            const URL = `http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
             fetch(URL)
                 .then(async response => {
                     const text = await response.text();
@@ -71,9 +72,18 @@ const ADAXApp = ({ navigation }) => {
 
     // Función para calcular popularidad según la cantidad vendida
     const calcularPopularidad = (cantidad) => {
+        let productosCant = Object.keys(productos).length;
+        let ventasSum = 0;
+        let promedio = 0;
+        let i = 0;
+        for (i; i < productos.length; i++) {        
+            ventasSum += parseInt(productos[i].cantidad);
+        }
+        promedio = ventasSum / productosCant;
+ 
         const cantidadNumerica = Number(cantidad);
-        if (cantidadNumerica > 100) return { texto: 'Popular', icono: 'popular' };
-        if (cantidadNumerica > 50) return { texto: 'Medio Popular', icono: 'mediopopular' };
+        if (cantidadNumerica > promedio) return { texto: 'Popular', icono: 'popular' };
+        if (cantidadNumerica > promedio) return { texto: 'Medio Popular', icono: 'mediopopular' };
         return { texto: 'No Popular', icono: 'nopopular' };
     };
 
@@ -95,7 +105,7 @@ const ADAXApp = ({ navigation }) => {
         );
     };
 
-   
+
     const menuOptions = [
         { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
         { label: 'Venta', icon: require('../assets/ventas.png'), route: 'VentaCarrito' },
@@ -108,7 +118,7 @@ const ADAXApp = ({ navigation }) => {
         if (route) navigation.navigate(route);
     };
 
-    
+
     if (loading) {
         return (
             <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]}>
