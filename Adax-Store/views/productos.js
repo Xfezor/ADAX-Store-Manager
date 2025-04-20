@@ -3,32 +3,50 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image 
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
+
 
 const Productos = () => {
   const [busqueda, setBusqueda] = useState('');
   const [productos, setProductos] = useState([]);
   const [productosOriginales, setProductosOriginales] = useState([]);
   const navigation = useNavigation();
+  var [codigo_invitacion, setCodigo_invitacion] = useState();
 
+  useEffect(() => {
+    const obtenerCodigo = async () => {
+      try {
+        const codigoString = await AsyncStorage.getItem('codigo_invitacion');
+        const codigoNumerico = parseInt(codigoString); // Convertir a número
+        
+        console.log("CÓDIGO DE TIENDA ACTUAL:", codigoNumerico);
+        console.log(typeof(codigoNumerico)) // <-- para verificar
+        if (codigoNumerico !== null) {
+          setCodigo_invitacion(codigoNumerico);
+        } else {
+          setErrorMsg('No se encontró el código de la tienda.');
+        }
+      } catch (error) {
+        console.error('Error al obtener el código de la tienda:', error);
+        setErrorMsg('Error al acceder al almacenamiento local.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    obtenerCodigo();
+  }, []);
   const cargarProductos = async () => {
     try {
-      const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
-      if (!codigo_invitacion) {
-        console.warn('No se encontró el código de invitación en AsyncStorage');
-        return;
-      }
 
-      const response = await fetch(`http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`);
-      const data = await response.json();
-
-      console.log('Productos recibidos:', data);
-
-      if (Array.isArray(data)) {
+      const response = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`);
+      if (response.data) {
+        const data = response.data;
         setProductos(data);
         setProductosOriginales(data);
-      } else {
-        console.warn('La respuesta no es un array:', data);
+        console.log('Productos recibidos:', data);
       }
+
     } catch (error) {
       console.error('Error al obtener productos:', error);
     }

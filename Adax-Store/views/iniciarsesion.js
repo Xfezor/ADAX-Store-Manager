@@ -23,9 +23,15 @@ const IniciarSesion = ({ navigation }) => {
         const token = response.data.token;
         const userData = jwtDecode(token);
         const codigo = userData.data.codigo_invitacion;
+        const usuario = email;
+        const tienda = userData.data.nombreTienda;
+        const rol = userData.data.rol;
 
         if (codigo) {
           await AsyncStorage.setItem('codigo_invitacion', codigo.toString());
+          await AsyncStorage.setItem('usuario', usuario);
+          await AsyncStorage.setItem('tienda', tienda);
+          await AsyncStorage.setItem('rol', rol.toString());
           console.log('Código guardado en AsyncStorage:', codigo);
         }
         navigation.navigate('MenuPrincipal');

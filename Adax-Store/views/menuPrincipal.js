@@ -7,6 +7,9 @@ const MenuPrincipal = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
     const slideAnim = useRef(new Animated.Value(300)).current;
     const [documento , setDocumento] = useState('');
+    const [codigo_invitacion, setCodigo_invitacion] = useState('');
+    const [loading, setLoading] = useState(true);
+    
 
     const ObtenerDocumentoSesion = async () => {
         try {
