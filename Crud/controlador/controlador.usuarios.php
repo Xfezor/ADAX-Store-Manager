@@ -39,6 +39,10 @@ switch ($_SERVER['REQUEST_METHOD']) {// obtener datos del usuario de la sesion
             $action = $data['action'];
             $correo = $data['correo'];
         }
+        else if (isset($data['reset'])){
+            $correo = $data['correo'] ?? null;
+            $reset = $data['reset'];
+        }
     break;
     case 'PUT':
         if (isset($data['actualizarApp'])) {
