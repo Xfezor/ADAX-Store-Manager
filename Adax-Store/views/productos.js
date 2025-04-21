@@ -12,41 +12,54 @@ const Productos = () => {
   const [productos, setProductos] = useState([]);
   const [productosOriginales, setProductosOriginales] = useState([]);
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState('');
   var [codigo_invitacion, setCodigo_invitacion] = useState();
 
   useEffect(() => {
-    const obtenerCodigo = async () => {
+    const inicializarDatos = async () => {
       try {
         const codigoString = await AsyncStorage.getItem('codigo_invitacion');
-        const codigoNumerico = parseInt(codigoString); // Convertir a número
-        
-        console.log("CÓDIGO DE TIENDA ACTUAL:", codigoNumerico);
-        console.log(typeof(codigoNumerico)) // <-- para verificar
-        if (codigoNumerico !== null) {
-          setCodigo_invitacion(codigoNumerico);
+        const codigoNumerico = parseInt(codigoString);
+
+        if (!isNaN(codigoNumerico)) {
+          codigo_invitacion = codigoNumerico;
+          await cargarProductos();
         } else {
           setErrorMsg('No se encontró el código de la tienda.');
         }
       } catch (error) {
-        console.error('Error al obtener el código de la tienda:', error);
+        console.error('Error:', error);
         setErrorMsg('Error al acceder al almacenamiento local.');
       } finally {
         setLoading(false);
       }
     };
-    obtenerCodigo();
+
+    inicializarDatos();
   }, []);
+  useEffect(() => {
+    if (codigo_invitacion && !isNaN(codigo_invitacion)) {
+      cargarProductos();
+    }
+  }, [codigo_invitacion]);
+
   const cargarProductos = async () => {
+    if (!codigo_invitacion || isNaN(codigo_invitacion)) {
+      console.error('Código de invitación no válido:', codigo_invitacion);
+      return;
+    }
+
     try {
+      const response = await axios.get(
+        `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`
+      );
 
-      const response = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`);
       if (response.data) {
-        const data = response.data;
-        setProductos(data);
-        setProductosOriginales(data);
-        console.log('Productos recibidos:', data);
+        setProductos(response.data);
+        setProductosOriginales(response.data);
+        console.log('Productos recibidos:', response.data);
       }
-
     } catch (error) {
       console.error('Error al obtener productos:', error);
     }
@@ -73,9 +86,6 @@ const Productos = () => {
     }
   };
 
-  useEffect(() => {
-    cargarProductos();
-  }, []);
 
   const menuOptions = [
     { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
