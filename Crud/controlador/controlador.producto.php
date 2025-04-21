@@ -248,9 +248,9 @@ if (isset($_POST['registrarProducto'])) {
             $producto['Stock_Min'],
             $producto['Estado'],
             $producto['nombre'],
-            $producto['idProveedor'],
+            isset($producto['idProveedor']) && !empty($producto['idProveedor']) ? $producto['idProveedor'] : null, // Manejo de NULL
         ];
+        echo json_encode($response);
+        exit();
     }
-    echo json_encode($response);
-    exit();
 }

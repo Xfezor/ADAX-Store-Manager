@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { ip, port } from '../utils/ipconfig.js';
 
 const VentaCarrito = () => {
     const navigation = useNavigation();
@@ -48,7 +49,7 @@ const VentaCarrito = () => {
         setCargandoProductos(true);
         try {
             const response = await fetch(
-                `http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
+                `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
             );
             const data = await response.json();
             if (Array.isArray(data)) {

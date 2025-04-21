@@ -10,27 +10,26 @@ const RecuperarContraseña = ({ navigation }) => {
 
   const validarCorreo = () => {
     if (!correo.trim()) return setError('El correo es obligatorio'), false;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo))
       return setError('Correo no válido'), false;
     return setError(''), true;
   };
 
   const enviarCodigo = async () => {
     if (!validarCorreo()) return;
-    
+
     setCargando(true);
     try {
-      const respuesta = await fetch(
-      `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
+      const respuesta = await axios.post(
+        `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
         {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'enviar_codigo', correo: correo })
+          action: 'enviar_codigo', 
+          correo: correo
         }
       );
 
       const datos = await respuesta.json();
-      
+
       if (datos.message?.includes('enviado correctamente') || datos.status === 'success') {
         navigation.navigate('OlvidoContrasenaCodigo', { email: correo });
         setTimeout(() => Alert.alert('Éxito', datos.message || 'Código enviado'), 500);
@@ -40,8 +39,8 @@ const RecuperarContraseña = ({ navigation }) => {
         throw new Error(datos.message || 'Error al enviar código');
       }
     } catch (error) {
-      Alert.alert('Error', error.message.includes('Network') 
-        ? 'Error de conexión' 
+      Alert.alert('Error', error.message.includes('Network')
+        ? 'Error de conexión'
         : error.message
       );
     } finally {
@@ -80,8 +79,8 @@ const RecuperarContraseña = ({ navigation }) => {
 
       {error ? <Text style={estilos.textoError}>{error}</Text> : null}
 
-      <TouchableOpacity 
-        style={[estilos.boton, cargando && estilos.botonDeshabilitado]} 
+      <TouchableOpacity
+        style={[estilos.boton, cargando && estilos.botonDeshabilitado]}
         onPress={enviarCodigo}
         disabled={cargando}
       >

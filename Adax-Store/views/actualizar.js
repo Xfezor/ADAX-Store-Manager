@@ -3,11 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image,
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ip, port } from '../utils/ipconfig.js';
 
 const ActualizarDatos = ({ navigation }) => {
   const [documento, setDocumento] = useState(null);
-  const [serverIP, setServerIP] = useState('192.168.10.13');
-  const [serverPort, setServerPort] = useState('80');
+
   const [formData, setFormData] = useState({
     documento: "",
     tipoDocumento: "",
@@ -43,10 +43,7 @@ const ActualizarDatos = ({ navigation }) => {
   }, [documento]);
   const ObtenerDatosUsuarioSesion = async () => {
     try {
-      const respuesta = await fetch(
-        `http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?obtenerUsuario=${documento}`,
-        { method: "GET" }
-      );
+      const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?obtenerUsuario=${documento}`);
       if (respuesta.ok) {
         const datos = await respuesta.json();
         console.log("JSON completo recibido:", datos);
@@ -76,10 +73,10 @@ const ActualizarDatos = ({ navigation }) => {
         } else {
           console.error("La propiedad 'data' no contiene un array válido o está vacía.");
         }
-        } else {
-          console.error("Error al obtener datos del servidor. Código:", respuesta.status);
-        }
-      } catch (error) {
+      } else {
+        console.error("Error al obtener datos del servidor. Código:", respuesta.status);
+      }
+    } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
   }
@@ -88,7 +85,7 @@ const ActualizarDatos = ({ navigation }) => {
       Alert.alert("Campos incompletos", "Por favor completa todos los campos obligatorios.");
       return;
     } else {
-    actualizarUsuarioSesion();
+      actualizarUsuarioSesion();
     }
   }
   //Prueba dar click en borton confirmar y mostrar en consola los datos nuevos
@@ -102,31 +99,27 @@ const ActualizarDatos = ({ navigation }) => {
       tipoDoc: formData.tipoDocumento,
       correo: formData.correo,
       actualizarApp: true,
-  }));
-      try {
-      const respuesta = await fetch(`http://${serverIP}:${serverPort}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`,
+    }));
+    try {
+      const respuesta = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`,
         {
-          method: "PUT",
-          headers: {"Content-Type": "application/json" },
-          body: JSON.stringify({
-            documento: formData.documento,
-            nombre1: formData.primerNombre,
-            nombre2: formData.segundoNombre,
-            apellido1: formData.primerApellido,
-            apellido2: formData.segundoApellido,
-            tipoDoc: formData.tipoDocumento,
-            email: formData.correo,
-            actualizarApp: true,
-          }),
+          documento: formData.documento,
+          nombre1: formData.primerNombre,
+          nombre2: formData.segundoNombre,
+          apellido1: formData.primerApellido,
+          apellido2: formData.segundoApellido,
+          tipoDoc: formData.tipoDocumento,
+          email: formData.correo,
+          actualizarApp: true,
+        }
+      );
+      const data = await respuesta.json();
+      if (data.success) {
+        Alert.alert("Éxito", "Datos actualizados correctamente.");
+        navigation.navigate("MenuPrincipal");
       }
-    );
-    const data = await respuesta.json();
-    if (data.success) {
-      Alert.alert("Éxito", "Datos actualizados correctamente.");
-      navigation.navigate("MenuPrincipal");
-    }
-    console.log("Respuesta del servidor:", data.mensaje);
-  } catch (error) {
+      console.log("Respuesta del servidor:", data.mensaje);
+    } catch (error) {
       console.error("Error al enviar los datos:", error);
     }
   }

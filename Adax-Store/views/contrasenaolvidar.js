@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-    View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert 
+import {
+    View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
+import { ip, port } from '../utils/ipconfig.js';
 const Contrasena = ({ navigation, route }) => {
     const [nuevaContrasena, setNuevaContrasena] = useState("");
     const [repetirContrasena, setRepetirContrasena] = useState("");
@@ -23,16 +23,10 @@ const Contrasena = ({ navigation, route }) => {
         setError("");
 
         try {
-            const response = await fetch("http://192.168.1.66/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    action: "cambiar_contrasena",
-                    correo: route.params.email, // Asegúrate de que esto venga desde la pantalla anterior
-                    nuevaContrasena: nuevaContrasena
-                })
+            const response = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`, {
+                action: "cambiar_contrasena",
+                correo: route.params.email, // Asegúrate de que esto venga desde la pantalla anterior
+                nuevaContrasena: nuevaContrasena
             });
 
             const data = await response.json();
@@ -63,7 +57,7 @@ const Contrasena = ({ navigation, route }) => {
 
             <View style={styles.cuerpo}>
                 <Text style={styles.titulo}>Nueva Contraseña</Text>
-                
+
                 <View style={styles.cajaInformacion}>
                     <Text style={styles.textoInformacion}>
                         Escriba su nueva contraseña y repítala para confirmarla.
@@ -116,13 +110,13 @@ const styles = StyleSheet.create({
         top: 0,
         left: 0,
         right: 0,
-        height: 130, 
+        height: 130,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#EBD8A0',
         paddingHorizontal: 20,
-        paddingTop: 28, 
+        paddingTop: 28,
         borderBottomLeftRadius: 28,
         borderBottomRightRadius: 28,
     },
@@ -159,7 +153,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     campo: {
-        width: '85%', 
+        width: '85%',
         marginBottom: 15,
     },
     etiqueta: {
@@ -167,10 +161,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#000',
         marginBottom: 5,
-        textAlign: 'left', 
+        textAlign: 'left',
     },
     entrada: {
-        width: '100%', 
+        width: '100%',
         height: 40,
         backgroundColor: '#fff',
         borderRadius: 12,
