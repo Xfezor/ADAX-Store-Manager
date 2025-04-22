@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
+
 const PantallaRecuperarContrasena = ({ navigation, route }) => {
   const { email } = route.params;
   const [codigo, setCodigo] = useState('');

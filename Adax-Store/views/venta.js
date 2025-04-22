@@ -12,6 +12,8 @@ import {
     Platform
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
 
 const ItemProducto = ({ nombre, precio, marca }) => (
     <View style={styles.itemProducto}>

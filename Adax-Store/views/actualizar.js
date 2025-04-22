@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
 
 const ActualizarDatos = ({ navigation }) => {
   const [documento, setDocumento] = useState(null);

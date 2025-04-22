@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import axios from 'axios';
 
 const RegistrarTienda = ({ navigation }) => {
   const [nombreTienda, setNombreTienda] = useState('');

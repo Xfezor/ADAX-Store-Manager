@@ -53,6 +53,7 @@ const VentaCarrito = () => {
             const response = await axios.get(
                 `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
             );
+            console.log(response);
             const data = await response.json();
             if (Array.isArray(data)) {
                 const productosFormateados = data.filter(item => Array.isArray(item) && item.length >= 3)

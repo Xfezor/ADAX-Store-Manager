@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, TouchableWithoutFeedba
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 const MenuPrincipal = ({ navigation }) => {
     const [visible, setVisible] = useState(false);
     const slideAnim = useRef(new Animated.Value(300)).current;

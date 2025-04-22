@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
 
 const RecuperarContraseña = ({ navigation }) => {
   const [correo, setCorreo] = useState('');

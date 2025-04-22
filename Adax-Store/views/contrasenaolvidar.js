@@ -4,6 +4,8 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
+
 const Contrasena = ({ navigation, route }) => {
     const [nuevaContrasena, setNuevaContrasena] = useState("");
     const [repetirContrasena, setRepetirContrasena] = useState("");

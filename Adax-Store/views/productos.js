@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image 
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
 
 const Productos = () => {
     const [busqueda, setBusqueda] = useState('');

@@ -6,6 +6,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ip, port} from '../utils/ipconfig.js';
+import axios from 'axios';
 
 const popularImages = {
     popular: require('../assets/popular.png'),
