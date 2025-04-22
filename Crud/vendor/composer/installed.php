@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-React',
         'version' => 'dev-React',
-        'reference' => '9b89c5fe825ffd599c01bb3908dbdfb99e518612',
+        'reference' => 'bc3d79b2411bfe6ac3c22b87d54086481284a20b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-React',
             'version' => 'dev-React',
-            'reference' => '9b89c5fe825ffd599c01bb3908dbdfb99e518612',
+            'reference' => 'bc3d79b2411bfe6ac3c22b87d54086481284a20b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
