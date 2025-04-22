@@ -21,7 +21,7 @@ const RecuperarContraseña = ({ navigation }) => {
 
     setCargando(true);
     try {
-      const respuesta = await axios.post(
+      const response = await axios.post(
         `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
         {
           action: 'enviar_codigo', 
