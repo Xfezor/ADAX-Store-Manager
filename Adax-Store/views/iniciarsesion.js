@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import { ip, port } from '../utils/ipconfig.js';
-import axios from 'axios';
 
 const IniciarSesion = ({ navigation }) => {
   const [email, setEmail] = useState('');

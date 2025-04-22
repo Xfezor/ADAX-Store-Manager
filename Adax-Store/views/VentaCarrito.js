@@ -36,12 +36,11 @@ const VentaCarrito = () => {
                 }
                 setCodigoTienda(codigoGuardado);
                 codigoTienda = parseInt(codigoGuardado);
-                console.log(typeof codigoTienda);
                 cargandoTienda = false;
+                await cargarProductos(codigoTienda);
             } catch (error) {
                 Alert.alert('Error', 'No se pudo cargar la información de la tienda');
             } finally {
-                await cargarProductos(codigoTienda);
             }
         };
         cargarDatos();
@@ -53,22 +52,21 @@ const VentaCarrito = () => {
             const response = await axios.get(
                 `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
             );
-            console.log(response);
-            const data = await response.json();
-            if (Array.isArray(data)) {
-                const productosFormateados = data.filter(item => Array.isArray(item) && item.length >= 3)
-                    .map((item, index) => ({
-                        id: `${item[1]}_${index}`,
-                        nombre: item[0],
-                        precio: parseFloat(item[2]) || 0,
-                        originalId: item[1],
+
+            if (response.data) {
+                const productosFormateados = response.data.filter(item => Array.isArray(item) && item.length >= 3)
+                    .map((item) => ({
+                        id: item[0], // Usa el ID original del producto
+                        nombre: item[1], // Asigna el nombre correctamente
+                        precio: parseFloat(item[3]) || 0,
                     }));
                 setProductosDisponibles(productosFormateados);
             } else {
                 Alert.alert('Error', 'Los datos recibidos no son válidos');
             }
         } catch (error) {
-            Alert.alert('Error', 'No se pudo cargar la lista de productos');
+            // Alert.alert('Error', 'No se pudo cargar la lista de productos');
+            console.log(error);
         } finally {
             setCargandoProductos(false);
         }
@@ -87,7 +85,7 @@ const VentaCarrito = () => {
 
     const calcularTotal = () => {
         return Object.keys(carrito).reduce((total, id) => {
-            const p = productosDisponibles.find(p => p.id === id);
+            const p = productosDisponibles.find(p => p.id === parseInt(id)); // Convierte id a número
             return p ? total + p.precio * carrito[id] : total;
         }, 0).toFixed(2);
     };
@@ -450,14 +448,19 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     menuInferior: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 120,
         flexDirection: 'row',
         justifyContent: 'space-around',
+        alignItems: 'center',
         backgroundColor: '#EBD8A0',
-        paddingVertical: 15,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
-        marginHorizontal: -20,
-        paddingHorizontal: 20,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        paddingHorizontal: 10,
+        elevation: 10,
     },
     opcionMenu: {
         alignItems: 'center',
