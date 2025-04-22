@@ -350,7 +350,6 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
     },
     carritoContainer: {
-        backgroundColor: '#FFF',
         borderRadius: 10,
         padding: 10,
         maxHeight: 250,

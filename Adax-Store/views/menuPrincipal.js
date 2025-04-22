@@ -10,11 +10,33 @@ const MenuPrincipal = ({ navigation }) => {
     const [documento , setDocumento] = useState('');
     const [codigo_invitacion, setCodigo_invitacion] = useState('');
     const [loading, setLoading] = useState(true);
+    const [usuario, setUsuario] = useState('');
+    const [tienda, setTienda] = useState('');
+    const [rol, setRol] = useState('');
+    const [tipo, setTipo] = useState('null');
     
 
     const ObtenerDocumentoSesion = async () => {
         try {
             const documentoGuardado = await AsyncStorage.getItem('documento');
+            const usuario = await AsyncStorage.getItem('usuario');
+            const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
+            const tienda = await AsyncStorage.getItem('tienda');
+            const rol = await AsyncStorage.getItem('rol');
+            if (usuario) {
+                setUsuario(usuario);
+                setCodigo_invitacion(codigo_invitacion);
+                setTienda(tienda);
+                if (parseInt(rol) === 1) {
+                    setTipo('Administrador');
+                }
+                if (parseInt(rol) === 2) {
+                    setTipo('Empleado');
+                }
+                if (parseInt(rol) === 3) {
+                    setTipo('tienda');
+                }
+            }
             if (documentoGuardado) {
                 setDocumento(documentoGuardado);
                 // console.log('Documento guardado:', documentoGuardado);
@@ -69,12 +91,12 @@ const MenuPrincipal = ({ navigation }) => {
                             {/* Este segundo TouchableWithoutFeedback evita que el toque en el menú cierre el overlay */}
                             <View style={styles.menu}>
                                 <Image source={require('../assets/logoUsuario.png')} style={styles.logoUsuario} />
-                                <Text style={styles.menuItem}>Juan Camilo Rivas Moreno</Text>
-                                <Text style={styles.menuItem}>Empleado</Text>
+                                <Text style={styles.menuItem}>{usuario}</Text>
+                                <Text style={styles.menuItem}>{tipo}</Text>
                                 <Image source={require('../assets/tipoDocumento.png')} style={styles.logoTipoDoc} />
                                 <Text style={styles.menuItem}>Documento: C.C. 1015687426</Text>
                                 <Image source={require('../assets/logoTienda.png')} style={styles.logoTienda} />
-                                <Text style={styles.menuItem}>Super Market Japón</Text>
+                                <Text style={styles.menuItem}>{tienda}</Text>
                                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Actualizar')}>
                                     <Text style={styles.buttonText}>Actualizar Información</Text>
                                 </TouchableOpacity>

@@ -1,18 +1,9 @@
 import React, { useState } from 'react';
-import {
-    StyleSheet,
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    FlatList,
-    StatusBar,
-    SafeAreaView,
-    Image,
-    Platform
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, FlatList, StatusBar, SafeAreaView, Image, Platform, Alert } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
+
 
 
 const ItemProducto = ({ nombre, precio, marca }) => (
@@ -24,19 +15,21 @@ const ItemProducto = ({ nombre, precio, marca }) => (
 );
 
 const App = () => {
+    const route = useRoute();
+
     const [textoBusqueda, setTextoBusqueda] = useState('');
-    const [productos, setProductos] = useState([
-        { id: '1', nombre: 'Papaya', precio: 1200, marca: 'Frutas' },
-        { id: '2', nombre: 'Piña', precio: 3000, marca: 'Frutas' },
-        { id: '3', nombre: 'Pulpa de Fruta', precio: 2000, marca: 'Frutas' },
-    ]);
+    const { productos, total } = route.params || { productos: [], total: 0 };
     const [precioTotal, setPrecioTotal] = useState(5000);
 
     const navegacion = useNavigation();
+    const handlePago = () => {
+        Alert.alert('Venta realizada', 'La venta se ha realizado con éxito.');
+        navegacion.navigate('MenuPrincipal');
+    }
 
     const opcionesMenu = [
         { etiqueta: 'Productos', icono: require('../assets/producto.png'), ruta: 'Productos' },
-        { etiqueta: 'Ventas', icono: require('../assets/ventas.png'), ruta: 'Ventas' },
+        { etiqueta: 'Ventas', icono: require('../assets/ventas.png'), ruta: 'VentaCarrito' },
         { etiqueta: 'Análisis', icono: require('../assets/analisis.png'), ruta: 'Analisis' },
         { etiqueta: 'Gestionar Ventas', icono: require('../assets/gestionar_Ventas.png'), ruta: 'GestionarVentas' },
     ];
@@ -60,7 +53,7 @@ const App = () => {
                 <View style={styles.encabezado}>
                     <Image source={require('../assets/logo.png')} style={styles.logo} />
                     <TouchableOpacity onPress={() => navegacion.navigate('MenuPrincipal')}>
-                        <Text style={styles.iconoCerrar}>x</Text>
+                        <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
                     </TouchableOpacity>
                 </View>
 
@@ -79,7 +72,7 @@ const App = () => {
                     <View style={styles.encabezadoListaProductos}>
                         <Text style={styles.encabezadoNombre}>Nombre</Text>
                         <Text style={styles.encabezadoPrecio}>Precio U o Lb</Text>
-                        <Text style={styles.encabezadoMarca}>Marca</Text>
+                        <Text style={styles.encabezadoMarca}>Cantidad</Text>
                     </View>
 
                     <FlatList
@@ -89,7 +82,7 @@ const App = () => {
                             <ItemProducto
                                 nombre={item.nombre}
                                 precio={item.precio}
-                                marca={item.marca}
+                                marca={item.cantidad}
                             />
                         )}
                     />
@@ -97,10 +90,10 @@ const App = () => {
 
                 <View style={styles.contenedorPrecioTotal}>
                     <Text style={styles.etiquetaPrecioTotal}>Precio Total</Text>
-                    <Text style={styles.valorPrecioTotal}>${precioTotal}</Text>
+                    <Text style={styles.valorPrecioTotal}>${total}</Text>
                 </View>
 
-                <TouchableOpacity style={styles.botonGenerarPago}>
+                <TouchableOpacity style={styles.botonGenerarPago} onPress={handlePago}>
                     <Text style={styles.textoBotonGenerarPago}>Generar Pago</Text>
                 </TouchableOpacity>
             </View>
@@ -134,14 +127,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingTop: 0,
         paddingBottom: 120,
-        backgroundColor:'#FCEDC0',
+        backgroundColor: '#FCEDC0',
     },
     encabezado: {
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        height: 70,
+        height: 90,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -164,7 +157,7 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 28,
         fontWeight: 'bold',
-        marginTop: 90,
+        marginTop: 100,
         marginBottom: 15,
         color: 'black',
         alignSelf: 'flex-start',
@@ -180,8 +173,8 @@ const styles = StyleSheet.create({
         width: '100%',
         alignSelf: 'flex-start',
     },
-    contenedorTabla: {
-        backgroundColor: '#E2C673',
+    contenedorTabla: {        
+        backgroundColor: '#EBD8A0',
         borderRadius: 12,
         padding: 15,
         marginBottom: 20,
