@@ -45,7 +45,7 @@ const MenuPrincipal = ({ navigation }) => {
 
     const menuOptions = [
         { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
-        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },       // Añade 'Ventas' como ruta
+        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'VentaCarrito' },     // Añade 'Ventas' como ruta
         { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },   // Añade 'Analisis' como ruta
         { label: 'GestionarVentas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' }, // Añade 'GestionarVentas' como ruta
     ];
