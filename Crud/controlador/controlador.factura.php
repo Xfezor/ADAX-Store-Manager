@@ -1,6 +1,6 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Origin: * "); // Permite todas las solicitudes de cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 
@@ -36,15 +36,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         break;
     case 'POST':
-        $venta_id_Venta = $data['venta_id_Venta'];
-        $producto_id_Producto = $data['producto_id_Producto'];
-        $Cantidad = $data['Cantidad'];
-        $Precio = $data['Precio'];
-        $Estado = $data['Estado'];
-        if (isset($data['registroFactura'])) {
-            $regristroFactura = $data['registroFactura'];
+        if (isset($data['registro'])) {
+            $registrarFactura = $data['registro'];
+            $venta_id_Venta = $data['venta_id_Venta'];
+            $producto_id_Producto = $data['producto_id_Producto'];
+            $Cantidad = $data['Cantidad'];
+            $Precio = $data['Precio'];
+            $Estado = $data['Estado'];
         }
-        break;
     case 'PUT':
         if (isset($data['actualizar'])) {
             $venta_id_Venta = $data['venta_id_Venta'];
@@ -53,6 +52,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
             $Precio = $data['Precio'];
             $Estado = $data['Estado'];
             $actualizar = $data['actualizar'];
+        }
+        else if (isset($data['ActualizarEstadoPagado'])) {
+            $ActualizarEstadoPagado = $data['ActualizarEstadoPagado'];
+            $venta_id_Venta = $data['venta_id_Venta'];
         }
         break;
     case 'DELETE':
@@ -64,17 +67,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
 }
 
-if(isset($data['registroFactura'])) {
-    $venta_id_Venta = $data['venta_id_Venta'];
-    $producto_id_Producto = $data['producto_id_Producto'];
-    $Cantidad = $data['Cantidad'];
-    $Precio = $data['Precio'];
-    $Estado = $data['Estado'];
-    $regristroFactura = $data['registroFactura'];
-}
-
-
-if (isset($regristroFactura) || isset($_GET['no'])) {
+if (isset($registrarFactura)) {
     $fDao = new facturaDao();
     $fDto = new facturaDto();
     $fDto->setVenta_id_Venta($venta_id_Venta);
@@ -85,7 +78,7 @@ if (isset($regristroFactura) || isset($_GET['no'])) {
 
     $mensaje = $fDao->registrarFactura($fDto);
     if ($mensaje === 'Registrado Exitosamente') {
-        echo json_encode(['success' => true, 'mensaje' => $mensaje]);
+        echo json_encode(['access' => true, 'mensaje' => $mensaje, $mensaje => 'id_Venta']);
         exit();
     }
 } else if (isset($listar) || isset($_GET['si'])) {
@@ -182,4 +175,11 @@ if (isset($regristroFactura) || isset($_GET['no'])) {
     }
     echo json_encode($response);
     exit();
+} else if (isset($ActualizarEstadoPagado)) {
+    $fDao = new facturaDao();
+
+    $venta_id_Venta = (int)$venta_id_Venta;
+
+    $mensaje = $fDao->cambiarEstadoFacturaPagado($venta_id_Venta);
+    echo json_encode(['success' => true, 'mensaje' => $mensaje]);
 }

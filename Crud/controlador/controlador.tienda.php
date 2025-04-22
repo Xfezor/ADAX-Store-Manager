@@ -17,9 +17,15 @@ require '../utilidades/conexion.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
 
-$registroTienda = isset($data['registroTienda']) ? $data['registroTienda'] : false;
-
-if ($registroTienda) {
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET' :
+        if (isset($_GET['obtenerIdTienda'])) {
+            $obtenerIdTienda = $_GET['obtenerIdTienda'];
+            $codigo_invitacion = $_GET['codigo_invitacion'];
+        }
+        break;
+}
+if (isset($data['registroTienda'])) {
     $nombreTienda = $data['nombreTienda'];
     $telefono = $data['telefono'];
     $email = $data['email'];
@@ -84,7 +90,7 @@ if ($registroTienda) {
         echo json_encode(['success' => false, 'mensaje' => $mensaje]);
         exit();
     }
-} else if (isset($_GET['idtienda']) && $_GET['idtienda'] != null) {
+} else if (isset($_GET['idtienda' != null])) {
     $tDao = new tiendaDao();
     $mensaje = $tDao->eliminarTienda($_GET['idtienda']);
     header("Location:../tablas/tienda/listartienda.php?mensaje=" . $mensaje);
@@ -102,7 +108,20 @@ if ($registroTienda) {
 
     $mensaje = $tDao->modificarTienda($tDto);
     header("Location:../tablas/tienda/listartienda.php?mensaje=" . $mensaje);
-    exit();
+    //buscar el id tienda con el codigo de inviatción
+} else if (isset($obtenerIdTienda)) {
+    $codigo_invitacion = $_GET['codigo_invitacion'];
+    if (empty($codigo_invitacion)) {
+        echo json_encode(['error' => 'Codigo de invitación no encontrado']);
+        exit();
+    }
+    $tDao = new tiendaDao();
+    $idTienda = $tDao->obtenerIdTienda($codigo_invitacion);
+    echo json_encode($idTienda);
+
+    $mensaje = $tDao->obtenerIdTienda($codigo_invitacion);
+} else {
+    echo json_encode(['error' => 'Codigo de invitación no encontrado']);
 }
 
 echo json_encode(['success' => false, 'error' => 'Petición no válida']);

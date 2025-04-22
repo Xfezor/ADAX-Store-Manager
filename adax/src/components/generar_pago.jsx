@@ -6,18 +6,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function Pago() {
   const navigate = useNavigate();
   const location = useLocation();
   const prodCarrito = location.state?.prodCarrito || [];
-  
+  //datos parseados en json de prodcarrito
+
+  const prodCarrito1 = JSON.parse(localStorage.getItem('prodCarrito'));
+
   const { cerrarSesion } = useContext(ContextoSesion);
 
   const usuario1 = localStorage.getItem('usuario');
   const tienda1 = localStorage.getItem('tienda');
   const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
   const rol1 = localStorage.getItem('rol');
+  const id_TiendaUsuario = localStorage.getItem('id_Tienda');
+  const documentoUsuario = localStorage.getItem('documento');
 
   const usuario = JSON.parse(usuario1);
   const tienda = JSON.parse(tienda1);
@@ -29,8 +35,8 @@ function Pago() {
   const [totalPagar2, setTotalPagar2] = useState(0);
   const [cantidadRecibida, setCantidadRecibida] = useState(0);
   const [devuelta, setDevuelta] = useState(0);
-  const [documentoCliente, setDocumentoCliente] = useState("");
-  const [tipoDocumento, setTipoDocumento] = useState(0);
+  const [ documentoCliente, setDocumentoCliente] = useState("");
+
 
 
   const formater = (cantidadRecibida, devuelta) => {
@@ -82,15 +88,139 @@ function Pago() {
   const backbutton = () => {
     navigate(-1, { state: { prodCarrito } });
   };
-
+  //Salir al inicio y borrar el carrito state producto = null o 0
   const exitbutton = () => {
-    ("Salir");
+    navigate('/inicio');
 
   };
+  const VerificarPago = async () => {
+    const cantidadRecibidaNumerica = parseFloat(cantidadRecibida.toString().replace(/\./g, ""));
+    const totalPagarNumerico = parseFloat(totalPagar.toString().replace(/\./g, ""));
 
-  const handleGenerarFactura = () => {
-    navigate("/factura", {replace: true, state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
+    if (!cantidadRecibidaNumerica || isNaN(cantidadRecibidaNumerica) || cantidadRecibidaNumerica <= 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ingrese una cantidad válida',
+      });
+      console.log(`Cantidad recibida: ${cantidadRecibidaNumerica}, Total a pagar: ${totalPagar}`);
+      return;
+    }
+    console.log(`Resta (totalPagar - cantidadRecibida): ${cantidadRecibidaNumerica - totalPagarNumerico}`, cantidadRecibida, totalPagar);
+    if (cantidadRecibidaNumerica < totalPagarNumerico) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La cantidad recibida es menor al total a pagar',
+      });
+      return;
+    }
+    if (medioDePago === 0) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Seleccione un medio de pago',
+      });
+      return;
+    }
+
+    try {
+    const idVenta = await handleGenerarVenta();
+
+    if (idVenta) {
+
+    }
+    await registrarFactura(idVenta);
+    } catch (error) {
+      console.error('Error al generar la venta:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de conexión',
+        text: 'No se pudo conectar con el servidor. Intente nuevamente.',
+      });
+    }
+
   }
+
+  const handleGenerarVenta = async () => {
+    try {
+      const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+        registro: true,
+        EstadoVenta: "Pendiente",
+        documento_Cliente: documentoCliente,
+        tienda_idtienda: id_TiendaUsuario,
+        metododepago_ID_Met_Pago: medioDePago,
+        usuarios_documento: documentoUsuario,
+      });
+      console.log("Respuesta de la API:", respuesta.data);
+      if (respuesta.status === 200) {
+        const idVenta = respuesta.data.id_Venta;
+        localStorage.setItem('id_Venta', idVenta);
+        console.log("ID de la venta guardado en localStorage:", idVenta);
+        return idVenta;
+      } else {
+        console.log("Error al generar la venta");
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: respuesta.data.mensaje || "No se pudo registrar la venta.",
+        });
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al generar la venta:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Error de conexión",
+        text: "No se pudo conectar con el servidor. Intente nuevamente.",
+      });
+      return null;
+    }
+  }
+  //Generar Factura
+  const registrarFactura = async (idVenta) => {
+    console.log("ID de la venta:", idVenta);
+    const prodCarrito2 = JSON.parse(localStorage.getItem('prodCarrito'));
+  
+    const productos = prodCarrito2.map((producto) => ({
+      id_Producto: producto[0],
+      precio: producto[3],
+      cantidad: producto.cantidad,
+    }));
+
+    try {
+      for (const producto of productos) {
+        const datosFactura = {
+          registro: true,
+          venta_id_Venta: idVenta,
+          producto_id_Producto: producto.id_Producto,
+          Precio: producto.precio,
+          Cantidad: producto.cantidad,
+          Estado: "Pendiente"
+        };
+        const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php",
+          datosFactura,
+        );
+        if (respuesta.data && respuesta.data.access) {
+          navigate("/factura", {replace: true, state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: respuesta.data.mensaje || "No se pudo registrar la venta.",
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error al registrar la venta:', error);
+      Swal.fire({
+        icon: "error",
+        title: "Error de conexión",
+        text: "No se pudo conectar con el servidor. Intente nuevamente.",
+      });
+
+    }
+  };
 
   useEffect(() => {
     const handlePopState = () => {
@@ -117,13 +247,13 @@ function Pago() {
     };
     validador();
     CodInv();
-  }, [navigate,codInv])
+  }, [navigate, codInv])
 
   useEffect(() => {
     const calcularTotal = (prodCarrito) => {
       let total = 0;
       prodCarrito.forEach((prod) => {
-        total += prod[2] * prod.cantidad;
+        total += prod[3] * prod.cantidad;
       });
       setTotalPagar2(total);
       total = total.toString().split('').reverse().join('').match(/.{1,3}/g).join(".").split('').reverse().join('');
@@ -131,8 +261,6 @@ function Pago() {
     };
     calcularTotal(prodCarrito);
   }, []);
-  const RegistrarVenta = async () => {
-  }
   return (
     <>
       <header>
@@ -155,48 +283,24 @@ function Pago() {
           <div className={styles['cash-list']}>
             <h2 className={styles['mediodepago-text']}>Metodo de pago: </h2>
             <select className={`${styles['form-select']}`} value={medioDePago} onChange={(e) => setMedioDePago(e.target.value)}>
-              <option value="0">Efectivo</option>
-              <option value="1">Nequi</option>
-              <option value="2">Daviplata</option>
-              <option value="3">Tarjeta de credito</option>
-              <option value="4">Tarjeta de debito</option>
+              <option value="0">Seleccione un metodo de pago</option>
+              <option value="1">Tarjeta de credito</option>
+              <option value="2">Tarjeta de debito</option>
+              <option value="3">Nequi</option>
+              <option value="4">Daviplata</option>
+              <option value="5">Efectivo</option>
             </select>
             <h2 className={styles['cantidad-text']}>Cantidad recibida: </h2>
             <input className={styles.cant} type="number" placeholder="Escriba la cantidad..." onChange={(e) => handleChange(e.target.value)} />
             <h3 className={styles['total-recived']}> =${cantidadRecibida}</h3>
             <h3 className={styles['documento-text']}>Documento del Cliente</h3>
-            <input className={styles['documento-input']} type="number" placeholder="Escriba el documento" id='documentoCliente' onChange={(e) => setDocumentoCliente(e.target.value)}/>       
+            <input className={styles['documento-input']} type="number" placeholder="Escriba el documento" id='documentoCliente' onChange={(e) => setDocumentoCliente(e.target.value)} />
             <h3 className={styles['total-text']}>Total a pagar:</h3>
             <h3 className={styles['total-cant-text']}> =${totalPagar}</h3>
             <h3 className={styles['devolver-text']}>Devolver:</h3>
             <h3 className={styles['devolver-cant-text']}> =${devuelta}</h3>
           </div>
-          <button className={styles['generar-pago']} onClick={() => {
-                    const cantidadRecibidaNumerica = parseFloat(cantidadRecibida.toString().replace(/\./g, ""));
-                    const totalPagarNumerico = parseFloat(totalPagar.toString().replace(/\./g, ""));
-                    console.log(cantidadRecibidaNumerica)
-
-                    if (!cantidadRecibidaNumerica || isNaN(cantidadRecibidaNumerica) || cantidadRecibidaNumerica <= 0) {
-                      Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Ingrese una cantidad válida',
-                      });
-                      console.log(`Cantidad recibida: ${cantidadRecibidaNumerica}, Total a pagar: ${totalPagar}`);
-                      return;
-                    }
-                    console.log(`Resta (totalPagar - cantidadRecibida): ${cantidadRecibidaNumerica - totalPagarNumerico}`, cantidadRecibida, totalPagar);
-                    if (cantidadRecibidaNumerica < totalPagarNumerico) {
-                      Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'La cantidad recibida es menor al total a pagar',
-                      });
-                      return;
-                    }
-                    handleGenerarFactura();
-                    RegistrarVenta();
-                  }}>
+          <button className={styles['generar-pago']} onClick={VerificarPago}>
             Confirmar y generar factura
           </button>
         </div>
@@ -216,9 +320,9 @@ function Pago() {
               <tbody className={styles["table-body"]}>
                 {prodCarrito.map((ProD, index) => (
                   <tr className={styles.trgespro} key={index}>
-                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[0]}</td>
-                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[1]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[1]}</td>
                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[2]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[3]}</td>
                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD.cantidad}</td>
                   </tr>
                 ))}

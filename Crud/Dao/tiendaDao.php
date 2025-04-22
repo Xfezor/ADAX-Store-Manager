@@ -136,5 +136,20 @@ class tiendaDao
         return $mensaje;
     }
 
-
+    //Obtener id de la tienda con el codigo_invitación
+    public function obtenerIdTienda($codigo_invitacion)
+    {
+        $cnn = Conexion::getConexion();
+        $mensaje = "";
+        try {
+            $query = $cnn->prepare('SELECT idtienda FROM tienda WHERE codigo_invitacion=?');
+            $query->bindParam(1, $codigo_invitacion);
+            $query->execute();
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } catch (Exception $ex) {
+            $mensaje = $ex->getMessage();
+        }
+        $cnn = null;
+        return $mensaje;
+    }
 }

@@ -6,6 +6,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
+import axios from 'axios';
+
 function Factura() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -34,21 +37,126 @@ function Factura() {
     const CRUD = () => {
         navigate('/crud/usuarios');
     };
-    const backbutton = () => {
-        navigate(-1);
-    };
-
-    const exitbutton = () => {
-        navigate('/inicio');
+    const exitbutton = async () => {
+        try {
+            const idVenta = localStorage.getItem('id_Venta');
+            if (!idVenta) {
+                console.error("ID de la venta no encontrado en localStorage");
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "No se encontró el ID de la venta. Intente nuevamente.",
+                });
+                return;
+            }
+            //Alerta de seguridad seguro que quieres anular la venta
+            const result = await Swal.fire({
+                title: '¿Está seguro de que desea anular la venta?',
+                text: "Esta acción no se puede deshacer.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, anular venta',
+                cancelButtonText: 'Cancelar',
+            });
+            if (!result.isConfirmed) {
+                return; // Si el usuario cancela, no hace nadita
+            }
+            // Si el usuario confirma, procede a anular la venta con la siguinete llamado de la API para hacer PUT
+            const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+                modificarEstado: true,
+                id_Venta: idVenta,
+                EstadoVenta: "Anulada",
+            });
+            console.log(respuesta.data);
+            if (respuesta.data && respuesta.data.status) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Venta anulada",
+                    text: "El estado de la venta se ha modificado correctamente.",
+                });
+                navigate('/inicio', { replace: true, state: null });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: respuesta.data.mensaje || "No se pudo modificar el estado de la venta.",
+                });
+            }
+        } catch (error) {
+            console.error('Error al modificar el estado de la venta:', error);
+            Swal.fire({
+                icon: "error",
+                title: "Error de conexión",
+                text: "No se pudo conectar con el servidor. Intente nuevamente.",
+            });
+        }
     };
     const { totalPagar, cantidadRecibida, devuelta, prodCarrito } = location.state || {};
 
     // Botón "Salir"
     const handleSalir = () => {
         // Limpia el carrito y redirige a ventas
-        localStorage.removeItem('prodCarrito');
-        navigate('/ventas', { replace: true, state: null });
-    };
+        // localStorage.removeItem('prodCarrito');
+
+        //Cambiar el estado a completado
+        const idVenta = localStorage.getItem('id_Venta');
+        if (!idVenta) {
+            console.error("ID de la venta no encontrado en localStorage");
+            return;
+        }
+        const actualizarEstadoVenta = async () => {
+            try {
+                const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+                    modificarEstado: true,
+                    id_Venta: idVenta,
+                    EstadoVenta: "Completada",
+                });
+                if (respuesta.data && respuesta.data.status) {
+                    console.log("Estado de la venta modificado a completada");
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: respuesta.data.mensaje || "No se pudo modificar el estado de la venta.",
+                    });
+                }
+            } catch (error) {
+                console.error('Error al modificar el estado de la venta:', error);
+            }
+        };
+        actualizarEstadoVenta();
+        
+        // Actualizar Estado Pagado a la factura
+        const ActualizarEstadoPagadoFactura = async () => {
+            try {
+                const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php", {
+                    ActualizarEstadoPagado: true,
+                    venta_id_Venta: idVenta,
+                });
+                console.log(respuesta.data);
+                if (respuesta.data && respuesta.data.success) {
+                    console.log("Estado de la factura modificado a pagado");
+                    navigate('/inicio', { replace: true, state: null });
+                    Swal.fire({
+                        icon: "success",
+                        title: "Factura pagada",
+                        text: "Venta y factura actualizadas correctamente.",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        text: respuesta.data.mensaje || "No se pudo modificar el estado de la factura.",
+                    });
+                }
+            } catch (error) {
+                console.error('Error al modificar el estado de la factura:', error);
+            }
+        }
+        ActualizarEstadoPagadoFactura();
+    }
     const [codInv, setCodInv] = useState("?");
     const CodInv = () => {
         if (rol === 2 || rol === 1) {
@@ -89,13 +197,10 @@ function Factura() {
         <>
             <header>
                 <div className={styles.contenedorarriba}>
-                    <button className={styles.back} onClick={backbutton}>
-                        <FontAwesomeIcon icon={faArrowLeft} />
-                    </button>
                     <div className={styles.adax}>
                         <h1 className={styles.title}>Factura</h1>
                     </div>
-                    <button className={styles.exit} onClick={exitbutton} to="/inicio">
+                    <button className={styles.exit} onClick={exitbutton}>
                         <FontAwesomeIcon icon={faXmark} className={styles.exit} />
                     </button>
                 </div>
@@ -134,9 +239,9 @@ function Factura() {
                             <tbody className={styles["table-body"]}>
                                 {prodCarrito.map((ProD, index) => (
                                     <tr className={styles.trgespro} key={index}>
-                                        <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[0]}</td>
-                                        <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[1]}</td>
+                                        <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[1]}</td>
                                         <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[2]}</td>
+                                        <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[3]}</td>
                                         <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD.cantidad}</td>
                                     </tr>
                                 ))}

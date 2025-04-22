@@ -224,6 +224,7 @@ if (isset($_POST['registrarProducto'])) {
     foreach ($lista as $producto) {
         // Asegúrate de que cada producto sea un array o un objeto
         $response[] = [
+            $producto['id_Producto'],
             $producto['Nombre'],
             $producto['Marca'],
             $producto['Precio_unit'],

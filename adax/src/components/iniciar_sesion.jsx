@@ -89,11 +89,17 @@ const IniciarSesion = () => {
                         // Para obtener los datos del usuario
                         const userData = jwtDecode(token);
                         const usuarioData = email;
+                        const documento = userData.data.documento;
                         const tienda = userData.data.nombreTienda;
+                        const id_tienda = userData.data.id_Tienda;
                         const rol = userData.data.rol;
                         const codigo_invitacion = userData.data.codigo_invitacion;
 
-                        iniciarSesion(usuarioData, tienda, codigo_invitacion, rol, token);
+                        // Guardar el datos en el localStorage 
+                        localStorage.setItem('id_Tienda', JSON.stringify(id_tienda));
+                        localStorage.setItem('documento', JSON.stringify(documento));
+
+                        iniciarSesion(usuarioData, tienda, codigo_invitacion, rol);
                         navigate('/inicio');
                     } else {
                         setError('Credenciales Incorrectas', respuesta.data.success);

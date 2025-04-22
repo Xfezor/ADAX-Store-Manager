@@ -19,9 +19,11 @@ const Ventas = () => {
 
   // Obtener datos de localstorage
   const usuario1 = localStorage.getItem('usuario');
+  const id_Tienda = localStorage.getItem('id_Tienda');
   const tienda1 = localStorage.getItem('tienda');
   const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
   const rol1 = localStorage.getItem('rol');
+  const documentoUsuario = localStorage.getItem('documento');
 
   const usuario = JSON.parse(usuario1);
   const tienda = JSON.parse(tienda1);
@@ -41,11 +43,10 @@ const Ventas = () => {
   const [productosOriginales, setProductosOriginales] = useState([]);
 
   // Llamada de API
-  const Lista = useCallback( async () => {
+  const Lista = useCallback(async () => {
     try {
       const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`);
       if (respuesta.data) {
-
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
       } else {
@@ -61,7 +62,7 @@ const Ventas = () => {
     if (nombre === "") {
       setProductos(productosOriginales);
     } else {
-      const productosFiltrados = productosOriginales.filter((Pro) => Pro[0].toLowerCase().includes(nombre.toLowerCase()));
+      const productosFiltrados = productosOriginales.filter((Pro) => Pro[1].toLowerCase().includes(nombre.toLowerCase()));
       setProductos(productosFiltrados);
     }
   }
@@ -73,14 +74,15 @@ const Ventas = () => {
   });
 
   useEffect(() => {
+    console.log(id_Tienda)
     localStorage.setItem('prodCarrito', JSON.stringify(prodCarrito));
   }, [prodCarrito]);
-  
+
   // Funcion para añadir el producto al carrito
   const agregarProducto = (index) => {
     const producto = productos[index];
     const productoEnCarrito = prodCarrito.find((item) => item[0] === producto[0]);
-  
+
     if (productoEnCarrito) {
       const nuevoCarrito = prodCarrito.map((item) =>
         item[0] === producto[0]
@@ -116,11 +118,11 @@ const Ventas = () => {
       eliminarProducto(index);
     }
   };
-  
+
   const CRUD = () => {
     navigate('/crud/usuarios');
   }
-  const generarPago = () => {
+  const generarPago = async () => {
     if (prodCarrito.length === 0) {
       Swal.fire({
         icon: "error",
@@ -129,16 +131,14 @@ const Ventas = () => {
         timer: 1500
       });
       return;
-    } else {
-      navigate('/generar_pago', { state: {prodCarrito} });
-
-    };
+    }
+    navigate('/generar_pago', { state: { prodCarrito, id_Tienda } });
   };
   const handleCerrarSesion = () => {
     cerrarSesion();
   };
   const backbutton = () => {
-    localStorage.removeItem('prodCarrito');
+    // localStorage.removeItem('prodCarrito');
     navigate('/inicio', { replace: true, state: null });
   };
   const exitbutton = () => {
@@ -161,17 +161,17 @@ const Ventas = () => {
     validador();
     Lista();
     CodInv();
-  }, [Lista,navigate,codInv])
+  }, [Lista, navigate, codInv])
   useEffect(() => {
     const handlePopState = () => {
-        navigate('/inicio', { replace: true, state: null });
+      navigate('/inicio', { replace: true, state: null });
     };
     window.addEventListener('popstate', handlePopState);
 
     return () => {
-        window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener('popstate', handlePopState);
     };
-}, [prodCarrito, navigate]);
+  }, [prodCarrito, navigate]);
   return (
     <>
       <header>
@@ -212,9 +212,9 @@ const Ventas = () => {
               <tbody className={styles["table-body"]}>
                 {productos.map((Pro, index) => (
                   <tr className={styles.trgespro} key={index}>
-                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[0]}</td>
-                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[1]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{Pro[1]}</td>
                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[2]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{Pro[3]}</td>
                     <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
                       <button className="btn btn-danger" id={styles['add-button']} onClick={() => agregarProducto(index)}>
                         1+
@@ -243,9 +243,9 @@ const Ventas = () => {
               <tbody className={styles["table-body"]}>
                 {prodCarrito.map((ProD, index) => (
                   <tr className={styles.trgespro} key={index}>
-                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[0]}</td>
-                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[1]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdnombre}`}>{ProD[1]}</td>
                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[2]}</td>
+                    <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD[3]}</td>
                     <td className={`${styles.tdgespro} ${styles.tdmarca}`}>{ProD.cantidad}</td>
                     <td className={`${styles.tdgespro} ${styles.tdbotondetalle}`}>
                       <button className="btn btn-danger" id={styles['add-button']} onClick={() => aumentarCantidad(index)}>

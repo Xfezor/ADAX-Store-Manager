@@ -10,6 +10,8 @@ const Inicio = () => {
   const navigate = useNavigate();
   const { cerrarSesion } = useContext(ContextoSesion);
 
+  // Dejar el carrito avcio de produCarrito
+  localStorage.removeItem('prodCarrito');
   const usuario1 = localStorage.getItem('usuario');
   const tienda1 = localStorage.getItem('tienda');
   const codigo_invitacion1 = localStorage.getItem('codigo_invitacion');
@@ -68,6 +70,7 @@ const Inicio = () => {
     validador();
     CodInv();
   }, [navigate, codInv])
+
   return (
     <>
       <header>

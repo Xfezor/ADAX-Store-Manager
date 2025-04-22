@@ -1,13 +1,14 @@
 <?php
-header("Access-Control-Allow-Origin: *"); // Permite todas las solicitudes de cualquier origen
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); // Métodos permitidos
+header("Access-Control-Allow-Origin: * "); // Permite todas las solicitudes de cualquier origen
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE"); // Métodos permitidos
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
-};
+}
+;
 
 require '../Dao/ventaDao.php';
 require '../Dto/ventaDto.php';
@@ -26,18 +27,33 @@ header("Expires: 0"); // Proxies
 //<th style={{ 'fontWeight': 'normal' }}>Documento del Usuario</th>
 //<th style={{ 'fontWeight': 'normal' }}>Id Tienda del Usuario</th>
 $data = json_decode(file_get_contents('php://input'), true);
-if (isset($data['registro'])) {
-    $id_Venta = $data['id_Venta'];
-    $Fecha_de_Venta = $data['FechaVenta'];
-    $Hora_de_Venta = $data['HoraVenta'];
-    $EstadoVenta = $data['EstadoVenta'];
-    $id_Cliente = $data['cliente_id_cliente'];
-    $id_Tienda = $data['tienda_idtienda'];
-    $id_MetodoPago = $data['metododepago_ID_Met_Pago'];
-    $documento_Usuarios = $data[' usarios_documento'];
-    $id_Tienda_Usuarios = $data['usuarios_tienda_idtienda'];
-}
 
+switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+    case 'POST':
+        if (isset($data['registro'])) {
+            $registrarVenta = $data['registro'];
+            $EstadoVenta = $data['EstadoVenta'];
+            $documento_Cliente = $data['documento_Cliente'] ;
+            $id_Tienda = $data['tienda_idtienda'];
+            $id_Metodo = $data['metododepago_ID_Met_Pago'];
+            $documento_Usuarios = $data['usuarios_documento'];
+        }
+        break;
+    case 'PUT':
+        if (isset($data['modificarEstado'])) {
+            $modificarEstado = $data['modificarEstado'];
+            $id_Venta = $data['id_Venta'];
+            $EstadoVenta = $data['EstadoVenta'];
+
+        }
+        break;
+}
+if (isset($data['modificarEstado'])) {
+    $modificarEstado = $data['modificarEstado'];
+    $id_Venta = $data['id_Venta'];
+    $EstadoVenta = $data['EstadoVenta'];
+}
 if (isset($data['listar'])) {
     $listar = $data['listar'];
 }
@@ -45,21 +61,16 @@ if (isset($data['listar'])) {
 if (isset($registrarVenta)) {
     $vDao = new ventaDao();
     $vDto = new ventaDto();
-    $vDto->setId_Venta($id_Venta);
-    $vDto->setFechaVenta($Fecha_de_Venta );
-    $vDto->setHoraVenta($Hora_de_Venta );
-    $vDto->setEstadoVenta($EstadoVenta );
-    $vDto->setCliente_id_cliente($id_Cliente );
-    $vDto->setTienda_idtienda($id_Tienda );
+    $vDto->setEstadoVenta($EstadoVenta);
+    $vDto->setCliente_documento_Cliente($documento_Cliente);
+    $vDto->setTienda_idtienda($id_Tienda);
     $vDto->setMetododepago_ID_Met_pago($id_Metodo);
-    $vDto->setUsuarios_documento($documento_Usuarios );
+    $vDto->setUsuarios_documento($documento_Usuarios);
 
     $mensaje = $vDao->registrarVenta($vDto);
-    echo $mensaje;
-    if ($mensaje == 'Registrado exitosamente') {
-        header("Location:../tablas/venta/listarventa.php?mensaje=" . $mensaje);
-        exit;
-    }
+    echo json_encode(['status' => true, 'mensaje' => $mensaje, 'id_Venta' => $mensaje['idVentaGuardado']]);
+    exit();
+
 } else if (isset($listar) || isset($GET['si'])) {
     $vDao = new ventaDao;
     $vDto = new ventaDto;
@@ -67,32 +78,32 @@ if (isset($registrarVenta)) {
     $response = [];
     foreach ($listarVenta as $venta) {
         $response[] = [
-            $venta ['id_Venta'],
-            $venta ['FechaVenta'],
-            $venta ['HoraVenta'],
-            $venta ['EstadoVenta'],
-            $venta ['cliente_id_Cliente'],
-            $venta ['tienda_idtienda'],
-            $venta ['metododepago_ID_Met_pago'],
-            $venta ['usuarios_documento'],
-            $venta ['usuarios_tienda_idtienda'],
+            $venta['id_Venta'],
+            $venta['FechaVenta'],
+            $venta['HoraVenta'],
+            $venta['EstadoVenta'],
+            $venta['cliente_documento_Cliente'],
+            $venta['tienda_idtienda'],
+            $venta['metododepago_ID_Met_pago'],
+            $venta['usuarios_documento'],
+            $venta['usuarios_tienda_idtienda'],
         ];
     }
     echo json_encode($response);
     exit();
 
-}else if (isset($_POST['registrocrud'])){$
-    $vDao = new ventaDao();
+} else if (isset($_POST['registrocrud'])) {
+    $
+        $vDao = new ventaDao();
     $vDto = new ventaDto();
     $vDto->setId_Venta($_POST['id_Venta']);
     $vDto->setFechaVenta($_POST['FechaVenta']);
     $vDto->setHoraVenta($_POST['HoraVenta']);
     $vDto->setEstadoVenta($_POST['EstadoVenta']);
-    $vDto->setCliente_id_Cliente($_POST['cliente_id_Cliente']);
+    $vDto->setCliente_documento_Cliente($_POST['cliente_documento_Cliente']);
     $vDto->setTienda_idtienda($_POST['tienda_idtienda']);
     $vDto->setMetododepago_ID_Met_pago($_POST['metododepago_ID_Met_pago']);
     $vDto->setUsuarios_documento($_POST['usuarios_documento']);
-    $vDto->setUsuarios_tienda_idtienda($_POST['usuarios_tienda_idtienda']);
 
     $mensaje = $vDao->registrarVentaCrud($vDto);
     echo $mensaje;
@@ -104,22 +115,28 @@ if (isset($registrarVenta)) {
 if (isset($_GET['id_Vent'])) {
     $uDao = new UsuarioDao();
     $mensaje = $uDao->eliminarUsuario($_GET['id_Vent']);
-    header("Location:../tablas/venta/listarventa.php?mensaje=".$mensaje);
+    header("Location:../tablas/venta/listarventa.php?mensaje=" . $mensaje);
     exit;
-}
-else if (isset($_POST['modificar'])){
+} else if (isset($_POST['modificar'])) {
     $vDao = new ventaDao();
     $vDto = new ventaDto();
     $vDto->setId_Venta($_POST['id_Venta']);
     $vDto->setFechaVenta($_POST['FechaVenta']);
     $vDto->setHoraVenta($_POST['HoraVenta']);
     $vDto->setEstadoVenta($_POST['EstadoVenta']);
-    $vDto->setCliente_id_Cliente($_POST['cliente_id_Cliente']);
+    $vDto->setCliente_documento_Cliente($_POST['cliente_documento_Cliente']);
     $vDto->setTienda_idtienda($_POST['tienda_idtienda']);
     $vDto->setMetododepago_ID_Met_pago($_POST['metododepago_ID_Met_pago']);
     $vDto->setUsuarios_documento($_POST['usuarios_documento']);
-    $vDto->setUsuarios_tienda_idtienda($_POST['usuarios_tienda_idtienda']);
 
-    $mensaje =$vDao->modificarVenta($vDto);
-    header("Location:../tablas/venta/listarventa.php?mensaje=".$mensaje);
+    $mensaje = $vDao->modificarVenta($vDto);
+    header("Location:../tablas/venta/listarventa.php?mensaje=" . $mensaje);
+} else if (isset($modificarEstado)) {
+    $vDao = new ventaDao();
+    $vDto = new ventaDto();
+    $vDto->setId_Venta($id_Venta);
+    $vDto->setEstadoVenta($EstadoVenta);
+    $mensaje = $vDao->modificarEstadoVenta($vDto);
+    echo json_encode(['status' => true, 'mensaje' => $mensaje]);
+    exit();
 }

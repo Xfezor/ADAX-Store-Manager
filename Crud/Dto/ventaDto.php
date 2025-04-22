@@ -9,7 +9,6 @@ class ventaDto {
     private $tienda_idtienda;
     private $metododepago_ID_Met_pago;
     private $usuarios_documento;
-    private $usuarios_tienda_idtienda;
 
 
     //GETTERS
@@ -25,7 +24,7 @@ class ventaDto {
     public function getEstadoVenta() {
         return $this->EstadoVenta;
     }
-    public function getCliente_id_Cliente() {
+    public function getCliente_documento_Cliente() {
         return $this->cliente_id_Cliente;
     }
     public function getTienda_idtienda() {
@@ -36,9 +35,6 @@ class ventaDto {
     }
     public function getUsuarios_documento() {
         return $this->usuarios_documento;
-    }
-    public function getUsuarios_tienda_idtienda() {
-        return $this->usuarios_tienda_idtienda;
     }
 
     //SETTERS
@@ -55,7 +51,7 @@ class ventaDto {
     public function setEstadoVenta($EstadoVenta) {
         $this->EstadoVenta = $EstadoVenta;
     }
-    public function setCliente_id_Cliente($cliente_id_Cliente) {
+    public function setCliente_documento_Cliente($cliente_id_Cliente) {
         $this->cliente_id_Cliente = $cliente_id_Cliente;
     }
     public function setTienda_idtienda($tienda_idtienda) {
@@ -66,9 +62,6 @@ class ventaDto {
     }
     public function setUsuarios_documento($usuarios_documento) {
         $this->usuarios_documento = $usuarios_documento;
-    }
-    public function setUsuarios_tienda_idtienda($usuarios_tienda_idtienda) {
-        $this->usuarios_tienda_idtienda = $usuarios_tienda_idtienda;
     }
     
 }

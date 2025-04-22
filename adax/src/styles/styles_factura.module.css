@@ -33,6 +33,7 @@ body {
     height: fit-content;
     display: flex;
     margin: auto;
+    margin-left: 41em;
     margin-top: 10px;
     text-align: center;
 }
@@ -160,6 +161,7 @@ body {
     border-radius: 15px;
     align-items: center;
     grid-template-rows: repeat(10, 1fr);
+    min-height: 28.8em;
 }
 
 .cantidad-text{

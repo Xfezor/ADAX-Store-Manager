@@ -136,6 +136,22 @@ class FacturaDao
         $cnn = null;
         return $mensaje;
     }
+    //Cambiar Estado de Factura a Pagado
+    public function cambiarEstadoFacturaPagado($venta_id_Venta)
+    {
+        $conn = Conexion::getConexion();
+        $mensaje = "";
+        try {
+            $query = $conn->prepare("UPDATE factura SET Estado = 'Pagado' WHERE venta_id_Venta = ?");
+            $query->bindParam(1, $venta_id_Venta, PDO::PARAM_INT);
+            $query->execute();
+            $mensaje = "Estado actualizado a Pagado";
+        } catch (Exception $ex) {
+            $mensaje = "Error al actualizar estado: " . $ex->getMessage();
+        }
+        $conn = null;
+        return $mensaje;
+    }
 
     // Obtener factura 
     public function obtenerFactura($venta_id_Venta)

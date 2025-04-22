@@ -62,7 +62,8 @@ if ($tipo === "empleado") {
                 'documento' => $valor->documento,
                 'codigo_invitacion' => $valor->codigo_invitacion,
                 'nombreTienda' => $valor2->nombreTienda,
-                'rol' => $valor->rol_id_Rol
+                'rol' => $valor->rol_id_Rol,
+                'id_Tienda' => $valor->tienda_idtienda,
             ]
         ];
 
