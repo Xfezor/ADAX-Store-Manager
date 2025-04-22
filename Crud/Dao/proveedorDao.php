@@ -58,9 +58,9 @@ class proveedorDao
     {
         $conn = Conexion::getConexion();
         $mensaje = '';
-        $nombre = $proveedorDto->getnombre();
-        $telefono = $proveedorDto->gettelefono();
-        $email = $proveedorDto->getemail();
+        $nombre = $proveedorDto->getNombre();
+        $telefono = $proveedorDto->getTelefono();
+        $email = $proveedorDto->getEmail();
         try {
             $query = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = ?;");
             $query->bindParam(1, $codigo_invitacion);

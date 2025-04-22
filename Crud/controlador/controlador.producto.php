@@ -29,8 +29,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         } else if (isset($_GET['listarProductosAppPrecio'])) {
             $listarProductosAppPrecio = $_GET['listarProductosAppPrecio'];
             $codigo_invitacion = $_GET['codigo_invitacion'];
-        } else if (isset($data['listar'])) {
-            $listar = $data['listar'];
+        } else if (isset($_GET['listar'])) {
+            $listar = $_GET['listar'];
         }
         break;
     case 'POST':
@@ -107,7 +107,9 @@ if (isset($_POST['registrarProducto'])) {
             $producto['Fecha_vencimiento'],
             $producto['Stock'],
             $producto['Stock_Min'],
+            $producto['estado'],
             $producto['inventario_id_Inventario'],
+            $producto['idProveedor'],
         ];
     }
     echo json_encode($response);

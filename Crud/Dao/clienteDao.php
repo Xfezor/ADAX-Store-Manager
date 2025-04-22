@@ -82,7 +82,7 @@ class clienteDao
     {
         $conn = Conexion::getConexion();
         try {
-            $listarcliente = 'select c.Documento,c.Tipo_documento,c.NombreCliente,c.ApellidoCliente,c.correo from venta v inner join cliente c on c.Documento = v.cliente_documento_Cliente inner join tienda t on v.tienda_idtienda = t.idtienda where t.codigo_invitacion = ?';
+            $listarcliente = 'SELECT c.Documento,c.Tipo_documento,c.NombreCliente,c.ApellidoCliente,c.correo from venta v inner join cliente c on c.Documento = v.cliente_documento_Cliente inner join tienda t on v.tienda_idtienda = t.idtienda where t.codigo_invitacion = ?';
             $query = $conn->prepare($listarcliente);
             $query->bindParam(1, $codigoInvitacion);
             $query->execute();

@@ -69,7 +69,7 @@ if (isset($_POST['registro'])) {
         exit();
 
     }
-} else if (isset($listar) || isset($_GET['si'])) {
+} else if (isset($listar)) {
     $mDao = new MovimientoDao();
     $mDto = new MovimientoDto();
     $lista = $mDao->listarTodos();
@@ -78,10 +78,12 @@ if (isset($_POST['registro'])) {
         // Asegúrate de que cada  sea un array o un objeto
         $response[] = [
             $movimiento['id_Movimiento'],
-            $movimiento['cantidad_despues'],
+            $movimiento['id_Producto_id'],
+            $movimiento['stock_antes'],
+            $movimiento['entradas'],
+            $movimiento['salidas'],
+            $movimiento['stock_despues'],
             $movimiento['fecha_movimiento'],
-            $movimiento['fecha_modificacion'],
-            $movimiento['estado_despues'],
             $movimiento['inventario_id_Inventario'],
         ];
     }

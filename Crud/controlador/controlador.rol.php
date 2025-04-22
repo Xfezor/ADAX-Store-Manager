@@ -49,7 +49,7 @@ if (isset($data['actualizar'])) {
 }
 
 
-if (isset($registro) || isset($_GET['no'])) {
+if (isset($registro)) {
     $rDao = new rolDao();
     $rDto = new rolDto();
     $rDto->setid_Rol($id_Rol);
@@ -61,7 +61,7 @@ if (isset($registro) || isset($_GET['no'])) {
         echo json_encode(['success' => true]);
         exit();
     }
-} else if (isset($listar) || isset($GET['si'])) {
+} else if (isset($listar)) {
     $rDao = new rolDao;
     $rDto = new rolDto;
     $listaRoles = $rDao->listarTodos();

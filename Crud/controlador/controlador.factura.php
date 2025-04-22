@@ -56,8 +56,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
         }
         break;
     case 'DELETE':
-        if (isset($data['eliminar'])) {
-            $id = $data['eliminar'];
+        if (isset($_GET['eliminar'])) {
+            $id = $_GET['eliminar'];
         }
         break;
     default:

@@ -60,7 +60,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'PUT':
         if (isset($data['actualizar'])) {
-            $idproveedor = $data['idproveedor'];
+            $idProveedor = $data['idproveedor'];
             $nombre = $data['nombre'];
             $telefono = $data['telefono'];
             $email = $data['email'];
@@ -101,7 +101,7 @@ else if (isset($agregarProveedor)) {
     $pDto->setEmail($email);
 
     $mensaje = $pDao->añadirProveedorTienda($pDto, $codigo_invitacion);
-    echo json_encode($mensaje);
+    echo json_encode(['success' => true, 'mensaje' => $mensaje]);
     exit();
 }
  else if (isset($listar)) {
@@ -188,7 +188,7 @@ else if (isset($agregarProveedor)) {
 } else if (isset($actualizar)) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
-    $pDto->setidproveedor($idproveedor);
+    $pDto->setidproveedor($idProveedor);
     $pDto->setnombre($nombre);
     $pDto->settelefono($telefono);
     $pDto->setemail($email);
@@ -197,4 +197,4 @@ else if (isset($agregarProveedor)) {
     $mensaje = $pDao->modificarProveedor($pDto);
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
 }
-?>
+
