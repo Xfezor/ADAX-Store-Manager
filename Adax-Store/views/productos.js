@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
+import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ip, port } from '../utils/ipconfig.js';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
 
 const Productos = () => {
     const [busqueda, setBusqueda] = useState('');
@@ -13,7 +15,11 @@ const Productos = () => {
     const [nombreProducto, setNombreProducto] = useState('');
     const [precioProducto, setPrecioProducto] = useState("");
     const [cantidadProducto, setCantidadProducto] = useState("");
+    const [mostrarTabla, setMostrarTabla] = useState(true);
 
+
+    const ocultarTodo = () => setMostrarTabla(false);
+    const mostrarTodo = () => setMostrarTabla(true);
 
     const registrarProducto = async () => {
         try {
@@ -25,7 +31,8 @@ const Productos = () => {
                 cantidad: cantidadProducto,
                 codigo_invitacion: codigo_invitacion,
             });
-            if (respuesta2.data.success) {
+            console.log('Respuesta del registro:', respuesta2.data);
+            if (respuesta2.data.registro) {
                 Alert.alert('Éxito', 'Producto registrado correctamente.');
                 setNombreProducto('');
                 setPrecioProducto(0);
@@ -103,76 +110,94 @@ const Productos = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.encabezado}>
-                <Image source={require('../assets/logo.png')} style={styles.logo} />
-                <TouchableOpacity onPress={() => navigation.navigate('MenuPrincipal')}>
-                    <Text style={styles.iconoCerrar}>x</Text>
-                </TouchableOpacity>
-            </View>
-
-            <Text style={styles.title}>Productos</Text>
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Escriba el nombre del producto"
-                placeholderTextColor="#555"
-                value={busqueda}
-                onChangeText={filtrarProductos}
-            />
-
-            <View style={styles.tableContainer}>
-                <View style={styles.tableHeader}>
-                    <Text style={styles.tableHeaderText}>Nombre</Text>
-                    <Text style={styles.tableHeaderText}>Marca</Text>
-                    <Text style={styles.tableHeaderText}>Detalle</Text>
-                </View>
-                <ScrollView style={styles.productList}>
-                    {productos.map((producto, index) => (
-                        <View key={index} style={styles.productRow}>
-                            <Text style={styles.productText}>
-                                {producto[1] || 'Sin nombre'}
-                            </Text>
-                            <Text style={styles.productText}>
-                                {producto[2] || 'Sin marca'}
-                            </Text>
-                            <TouchableOpacity
-                                style={styles.detailButton}
-                                onPress={() => verDetalle(producto)}
-                            >
-                                <Text style={styles.detailButtonText}>Ver Detalle</Text>
+        <View style={{ flex: 1, backgroundColor: '#FCEDC0' }} onBlur={mostrarTodo}>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View>
+                    <View style={styles.container}>
+                        <View style={styles.encabezado}>
+                            <Image source={require('../assets/logo.png')} style={styles.logo} />
+                            <TouchableOpacity onPress={() => navigation.navigate('MenuPrincipal')}>
+                            <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
                             </TouchableOpacity>
                         </View>
-                    ))}
-                </ScrollView>
-            </View>
-            <Text style={styles.title2}>Añadir producto</Text>
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Escriba el nombre del producto"
-                placeholderTextColor="#555"
-                onChangeText={setNombreProducto}
-                onSubmitEditing="{buscarProducto}"
-                returnKeyType="search"
-            />
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Escriba el precio sin puntos ni comas"
-                placeholderTextColor="#555"
-                onChangeValue={setPrecioProducto}
-                onSubmitEditing="{buscarProducto}"
-                returnKeyType="search"
-            />
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Escriba la cantidad"
-                placeholderTextColor="#555"
-                onChangeValue={setCantidadProducto}
-                onSubmitEditing="{buscarProducto}"
-                returnKeyType="search"
-            />
-            <TouchableOpacity style={styles.botonConfirmar} onPress={registrarProducto}>
-                <Text style={styles.textoBotonConfirmar}>Registrar producto</Text>
-            </TouchableOpacity>
+                    </View>
+                    <View style={styles.container2}>
+                        <Text style={styles.title2}>Añadir producto</Text>
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Escriba el nombre del producto"
+                            placeholderTextColor="#555"
+                            onChangeText={setNombreProducto}
+                            onSubmitEditing="{buscarProducto}"
+                            onFocus={ocultarTodo}
+                            onBlur={mostrarTodo}
+                            returnKeyType="search"
+                        />
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Escriba el precio sin puntos ni comas"
+                            placeholderTextColor="#555"
+                            onChangeText={setPrecioProducto}
+                            onSubmitEditing="{buscarProducto}"
+                            onFocus={ocultarTodo}
+                            onBlur={mostrarTodo}
+                            returnKeyType="search"
+                        />
+                        <TextInput
+                            style={styles.searchInput}
+                            placeholder="Escriba la cantidad"
+                            placeholderTextColor="#555"
+                            onChangeText={setCantidadProducto}
+                            onSubmitEditing="{buscarProducto}"
+                            onFocus={ocultarTodo}
+                            onBlur={mostrarTodo}
+                            returnKeyType="search"
+                        />
+                        <TouchableOpacity style={styles.botonConfirmar} onPress={registrarProducto}>
+                            <Text style={styles.textoBotonConfirmar}>Registrar producto</Text>
+                        </TouchableOpacity>
+                    </View>
+
+
+                    <Text style={styles.title}>Productos</Text>
+                    <TextInput
+                        style={styles.searchInput}
+                        placeholder="Escriba el nombre del producto"
+                        placeholderTextColor="#555"
+                        value={busqueda}
+                        onChangeText={filtrarProductos}
+                    />
+                </View>
+            </TouchableWithoutFeedback>
+            {mostrarTabla && (
+                <View style={styles.tableContainer}>
+                    <View style={styles.tableHeader}>
+                        <Text style={styles.tableHeaderText}>Nombre</Text>
+                        <Text style={styles.tableHeaderText}>Marca</Text>
+                        <Text style={styles.tableHeaderText}>Detalle</Text>
+                    </View>
+                    <ScrollView style={styles.productList}>
+                        {productos.map((producto, index) => (
+                            <View key={index} style={styles.productRow}>
+                                <Text style={styles.productText}>
+                                    {producto[1] || 'Sin nombre'}
+                                </Text>
+                                <Text style={styles.productText}>
+                                    {producto[2] || 'Sin marca'}
+                                </Text>
+                                <TouchableOpacity
+                                    style={styles.detailButton}
+                                    onPress={() => verDetalle(producto)}
+                                >
+                                    <Text style={styles.detailButtonText}>Ver Detalle</Text>
+                                </TouchableOpacity>
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+
+            )}
+
             <View style={styles.menuInferior}>
                 {menuOptions.map((opcion, index) => (
                     <TouchableOpacity
@@ -193,9 +218,17 @@ const Productos = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#FCEDC0',
+        height: 90,
+        maxHeight: 90,
     },
+    container2: {
+        backgroundColor: '#FCEDC0',
+        paddingTop: 0,
+        height: 220,
+        maxHeight: 220,
+    },
+
     encabezado: {
         position: 'absolute',
         top: 0,
@@ -207,20 +240,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'rgba(235,216,160,255)',
         paddingHorizontal: 10,
-        paddingTop: 28,
+        paddingTop: 25,
+        paddingEnd: 27,
         borderBottomLeftRadius: 28,
         borderBottomRightRadius: 28,
         zIndex: 2,
-    },
-    searchInput: {
-        backgroundColor: '#FFF',
-        padding: 12,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        marginVertical: 10,
-        color: '#000',
-        fontSize: 16,
     },
     botonConfirmar: {
         backgroundColor: "#F85F6A",
@@ -249,7 +273,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginTop: 100,
+        marginTop: 0,
         marginBottom: 10,
         paddingHorizontal: 20,
     },
@@ -275,7 +299,8 @@ const styles = StyleSheet.create({
         padding: 10,
         marginVertical: 10,
         marginHorizontal: 20,
-        maxHeight: 400,
+        maxHeight: 300,
+        minHeight: 100,
     },
     tableHeader: {
         flexDirection: 'row',
@@ -289,7 +314,7 @@ const styles = StyleSheet.create({
     },
     productList: {
         flexGrow: 1,
-        maxHeight: 350,
+        maxHeight: 260,
     },
     productRow: {
         flexDirection: 'row',

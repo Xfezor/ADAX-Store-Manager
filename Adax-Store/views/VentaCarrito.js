@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { ip, port } from '../utils/ipconfig.js';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
 
 const VentaCarrito = () => {
     const navigation = useNavigation();
@@ -189,9 +190,9 @@ const VentaCarrito = () => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Image source={require('../assets/logo.png')} style={styles.logo} />
-                <Text style={styles.tiendaText}>
-                    Tienda: {codigoTienda || 'No configurada'}
-                </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('MenuPrincipal')}>
+                    <Ionicons name="close" size={40} color="black" style={styles.iconoCerrar} />
+                </TouchableOpacity>
             </View>
 
             <Text style={styles.title}>Venta</Text>
@@ -290,7 +291,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#FCEDC0',
-        padding: 20,
         paddingBottom: 0
     },
     cargandoContainer: {
@@ -300,13 +300,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#FCEDC0'
     },
     header: {
+        position: 'flex',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 90,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#EBD8A0',
-        padding: 15,
-        borderRadius: 10,
+        backgroundColor: 'rgba(235,216,160,255)',
+        paddingHorizontal: 10,
+        paddingTop: 25,
+        paddingEnd: 27,
+        borderBottomLeftRadius: 28,
+        borderBottomRightRadius: 28,
+        zIndex: 2,
         marginBottom: 15,
+    },
+    iconoCerrar: {
+        fontSize: 40,
+        color: 'black',
     },
     logo: {
         width: 100,
@@ -319,11 +332,11 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     title: {
-        fontSize: 20,
+        fontSize: 26,
         fontWeight: 'bold',
-        marginVertical: 10,
-        color: '#333',
-        textAlign: 'center'
+        marginTop: 0,
+        marginBottom: 10,
+        paddingHorizontal: 20,
     },
     searchInput: {
         backgroundColor: '#FFF',
@@ -334,6 +347,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         color: '#000',
         fontSize: 16,
+        marginHorizontal: 20,
     },
     carritoContainer: {
         backgroundColor: '#FFF',
@@ -343,12 +357,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#EBD8A0',
         marginBottom: 15,
+        marginHorizontal: 20,
+        backgroundColor: '#EBD8A0',
     },
     carritoVacio: {
         textAlign: 'center',
         padding: 20,
         color: '#777',
-        fontStyle: 'italic'
+        fontStyle: 'italic',
+        backgroundColor: '#EBD8A0',
     },
     tableHeader: {
         flexDirection: 'row',
@@ -357,15 +374,18 @@ const styles = StyleSheet.create({
         borderColor: '#EBD8A0',
         paddingBottom: 8,
         marginBottom: 5,
+        backgroundColor: '#EBD8A0',
     },
     headerText: {
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#333',
-        fontSize: 14
+        fontSize: 14,
+        backgroundColor: '#EBD8A0',
     },
     scroll: {
-        marginVertical: 5
+        marginVertical: 5,
+        backgroundColor: '#EBD8A0',
     },
     row: {
         flexDirection: 'row',
@@ -373,12 +393,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#EBD8A0',
         paddingVertical: 8,
+        backgroundColor: '#EBD8A0',
     },
     cell: {
         textAlign: 'center',
         color: '#333',
         fontSize: 14,
-        paddingHorizontal: 2
+        paddingHorizontal: 2,
+        backgroundColor: '#EBD8A0',
     },
     cantidadBtn: {
         backgroundColor: '#D9534F',
@@ -398,7 +420,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
-        marginBottom: 15
+        marginBottom: 15,
+        marginHorizontal: 20,
     },
     label: {
         fontWeight: 'bold',
@@ -423,6 +446,7 @@ const styles = StyleSheet.create({
         padding: 15,
         marginVertical: 15,
         alignItems: 'center',
+        marginHorizontal: 20,
     },
     totalLabel: {
         fontWeight: 'bold',

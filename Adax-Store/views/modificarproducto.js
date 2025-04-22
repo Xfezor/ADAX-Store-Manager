@@ -130,7 +130,7 @@ const ModificarProducto = () => {
 
       if (data.mensaje?.toLowerCase().includes("actualizado")) {
         Alert.alert("Éxito", "Producto modificado correctamente.");
-        navigation.goBack();
+        navigation.navigate("Productos");
       } else {
         Alert.alert("Error", data.mensaje || "No se pudo modificar el producto.");
       }
@@ -157,7 +157,7 @@ const ModificarProducto = () => {
 
             if (response.data?.Operacion === true) {
               Alert.alert("Éxito", "Producto eliminado correctamente.", [
-                { text: "OK", onPress: () => navigation.goBack() },
+                { text: "OK", onPress: () => navigation.navigate("Productos") },
               ]);
             } else {
               Alert.alert(
