@@ -31,9 +31,8 @@ const Contrasena = ({ navigation, route }) => {
                 nuevaContrasena: nuevaContrasena
             });
 
-            const data = await response.json();
 
-            if (data.status === "success") {
+            if (response.data.status === "success") {
                 Alert.alert("Éxito", "Contraseña actualizada correctamente", [
                     { text: "OK", onPress: () => navigation.navigate("IniciarSesion") }
                 ]);

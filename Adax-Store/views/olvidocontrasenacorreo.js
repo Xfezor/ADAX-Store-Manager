@@ -29,15 +29,14 @@ const RecuperarContraseña = ({ navigation }) => {
         }
       );
 
-      const datos = await respuesta.json();
 
-      if (datos.message?.includes('enviado correctamente') || datos.status === 'success') {
+      if (response.datos.message?.includes('enviado correctamente') || datos.status === 'success') {
         navigation.navigate('OlvidoContrasenaCodigo', { email: correo });
         setTimeout(() => Alert.alert('Éxito', datos.message || 'Código enviado'), 500);
-      } else if (datos.message?.includes('no registrado')) {
+      } else if (response.datos.message?.includes('no registrado')) {
         setError('Este correo no está registrado');
       } else {
-        throw new Error(datos.message || 'Error al enviar código');
+        throw new Error(response.datos.message || 'Error al enviar código');
       }
     } catch (error) {
       Alert.alert('Error', error.message.includes('Network')
