@@ -6,6 +6,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { ip, port } from '../utils/ipconfig.js';
+import axios from 'axios';
 
 const VentaCarrito = () => {
     const navigation = useNavigation();
@@ -13,8 +14,8 @@ const VentaCarrito = () => {
     const [busqueda, setBusqueda] = useState('');
     const [carrito, setCarrito] = useState({});
     const [documento, setDocumento] = useState('');
-    const [codigoTienda, setCodigoTienda] = useState(null);
-    const [cargandoTienda, setCargandoTienda] = useState(true);
+    var [codigoTienda, setCodigoTienda] = useState();
+    var [cargandoTienda, setCargandoTienda] = useState(false);
     const [productosDisponibles, setProductosDisponibles] = useState([]);
     const [cargandoProductos, setCargandoProductos] = useState(false);
 
@@ -28,18 +29,19 @@ const VentaCarrito = () => {
     useEffect(() => {
         const cargarDatos = async () => {
             try {
-                setCargandoTienda(true);
                 const codigoGuardado = await AsyncStorage.getItem('codigo_invitacion');
                 if (!codigoGuardado) {
                     Alert.alert('Tienda no configurada', 'No se encontró información de la tienda.');
                     return;
                 }
                 setCodigoTienda(codigoGuardado);
-                await cargarProductos(codigoGuardado);
+                codigoTienda = parseInt(codigoGuardado);
+                console.log(typeof codigoTienda);
+                cargandoTienda = false;
             } catch (error) {
                 Alert.alert('Error', 'No se pudo cargar la información de la tienda');
             } finally {
-                setCargandoTienda(false);
+                await cargarProductos(codigoTienda);
             }
         };
         cargarDatos();
@@ -48,7 +50,7 @@ const VentaCarrito = () => {
     const cargarProductos = async (codigo) => {
         setCargandoProductos(true);
         try {
-            const response = await fetch(
+            const response = await axios.get(
                 `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
             );
             const data = await response.json();
@@ -176,7 +178,7 @@ const VentaCarrito = () => {
         navigation.navigate(route);
     };
 
-    if (cargandoTienda) {
+    if (cargandoTienda === true) {
         return (
             <View style={styles.cargandoContainer}>
                 <Text>Cargando información de la tienda...</Text>
