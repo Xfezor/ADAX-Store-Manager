@@ -29,11 +29,13 @@ const ModificarProducto = () => {
   const [proveedorSeleccionado, setProveedorSeleccionado] = useState('');
   const [proveedoresDatos, setProveedoresDatos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const codigo_invitacion = AsyncStorage.getItem('codigo_invitacion');
+
 
   useEffect(() => {
     if (idProducto) {
       consultarProducto(idProducto);
-      cargarProveedoresDeTienda();
+      cargarProveedoresDeTienda(codigo_invitacion);
     } else {
       Alert.alert("Error", "No se proporcionó un ID de producto.");
       navigation.goBack();
@@ -41,20 +43,18 @@ const ModificarProducto = () => {
   }, [idProducto]);
 
   const cargarProveedoresDeTienda = async () => {
+    let codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
+    console.log('Código de invitación:', codigo_invitacion);
+    codigo_invitacion = parseInt(codigo_invitacion);
     try {
-      const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
-      if (!codigo_invitacion) {
-        console.warn('No se encontró el código de invitación en AsyncStorage');
-        return;
-      }
-
-      const response = await fetch(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarNombreIDPorTienda=true&codigo_invitacion=${codigo_invitacion}`);
+      const response = await fetch(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarNombreID=true&codigo_invitacion=${codigo_invitacion}`);
       const data = await response.json();
 
       if (Array.isArray(data)) {
-        const proveedoresFiltrados = data.filter(
-          (proveedor) => proveedor.codigo_tienda === codigo_invitacion
-        );
+        const proveedoresFiltrados = data.map((proveedor) => ({
+          id: proveedor[1], // Asegúrate de que estas propiedades existan
+          nombre: proveedor[0],
+        }));
         setProveedoresDatos(proveedoresFiltrados);
       } else {
         console.warn('No se recibieron datos de proveedores o el formato es incorrecto.');
@@ -153,31 +153,26 @@ const ModificarProducto = () => {
       {
         text: "Eliminar", style: "destructive", onPress: async () => {
           try {
-            const formData = new FormData();
-            formData.append('id_Producto', idProducto);
-            formData.append('operacion', 'eliminar');
+            const response = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${idProducto}`);
 
-            const response = await fetch(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
-              method: 'POST',
-              body: formData,
-              headers: { Accept: 'application/json' },
-            });
-
-            const text = await response.text();
-            const data = JSON.parse(text);
-
-            if (data?.Operacion === true) {
-              Alert.alert("Éxito", "Producto eliminado correctamente", [
+            if (response.data?.Operacion === true) {
+              Alert.alert("Éxito", "Producto eliminado correctamente.", [
                 { text: "OK", onPress: () => navigation.goBack() },
               ]);
             } else {
-              Alert.alert("Error", data?.Mensaje || "No se pudo eliminar el producto");
+              Alert.alert(
+                "Error",
+                response.data?.Mensaje || "No se pudo eliminar el producto."
+              );
             }
           } catch (error) {
             console.error("Error al eliminar:", error);
-            Alert.alert("Error", "Error al eliminar el producto.");
+            Alert.alert(
+              "Error",
+              "Hubo un problema al intentar eliminar el producto. Inténtalo nuevamente."
+            );
           }
-        }
+        },
       },
     ]);
   };
@@ -243,14 +238,15 @@ const ModificarProducto = () => {
           <Text style={styles.label}>Cambiar proveedor</Text>
           <View style={styles.pickerContainer}>
             <Picker
-              selectedValue={String(proveedorSeleccionado)}
+              selectedValue={proveedorSeleccionado}
               onValueChange={(itemValue) => setProveedorSeleccionado(itemValue)}
             >
-              {proveedoresDatos.map((proveedor) => (
+              <Picker.Item label="Seleccione un proveedor" value="" />
+              {proveedoresDatos.map((proveedor, index) => (
                 <Picker.Item
-                  key={proveedor.id}
-                  label={proveedor.nombre}
-                  value={String(proveedor.id)}
+                  key={proveedor.id || index} // Usa el índice como respaldo si `id` está vacío
+                  label={proveedor.nombre} // Muestra un valor predeterminado si `nombre` está vacío
+                  value={proveedor.id || ''} // Asegúrate de que el valor sea válido
                 />
               ))}
             </Picker>
@@ -292,16 +288,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#A0AEC0',
     marginBottom: 15,
-    height: 50,
-    overflow: 'hidden',
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    height: 60, // Aumenta la altura para que el Picker sea visible
+    justifyContent: 'center', // Centra el contenido verticalmente
+    paddingHorizontal: 10, // Ajusta el padding interno
+    elevation: 3, // Sombra para mejor visibilidad
   },
   applyButton: { backgroundColor: '#537182', padding: 15, borderRadius: 25, alignItems: 'center', marginBottom: 10 },
   deleteButton: { backgroundColor: '#F85F6A', padding: 15, borderRadius: 25, alignItems: 'center', flex: 1, marginRight: 5 },
