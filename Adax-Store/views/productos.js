@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Platform } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ip, port } from '../utils/ipconfig.js';
@@ -18,7 +18,7 @@ const Productos = () => {
     const registrarProducto = async () => {
         try {
             const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
-            const respuesta2 = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
+            const respuesta2 = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
                 registrarProductoUnico: true,
                 nombre: nombreProducto,
                 precio: precioProducto,
