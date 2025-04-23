@@ -108,8 +108,9 @@ const ActualizarDatos = ({ navigation }) => {
       if (respuesta.data.success) {
         Alert.alert("Éxito", "Datos actualizados correctamente.");
         navigation.navigate("MenuPrincipal");
+      } else {
+        Alert.alert("Error", "No se pudieron actualizar los datos.");
       }
-      console.log("Respuesta del servidor:", respuesta.data.mensaje);
     } catch (error) {
       console.error("Error al enviar los datos:", error);
     }

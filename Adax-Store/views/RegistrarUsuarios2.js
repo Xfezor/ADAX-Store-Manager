@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import axios from 'axios';
+import { ip, port } from '../utils/ipconfig.js';
 const RegistrarUsuarios2 = ({ route, navigation }) => {
   
   const { documento, nombre, apellido1, apellido2 } = route.params;
@@ -40,8 +41,8 @@ const RegistrarUsuarios2 = ({ route, navigation }) => {
   
       console.log('Payload:', payload); // ← Verifica en consola
   
-      const response = await fetch(
-        'http://192.168.20.24/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php', 
+      const response = await axios(
+        'http://192.168.252.207/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php', 
         {
           method: 'POST',
           headers: {
@@ -60,7 +61,7 @@ const RegistrarUsuarios2 = ({ route, navigation }) => {
       
       if (jsonData.success) {
         Alert.alert('Éxito', jsonData.message || 'Registro exitoso');
-        navigation.navigate('Login');
+        navigation.navigate('/iniciarsesion');
       } else {
         Alert.alert('Error', jsonData.message || 'Error en el registro');
       }

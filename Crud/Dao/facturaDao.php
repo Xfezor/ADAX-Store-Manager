@@ -170,6 +170,8 @@ class FacturaDao
         return $mensaje;
     }
 
+    
+
     // Eliminar factura
     public function eliminarFactura($venta_id_Venta)
     {
