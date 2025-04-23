@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Platform, StatusBar } from 'react-native';
 import axios from 'axios';
 
 const GestionarVentas = ({ navigation }) => {
@@ -16,17 +16,14 @@ const GestionarVentas = ({ navigation }) => {
 
     const menuOptions = [
         { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
-        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },
-        { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },
+        { label: 'Venta',     icon: require('../assets/ventas.png'),    route: 'Venta' },
+        { label: 'Análisis',  icon: require('../assets/analisis.png'),  route: 'Analisis' },
         { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' },
     ];
 
     const handleNavigation = (route) => {
-        if (route) {
-            navigation.navigate(route);
-        } else {
-            console.log(`Ruta no definida para esta opción.`);
-        }
+        if (route) navigation.navigate(route);
+        else console.log(`Ruta no definida para esta opción.`);
     };
 
     return (
@@ -38,54 +35,57 @@ const GestionarVentas = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
 
-            <Text style={styles.title}>Gestionar Ventas</Text>
+            <ScrollView contentContainerStyle={{ paddingTop: 130, paddingBottom: 140 }}>
+                <Text style={styles.title}>Gestionar Ventas</Text>
 
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Escriba el código de la venta a buscar"
-                placeholderTextColor="#555"
-                value={busqueda}
-                onChangeText={setBusqueda}
-            />
+                <TextInput
+                    style={styles.searchInput}
+                    placeholder="Escriba el código de la venta a buscar"
+                    placeholderTextColor="#555"
+                    value={busqueda}
+                    onChangeText={setBusqueda}
+                />
 
-            <View style={styles.infoContainer}>
-                <View style={styles.smallBox}>
-                    <Text style={styles.infoTitle}>Id Venta</Text>
-                    <Text>15</Text>
+                <View style={styles.infoContainer}>
+                    <View style={styles.smallBox}>
+                        <Text style={styles.infoTitle}>Id Venta</Text>
+                        <Text>15</Text>
+                    </View>
+                    <View style={styles.smallBox}>
+                        <Text style={styles.infoTitle}>Precio Total</Text>
+                        <Text>$7300</Text>
+                    </View>
+                    <View style={styles.smallBox}>
+                        <Text style={styles.infoTitle}>Cliente</Text>
+                        <Text>1011522703</Text>
+                    </View>
                 </View>
-                <View style={styles.smallBox}>
-                    <Text style={styles.infoTitle}>Precio Total</Text>
-                    <Text>$7300</Text>
-                </View>
-                <View style={styles.smallBox}>
-                    <Text style={styles.infoTitle}>Cliente</Text>
-                    <Text>1011522703</Text>
-                </View>
-            </View>
 
-            <View style={styles.tableContainer}>
-                <View style={styles.tableHeader}>
-                    <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Productos</Text></View>
-                    <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Cantidad</Text></View>
-                    <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Precio</Text></View>
+                <View style={styles.tableContainer}>
+                    <View style={styles.tableHeader}>
+                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Productos</Text></View>
+                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Cantidad</Text></View>
+                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Precio</Text></View>
+                    </View>
+                    <ScrollView style={styles.productList}>
+                        {productos.map((producto, index) => (
+                            <View key={index} style={styles.productRow}>
+                                <Text style={styles.productText}>{producto.nombre}</Text>
+                                <Text style={styles.productText}>{producto.cantidad}</Text>
+                                <Text style={styles.productText}>{producto.precio}</Text>
+                            </View>
+                        ))}
+                    </ScrollView>
                 </View>
-                <ScrollView style={styles.productList}>
-                    {productos.map((producto, index) => (
-                        <View key={index} style={styles.productRow}>
-                            <Text style={styles.productText}>{producto.nombre}</Text>
-                            <Text style={styles.productText}>{producto.cantidad}</Text>
-                            <Text style={styles.productText}>{producto.precio}</Text>
-                        </View>
-                    ))}
-                </ScrollView>
-            </View>
 
-            <View style={styles.statusContainer}>
-                <Text style={styles.statusLabel}>ESTADO</Text>
-                <Text style={styles.statusText}>Pendiente</Text>
-            </View>
+                <View style={styles.statusContainer}>
+                    <Text style={styles.statusLabel}>ESTADO</Text>
+                    <Text style={styles.statusText}>Pendiente</Text>
+                </View>
+            </ScrollView>
 
-            <View style={styles.bottomNav}>
+            {/* ——— Footer Fijo ——— */}
+            <View style={styles.footer}>
                 {menuOptions.map((option, index) => (
                     <TouchableOpacity
                         key={index}
@@ -102,33 +102,161 @@ const GestionarVentas = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#FCEDC0', padding: 20 },
-    header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#EBD8A0', padding: 15, borderRadius: 10 },
-    logo: { width: 100, height: 50, resizeMode: 'contain' },
-    closeButton: { fontSize: 30 }, // Estilo para la 'x'
-    title: { fontSize: 20, fontWeight: 'bold', marginTop: 10, marginBottom: 10 },
-    searchInput: { backgroundColor: '#FFF', padding: 10, borderRadius: 10, borderWidth: 1, borderColor: '#ccc', color: '#000' },
+    container: {
+        flex: 1,
+        backgroundColor: '#FCEDC0',
+    },
 
-    infoContainer: { flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 },
-    smallBox: { flex: 1, backgroundColor: '#EBD8A0', padding: 10, marginHorizontal: 3, borderRadius: 10, alignItems: 'center' },
-    infoTitle: { fontWeight: 'bold', marginBottom: 5 },
+    /* ——— HEADER ——— */
+    header: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 130,  // Cambié la altura a 130
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'rgba(235,216,160,255)',
+        paddingHorizontal: 20,
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight + 10 : 40,
+        borderBottomLeftRadius: 28,
+        borderBottomRightRadius: 28,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+        elevation: 4,
+        zIndex: 10,
+    },
+    logo: {
+        width: 120,  // Ajusté el tamaño del logo
+        height: 70,
+        resizeMode: 'contain',
+    },
+    closeButton: {
+        fontSize: 30,
+        fontWeight: 'bold',
+    },
 
-    tableContainer: { backgroundColor: '#EBD8A0', borderRadius: 10, padding: 10, marginVertical: 10 },
-    tableHeader: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 },
-    tableHeaderBox: { flex: 1, backgroundColor: '#D5C08F', padding: 5, borderRadius: 5, alignItems: 'center' },
-    tableHeaderText: { fontWeight: 'bold' },
-    productList: { maxHeight: 400 },
-    productRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5, borderBottomWidth: 1, borderBottomColor: '#ccc' },
-    productText: { flex: 1, textAlign: 'center' },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        margin: 20,
+    },
+    searchInput: {
+        backgroundColor: '#FFF',
+        padding: 10,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        color: '#000',
+        marginHorizontal: 20,
+    },
+    infoContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin: 20,
+    },
+    smallBox: {
+        flex: 1,
+        backgroundColor: '#EBD8A0',
+        padding: 10,
+        marginHorizontal: 3,
+        borderRadius: 10,
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#D5C08F',
+    },
+    infoTitle: {
+        fontWeight: 'bold',
+        marginBottom: 5,
+    },
+    tableContainer: {
+        backgroundColor: '#EBD8A0',
+        borderRadius: 10,
+        padding: 10,
+        marginHorizontal: 20,
+        marginVertical: 10,
+    },
+    tableHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 5,
+    },
+    tableHeaderBox: {
+        flex: 1,
+        backgroundColor: '#D5C08F',
+        padding: 5,
+        borderRadius: 5,
+        alignItems: 'center',
+        marginHorizontal: 2,
+    },
+    tableHeaderText: {
+        fontWeight: 'bold',
+    },
+    productList: {
+        maxHeight: 200,
+    },
+    productRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    productText: {
+        flex: 1,
+        textAlign: 'center',
+    },
+    statusContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#EBD8A0',
+        padding: 10,
+        borderRadius: 10,
+        alignSelf: 'flex-start',
+        margin: 20,
+    },
+    statusLabel: {
+        fontWeight: 'bold',
+        marginRight: 10,
+    },
+    statusText: {
+        color: '#555',
+    },
 
-    statusContainer: { flexDirection: 'row', alignItems: 'center', marginVertical: 10, backgroundColor: '#EBD8A0', padding: 10, borderRadius: 10 },
-    statusLabel: { fontWeight: 'bold', marginRight: 10 },
-    statusText: { color: '#555' },
-
-    bottomNav: { flexDirection: 'row', justifyContent: 'space-around', paddingVertical: 10, borderTopWidth: 1, marginTop: 10 },
-    navItem: { alignItems: 'center' },
-    icon: { width: 40, height: 40 },
-    navText: { fontSize: 12, fontWeight: 'bold' },
+    footer: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 110,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        backgroundColor: 'rgba(235,216,160,255)',
+        borderTopLeftRadius: 28,
+        borderTopRightRadius: 28,
+        paddingHorizontal: 20,
+        paddingBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: -2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+        elevation: 6,
+    },
+    navItem: {
+        alignItems: 'center',
+    },
+    icon: {
+        width: 40,
+        height: 40,
+    },
+    navText: {
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 });
 
 export default GestionarVentas;
