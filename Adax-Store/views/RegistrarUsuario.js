@@ -1,25 +1,70 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
 import axios from 'axios';
+const RegistrarUsuario = ({ navigation }) => {
+  
+  const [documento, setDocumento] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [apellido1, setApellido1] = useState('');
+  const [apellido2, setApellido2] = useState('');
 
-const RegistroUsuario = () => {
+  
+  const handleSiguiente = () => {
+    if (!documento || !nombre || !apellido1 || !apellido2) {
+      Alert.alert('Error', 'Complete todos los campos', [], { cancelable: true });
+      return;
+    }
+    navigation.navigate('RegistrarUsuarios2', { documento, nombre, apellido1, apellido2 });
+  };
+
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo2.png')} style={styles.logo} />
+      
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <View style={styles.formContainer}>
-        <Text style={styles.title}>Registro de Usuario</Text>
+        <Text style={styles.title}>Registrar Usuario</Text>
+        
         <View style={styles.form}>
+         
           <Text style={styles.label}>Documento</Text>
-          <TextInput style={styles.input} placeholder="Ingresa su documento" placeholderTextColor="#AFAFAF" />
+          <TextInput
+            style={styles.input}
+            placeholder="Ingrese documento "
+            placeholderTextColor="#AFAFAF"
+            value={documento}
+            onChangeText={setDocumento}
+          />
+
+          <Text style={styles.label}>nombre</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Ingrese nombres "
+            placeholderTextColor="#AFAFAF"
+            value={nombre}
+            onChangeText={setNombre}
+          />
+
+          <Text style={styles.label}>apellido1</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Ingrese primer apellido "
+            placeholderTextColor="#AFAFAF"
+            value={apellido1}
+            onChangeText={setApellido1}
+          />
+
+          <Text style={styles.label}>apellido2</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Ingrese segundo apellido "
+            placeholderTextColor="#AFAFAF"
+            value={apellido2}
+            onChangeText={setApellido2}
+          />
+
+
           
-          <Text style={styles.label}>Nombre</Text>
-          <TextInput style={styles.input} placeholder="Ingresa su dos Nombres " placeholderTextColor="#AFAFAF" />
-          
-          <Text style={styles.label}>Apellido</Text>
-          <TextInput style={styles.input} placeholder="Primer Apellido" placeholderTextColor="#AFAFAF" />
-          <TextInput style={styles.input} placeholder="Segundo Apellido" placeholderTextColor="#AFAFAF" />
-          
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleSiguiente}>
             <Text style={styles.buttonText}>Siguiente</Text>
           </TouchableOpacity>
         </View>
@@ -27,6 +72,7 @@ const RegistroUsuario = () => {
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -36,8 +82,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logo: {
-    width: 130,
-    height: 130,
+    width: 150,
+    height: 150,
     resizeMode: 'contain',
     marginBottom: 20,
   },
@@ -45,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EBD8A0',
     padding: 25,
     borderRadius: 20,
-    width: '85%',
+    width: '90%',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 3 },
@@ -54,31 +100,30 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   title: {
-    width: '60%',
-    fontSize: 30,
-    fontWeight: 'Montserrat',
+    fontSize: 40,
+    fontFamily: 'Montserrat',
     marginBottom: 10,
     color: '#000',
     textAlign: 'center',
-    fontWeight: 'bold',
   },
   form: {
     width: '100%',
   },
   label: {
     fontSize: 20,
-    fontWeight: 'Montserrat',
+    fontFamily: 'Montserrat',
     marginTop: 10,
     color: '#000',
   },
   input: {
     backgroundColor: 'white',
-    padding: 5,
+    padding: 12,
     borderRadius: 15,
     marginTop: 5,
     fontSize: 16,
     color: '#333',
-    borderWidth: 0,
+    borderWidth: 1,
+    borderColor: '#D3A86A',
   },
   button: {
     backgroundColor: '#F85F6A',
@@ -87,14 +132,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 30,
     width: '50%',
-    alignSelf: 'center', // <-- Esto centrará el botón
+    alignSelf: 'center',
   },
-  
   buttonText: {
     color: 'white',
     fontSize: 20,
-    fontWeight: 'Montserrat',
+    fontFamily: 'Montserrat',
   },
 });
 
-export default RegistroUsuario;
+export default RegistrarUsuario;
