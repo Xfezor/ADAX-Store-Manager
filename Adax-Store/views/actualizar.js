@@ -45,20 +45,14 @@ const ActualizarDatos = ({ navigation }) => {
   const ObtenerDatosUsuarioSesion = async () => {
     try {
       const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?obtenerUsuario=${documento}`);
-      if (respuesta.ok) {
-        const datos = await respuesta.json();
-        console.log("JSON completo recibido:", datos);
-        // Validación estricta de 'data'
-        if (datos.data && Array.isArray(datos.data) && datos.data.length > 0) {
-          const datosUsuario = datos.data[0];
+        if (respuesta.status && respuesta.data) {
+          const datosUsuario = respuesta.data.data[0];
           const tipoDocumento = datosUsuario[1] || "";
           const primerNombre = datosUsuario[3] || "";
           const segundoNombre = datosUsuario[4] || "";
           const primerApellido = datosUsuario[5] || "";
           const segundoApellido = datosUsuario[6] || "";
           const correo = datosUsuario[7] || "";
-          const rol = datosUsuario[8] || "";
-          const codinv = datosUsuario[9] || "";
           // Actualiza el estado 'formData'
           setFormData({
             documento: documento || "",
@@ -73,10 +67,7 @@ const ActualizarDatos = ({ navigation }) => {
           console.log("Datos asignados al formulario:", formData);
         } else {
           console.error("La propiedad 'data' no contiene un array válido o está vacía.");
-        }
-      } else {
-        console.error("Error al obtener datos del servidor. Código:", respuesta.status);
-      }
+        } 
     } catch (error) {
       console.error("Error al procesar la solicitud:", error);
     }
@@ -114,12 +105,11 @@ const ActualizarDatos = ({ navigation }) => {
           actualizarApp: true,
         }
       );
-      const data = await respuesta.json();
-      if (data.success) {
+      if (respuesta.data.success) {
         Alert.alert("Éxito", "Datos actualizados correctamente.");
         navigation.navigate("MenuPrincipal");
       }
-      console.log("Respuesta del servidor:", data.mensaje);
+      console.log("Respuesta del servidor:", respuesta.data.mensaje);
     } catch (error) {
       console.error("Error al enviar los datos:", error);
     }
