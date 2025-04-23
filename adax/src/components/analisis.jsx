@@ -116,7 +116,7 @@ function Analisis() {
 
   const [codInv, setCodInv] = useState("?");
   const CodInv = () => {
-    if (rol === 2 || rol === 1) {
+    if (rol === 3 || rol === 1) {
       setCodInv(codigo_invitacion);
     }
   };

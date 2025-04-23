@@ -82,17 +82,17 @@ class UsuarioDao
         $rol = $usuarioDto->getRol_id_Rol();
         $codinv = $usuarioDto->getCodigoInvitacion();
         try {
-            $query = $conn->prepare("select codigo_invitacion from tienda where codigo_invitacion = '$codinv'");
+            $query = $conn->prepare("SELECT codigo_invitacion from tienda where codigo_invitacion = '$codinv'");
             $query->execute();
             $resultado = $query->fetch();
             $mensaje = "Registrado Exitosamente";
             if ($resultado === false) {
                 $mensaje = "El codigo de invitacion es invalido";
-                header("Location:../../PAGINA/registro.php?error=3");
-                exit;
+                //header("Location:../../PAGINA/registro.php?error=3");
+                exit();
             } else {
                 try {
-                    $query = $conn->prepare("select idtienda from tienda where codigo_invitacion = '$codinv'");
+                    $query = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = '$codinv'");
                     $query->execute();
                     $resultado = $query->fetch();
                     $mensaje = "Registrado Exitosamente";
@@ -103,7 +103,7 @@ class UsuarioDao
                         // exit; // Add this to stop the script execution
                     } else {
                         try {
-                            $query = $conn->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,?,?)");
+                            $query = $conn->prepare("INSERT INTO usuarios(documento,tipo_doc,contrasena,nombre1,nombre2,apellido1,apellido2,correo,rol_id_Rol,codigo_invitacion,tienda_idtienda) values (?,?,?,?,?,?,?,?,?,?,?)");
                             $query->bindParam(1, $documento);
                             $query->bindParam(2, $tipodoc);
                             $query->bindParam(3, $contrasena);

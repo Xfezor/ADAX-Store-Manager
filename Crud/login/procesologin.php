@@ -57,7 +57,7 @@ if ($tipo === "empleado") {
         $valor2 = $sentencia->fetch(PDO::FETCH_OBJ);
         $payload = [
             'iat' => time(),
-            'exp' => time() + (60 * 60), // Token válido por 1 hora
+            'exp' => time() + 60 * 60, // Token válido por 1 hora
             'data' => [
                 'documento' => $valor->documento,
                 'codigo_invitacion' => $valor->codigo_invitacion,
@@ -89,7 +89,24 @@ if ($tipo === "empleado") {
         $cod = $valor->codigo_invitacion;
         $nombreTienda = $valor->nombreTienda;
         $rol = 3;
-        echo json_encode(['success' => true, 'codigo_invitacion' => $cod, 'nombreTienda' => $nombreTienda, 'rol' => $rol]);
+        $payload = [
+            'iat' => time(),
+            'exp' => time() + 60 * 60, // Token válido por 1 hora
+            'data' => [
+                'documento' => 1,
+                'codigo_invitacion' => $valor->codigo_invitacion,
+                'nombreTienda' => $valor->nombreTienda,
+                'rol' => 3,
+                'id_Tienda' => $valor->idtienda,
+            ]
+        ];
+
+        $token = JWT::encode($payload, JWT_SECRET, 'HS256');
+        
+        echo json_encode([
+            'success' => true, 
+            'token' => $token,
+        ]);
         exit();
     } else {
         echo json_encode(['success' => false]);

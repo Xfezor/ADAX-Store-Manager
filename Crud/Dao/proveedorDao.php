@@ -124,7 +124,7 @@ class proveedorDao
     {
         $conn = Conexion::getConexion();
         try {
-            $query = $conn->prepare("SELECT pr.nombre,pr.idproveedor from proveedor pr inner join producto p on pr.idproveedor = p.idProveedor inner join tienda t on pr.id_tienda = t.idtienda where t.codigo_invitacion = ? group by pr.idproveedor;");
+            $query = $conn->prepare("SELECT pr.nombre,pr.idproveedor from proveedor pr inner join tienda t on pr.id_tienda = t.idtienda where t.codigo_invitacion = ? group by pr.idproveedor;");
             $query->bindParam(1, $codigo_invitacion);
             $query->execute();
             return $query->fetchAll();

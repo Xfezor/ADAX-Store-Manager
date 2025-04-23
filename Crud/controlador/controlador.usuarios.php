@@ -161,7 +161,7 @@ if (isset($data['obtenerUsuario'])) {
     $obtenerUsuario = $data['obtenerUsuario'];
 }
 
-if (isset($registro) || isset($_GET['no'])) {
+if (isset($registro)) {
     $uDao = new UsuarioDao();
     $uDto = new usuarioDto();
     $uDto->setDocumento($documento);
@@ -172,7 +172,7 @@ if (isset($registro) || isset($_GET['no'])) {
     $uDto->setApellido1($apellido1);
     $uDto->setApellido2($apellido2);
     $uDto->setCorreo($email);
-    $uDto->setRol_id_Rol('2');
+    $uDto->setRol_id_Rol(2);
     $uDto->setCodigoInvitacion($codigo_invitacion);
 
     $mensaje = $uDao->registrarUsuario($uDto);

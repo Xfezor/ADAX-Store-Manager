@@ -37,8 +37,6 @@ const Registro = () => {
     setIsEmpleado(false);
   };
 
-
-
   const backbutton = () => {
 
     navigate(-1);
@@ -267,11 +265,11 @@ const Registro = () => {
 
         } else {
           console.log('registro no exitoso', respuesta.data)
-          setError('Credenciales Incorrectas', respuesta.data.success);
+          Incorrect();
         }
       } catch (err) {
         console.error(err);
-        setError('Error al iniciar sesión');
+        Error();
       }
     };
   }

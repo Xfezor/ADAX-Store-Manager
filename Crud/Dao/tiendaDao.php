@@ -13,7 +13,10 @@ class tiendaDao
         $telefono = $tiendaDto->getTelefono();
         $correo = $tiendaDto->getCorreo();
         $contrasena = $tiendaDto->getContrasena();
-        $codigo_inv = 10000;
+        $cantidadInventario = 0;
+        $fechaModificacion = date("Y-m-d H:i:s");
+        $estado_revision = "Revisado";
+
         try {
             $query = $conn->prepare("INSERT INTO tienda(nombreTienda,direccion,telefono,correo,contrasena) values (?,?,?,?,?);");
             $query->bindParam(1, $nombreTienda);
@@ -23,6 +26,17 @@ class tiendaDao
             $query->bindParam(5, $contrasena);
             $query->execute();
             $mensaje = "Registrado Exitosamente";
+            $query = $conn->prepare("SELECT idtienda FROM tienda WHERE correo=?;");
+            $query->bindParam(1, $correo);
+            $query->execute();
+            $idtienda = $query->fetch(PDO::FETCH_ASSOC);
+            $idtienda = $idtienda['idtienda'];
+            $query = $conn->prepare("INSERT INTO inventario(cantidadInventario,fechaModificacion,estado_revision,tienda_idtienda) values (?,?,?,?);");
+            $query->bindParam(1, $cantidadInventario);
+            $query->bindParam(2, $fechaModificacion);
+            $query->bindParam(3, $estado_revision);
+            $query->bindParam(4, $idtienda);
+            $query->execute();
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
             echo $mensaje;
