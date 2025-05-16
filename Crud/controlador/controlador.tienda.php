@@ -16,6 +16,12 @@ require '../Dto/tiendaDto.php';
 require '../utilidades/conexion.php';
 
 $data = json_decode(file_get_contents('php://input'), true);
+if (isset($data['eliminar'])) {
+    $tDao = new tiendaDao();
+    $mensaje = $tDao->eliminarTienda($data['eliminar']);
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
+    exit();
+}
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET' :
@@ -50,11 +56,9 @@ if (isset($data['registroTienda'])) {
         exit();
     }
 } else if (isset($data['listar'])) {
-    $listar = $data['listar'];
-    $tDao = new TiendaDao();
-    $lista = $tDao->listarTodos();
+    $tDao = new tiendaDao();
+    $lista  = $tDao->listarTodos();
     $response = [];
-
     foreach ($lista as $tienda) {
         $response[] = [
             'idtienda' => $tienda['idtienda'],
@@ -66,9 +70,9 @@ if (isset($data['registroTienda'])) {
             'codigo_invitacion' => $tienda['codigo_invitacion']
         ];
     }
-
     echo json_encode($response);
     exit();
+
 } else if (isset($_POST['registrocrud'])) {
     $tDao = new tiendaDao();
     $tDto = new tiendaDto();
@@ -116,8 +120,8 @@ if (isset($data['registroTienda'])) {
         exit();
     }
     $tDao = new tiendaDao();
-    $idTienda = $tDao->obtenerIdTienda($codigo_invitacion);
-    echo json_encode($idTienda);
+    $Idtienda = $tDao->obtenerIdTienda($codigo_invitacion);
+    echo json_encode($Idtienda);
 
     $mensaje = $tDao->obtenerIdTienda($codigo_invitacion);
 } else {

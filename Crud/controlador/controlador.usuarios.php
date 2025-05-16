@@ -192,7 +192,8 @@ if (isset($registro) || isset($_GET['no'])) {
             $usuario['correo'],
             $usuario['rol_id_Rol'],
             $usuario['codigo_invitacion'],
-            $usuario['tienda_idtienda']
+            $usuario['tienda_idtienda'],
+            $usuario['codigo']
         ];
     }
     echo json_encode(['success' => true, 'message' => 'Datos listados', 'data' => $response]);

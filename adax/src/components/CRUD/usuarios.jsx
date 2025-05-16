@@ -73,19 +73,19 @@ const Usuarios = () => {
     const usuario = JSON.parse(usuario1);
 
     const Lista = async () => {
-        try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
-                listar: true,
-            });
-            if (respuesta.data) {
-                setUsuarios(respuesta.data);
-            } else {
-                console.log('listado no exitoso', respuesta.data)
-                return null;
-            }
-        } catch (err) {
-            console.error(err);
+    try {
+        const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
+            listar: true,
+        });
+        if (respuesta.data && respuesta.data.success) {
+            setUsuarios(respuesta.data.data); // <-- SOLO el array de usuarios
+        } else {
+            console.log('listado no exitoso', respuesta.data)
             return null;
+        }
+    } catch (err) {
+        console.error(err);
+        return null;
         }
     }
     const Eliminar = async (id) => {
@@ -108,6 +108,7 @@ const Usuarios = () => {
     useEffect(() => {
         Lista();
     }, []);
+    
 
     return (
         <div>
@@ -225,38 +226,39 @@ const Usuarios = () => {
                 </div>
             </nav>
             <div style={{ 'width': '99.9%' }}>
-                <DataTable data={usuarios} slots={{
-                    11: (data, row) => (
+            <DataTable
+                data={usuarios}
+                columns={[
+                    { title: "documento" },
+                    { title: "tipo_doc" },
+                    { title: "contrasena" },
+                    { title: "nombre1" },
+                    { title: "nombre2" },
+                    { title: "apellido1" },
+                    { title: "apellido2" },
+                    { title: "correo" },
+                    { title: "rol_id_Rol" },
+                    { title: "codigo_invitacion" },
+                    { title: "tienda_idtienda" },
+                    { title: "codigo" },
+                    { title: "Modificar" },
+                    { title: "Eliminar" }
+                ]}
+                slots={{
+                    12: (data, row) => (
                         <button type="submit" className="btn btn-warning" onClick={() => handleActualizarUsuario(row)}>Modificar</button>
                     ),
-                    12: (data, row) => (
+                    13: (data, row) => (
                         <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
                         </button>
                     )
-                }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
-                    <thead className="table-dark light-header">
-                        <tr className="text-center">
-                            <th style={{ 'fontWeight': 'normal' }}>documento</th>
-                            <th style={{ 'fontWeight': 'normal' }}>tipo_doc</th>
-                            <th style={{ 'fontWeight': 'normal' }}>contrasena</th>
-                            <th style={{ 'fontWeight': 'normal' }}>nombre1</th>
-                            <th style={{ 'fontWeight': 'normal' }}>nombre2</th>
-                            <th style={{ 'fontWeight': 'normal' }}>apellido1</th>
-                            <th style={{ 'fontWeight': 'normal' }}>apellido2</th>
-                            <th style={{ 'fontWeight': 'normal' }}>correo</th>
-                            <th style={{ 'fontWeight': 'normal' }}>rol_id_Rol</th>
-                            <th style={{ 'fontWeight': 'normal' }}>codigo_invitacion</th>
-                            <th style={{ 'fontWeight': 'normal' }}>tienda_idtienda</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </DataTable>
-            </div>
+                }}
+                id="usrtable"
+                className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
+            />
         </div>
+    </div>
     );
 }
 

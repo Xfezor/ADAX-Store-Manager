@@ -122,13 +122,13 @@ if (!isset($_SESSION['nombre1'])) {
             <tr class="text-center">
                 <th style="font-weight:normal">idtienda</th>
                 <th style="font-weight:normal">nombreTienda</th>
-                <th style="font-weight :normal">direccion</th>
-                <th style="font-weight :normal">telefono</th>
-                <th style="font-weight :normal">correo</th>
-                <th style="font-weight :normal">contrasena</th>
-                <th style="font-weight :normal">codigo_invitacion</th>
+                <th style="font-weight:normal">direccion</th>
+                <th style="font-weight:normal">telefono</th>
+                <th style="font-weight:normal">correo</th>
+                <th style="font-weight:normal">contrasena</th>
+                <th style="font-weight:normal">codigo_invitacion</th>
                 <th style="font-weight:normal">Modificar</th>
-                <th style="font-weight :normal">Eliminar</th>
+                <th style="font-weight:normal">Eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -149,11 +149,11 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['codigo_invitacion']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="idtiend" value="<?php echo $user['idtienda']; ?>">
+                            <input type="hidden" name="idtienda" value="<?php echo $user['idtienda']; ?>">
                             <button type="submit" class="btn btn-warning">Modificar</button>
                         </form>
                     </td>
-                    <td><a class="btn btn-danger" href="../../controlador/controlador.tienda.php?idtiend=<?php echo $user['idtienda']; ?>
+                    <td><a class="btn btn-danger" href="../../controlador/controlador.tienda.php?idtienda=<?php echo $user['idtienda']; ?>
                     " onclick=" return confirmar(event);">Eliminar</a>
                     </td>
                 </tr>

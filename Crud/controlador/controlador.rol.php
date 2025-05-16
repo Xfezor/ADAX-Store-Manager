@@ -92,7 +92,7 @@ if (isset($registro)) {
     exit();
 } else if (isset($idRol)) {
     $rDao = new rolDao();
-    $mensaje = $rDao->eliminarRol($idRol);
+    
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
 } else if (isset($actualizar)) {

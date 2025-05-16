@@ -54,6 +54,7 @@ const Tienda = () => {
     const handleVentas = () => {
         navigate("/crud/ventas")
     }
+    
     DataTable.use(DT);
     const [tienda, setTienda] = useState([]);
     // eslint-disable-next-line
@@ -79,9 +80,36 @@ const Tienda = () => {
             return null;
         }
     }
+     const Eliminar = async (idtienda) => {
+        try {
+            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
+                eliminar: idtienda,
+            });
+            console.log (respuesta.data);
+            if (respuesta.data.respuesta) {
+                setMensaje(respuesta.data.mensaje);
+                await Lista();
+            } else {
+                console.log('no exitoso', respuesta.data.respuesta)
+                setMensaje(respuesta.data.mensaje);
+            }
+        } catch (err) {
+            console.error(err);
+            return null;
+        }
+    }
     useEffect(() => {
         Lista();
     }, []);
+    const tiendaArray = tienda.map(t => [
+    t.idtienda,
+    t.nombreTienda,
+    t.direccion,
+    t.telefono,
+    t.correo,
+    t.contrasena,
+    t.codigo_invitacion
+]);
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
@@ -198,35 +226,39 @@ const Tienda = () => {
                 </div>
             </nav>
             <div style={{ 'width': '99.9%' }}>
-                <DataTable data={tienda} slots={{
+                <DataTable
+                data={tiendaArray}
+                slots={{
                     7: (data, row) => (
                         <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={tienda[0]} />
+                            <input type="hidden" name="doc" value={row[0]} />
                             <button type="submit" className="btn btn-warning">Modificar</button>
                         </form>
                     ),
                     8: (data, row) => (
-                        <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${tienda[0]}`}>
+                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
-                        </a>
+                        </button>
                     )
-                }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
-                    <thead className="table-dark light-header">
-                        <tr className="text-center">
-                            <th style={{ 'fontWeight': 'normal' }}>idtienda</th>
-                            <th style={{ 'fontWeight': 'normal' }}>nombreTienda</th>
-                            <th style={{ 'fontWeight': 'normal' }}>direccion</th>
-                            <th style={{ 'fontWeight': 'normal' }}>telefono</th>
-                            <th style={{ 'fontWeight': 'normal' }}>correo</th>
-                            <th style={{ 'fontWeight': 'normal' }}>contrasena</th>
-                            <th style={{ 'fontWeight': 'normal' }}>codigo_invitacion</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
+                }}
+                id="usrtable"
+                className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
+            >
+                <thead className="table-dark light-header">
+                    <tr className="text-center">
+                        <th style={{ 'fontWeight': 'normal' }}>idtienda</th>
+                        <th style={{ 'fontWeight': 'normal' }}>nombreTienda</th>
+                        <th style={{ 'fontWeight': 'normal' }}>direccion</th>
+                        <th style={{ 'fontWeight': 'normal' }}>telefono</th>
+                        <th style={{ 'fontWeight': 'normal' }}>correo</th>
+                        <th style={{ 'fontWeight': 'normal' }}>contrasena</th>
+                        <th style={{ 'fontWeight': 'normal' }}>codigo_invitacion</th>
+                        <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                        <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
                 </DataTable>
             </div>
         </div>

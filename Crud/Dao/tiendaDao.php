@@ -77,8 +77,8 @@ class tiendaDao
     {
         $conn = Conexion::getConexion();
         try {
-            $listarUsuarios = 'SELECT * from tienda';
-            $query = $conn->prepare($listarUsuarios);
+            $listarTienda = 'SELECT * from tienda';
+            $query = $conn->prepare($listarTienda);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception $ex) {
@@ -118,10 +118,10 @@ class tiendaDao
     // obtener Tienda
     public function obtenerTienda($idtienda)
     {
-        $cnn = Conexion::getConexion();
+        $conn = Conexion::getConexion();
         $mensaje = "";
         try {
-            $query = $cnn->prepare('SELECT * FROM tienda WHERE idtienda=?');
+            $query = $conn->prepare('SELECT * FROM tienda WHERE idtienda=?');
             $query->bindParam(1, $idtienda);
             $query->execute();
             return $query->fetch();
@@ -129,7 +129,7 @@ class tiendaDao
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
-        $cnn = null;
+        $conn = null;
         return $mensaje;
     }
 
