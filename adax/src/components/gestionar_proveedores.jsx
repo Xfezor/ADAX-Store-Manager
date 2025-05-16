@@ -76,6 +76,14 @@ const GestionarProveedores = () => {
 
         navigate('/inicio');
     };
+    const buscar = (nombre) => {
+        if (nombre === "") {
+            setProductos(proveedoresOriginal);
+        } else {
+            const proveedoresFiltrados = proveedoresOriginal.filter((Fa) => Fa[0].toLowerCase().includes(nombre.toLowerCase()));
+            setProveedores(proveedoresFiltrados);
+        }
+    }
 
     const productsadd = async () => {
         Swal.fire({
@@ -162,11 +170,13 @@ const GestionarProveedores = () => {
     });
 
     const [proveedores, setProveedores] = useState([]);
+    const [proveedoresOriginal, setProveedoresOriginal] = useState([]);
     const Lista = useCallback(async () => {
         try {
             const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarPorTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setProveedores(respuesta.data);
+                setProveedoresOriginal(respuesta.data);
             } else {
 
                 return null;
@@ -221,7 +231,7 @@ const GestionarProveedores = () => {
                     </button>
                 </div>
 
-                <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
+                <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" onChange={(e) => buscar(e.target.value)} />
             </div>
             <div className={styles.cuadradoverde}>
                 <table id="productos" className={styles['facturas-table']}>

@@ -45,11 +45,13 @@ const GestionarClientes = () => {
         navigate('/inicio');
     };
     const [clientes, setClientes] = useState([]);
+    const [clientesOriginal, setClientesOriginal] = useState([]);
     const Lista = useCallback(async () => {
         try {
             const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?listarClientesTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setClientes(respuesta.data);
+                setClientesOriginal(respuesta.data);
             } else {
                 return null;
             }
@@ -57,13 +59,21 @@ const GestionarClientes = () => {
             console.error('Error al obtener los datos:', err);
             return null;
         }
-    },[codigo_invitacion]);
+    }, [codigo_invitacion]);
     const [codInv, setCodInv] = useState("?");
     const CodInv = () => {
-      if (rol === 3 || rol === 1) {
-        setCodInv(codigo_invitacion);
-      }
+        if (rol === 3 || rol === 1) {
+            setCodInv(codigo_invitacion);
+        }
     };
+    const buscar = (nombre) => {
+        if (nombre === "") {
+            setClientes(clientesOriginal);
+        } else {
+            const clientesFiltrados = clientesOriginal.filter((Fa) => Fa[2].toLowerCase().includes(nombre.toLowerCase()));
+            setClientes(clientesFiltrados);
+        }
+    }
 
     useEffect(() => {
         const validador = () => {
@@ -74,7 +84,7 @@ const GestionarClientes = () => {
         validador();
         Lista();
         CodInv();
-    }, [navigate,Lista,codInv])
+    }, [navigate, Lista, codInv])
     return (
         <>
             <header>
@@ -92,7 +102,7 @@ const GestionarClientes = () => {
             </header>
             <div className={styles.container}>
                 <h1 className={styles["text-left"]}>Clientes</h1>
-                <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" />
+                <input type="text" className={styles["form-control"]} name="busqueda" placeholder="Escriba el nombre del proveedor o un producto" onChange={(e) => buscar(e.target.value)}/>
             </div>
             <div className={styles.cuadradoverde}>
                 <table id="productos" className={styles['facturas-table']}>

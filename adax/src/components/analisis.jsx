@@ -56,14 +56,6 @@ function Analisis() {
     }
   }, [codigo_invitacion]);
 
-  const buscar = (nombre) => {
-    if (nombre === "") {
-      setProductos(productosOriginales);
-    } else {
-      const productosFiltrados = productosOriginales.filter((Pro) => Pro[0].toLowerCase().includes(nombre.toLowerCase()));
-      setProductos(productosFiltrados);
-    }
-  }
 
   const calcularPopularidad = (index) => {
     const texto = {
@@ -120,6 +112,14 @@ function Analisis() {
       setCodInv(codigo_invitacion);
     }
   };
+  const buscar = (nombre) => {
+    if (nombre === "") {
+      setProductos(productosOriginales);
+    } else {
+      const productosFiltrados = productosOriginales.filter((Pro) => Pro[1].toLowerCase().includes(nombre.toLowerCase()));
+      setProductos(productosFiltrados);
+    }
+  }
 
   // eslint-disable-next-line
   useEffect(() => {
@@ -173,6 +173,7 @@ function Analisis() {
           type="text"
           className={`form-control ${styles['form-control']}`}
           placeholder="Escriba el nombre de un producto"
+          onChange={(e) => buscar(e.target.value)}
         />
         <select className={`form-control w-auto ${styles['form-control2']}`}>
           <option defaultValue value="none">
