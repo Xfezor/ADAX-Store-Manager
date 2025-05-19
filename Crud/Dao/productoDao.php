@@ -186,7 +186,7 @@ class productoDao
             exit();
         } elseif ($sentencia->rowcount() == 1) {
             try {
-                $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Marca,p.Precio_unit from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
+                $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Marca,p.Precio_unit,p.Estado, p.Stock from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
                 $query->bindParam(1, $idtienda);
                 $query->execute();                
                 return $query->fetchAll();

@@ -1,7 +1,7 @@
 <?php
-header("Access-Control-Allow-Origin: *"); 
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS"); 
-header("Access-Control-Allow-Headers: Content-Type, Authorization"); 
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header('Content-Type: application/json');
 
 // Manejar la solicitud OPTIONS
@@ -24,7 +24,7 @@ if (isset($data['eliminar'])) {
 }
 
 switch ($_SERVER['REQUEST_METHOD']) {
-    case 'GET' :
+    case 'GET':
         if (isset($_GET['obtenerIdTienda'])) {
             $obtenerIdTienda = $_GET['obtenerIdTienda'];
             $codigo_invitacion = $_GET['codigo_invitacion'];

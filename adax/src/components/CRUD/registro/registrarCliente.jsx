@@ -8,27 +8,24 @@ import Swal from 'sweetalert2';
 
 const RegistrarCliente = () => {
     const navigate = useNavigate();
-    const [id_Cliente, setId_Cliente] = useState('');
     const [Documento, setDocumento] = useState('');
-    const [Nombre1_Cliente, setNombre1_Cliente] = useState('');
-    const [Nombre2_Cliente, setNombre2_Cliente] = useState('');
-    const [Apellido1_Cliente, setApellido1_Cliente] = useState('');
-    const [Apellido2_Cliente, setApellido2_Cliente] = useState('');
     const [Tipo_documento, setTipo_documento] = useState('');
+    const [NombreCliente, setNombre_Cliente] = useState('');
+    const [ApellidoCliente, setApellidoCliente] = useState('');
+    const [Correo, setCorreo] = useState('');
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(
+            Documento,
+            Tipo_documento,
+            NombreCliente,
+            ApellidoCliente,
+            Correo
+        )
 
         // Validaciones
-        if (id_Cliente === '') {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Por favor, complete el campo 'Cliente ID'.",
-            });
-            return;
-        }
         if (Documento === '') {
             Swal.fire({
                 icon: "error",
@@ -37,7 +34,7 @@ const RegistrarCliente = () => {
             });
             return;
         }
-        if (!Nombre1_Cliente) {
+        if (!NombreCliente) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -46,7 +43,7 @@ const RegistrarCliente = () => {
             return;
         }
 
-        if (!Apellido1_Cliente) {
+        if (!ApellidoCliente) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -66,21 +63,25 @@ const RegistrarCliente = () => {
 
         try {
             // Realizamos la solicitud a la API para registrar el cliente
-            const respuesta = await axios.post('http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php', {
-                id_Cliente,
-                Documento,
-                Nombre1_Cliente,
-                Nombre2_Cliente,
-                Apellido1_Cliente,
-                Apellido2_Cliente,
-                Tipo_documento,
-                registroCrud: "registroCrud",
-            });
-
-  // Para depurar la respuesta
-
-           
-            if (respuesta.data.success) {
+            const respuesta = await axios.post(
+                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php',
+                {
+                    Documento,
+                    Tipo_documento,
+                    NombreCliente,
+                    ApellidoCliente,
+                    Correo,
+                    registroCrud: "registroCrud",
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+            // Para depurar la respuesta
+            console.log('Respuesta del backend:', respuesta.data);
+            if (respuesta.data) {
                 Swal.fire({
                     title: 'Registro exitoso',
                     text: 'El registro fue exitoso, puede continuar con el proceso.',
@@ -92,7 +93,7 @@ const RegistrarCliente = () => {
                     }
                 });
             } else {
-
+                console.error('Error en el registro:', respuesta.data);
                 setError(respuesta.data.message || 'Error desconocido');
             }
         } catch (err) {
@@ -109,18 +110,6 @@ const RegistrarCliente = () => {
                     {error && <div className="alert alert-danger">{error}</div>}
 
                     <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
-                        <div className={`form-field col-lg-6 ${styles['form-field']}`}>
-                            <input
-                                name="id_Cliente"
-                                value={id_Cliente}
-                                onChange={(e) => setId_Cliente(e.target.value)}
-                                className={`${styles['input-text']} js-input`}
-                                type="text"
-                                required
-                            />
-                            <label className={`${styles.label} label`} htmlFor="id_Cliente">Cliente ID</label>
-                        </div>
-
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input
                                 name="Documento"
@@ -136,61 +125,47 @@ const RegistrarCliente = () => {
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input
                                 name="Nombre1_Cliente"
-                                value={Nombre1_Cliente}
-                                onChange={(e) => setNombre1_Cliente(e.target.value)}
+                                value={NombreCliente}
+                                onChange={(e) => setNombre_Cliente(e.target.value)}
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                
+
                             />
-                            <label className={styles.label} htmlFor="Nombre1_Cliente">Nombre 1</label>
+                            <label className={styles.label} htmlFor="Nombre1_Cliente">Nombre</label>
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input
-                                name="Nombre2_Cliente"
-                                value={Nombre2_Cliente}
-                                onChange={(e) => setNombre2_Cliente(e.target.value)}
+                                name="ApellidoCliente"
+                                value={ApellidoCliente}
+                                onChange={(e) => setApellidoCliente(e.target.value)}
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                
+
                             />
-                            <label className={styles.label} htmlFor="Nombre2_Cliente">Nombre 2</label>
+                            <label className={styles.label} htmlFor="Apellido1_Cliente">Apellido</label>
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input
-                                name="Apellido1_Cliente"
-                                value={Apellido1_Cliente}
-                                onChange={(e) => setApellido1_Cliente(e.target.value)}
-                                className={`${styles['input-text']} js-input`}
-                                type="text"
-                                
-                            />
-                            <label className={styles.label} htmlFor="Apellido1_Cliente">Apellido 1</label>
-                        </div>
-
-                        <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input
-                                name="Apellido2_Cliente"
-                                value={Apellido2_Cliente}
-                                onChange={(e) => setApellido2_Cliente(e.target.value)}
-                                className={`${styles['input-text']} js-input`}
-                                type="text"
-                                
-                            />
-                            <label className={styles.label} htmlFor="Apellido2_Cliente">Apellido 2</label>
-                        </div>
-
-                        <div className={`form-field ${styles['form-field']} col-lg-12`}>
                             <input
                                 name="Tipo_documento"
                                 value={Tipo_documento}
                                 onChange={(e) => setTipo_documento(e.target.value)}
                                 className={`${styles['input-text']} js-input`}
                                 type="text"
-                                
+
                             />
                             <label className={styles.label} htmlFor="Tipo_documento">Tipo de documento</label>
+                        </div>
+                        <div className={`form-field ${styles['form-field']} col-lg-6`}>
+                            <input
+                                name="Correo"
+                                value={Correo}
+                                onChange={(e) => setCorreo(e.target.value)}
+                                className={`${styles['input-text']} js-input`}
+                                type="email"
+                            />
+                            <label className={styles.label} htmlFor="Correo">Correo</label>
                         </div>
 
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>

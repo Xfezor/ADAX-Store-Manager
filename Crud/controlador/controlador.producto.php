@@ -228,6 +228,8 @@ if (isset($_POST['registrarProducto'])) {
             $producto['Nombre'],
             $producto['Marca'],
             $producto['Precio_unit'],
+            $producto['Estado'],
+            $producto['Stock']
         ];
     }
     echo json_encode($response);

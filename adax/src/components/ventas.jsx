@@ -45,9 +45,11 @@ const Ventas = () => {
   // Llamada de API
   const Lista = useCallback(async () => {
     try {
-      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`);
+      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`)
+      console.log(respuesta.data);
       if (respuesta.data) {
-        setProductos(respuesta.data);
+        const productosDisponibles = respuesta.data.filter((producto) => producto[4] === 1);
+        setProductos(productosDisponibles);
         setProductosOriginales(respuesta.data);
       } else {
         console.log('listado no exitoso', respuesta.data)
@@ -82,7 +84,6 @@ const Ventas = () => {
   const agregarProducto = (index) => {
     const producto = productos[index];
     const productoEnCarrito = prodCarrito.find((item) => item[0] === producto[0]);
-
     if (productoEnCarrito) {
       const nuevoCarrito = prodCarrito.map((item) =>
         item[0] === producto[0]
@@ -123,15 +124,19 @@ const Ventas = () => {
     navigate('/crud/usuarios');
   }
   const generarPago = async () => {
-    if (prodCarrito.length === 0) {
+    //Imprimir en consola todos los productos, cantidad, etc
+    console.log(prodCarrito);
+    for (const item of prodCarrito) {
+    if (item.cantidad > item[5]) {
       Swal.fire({
         icon: "error",
-        title: "¡Carrito vacio!",
-        showConfirmButton: false,
+        title: "¡Stock de algun producto insuficiente!",
+        showConfirmButton: false, 
         timer: 1500
       });
       return;
     }
+  }
     navigate('/generar_pago', { state: { prodCarrito, id_Tienda } });
   };
   const handleCerrarSesion = () => {

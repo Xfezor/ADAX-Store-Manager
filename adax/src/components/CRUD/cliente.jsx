@@ -5,6 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 
 const Cliente = () => {
@@ -62,8 +63,9 @@ const Cliente = () => {
     }
     DataTable.use(DT);
     const [clientes, setClientes] = useState([]);
+    const location = useLocation();
 
-    const [mensaje, setMensaje] = useState(null);
+    const [mensaje, setMensaje] = useState(location.state || "Bienvenido a la lista de clientes");
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
@@ -71,8 +73,10 @@ const Cliente = () => {
 
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
-                listar: true,
+            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+                params: {
+                    listar: true,
+                }
             });
             console.log(respuesta.data)
             if (respuesta.data) {
@@ -87,17 +91,18 @@ const Cliente = () => {
             return null;
         }
     }
-    const Eliminar = async (id) => {
+    const Eliminar = async (Doc) => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
-                eliminar: id,
+            const respuesta = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+                data : { eliminar: Doc},
             });
             if (respuesta.data.respuesta) {
-                setMensaje(respuesta.data.mensaje);
-                Lista();
+                setMensaje (respuesta.data.mensaje);
+                console.log(mensaje);
+                Lista(), {state: mensaje};
             } else {
-                console.log('no exitoso', respuesta.data.respuesta)
                 setMensaje(respuesta.data.mensaje);
+                console.log('no exitoso', respuesta.data.mensaje)
             }
         } catch (err) {
             console.error(err);
@@ -217,17 +222,17 @@ const Cliente = () => {
                         <span className="navbar-text me-3 active">Usuario: {usuario}
                         </span>
                         <button onClick={handleCerrarSesion} className="btn btn-outline-danger float-right end-0 me-0" type="submit">cerrar sesión</button>
-                        <span class="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
+                        <span className="navbar-text me-3 ms-3 active">Operacion: {mensaje}</span>
                     </div>
                 </div>
             </nav>
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={clientes} slots={{
-                    7: (data, row) => (
+                    5: (data, row) => (
                         <button type="submit" className="btn btn-warning" onClick={() => handleActualizarCliente(row)}>Modificar</button>
                     
                     ),
-                    8: (data, row) => (
+                    6: (data, row) => (
                         <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
                         </button>                   
@@ -235,13 +240,11 @@ const Cliente = () => {
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th style={{ 'fontWeight': 'normal' }}>id_Cliente</th>
                             <th style={{ 'fontWeight': 'normal' }}>Documento</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Nombre1_Cliente</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Nombre2_Cliente</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Apellido1_Cliente</th>
-                            <th style={{ 'fontWeight': 'normal' }}>Apellido2_Cliente</th>
                             <th style={{ 'fontWeight': 'normal' }}>Tipo_documento</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Nombre_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Apellido_Cliente</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Correo</th>
                             <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
                             <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>

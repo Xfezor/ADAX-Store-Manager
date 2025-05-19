@@ -7,23 +7,19 @@ class clienteDao
     {
         $conn = Conexion::getConexion();
         $mensaje = "";
-        $id_Cliente = $clienteDto->getid_Cliente();
         $Documento = $clienteDto->getDocumento();
-        $Nombre1_Cliente = $clienteDto->getNombre1_Cliente();
-        $Nombre2_Cliente = $clienteDto->getNombre2_Cliente();
-        $Apellido1_Cliente = $clienteDto->getApellido1_Cliente();
-        $Apellido2_Cliente = $clienteDto->getApellido2_Cliente();
         $Tipo_documento = $clienteDto->getTipo_documento();
+        $NombreCliente = $clienteDto->getNombreCliente();
+        $ApellidoCliente = $clienteDto->getApellidoCliente();
+        $Correo = $clienteDto->getCorreo();
 
         try {
-            $query = $conn->prepare("INSERT INTO cliente(id_Cliente,Documento,Nombre1_Cliente,Nombre2_Cliente,Apellido1_Cliente,Apellido2_Cliente,Tipo_documento) values (?,?,?,?,?,?,?);");
-            $query->bindParam(1, $id_Cliente);
-            $query->bindParam(2, $Documento);
-            $query->bindParam(3, $Nombre1_Cliente);
-            $query->bindParam(4, $Nombre2_Cliente);
-            $query->bindParam(5, $Apellido1_Cliente);
-            $query->bindParam(6, $Apellido2_Cliente);
-            $query->bindParam(7, $Tipo_documento);
+            $query = $conn->prepare("INSERT INTO cliente (Documento, Tipo_documento, NombreCliente, ApellidoCliente, correo) values (?,?,?,?,?);");
+            $query->bindParam(1, $Documento);
+            $query->bindParam(2, $Tipo_documento);
+            $query->bindParam(3, $NombreCliente);
+            $query->bindParam(4, $ApellidoCliente);
+            $query->bindParam(5, $Correo);
 
 
             $query->execute();
@@ -38,25 +34,19 @@ class clienteDao
     {
         $conn = Conexion::getConexion();
         $mensaje = "";
-        $id_Cliente = $clienteDto->getId_Cliente();
         $Documento = $clienteDto->getDocumento();
-        $Nombre1_Cliente = $clienteDto->getNombre1_Cliente();
-        $Nombre2_Cliente = $clienteDto->getNombre2_Cliente();
-        $Apellido1_Cliente = $clienteDto->getApellido1_Cliente();
-        $Apellido2_Cliente = $clienteDto->getApellido2_Cliente();
         $Tipo_documento = $clienteDto->getTipo_documento();
+        $NombreCliente = $clienteDto->getNombreCliente();
+        $ApellidoCliente = $clienteDto->getApellidoCliente();
+        $Correo = $clienteDto->getCorreo();
 
         try {
-            $query = $conn->prepare("INSERT INTO cliente (id_Cliente, Documento, Nombre1_Cliente, Nombre2_Cliente, Apellido1_Cliente,Apellido2_Cliente,Tipo_documento) 
-            VALUES (?, ?, ?, ?, ?,?,?);");
-            $query->bindParam(1, $id_Cliente);
-            $query->bindParam(2, $Documento);
-            $query->bindParam(3, $Nombre1_Cliente);
-            $query->bindParam(4, $Nombre2_Cliente);
-            $query->bindParam(5, $Apellido1_Cliente);
-            $query->bindParam(6, $Apellido2_Cliente);
-            $query->bindParam(7, $Tipo_documento);
-
+            $query = $conn->prepare("INSERT INTO cliente (Documento, Tipo_documento, NombreCliente, ApellidoCliente, correo) values (?,?,?,?,?);");
+            $query->bindParam(1, $Documento);
+            $query->bindParam(2, $Tipo_documento);
+            $query->bindParam(3, $NombreCliente);
+            $query->bindParam(4, $ApellidoCliente);
+            $query->bindParam(5, $Correo);
 
             $query->execute();
             $mensaje = "Registrado Exitosamente";
@@ -74,7 +64,7 @@ class clienteDao
             $query = $conn->prepare($listarcliente);
             $query->execute();
             return $query->fetchAll();
-        } catch (Exception  $ex) {
+        } catch (Exception $ex) {
             echo 'Error' . $ex->getMessage();
         }
     }
@@ -87,7 +77,7 @@ class clienteDao
             $query->bindParam(1, $codigoInvitacion);
             $query->execute();
             return $query->fetchAll();
-        } catch (Exception  $ex) {
+        } catch (Exception $ex) {
             echo 'Error' . $ex->getMessage();
         }
     }
@@ -97,40 +87,44 @@ class clienteDao
         $cnn = Conexion::getConexion();
         $mensaje = "";
         $Documento = $clienteDto->getDocumento();
-        $Nombre1_Cliente = $clienteDto->getNombre1_Cliente();
-        $Nombre2_Cliente = $clienteDto->getNombre2_Cliente();
-        $Apellido1_Cliente = $clienteDto->getApellido1_Cliente();
-        $Apellido2_Cliente = $clienteDto->getApellido2_Cliente();
         $Tipo_documento = $clienteDto->getTipo_documento();
+        $NombreCliente = $clienteDto->getNombreCliente();
+        $ApellidoCliente = $clienteDto->getApellidoCliente();
+        $Correo = $clienteDto->getCorreo();
+
         try {
-            $query = $cnn->prepare("UPDATE cliente SET Documento=?, Nombre1_Cliente=?, Nombre2_Cliente=?, Apellido1_Cliente=?, Apellido2_Cliente=?, Tipo_documento=? WHERE Documento=?");
-            $query->bindParam(1,$Documento);
-            $query->bindParam(2,$Nombre1_Cliente);
-            $query->bindParam(3,$Nombre2_Cliente);
-            $query->bindParam(4,$Apellido1_Cliente);
-            $query->bindParam(5,$Apellido2_Cliente);
-            $query->bindParam(6,$Tipo_documento);
-            $query->bindParam(7,$Documento);
+            $query = $cnn->prepare("UPDATE cliente SET Tipo_Documento=?, NombreCliente=?, ApellidoCliente=?, correo=? WHERE Documento=?");
+            $query->bindParam(1, $Tipo_documento);
+            $query->bindParam(2, $NombreCliente);
+            $query->bindParam(3, $ApellidoCliente);
+            $query->bindParam(4, $Correo);
+            $query->bindParam(5, $Documento);
+
             
             $query->execute();
-            $mensaje= "Registro actualizado"; 
-        } catch (Exception  $ex) {
-            $mensaje = $ex->getMessage();
+            if ($query->rowCount() > 0) {
+                $mensaje = "Registro actualizado";
+            } else {
+                $mensaje = "No se realizaron cambios";
+            }
+        } catch (Exception $ex) {
+            $mensaje = "Error: " . $ex->getMessage();
         }
+    
         $cnn = null;
         return $mensaje;
     }
     // obtener cliente
-    public function obtenerCliente($id_Cliente)
+    public function obtenerCliente($Documento)
     {
         $cnn = Conexion::getConexion();
         $mensaje = "";
         try {
-            $query = $cnn->prepare('SELECT * FROM cliente WHERE id_Cliente=?');
-            $query->bindParam(1, $id_Cliente);
+            $query = $cnn->prepare('SELECT * FROM cliente WHERE Documento=?');
+            $query->bindParam(1, $Documento);
             $query->execute();
             return $query->fetch();
-        } catch (Exception  $ex) {
+        } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
         $cnn = null;
@@ -138,16 +132,16 @@ class clienteDao
     }
 
     //eliminar cliente 
-    public function eliminarcliente($id_Cliente)
+    public function eliminarcliente($Documento)
     {
         $cnn = Conexion::getConexion();
         $mensaje = "";
         try {
-            $query = $cnn->prepare('DELETE FROM cliente WHERE id_Cliente= ?');
-            $query->bindParam(1, $id_Cliente);
+            $query = $cnn->prepare('DELETE FROM cliente WHERE Documento= ?');
+            $query->bindParam(1, $Documento);
             $query->execute();
             $mensaje = "Registro eliminado";
-        } catch (Exception  $ex) {
+        } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
         $cnn = null;

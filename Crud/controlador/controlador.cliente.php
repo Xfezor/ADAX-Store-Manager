@@ -32,55 +32,56 @@ switch ($_SERVER['REQUEST_METHOD']) {
         break;
     case 'POST':
         if (isset($data['registroCliente'])) {
-            $id_Cliente = $data['id_Cliente'];
             $Documento = $data['Documento'];
-            $Nombre1_Cliente = $data['Nombre1_Cliente'];
-            $Nombre2_Cliente = $data['Nombre2_Cliente'];
-            $Apellido1_Cliente = $data['Apellido1_Cliente'];
-            $Apellido2_Cliente = $data['Apellido2_Cliente'];
             $Tipo_documento = $data['Tipo_documento'];
+            $NombreCliente = $data['NombreCliente'];
+            $ApellidoCliente = $data['ApellidoCliente'];
+            $Correo = $data['Correo'];
+            $registroCliente = $data['registroCliente'];
         }
         if (isset($data['registroCrud'])) {
-            $id_Cliente = $data['id_Cliente'];
             $Documento = $data['Documento'];
-            $Nombre1_Cliente = $data['Nombre1_Cliente'];
-            $Nombre2_Cliente = $data['Nombre2_Cliente'];
-            $Apellido1_Cliente = $data['Apellido1_Cliente'];
-            $Apellido2_Cliente = $data['Apellido2_Cliente'];
             $Tipo_documento = $data['Tipo_documento'];
+            $NombreCliente = $data['NombreCliente'];
+            $ApellidoCliente = $data['ApellidoCliente'];
+            $Correo = $data['Correo'];
             $registroCrud = $data['registroCrud'];
         }
         break;
     case 'PUT':
         if (isset($data['actualizar'])) {
             $Documento = $data['Documento'];
-            $Nombre1_Cliente = $data['Nombre1_Cliente'];
-            $Nombre2_Cliente = $data['Nombre2_Cliente'];
-            $Apellido1_Cliente = $data['Apellido1_Cliente'];
-            $Apellido2_Cliente = $data['Apellido2_Cliente'];
             $Tipo_documento = $data['Tipo_documento'];
+            $NombreCliente = $data['NombreCliente'];
+            $ApellidoCliente = $data['ApellidoCliente'];
+            $Correo = $data['Correo'];
             $actualizar = $data['actualizar'];
+        }
+        if (isset($data['actualizarCrud'])) {
+            $Documento = $data['Documento'];
+            $Tipo_documento = $data['Tipo_documento'];
+            $NombreCliente = $data['NombreCliente'];
+            $ApellidoCliente = $data['ApellidoCliente'];
+            $Correo = $data['Correo'];
+            $actualizarCrud = $data['actualizarCrud'];
         }
         break;
     case 'DELETE':
         if (isset($data['eliminar'])) {
-            $id = $data['eliminar'];
+            $Doc = $data['eliminar'];
         }
         break;
     default:
         break;
 }
 
-
 if (isset($registroCliente)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
-    $cDto->setId_Cliente($id_Cliente);
     $cDto->setDocumento($Documento);
-    $cDto->setNombre1_Cliente($Nombre1_Cliente);
-    $cDto->setNombre2_Cliente($Nombre2_Cliente);
-    $cDto->setApellido1_Cliente($Apellido1_Cliente);
-    $cDto->setApellido2_Cliente($Apellido2_Cliente);
+    $cDto->setNombreCliente($NombreCliente);
+    $cDto->setApellidoCliente($ApellidoCliente);
+    $cDto->setCorreo($Correo);
     $cDto->setTipo_documento($Tipo_documento);
 
 
@@ -98,18 +99,15 @@ if (isset($registroCliente)) {
 
         $response[] = [
             $cliente['Documento'],
-            $cliente['Nombre1_Cliente'],
-            $cliente['Nombre2_Cliente'],
-            $cliente['Apellido1_Cliente'],
-            $cliente['Apellido2_Cliente'],
             $cliente['Tipo_documento'],
-
+            $cliente['NombreCliente'],
+            $cliente['ApellidoCliente'],
+            $cliente['correo'],
         ];
     }
     echo json_encode($response);
     exit();
-}
-else if (isset($listarClientesTienda)) {
+} else if (isset($listarClientesTienda)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
     $lista = $cDao->listarClientesTienda($codigoInvitacion);
@@ -120,44 +118,55 @@ else if (isset($listarClientesTienda)) {
             $cliente['Tipo_documento'],
             $cliente['NombreCliente'],
             $cliente['ApellidoCliente'],
-            $cliente['correo'],
+            $cliente['Correo'],
         ];
     }
     echo json_encode($response);
     exit();
-}else if (isset($registroCrud)) {
+} else if (isset($registroCrud)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
-    $cDto->setId_Cliente($id_Cliente);
-    $cDto->setDocumento($Documento);
-    $cDto->setNombre1_Cliente($Nombre1_Cliente);
-    $cDto->setNombre2_Cliente($Nombre2_Cliente);
-    $cDto->setApellido1_Cliente($Apellido1_Cliente);
-    $cDto->setApellido2_Cliente($Apellido2_Cliente);
-    $cDto->setTipo_documento($Tipo_documento);
 
-    $mensaje = $cDao->registrarCliente($cDto);
+    $cDto->setDocumento($Documento);
+    $cDto->setTipo_documento($Tipo_documento);
+    $cDto->setNombreCliente($NombreCliente);
+    $cDto->setApellidoCliente($ApellidoCliente);
+    $cDto->setCorreo($Correo);
+
+    $mensaje = $cDao->registrarClienteCrud($cDto);
     if ($mensaje === 'Registrado Exitosamente') {
-        echo json_encode(value: ['success' => true]);
+        echo json_encode(['success' => true, 'mensaje' => $mensaje]);
+        exit();
+    } else {
+        echo json_encode(['success' => false, 'mensaje' => 'Error al registrar el cliente']);
         exit();
     }
-} else if (isset($id)) {
+} else if (isset($Doc)) {
     $cDao = new clienteDao();
-    $mensaje = $cDao->eliminarCliente($id);
+    $mensaje = $cDao->eliminarCliente($Doc);
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
     exit();
 } else if (isset($actualizar)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
 
-    $cDto->setId_Cliente($id_Cliente);
     $cDto->setDocumento($Documento);
-    $cDto->setNombre1_Cliente($Nombre1_Cliente);
-    $cDto->setNombre2_Cliente($Nombre2_Cliente);
-    $cDto->setApellido1_Cliente($Apellido1_Cliente);
-    $cDto->setApellido2_Cliente($Apellido2_Cliente);
     $cDto->setTipo_documento($Tipo_documento);
+    $cDto->setNombreCliente($NombreCliente);
+    $cDto->setApellidoCliente($ApellidoCliente);
+    $cDto->setCorreo($Correo);
 
+    $mensaje = $cDao->modificarCliente($cDto);
+    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
+} else if (isset($actualizarCrud)) {
+    $cDao = new clienteDao();
+    $cDto = new clienteDto();
+
+    $cDto->setDocumento($Documento);
+    $cDto->setTipo_documento($Tipo_documento);
+    $cDto->setNombreCliente($NombreCliente);
+    $cDto->setApellidoCliente($ApellidoCliente);
+    $cDto->setCorreo($Correo);
 
     $mensaje = $cDao->modificarCliente($cDto);
     echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
