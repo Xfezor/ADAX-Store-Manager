@@ -3,7 +3,7 @@ import axios from "axios";
 import { obtenerProductos } from "../utils/api.js";
 import { ContextoSesion } from "../context/sesion.jsx";
 import GestionarProductos from "../components/gestionar_productos.jsx";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Mock de axios
@@ -66,4 +66,20 @@ test("Lista funcion del componente gestionar_productos", async () => {
     expect(producto).toHaveProperty("Nombre");
     expect(producto).toHaveProperty("Marca");
   });
+});
+
+test("Llama a buscar directamente", () => {
+  const { getByPlaceholderText } = render(
+    <MemoryRouter>
+      <FakeProvider>
+        <GestionarProductos />
+      </FakeProvider>
+    </MemoryRouter>
+  );
+
+  // Accede al componente y llama a buscar directamente
+  const input = getByPlaceholderText("Escriba el nombre de un producto");
+  fireEvent.change(input, { target: { value: "Samsung" } });
+
+  // Aquí puedes verificar los efectos de la llamada a buscar
 });
