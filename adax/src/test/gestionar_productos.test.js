@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { obtenerProductos } from "../components/api";
+import { obtenerProductos } from "../utils/api.js";
 import { ContextoSesion } from "../context/sesion.jsx";
 import GestionarProductos from "../components/gestionar_productos.jsx";
 import { render } from "@testing-library/react";
