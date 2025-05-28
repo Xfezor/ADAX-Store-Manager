@@ -196,29 +196,33 @@ function RestablecerContrasena() {
       </header>
 
       <div className={styles.cuadradoverde} style={{ display: 'block' }}>
-        <form className={styles.Contenedorsesion}>
+        <form className={`${styles.Contenedorsesion}`}>
           {/* Bloque 1: Ingresar correo */}
           {!codigoEnviado && !cambioContrasena && (
             <>
-              <h1 className={styles.tituloOlvideMiContraseña}>
-                <b>Olvidé mi contraseña</b>
-              </h1>
+              <h1 id="bigtitle1" className={styles["titulo-olvide-mi-contraseña"]}>
+              <b>Olvidé mi contraseña</b>
+            </h1>
+
               <h2 className={styles.textoOlvide}>
-                <b>Escriba el correo asociado con su cuenta para enviarle un código de verificación.</b>
+                <b>Escriba el correo asociado con su cuenta para enviarle un código de confirmmacion para poder cambiar la contraseña.</b>
               </h2>
               <h1 className={styles.usernameText}>
                 <b>Correo electrónico</b>
               </h1>
               <input
-              type="email"
-              placeholder="Ingrese su correo electrónico"
-              className={styles.input}
-              value={correo}
-              onChange={(e) => setCorreo(e.target.value)}
-              required
-            />
-
-              <button type="button" onClick={enviarCodigo} className="btn btn-danger">
+                type="email"
+                placeholder="Ingrese su correo electrónico"
+                className={`${styles.input}`}
+                value={correo}
+                onChange={(e) => setCorreo(e.target.value)}
+                required
+              />
+              <button
+                type="button"
+                id={`${styles.buttonSendCode}`}
+                onClick={enviarCodigo}
+              >
                 Enviar Código
               </button>
             </>
@@ -227,7 +231,7 @@ function RestablecerContrasena() {
           {/* Bloque 2: Ingresar código recibido */}
           {codigoEnviado && !cambioContrasena && (
             <>
-              <h1 className={styles.tituloOlvideMiContraseña}>
+              <h1 className={styles["titulo-olvide-mi-contraseña"]}>
                 <b>Olvidé mi contraseña</b>
               </h1>
               <h2 className={styles.textoOlvide}>
@@ -237,51 +241,60 @@ function RestablecerContrasena() {
                 <b>Código de seguridad</b>
               </h1>
               <input
-              type="text"
-              placeholder="Ingrese el código de seguridad"
-              className={styles.input}
-              value={codigo} // Asegurar que es el mismo estado
-              onChange={(e) => setCodigo(e.target.value)} // Usar setCodigo
-          />
-              <button type="button" className="btn btn-danger" onClick={verificarCodigo}>
-                Verificar código
+                type="text"
+                placeholder="Ingrese el código de seguridad"
+                className={styles.input}
+                value={codigo}
+                onChange={(e) => setCodigo(e.target.value)}
+              />
+              <button
+                type="button"
+                id={`${styles.buttonConfirmCode}`}
+                onClick={verificarCodigo}
+              >
+                confirmar código
               </button>
             </>
-          )}
-
-          {/* Bloque 3: Cambiar contraseña */}
+          )/* Bloque 3: Cambiar contraseña */}
           {cambioContrasena && (
-            <>
-              
-              <h1 className={styles.tituloOlvideMiContraseña}>
-                <b>Nueva contraseña</b>
-              </h1>
-              <h2 className={styles.textoOlvide}>
-                Escriba su nueva contraseña
-              </h2>
-              
-              <input
-                type="password"
-                placeholder="Ingrese su contraseña"
-                value={nuevaContrasena}
-                onChange={(e) => setNuevaContrasena(e.target.value)}
-                required
-                className={styles.input}
-              />
-              <input
-                type="password"
-                placeholder="Repita su contraseña"
-                value={confirmarContrasena}
-                onChange={(e) => setConfirmarContrasena(e.target.value)}
-                required
-                className={styles.input}
-                style={{ padding: '10px' }}
-              />
-              <button type="button" className="btn btn-danger" onClick={cambiarContrasena}>
-                Cambiar contraseña
-              </button>
-            </>
-          )}
+          <div className={styles.cambiarContrasenaBox}>
+           <h1 id="bigtitle2" className={styles["titulo-olvide-mi-contraseña"]}>
+            <b>Nueva contraseña</b>
+          </h1>
+
+
+            <h2 className={styles.textoOlvide}>
+              Escriba su nueva contraseña
+            </h2>
+            <h1 id="middletittle3" className={`${styles.usernameText}`}>
+            <b>Contraseña</b>
+          </h1>
+            <input
+              type="password"
+              placeholder="Ingrese su contraseña"
+              value={nuevaContrasena}
+              onChange={(e) => setNuevaContrasena(e.target.value)}
+              required
+              id='input3'
+              className={styles.input}
+            />
+            <input
+              type="password"
+              placeholder="Repita su contraseña"
+              value={confirmarContrasena}
+              onChange={(e) => setConfirmarContrasena(e.target.value)}
+              required
+              className={styles.input}
+            />
+            <button
+              type="button"
+              id={`${styles.buttonChangePswd}`}
+              onClick={cambiarContrasena}
+            >
+              Cambiar contraseña
+            </button>
+          </div>
+        )}
         </form>
       </div>
     </>
