@@ -19,6 +19,7 @@ function RestablecerContrasena() {
   const [nuevaContrasena, setNuevaContrasena] = useState("");
   const [confirmarContrasena, setConfirmarContrasena] = useState("");
   const [codigoIngresado, setCodigoIngresado] = useState("");  
+  const [loadingSendCode, setLoadingSendCode] = useState(false);
 
   // Navegación
   const backbutton = () => navigate(-1);
@@ -34,6 +35,8 @@ function RestablecerContrasena() {
       });
       return;
     }
+
+    setLoadingSendCode(true);
   
     try {
       const response = await axios.post(
@@ -41,7 +44,7 @@ function RestablecerContrasena() {
         { action: "enviar_codigo", correo: correo },
         {
           headers: { "Content-Type": "application/json" },
-          withCredentials: true, // Importante para que se envíen cookies/sesión
+          withCredentials: true, // Ise envían  cookies/sesión
         }
       );
   
@@ -70,9 +73,10 @@ function RestablecerContrasena() {
         icon: "error",
         confirmButtonText: "Aceptar",
       });
-    }
-  };
-  
+     } finally {
+    setLoadingSendCode(false);
+  }
+};
   
   const verificarCodigo = async () => {
     if (!correo || !codigo) {
@@ -219,12 +223,13 @@ function RestablecerContrasena() {
                 required
               />
               <button
-                type="button"
-                id={`${styles.buttonSendCode}`}
-                onClick={enviarCodigo}
-              >
-                Enviar Código
-              </button>
+              type="button"
+              id={`${styles.buttonSendCode}`}
+              onClick={enviarCodigo}
+              disabled={loadingSendCode}
+            >
+              {loadingSendCode ? "Enviando..." : "Enviar Código"}
+            </button>
             </>
           )}
 
