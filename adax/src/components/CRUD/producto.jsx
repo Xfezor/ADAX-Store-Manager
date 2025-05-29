@@ -54,6 +54,10 @@ const Producto = () => {
     const handleVentas = () => {
         navigate("/crud/ventas")
     }
+    const handleActualizarProducto = (row) => {
+        const data = row;
+        navigate(`/crud/actualizar/actualizarProducto`, {state:data});
+    }
     DataTable.use(DT);
     const [producto, setProducto] = useState([]);
     // eslint-disable-next-line
@@ -195,13 +199,12 @@ const Producto = () => {
             </nav>
             <div style={{ 'width': '99.9%' }}>
                 <DataTable data={producto} slots={{
-                    11: (data, row) => (
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={row.id_Producto} />
-                            <button type="submit" className="btn btn-warning">Modificar</button>
-                        </form>
+                    13: (data, row) => (
+                        
+                            <button type="submit" className="btn btn-warning" onClick={()=> handleActualizarProducto(row)}>Modificar</button>
+                        
                     ),
-                    12: (data, row) => (
+                    14: (data, row) => (
                         <a className="btn btn-danger" href={`../../controlador/controlador.usuarios.php?docu=${row[0]}`}>
                             Eliminar
                         </a>
@@ -219,7 +222,9 @@ const Producto = () => {
                             <th style={{ 'fontWeight': 'normal' }}>Fecha_vencimiento</th>
                             <th style={{ 'fontWeight': 'normal' }}>Stock</th>
                             <th style={{ 'fontWeight': 'normal' }}>Stock_Min</th>
+                            <th style={{ 'fontWeight': 'normal' }}>estado</th>
                             <th style={{ 'fontWeight': 'normal' }}>inventario_id_Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>idProveedor</th>
                             <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
                             <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
