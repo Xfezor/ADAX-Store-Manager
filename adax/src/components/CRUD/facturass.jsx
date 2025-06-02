@@ -75,23 +75,21 @@ const Factura = () => {
         };
         validador();
     }, [navigate])
-    const Lista = async () => {
-        try {
-            const respuesta = await axios.post(
-                'http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
-                { listar: true }
-            );
-            if (respuesta.data) {
-                setFactura(respuesta.data);
-            } else {
-
-                return null;
-            }
-        } catch (err) {
-            console.error('Error al obtener los datos:', err);
+   const Lista = async () => {
+    try {
+        const respuesta = await axios.get(
+            `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listar=true`
+        );
+        if (respuesta.data) {
+            setFactura(respuesta.data);
+        } else {
             return null;
         }
+    } catch (err) {
+        console.error('Error al obtener los datos:', err);
+        return null;
     }
+}
 
     const Eliminar = async (id) => {
         try {
@@ -243,13 +241,13 @@ const Factura = () => {
                     }}id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th>venta_id_Venta</th>
-                            <th>producto_id_Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>venta_id_Venta</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>producto_id_Producto</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Cantidad</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Precio</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Estado</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

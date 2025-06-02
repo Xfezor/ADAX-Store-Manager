@@ -81,7 +81,7 @@ if (isset($registrarFactura)) {
         echo json_encode(['access' => true, 'mensaje' => $mensaje, $mensaje => 'id_Venta']);
         exit();
     }
-} else if (isset($listar) || isset($_GET['si'])) {
+} else if (isset($listar)) {
     $fDao = new facturaDao();
     $fDto = new facturaDto();
     $lista = $fDao->listarTodos();

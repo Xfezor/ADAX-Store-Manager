@@ -83,7 +83,7 @@ if (isset($data['olvido']) && isset($data['reset'])) {
         echo json_encode(['success' => false, 'message' => 'Contraseña no proporcionada', 'data' => null]);
         exit();
     }
-      
+    $correo = $data['correo'];
     $newPassword = $data['password'];
     $usuario = $usuarioDao->buscarUsuarioPorCorreo($correo);
     if (!$usuario) {

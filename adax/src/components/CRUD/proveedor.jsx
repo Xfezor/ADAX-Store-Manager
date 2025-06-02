@@ -70,14 +70,12 @@ const Proveedor = () => {
     }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
+            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
                 listar: true
             });
-
             if (respuesta.data) {
                 setProveedor(respuesta.data);
             } else {
-
                 return null;
             }
         } catch (err) {
@@ -225,6 +223,8 @@ const Proveedor = () => {
                             <th style={{ 'fontWeight': 'normal' }}>telefono</th>
                             <th style={{ 'fontWeight': 'normal' }}>email</th>
                             <th style={{ 'fontWeight': 'normal' }}>id_tienda</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
