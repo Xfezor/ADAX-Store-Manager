@@ -14,7 +14,7 @@ const Roles = () => {
     const navigate = useNavigate();
 
     const location = useLocation();
-    
+
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -74,7 +74,14 @@ const Roles = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-    
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
     const Lista = async () => {
         try {
             const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.rol.php`, {
@@ -98,7 +105,7 @@ const Roles = () => {
             const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.rol.php`, {
                 eliminar: idRol,
             });
-            console.log (respuesta.data);
+            console.log(respuesta.data);
             if (respuesta.data.respuesta) {
                 setMensaje(respuesta.data.mensaje);
                 await Lista();
@@ -188,7 +195,7 @@ const Roles = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistroRol}>registrar</button></li>
                                 </ul>
                             </li>
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Entrega Pedidos</a>
                                 <ul className="dropdown-menu">
@@ -205,7 +212,7 @@ const Roles = () => {
                                 </ul>
                             </li>
 
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">

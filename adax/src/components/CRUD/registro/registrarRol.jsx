@@ -17,14 +17,14 @@ const RegistrarRoles = () => {
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         // Obtener valores del formulario
         var id_Rol2 = document.getElementById("id_Rol").value;
         var nombreRol2 = document.getElementById("nombreRol").value;
         var descripcion2 = document.getElementById("descripcion").value;
 
         // Comprobar si los campos obligatorios están llenos
-        if (id_Rol2 == null|| parseInt(id_Rol2) <= 1) {
+        if (id_Rol2 == null || parseInt(id_Rol2) <= 1) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
@@ -78,6 +78,14 @@ const RegistrarRoles = () => {
             setError('Error al iniciar sesión');
         }
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>
@@ -86,27 +94,27 @@ const RegistrarRoles = () => {
                     <h1 className={styles.title}>registrar</h1>
                     <form className={`${styles['contact-form']} contact-form row`} onSubmit={handleSubmit}>
                         <div className={`form-field col-lg-6 ${styles['form-field']}`}>
-                            <input 
-                            name="" 
-                            id="id_Rol" 
-                            value={id_Rol} 
-                            onChange={(e) => setId_Rol(e.target.value)} 
-                            className={`${styles['input-text']} js-input`} 
-                            type="number" />
+                            <input
+                                name=""
+                                id="id_Rol"
+                                value={id_Rol}
+                                onChange={(e) => setId_Rol(e.target.value)}
+                                className={`${styles['input-text']} js-input`}
+                                type="number" />
                             <label className={`${styles.label} label`} htmlFor="name">Id del Rol</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input 
-                            name="nombreRol2" 
-                            id="nombreRol" 
-                            value={nombreRol} 
-                            onChange={(e) => setNombreRol(e.target.value)} 
-                            className={`${styles['input-text']} js-input`} 
-                            type="text"/>
+                            <input
+                                name="nombreRol2"
+                                id="nombreRol"
+                                value={nombreRol}
+                                onChange={(e) => setNombreRol(e.target.value)}
+                                className={`${styles['input-text']} js-input`}
+                                type="text" />
                             <label className={`${styles.label} label`} htmlFor="name">Nombre del Rol</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input name="desc" id="descripcion" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} className={`${styles['input-text']} js-input`} type="text"/>
+                            <input name="desc" id="descripcion" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} className={`${styles['input-text']} js-input`} type="text" />
                             <label className={`${styles.label} label`} htmlFor="company">Descripción</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>

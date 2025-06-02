@@ -50,7 +50,7 @@ const ActualizarCliente = () => {
                 NombreCliente: NombreCliente,
                 ApellidoCliente: ApellidoCliente,
                 Correo: Correo,
-                actualizar: true,   
+                actualizar: true,
             });
             if (respuesta.data) {
                 const mensaje = respuesta.data.mensaje;
@@ -68,6 +68,14 @@ const ActualizarCliente = () => {
     const handleCancel = () => {
         navigate('/crud/cliente');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

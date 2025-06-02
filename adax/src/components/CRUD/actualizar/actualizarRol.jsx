@@ -60,6 +60,14 @@ const ActualizarRoles = () => {
     const handleCancel = () => {
         navigate('/crud/roles');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>
@@ -83,7 +91,7 @@ const ActualizarRoles = () => {
                             <button type="button" className={styles['submit-btn']} onClick={handleCancel}>Cancelar</button>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>                        
+                            <button name="modificar" className={styles['submit-btn']} type="submit" onClick={handleSubmit}>Actualizar</button>
                         </div>
                     </form>
                 </section>

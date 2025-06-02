@@ -67,7 +67,7 @@ const RegistrarFactura = () => {
 
         try {
             // Realizamos la solicitud a la API
-            const respuesta = await axios.post('http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php', {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`, {
                 venta_id_Venta,
                 producto_id_Producto,
                 Cantidad,

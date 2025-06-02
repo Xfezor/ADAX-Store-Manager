@@ -95,6 +95,14 @@ const ActualizarUsuario = () => {
     const handleCancel = () => {
         navigate('/crud/usuarios');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

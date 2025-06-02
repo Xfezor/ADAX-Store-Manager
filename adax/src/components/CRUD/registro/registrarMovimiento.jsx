@@ -110,6 +110,14 @@ const RegistrarMovimiento = () => {
             setError('Error al realizar el registro');
         }
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

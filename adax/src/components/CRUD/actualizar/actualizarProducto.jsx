@@ -76,6 +76,14 @@ const ActualizarProducto = () => {
     const handleCancel = () => {
         navigate('/crud/producto');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <div className='form-box'>

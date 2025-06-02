@@ -76,6 +76,14 @@ const ActualizarMovimiento = () => {
     const handleCancel = () => {
         navigate('/crud/movimiento');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

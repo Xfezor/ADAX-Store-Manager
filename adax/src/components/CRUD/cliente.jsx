@@ -18,14 +18,14 @@ const Cliente = () => {
     }
     const handleActualizarCliente = (row) => {
         const data = row;
-        navigate(`/crud/actualizar/actualizarCliente`, {state:data});
+        navigate(`/crud/actualizar/actualizarCliente`, { state: data });
     }
     const handleRegistro = () => {
         navigate("/crud/registrar_usuarios")
     }
-    const handleRegistroCliente= () => {
+    const handleRegistroCliente = () => {
         navigate("/crud/registrar_cliente");
-      };
+    };
     const handleUsuario = () => {
         navigate("/crud/usuarios")
     }
@@ -70,7 +70,14 @@ const Cliente = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     const Lista = async () => {
         try {
@@ -95,12 +102,12 @@ const Cliente = () => {
     const Eliminar = async (Doc) => {
         try {
             const respuesta = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
-                data : { eliminar: Doc},
+                data: { eliminar: Doc },
             });
             if (respuesta.data.respuesta) {
-                setMensaje (respuesta.data.mensaje);
+                setMensaje(respuesta.data.mensaje);
                 console.log(mensaje);
-                Lista(), {state: mensaje};
+                Lista(), { state: mensaje };
             } else {
                 setMensaje(respuesta.data.mensaje);
                 console.log('no exitoso', respuesta.data.mensaje)
@@ -203,7 +210,7 @@ const Cliente = () => {
                                 </ul>
                             </li>
 
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">
@@ -231,12 +238,12 @@ const Cliente = () => {
                 <DataTable data={clientes} slots={{
                     5: (data, row) => (
                         <button type="submit" className="btn btn-warning" onClick={() => handleActualizarCliente(row)}>Modificar</button>
-                    
+
                     ),
                     6: (data, row) => (
                         <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
                             Eliminar
-                        </button>                   
+                        </button>
                     )
                 }} id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
