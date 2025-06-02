@@ -6,6 +6,7 @@ import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 
 const Cliente = () => {
@@ -73,7 +74,7 @@ const Cliente = () => {
 
     const Lista = async () => {
         try {
-            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                 params: {
                     listar: true,
                 }
@@ -93,7 +94,7 @@ const Cliente = () => {
     }
     const Eliminar = async (Doc) => {
         try {
-            const respuesta = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+            const respuesta = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                 data : { eliminar: Doc},
             });
             if (respuesta.data.respuesta) {

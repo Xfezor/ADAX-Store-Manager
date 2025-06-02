@@ -7,6 +7,7 @@ import { faArrowLeft, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { ip, port } from '../utils/ipconfig.js';
 
 function RestablecerContrasena() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function RestablecerContrasena() {
   
     try {
       const response = await axios.post(
-        "http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php",
+        "http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php",
         { action: "enviar_codigo", correo: correo },
         {
           headers: { "Content-Type": "application/json" },
@@ -91,7 +92,7 @@ function RestablecerContrasena() {
   
     try {
       const response = await axios.post(
-        "http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php",
+        "http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php",
         {
           action: "verificar_codigo",
           correo: correo,
@@ -142,7 +143,7 @@ function RestablecerContrasena() {
   
     try {
       const respuesta = await axios.post(
-        "http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php",
+        "http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php",
         {
           olvido: true,
           reset: true,

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { ip, port } from '../utils/ipconfig.js';
 
 const GestionarClientes = () => {
     const navigate = useNavigate();
@@ -48,7 +49,7 @@ const GestionarClientes = () => {
     const [clientesOriginal, setClientesOriginal] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?listarClientesTienda=true&codigo_invitacion=${codigo_invitacion}`);
+            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?listarClientesTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setClientes(respuesta.data);
                 setClientesOriginal(respuesta.data);

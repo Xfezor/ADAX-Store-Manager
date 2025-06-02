@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 
 const RegistrarRoles = () => {
@@ -48,7 +49,7 @@ const RegistrarRoles = () => {
             return false;
         }
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.rol.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.rol.php`, {
                 id_Rol: id_Rol,
                 nombreRol: nombreRol,
                 descripcion: descripcion,

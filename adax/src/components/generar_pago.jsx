@@ -7,6 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { ip, port } from '../utils/ipconfig.js';
 
 function Pago() {
   const navigate = useNavigate();
@@ -144,7 +145,7 @@ function Pago() {
 
   const handleGenerarVenta = async () => {
     try {
-      const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+      const respuesta = await axios.post("http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
         registro: true,
         EstadoVenta: "Pendiente",
         documento_Cliente: documentoCliente,
@@ -198,7 +199,7 @@ function Pago() {
           Cantidad: producto.cantidad,
           Estado: "Pendiente"
         };
-        const respuesta = await axios.post("http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php",
+        const respuesta = await axios.post("http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php",
           datosFactura,
         );
         if (respuesta.data && respuesta.data.access) {

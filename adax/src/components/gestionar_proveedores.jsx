@@ -7,6 +7,7 @@ import { faArrowLeft, faListSquares } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { ip, port } from '../utils/ipconfig.js';
 
 
 const GestionarProveedores = () => {
@@ -57,7 +58,7 @@ const GestionarProveedores = () => {
     }
     const Eliminar = async (id) => {
         try {
-            const respuesta = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?eliminar=${id}`);
+            const respuesta = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?eliminar=${id}`);
             if (respuesta.data.respuesta) {
                 Lista();
             } else {
@@ -120,7 +121,7 @@ const GestionarProveedores = () => {
 
     const agregarProveedor = async (nombre, telefono, email) => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`,
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`,
                 {
                     agregarProveedor: true,
                     nombre: nombre,
@@ -156,7 +157,7 @@ const GestionarProveedores = () => {
     const verProductos = (async (idproveedor) => {
         try {
             setProductos([]);
-            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarProductos=true&idproveedor=${idproveedor}`);
+            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarProductos=true&idproveedor=${idproveedor}`);
             if (respuesta.data) {
                 productos = (respuesta.data);
                 productosAlert();
@@ -173,7 +174,7 @@ const GestionarProveedores = () => {
     const [proveedoresOriginal, setProveedoresOriginal] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarPorTienda=true&codigo_invitacion=${codigo_invitacion}`);
+            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarPorTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setProveedores(respuesta.data);
                 setProveedoresOriginal(respuesta.data);

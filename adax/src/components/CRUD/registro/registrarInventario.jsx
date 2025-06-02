@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 
 const RegistrarInventario = () => {
@@ -68,7 +69,7 @@ const RegistrarInventario = () => {
             return false;
         }
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 id_inventario: id_inventario,
                 CantidadInventario: CantidadInventario,
                 fechaModificacion: fechaModificacion,

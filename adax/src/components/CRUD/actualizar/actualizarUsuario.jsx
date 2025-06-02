@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_registro.module.css';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const ActualizarUsuario = () => {
     const navigate = useNavigate();
@@ -65,7 +66,7 @@ const ActualizarUsuario = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
                 actualizar: true,
                 documento: documento,
                 tipoDoc: tipoDoc,

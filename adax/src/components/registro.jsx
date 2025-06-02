@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import styles from '../styles/styles_registro.module.css';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../utils/ipconfig.js';
 
 const Registro = () => {
 
@@ -178,7 +179,7 @@ const Registro = () => {
 
     if (params.get('tipo') === "empleado") {
       try {
-        const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
+        const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
           nombre: nombre,
           nombre2: nombre2,
           apellido: apellido,
@@ -242,7 +243,7 @@ const Registro = () => {
     });
     if (params2.get('tipo') === "tienda") {
       try {
-        const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
+        const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
           nombreTienda: nombreTienda,
           telefono: telefono,
           email: email,

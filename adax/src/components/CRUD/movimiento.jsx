@@ -5,6 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 
 
@@ -65,7 +66,7 @@ const Movimiento = () => {
     const Lista = async () => {
         try {
             const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php',
+                'http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php',
                 { listar: true }
             );
  // Verifica los datos aquí

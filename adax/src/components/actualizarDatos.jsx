@@ -9,7 +9,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import styles from '../styles/styles_detalle_producto.module.css';
 import axios from 'axios';
 import Swal from "sweetalert2";
-
+import { ip, port } from '../utils/ipconfig.js';
 
 
 export function DatosUsuario() {
@@ -70,7 +70,7 @@ export function DatosUsuario() {
   const consultarProducto = async () => {
     if (!id_Producto) return;
     try {
-      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?consultaDatosProducto=${id_Producto}`);
+      const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?consultaDatosProducto=${id_Producto}`);
       if (respuesta.data) {
         setProductos(respuesta.data);
         setFormValues({
@@ -149,7 +149,7 @@ export function DatosUsuario() {
         fechaVencimiento: formValues.fechaVencimiento,
         estado: formValues.estado,
       };
-      const respuesta = await axios.put(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
+      const respuesta = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, datosproducto);
       if (respuesta.data.mensaje) {
         navigate(-1);
       } else {
@@ -163,7 +163,7 @@ export function DatosUsuario() {
   }
   const eliminarProducto = async () => {
     try {
-      const respuesta = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${id_Producto}`);
+      const respuesta = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${id_Producto}`);
       if (respuesta.data.Operacion) {
         navigate(-1);
       } else {
