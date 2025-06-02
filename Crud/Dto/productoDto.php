@@ -11,7 +11,7 @@ class productoDto {
     private $Fecha_vencimiento;
     private $Stock = 0;
     private $Stock_Min = 0;
-    private $Estado = 0;
+    private $estado = 0;
     private $inventario_id_Inventario = 0;
     private $idProveedor = 0;
 
@@ -47,7 +47,7 @@ class productoDto {
         return $this->Stock_Min;
     }
     public function getEstado() {
-        return $this->Estado;
+        return $this->estado;
     }
     public function getinventario_id_Inventario() {
         return $this->inventario_id_Inventario;
@@ -88,8 +88,8 @@ class productoDto {
     public function setStock_Min($Stock_Min) {
         $this->Stock_Min = $Stock_Min;
     }
-    public function setEstado($Estado) {
-        $this->Estado = $Estado;
+    public function setEstado($estado) {
+        $this->estado = $estado;
     }
     public function setinventario_id_Inventario($inventario_id_Inventario) {
         $this->inventario_id_Inventario = $inventario_id_Inventario;

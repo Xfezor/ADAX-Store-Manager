@@ -209,10 +209,12 @@ class productoDao
         $Fecha_vencimiento = $productoDto->getFecha_vencimiento();
         $Stock = $productoDto->getStock();
         $Stock_Min = $productoDto->getStock_Min();
-        $estado = $productoDto->getEstado();
+        $Estado = $productoDto->getEstado();
         $inventario_id_Inventario = $productoDto->getinventario_id_Inventario();
         try {
-            $query = $cnn->prepare("UPDATE producto SET id_Producto=?, Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=? , Stock_Min=?, estado=?, inventario_id_Inventario=? WHERE id_Producto=?");
+            $query = $cnn->prepare("UPDATE producto SET id_Producto=?, Nombre=?, Precio_unit=?, 
+            Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, 
+            Stock_Min=?, estado=?, inventario_id_Inventario=? WHERE id_Producto=?");
             $query->bindParam(1, $id_Producto);
             $query->bindParam(2, $Nombre);
             $query->bindParam(3, $Precio_unit);
@@ -223,8 +225,9 @@ class productoDao
             $query->bindParam(8, $Fecha_vencimiento);
             $query->bindParam(9, $Stock);
             $query->bindParam(10, $Stock_Min);
-            $query->bindParam(11, $estado); ;
-            $query->bindParam(11, $inventario_id_Inventario);
+            $query->bindParam(11, $Estado); ;
+            $query->bindParam(12, $inventario_id_Inventario);
+            $query->bindParam(13, $id_Producto);
             $query->execute();
             $mensaje = "Registro actualizado";
         } catch (Exception $ex) {
@@ -247,7 +250,7 @@ class productoDao
         $Fecha_vencimiento = $productoDto->getFecha_vencimiento() ?: null;
         $Stock = $productoDto->getStock() ?: null;
         $Stock_Min = $productoDto->getStock_Min() ?: 0;
-        $Estado = $productoDto->getEstado() ?: null;
+        $Estado = $productoDto->getEstado();
         $idProveedor = $productoDto->getIdProveedor() ?: 0;
 
         try {

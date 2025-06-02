@@ -39,7 +39,7 @@ export function Detalle() {
     descripcion: '',
     categoria: '',
     fechaVencimiento: '',
-    estado: '',
+    estado: 1,
     idProveedor: '',
     nombrepr: '',
   });
