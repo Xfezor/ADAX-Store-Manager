@@ -114,8 +114,11 @@ const GestionarProveedores = () => {
                 const { nombre, telefono, email } = result.value;
                 agregarProveedor(nombre, parseInt(telefono), email);
                 Swal.fire("Agregado!", "", "success");
-                Lista();
             }
+            else if (result.isDismissed) {
+                Swal.fire("Cancelado", "", "info");
+            }
+
         });
     };
 
@@ -130,8 +133,8 @@ const GestionarProveedores = () => {
                     codigo_invitacion: codigo_invitacion
                 }
             );
-            if (respuesta.data) {
-                setProveedores(respuesta.data);
+            if (respuesta.data.success) {
+                Lista();
             } else {
 
                 return null;
