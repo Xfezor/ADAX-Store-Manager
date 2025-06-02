@@ -54,7 +54,10 @@ const Tienda = () => {
     const handleVentas = () => {
         navigate("/crud/ventas")
     }
-    
+     const handleActualizarTienda = (row) => {
+        const data = row;
+        navigate(`/crud/actualizar/actualizarTienda`, {state:data});
+    }
     DataTable.use(DT);
     const [tienda, setTienda] = useState([]);
     // eslint-disable-next-line
@@ -229,11 +232,11 @@ const Tienda = () => {
                 <DataTable
                 data={tiendaArray}
                 slots={{
+                    // ...dentro de slots del DataTable...
                     7: (data, row) => (
-                        <form action="actualizar.php" method="post">
-                            <input type="hidden" name="doc" value={row[0]} />
-                            <button type="submit" className="btn btn-warning">Modificar</button>
-                        </form>
+                        <button type="button" className="btn btn-warning" onClick={() => handleActualizarTienda(row)}>
+                            Modificar
+                        </button>
                     ),
                     8: (data, row) => (
                         <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >

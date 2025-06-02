@@ -154,5 +154,4 @@ const ActualizarUsuario = () => {
         </>
     );
 }
-
 export default ActualizarUsuario;

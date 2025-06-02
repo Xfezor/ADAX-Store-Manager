@@ -32,7 +32,9 @@ import ActualizarFactura from './components/CRUD/actualizar/actualizarFactura.js
 import ActualizarCliente from './components/CRUD/actualizar/actualizarCliente.jsx';
 import ActualizarMovimiento from './components/CRUD/actualizar/actualizarMovimiento.jsx';
 import ActualizarVenta from './components/CRUD/actualizar/actualizarVenta.jsx';
+import ActualizarTienda from './components/CRUD/actualizar/actualizarTienda.jsx';
 import ActualizarMetodosdepago from './components/CRUD/actualizar/actualizarMetodosdepago.jsx';
+import ActualizarProducto from './components/CRUD/actualizar/actualizarProducto.jsx';
 import Tienda from './components/CRUD/tienda.jsx';
 import Producto from './components/CRUD/producto.jsx';
 import Movimiento from './components/CRUD/movimiento.jsx';
@@ -84,6 +86,8 @@ function App() {
           <Route path="/crud/actualizar/actualizarCliente" element={<ActualizarCliente/>} />
           <Route path="/crud/actualizar/actualizarMovimiento" element={<ActualizarMovimiento/>} />
           <Route path="/crud/actualizar/actualizarMetodosdepago" element={<ActualizarMetodosdepago/>} />
+          <Route path="/crud/actualizar/actualizarTienda" element={<ActualizarTienda/>} />
+          <Route path="/crud/actualizar/actualizarProducto" element={<ActualizarProducto/>} />
           <Route path="/crud/tienda" element={<Tienda />} />
           <Route path="/crud/producto" element={<Producto />} />
           <Route path="/crud/proveedor" element={<Proveedor />} />

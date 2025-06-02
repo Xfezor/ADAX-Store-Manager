@@ -126,6 +126,7 @@ if (!isset($_SESSION['nombre1'])) {
                 <th style="font-weight :normal">Fecha_vencimiento</th>
                 <th style="font-weight :normal">Stock</th>
                 <th style="font-weight :normal">Stock_Min</th>
+                <th style="font-weight :normal">estado</th>
                 <th style="font-weight :normal">inventario_id_Inventario</th>
                 <th style="font-weight:normal">Modificar</th>
                 <th style="font-weight :normal">Eliminar</th>
@@ -149,6 +150,7 @@ if (!isset($_SESSION['nombre1'])) {
                     <td><?php echo $user['Fecha_vencimiento']; ?></td>
                     <td><?php echo $user['Stock']; ?></td>
                     <td><?php echo $user['Stock_Min']; ?></td>
+                    <td><?php echo $user['estado']; ?></td>
                     <td><?php echo $user['inventario_id_Inventario']; ?></td>
                     <td>
                         <form action="actualizar.php" method="post">

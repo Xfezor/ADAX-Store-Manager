@@ -103,7 +103,7 @@ function RestablecerContrasena() {
         }
       );
   
-      if (response.data.status === "success") {
+      if (response.data.status ) {
         Swal.fire({
           title: "Éxito",
           text: "Código correcto. Puedes cambiar tu contraseña.",
@@ -154,7 +154,7 @@ function RestablecerContrasena() {
   
       console.log("Respuesta del servidor:", respuesta.data);
       
-      if (respuesta.data.status === "success") {
+     if (respuesta.data.success) {
         Swal.fire({
           icon: "success",
           title: "Contraseña cambiada",
