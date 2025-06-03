@@ -155,7 +155,7 @@ class productoDao
             try {
                 $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Marca from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
                 $query->bindParam(1, $idtienda);
-                $query->execute();                
+                $query->execute();
                 return $query->fetchAll();
             } catch (Exception $ex) {
                 echo 'Error' . $ex->getMessage();
@@ -168,7 +168,7 @@ class productoDao
         try {
             $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Precio_unit,p.Marca,p.Descripcion,p.Marca,p.Categoria,p.Presentacion,p.Fecha_vencimiento,p.Stock,p.Stock_Min,p.Estado,(SELECT nombre from proveedor where idproveedor = p.idProveedor) as nombre,p.idProveedor from producto p where id_Producto = ?;');
             $query->bindParam(1, $id_Producto);
-            $query->execute();                
+            $query->execute();
             return $query->fetchAll();
         } catch (Exception $ex) {
             echo 'Error' . $ex->getMessage();
@@ -188,7 +188,7 @@ class productoDao
             try {
                 $query = $conn->prepare('SELECT p.id_Producto,p.Nombre,p.Marca,p.Precio_unit,p.Estado, p.Stock from producto p inner join inventario i on i.id_Inventario = p.inventario_id_Inventario where tienda_idtienda = ?;');
                 $query->bindParam(1, $idtienda);
-                $query->execute();                
+                $query->execute();
                 return $query->fetchAll();
             } catch (Exception $ex) {
                 echo 'Error' . $ex->getMessage();
@@ -225,7 +225,7 @@ class productoDao
             $query->bindParam(8, $Fecha_vencimiento);
             $query->bindParam(9, $Stock);
             $query->bindParam(10, $Stock_Min);
-            $query->bindParam(11, $Estado); ;
+            $query->bindParam(11, $Estado);;
             $query->bindParam(12, $inventario_id_Inventario);
             $query->bindParam(13, $id_Producto);
             $query->execute();
@@ -251,22 +251,40 @@ class productoDao
         $Stock = $productoDto->getStock() ?: null;
         $Stock_Min = $productoDto->getStock_Min() ?: 0;
         $Estado = $productoDto->getEstado();
-        $idProveedor = $productoDto->getIdProveedor() ?: 0;
-
+        $idProveedor = $productoDto->getIdProveedor() ?: null;
         try {
-            $query = $cnn->prepare("UPDATE producto SET Nombre=?, Precio_unit=?, Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, Stock=?, Stock_Min=?, estado=?, idProveedor=? WHERE id_Producto=?");
-            $query->bindParam(1, $Nombre);
-            $query->bindParam(2, $Precio_unit);
-            $query->bindParam(3, $Descripcion);
-            $query->bindParam(4, $Marca);
-            $query->bindParam(5, $Categoria);
-            $query->bindParam(6, $Presentacion);
-            $query->bindParam(7, $Fecha_vencimiento);
-            $query->bindParam(8, $Stock);
-            $query->bindParam(9, $Stock_Min);
-            $query->bindParam(10, $Estado);
-            $query->bindParam(11, $idProveedor);
-            $query->bindParam(12, $id_Producto);
+            if (isset($idProveedor)) {
+                $query = $cnn->prepare("UPDATE producto SET Nombre=?, Precio_unit=?, 
+                Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, 
+                Stock=?, Stock_Min=?, estado=?, idProveedor=? WHERE id_Producto=?");
+                $query->bindParam(1, $Nombre);
+                $query->bindParam(2, $Precio_unit);
+                $query->bindParam(3, $Descripcion);
+                $query->bindParam(4, $Marca);
+                $query->bindParam(5, $Categoria);
+                $query->bindParam(6, $Presentacion);
+                $query->bindParam(7, $Fecha_vencimiento);
+                $query->bindParam(8, $Stock);
+                $query->bindParam(9, $Stock_Min);
+                $query->bindParam(10, $Estado);
+                $query->bindParam(11, $idProveedor);
+                $query->bindParam(12, $id_Producto);
+            } else {
+                $query = $cnn->prepare("UPDATE producto SET Nombre=?, Precio_unit=?, 
+                Descripcion=?, Marca=?, Categoria=?, Presentacion=?, Fecha_vencimiento=?, 
+                Stock=?, Stock_Min=?, estado=? WHERE id_Producto=?");
+                $query->bindParam(1, $Nombre);
+                $query->bindParam(2, $Precio_unit);
+                $query->bindParam(3, $Descripcion);
+                $query->bindParam(4, $Marca);
+                $query->bindParam(5, $Categoria);
+                $query->bindParam(6, $Presentacion);
+                $query->bindParam(7, $Fecha_vencimiento);
+                $query->bindParam(8, $Stock);
+                $query->bindParam(9, $Stock_Min);
+                $query->bindParam(10, $Estado);
+                $query->bindParam(11, $id_Producto);
+            }
             $query->execute();
             $mensaje = "Registro actualizado";
         } catch (Exception $ex) {
@@ -285,7 +303,6 @@ class productoDao
             $query->bindParam(1, $id_Producto);
             $query->execute();
             return $query->fetch();
-
         } catch (Exception $ex) {
             $mensaje = $ex->getMessage();
         }
@@ -309,7 +326,4 @@ class productoDao
         $cnn = null;
         return $mensaje;
     }
-
-
-
 }
