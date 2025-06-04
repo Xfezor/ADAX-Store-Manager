@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './styles_registro.module.css';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const ActualizarProducto = () => {
     const navigate = useNavigate();
@@ -62,7 +63,7 @@ const ActualizarProducto = () => {
             formData.append('modificarProducto2', true);
 
             const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php',
+                'http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php',
                 formData
             );
             navigate('/crud/producto', { state: respuesta.data?.mensaje || "Producto actualizado" });
@@ -75,6 +76,14 @@ const ActualizarProducto = () => {
     const handleCancel = () => {
         navigate('/crud/producto');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <div className='form-box'>

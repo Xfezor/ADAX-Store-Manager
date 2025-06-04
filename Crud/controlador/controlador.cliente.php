@@ -118,7 +118,7 @@ if (isset($registroCliente)) {
             $cliente['Tipo_documento'],
             $cliente['NombreCliente'],
             $cliente['ApellidoCliente'],
-            $cliente['Correo'],
+            $cliente['correo'],
         ];
     }
     echo json_encode($response);

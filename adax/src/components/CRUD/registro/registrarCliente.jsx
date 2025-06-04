@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const RegistrarCliente = () => {
     const navigate = useNavigate();
@@ -64,7 +65,7 @@ const RegistrarCliente = () => {
         try {
             // Realizamos la solicitud a la API para registrar el cliente
             const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php',
+                `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`,
                 {
                     Documento,
                     Tipo_documento,

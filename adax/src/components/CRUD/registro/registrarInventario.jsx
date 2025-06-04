@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 
 const RegistrarInventario = () => {
@@ -68,7 +69,7 @@ const RegistrarInventario = () => {
             return false;
         }
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 id_inventario: id_inventario,
                 CantidadInventario: CantidadInventario,
                 fechaModificacion: fechaModificacion,
@@ -98,7 +99,16 @@ const RegistrarInventario = () => {
             console.error(err);
             setError('Error al iniciar sesión');
         }
+
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>
@@ -127,33 +137,33 @@ const RegistrarInventario = () => {
                             <label className={`${styles.label} label`} htmlFor="name">Cantidad en el inventario</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input 
-                            name="fechamodificacion"
-                            id="fechaModificacion" 
-                            value={fechaModificacion} 
-                            onChange={(e) => setfechaModificacion(e.target.value)} 
-                            className={`${styles['input-text']} js-input`} 
-                            type="text" />
+                            <input
+                                name="fechamodificacion"
+                                id="fechaModificacion"
+                                value={fechaModificacion}
+                                onChange={(e) => setfechaModificacion(e.target.value)}
+                                className={`${styles['input-text']} js-input`}
+                                type="text" />
                             <label className={`${styles.label} label`} htmlFor="company">Fecha de modificación del inventario</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
-                            <input 
-                            name="estadorevision"
-                            id="estado_revision"
-                            value={estado_revision}
-                            onChange={(e) => setestado_revision(e.target.value)} 
-                            className={`${styles['input-text']} js-input`} 
-                            type="text" />
+                            <input
+                                name="estadorevision"
+                                id="estado_revision"
+                                value={estado_revision}
+                                onChange={(e) => setestado_revision(e.target.value)}
+                                className={`${styles['input-text']} js-input`}
+                                type="text" />
                             <label className={`${styles.label} label`} htmlFor="company">Estado de la Revision del Inventario</label>
                         </div>
                         <div className={`form-field ${styles['form-field']} col-lg-6`}>
                             <input
-                            name="id_tienda"
-                            id="tienda_idtienda"
-                            value={tienda_idtienda}
-                            onChange={(e) => settienda_idtienda(e.target.value)}
-                            className={`${styles['input-text']} js-input`}
-                            type="number"/>
+                                name="id_tienda"
+                                id="tienda_idtienda"
+                                value={tienda_idtienda}
+                                onChange={(e) => settienda_idtienda(e.target.value)}
+                                className={`${styles['input-text']} js-input`}
+                                type="number" />
                             <label className={`${styles.label} label`} htmlFor="company">Id de la tienda del Inventario </label>
                         </div>
 

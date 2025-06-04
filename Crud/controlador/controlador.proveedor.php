@@ -104,7 +104,7 @@ else if (isset($agregarProveedor)) {
     echo json_encode(['success' => true, 'mensaje' => $mensaje]);
     exit();
 }
- else if (isset($listar)) {
+else if (isset($_GET['listar'])) {
     $pDao = new proveedorDao();
     $pDto = new proveedorDto();
     $listaProveedores = $pDao->listarTodos();

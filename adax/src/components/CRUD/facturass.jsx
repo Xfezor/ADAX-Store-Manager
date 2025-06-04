@@ -5,6 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 const Factura = () => {
     const navigate = useNavigate();
@@ -66,28 +67,33 @@ const Factura = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
-    const Lista = async () => {
-        try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php',
-                { listar: true }
-            );
-            if (respuesta.data) {
-                setFactura(respuesta.data);
-            } else {
-
-                return null;
-            }
-        } catch (err) {
-            console.error('Error al obtener los datos:', err);
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
+   const Lista = async () => {
+    try {
+        const respuesta = await axios.get(
+            `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listar=true`
+        );
+        if (respuesta.data) {
+            setFactura(respuesta.data);
+        } else {
             return null;
         }
+    } catch (err) {
+        console.error('Error al obtener los datos:', err);
+        return null;
     }
+}
 
     const Eliminar = async (id) => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`, {
                 eliminar: id,
             });
             if (respuesta.data.respuesta) {
@@ -235,13 +241,13 @@ const Factura = () => {
                     }}id="usrtable" className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm">
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th>venta_id_Venta</th>
-                            <th>producto_id_Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio</th>
-                            <th>Estado</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>venta_id_Venta</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>producto_id_Producto</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Cantidad</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Precio</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Estado</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th  style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

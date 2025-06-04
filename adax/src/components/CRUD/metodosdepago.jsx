@@ -5,13 +5,14 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 
 
 const Metodos_de_Pago = () => {
 
     const navigate = useNavigate();
-    
+
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -61,10 +62,17 @@ const Metodos_de_Pago = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-    
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php`, {
                 listar: true,
             });
 
@@ -171,7 +179,7 @@ const Metodos_de_Pago = () => {
                                     <li><button className="dropdown-item" onClick={handleRegistro}>registrar</button></li>
                                 </ul>
                             </li>
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle active" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">

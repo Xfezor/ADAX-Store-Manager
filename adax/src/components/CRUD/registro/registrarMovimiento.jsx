@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const RegistrarMovimiento = () => {
     const navigate = useNavigate();
@@ -78,7 +79,7 @@ const RegistrarMovimiento = () => {
         }
 
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php`, {
                 id_Movimiento: id_Movimiento,
                 cantidad_despues: cantidad_despues,
                 fecha_movimiento: fecha_movimiento,
@@ -109,6 +110,14 @@ const RegistrarMovimiento = () => {
             setError('Error al realizar el registro');
         }
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

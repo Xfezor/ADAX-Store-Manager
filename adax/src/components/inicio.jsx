@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faGear } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/styles_inicio.module.css';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../utils/ipconfig.js';
 
 const Inicio = () => {
   const navigate = useNavigate();
   const { cerrarSesion } = useContext(ContextoSesion);
 
-  // Dejar el carrito avcio de produCarrito
+  // Dejar el carrito vacio de produCarrito
   localStorage.removeItem('prodCarrito');
   const usuario1 = localStorage.getItem('usuario');
   const tienda1 = localStorage.getItem('tienda');

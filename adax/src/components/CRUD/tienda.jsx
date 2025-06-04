@@ -5,13 +5,14 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 
 
 const Tienda = () => {
 
     const navigate = useNavigate();
-    
+
     const handleCerrarSesion = () => {
         navigate("/inicio");
     }
@@ -54,9 +55,9 @@ const Tienda = () => {
     const handleVentas = () => {
         navigate("/crud/ventas")
     }
-     const handleActualizarTienda = (row) => {
+    const handleActualizarTienda = (row) => {
         const data = row;
-        navigate(`/crud/actualizar/actualizarTienda`, {state:data});
+        navigate(`/crud/actualizar/actualizarTienda`, { state: data });
     }
     DataTable.use(DT);
     const [tienda, setTienda] = useState([]);
@@ -65,10 +66,17 @@ const Tienda = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-    
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
                 listar: true,
             });
 
@@ -83,12 +91,12 @@ const Tienda = () => {
             return null;
         }
     }
-     const Eliminar = async (idtienda) => {
+    const Eliminar = async (idtienda) => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`, {
                 eliminar: idtienda,
             });
-            console.log (respuesta.data);
+            console.log(respuesta.data);
             if (respuesta.data.respuesta) {
                 setMensaje(respuesta.data.mensaje);
                 await Lista();
@@ -105,14 +113,14 @@ const Tienda = () => {
         Lista();
     }, []);
     const tiendaArray = tienda.map(t => [
-    t.idtienda,
-    t.nombreTienda,
-    t.direccion,
-    t.telefono,
-    t.correo,
-    t.contrasena,
-    t.codigo_invitacion
-]);
+        t.idtienda,
+        t.nombreTienda,
+        t.direccion,
+        t.telefono,
+        t.correo,
+        t.contrasena,
+        t.codigo_invitacion
+    ]);
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body sticky-top" data-bs-theme="dark">
@@ -203,7 +211,7 @@ const Tienda = () => {
                                 </ul>
                             </li>
 
-                            
+
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#top" role="button" data-bs-toggle="dropdown" aria-expanded="false">Metodos de Pago</a>
                                 <ul className="dropdown-menu">
@@ -230,38 +238,38 @@ const Tienda = () => {
             </nav>
             <div style={{ 'width': '99.9%' }}>
                 <DataTable
-                data={tiendaArray}
-                slots={{
-                    // ...dentro de slots del DataTable...
-                    7: (data, row) => (
-                        <button type="button" className="btn btn-warning" onClick={() => handleActualizarTienda(row)}>
-                            Modificar
-                        </button>
-                    ),
-                    8: (data, row) => (
-                        <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
-                            Eliminar
-                        </button>
-                    )
-                }}
-                id="usrtable"
-                className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
-            >
-                <thead className="table-dark light-header">
-                    <tr className="text-center">
-                        <th style={{ 'fontWeight': 'normal' }}>idtienda</th>
-                        <th style={{ 'fontWeight': 'normal' }}>nombreTienda</th>
-                        <th style={{ 'fontWeight': 'normal' }}>direccion</th>
-                        <th style={{ 'fontWeight': 'normal' }}>telefono</th>
-                        <th style={{ 'fontWeight': 'normal' }}>correo</th>
-                        <th style={{ 'fontWeight': 'normal' }}>contrasena</th>
-                        <th style={{ 'fontWeight': 'normal' }}>codigo_invitacion</th>
-                        <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
-                        <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
+                    data={tiendaArray}
+                    slots={{
+                        // ...dentro de slots del DataTable...
+                        7: (data, row) => (
+                            <button type="button" className="btn btn-warning" onClick={() => handleActualizarTienda(row)}>
+                                Modificar
+                            </button>
+                        ),
+                        8: (data, row) => (
+                            <button className="btn btn-danger" onClick={() => Eliminar(row[0])} >
+                                Eliminar
+                            </button>
+                        )
+                    }}
+                    id="usrtable"
+                    className="table table-container table-striped table-hover table-bordered table-responsive mt-4 table-sm"
+                >
+                    <thead className="table-dark light-header">
+                        <tr className="text-center">
+                            <th style={{ 'fontWeight': 'normal' }}>idtienda</th>
+                            <th style={{ 'fontWeight': 'normal' }}>nombreTienda</th>
+                            <th style={{ 'fontWeight': 'normal' }}>direccion</th>
+                            <th style={{ 'fontWeight': 'normal' }}>telefono</th>
+                            <th style={{ 'fontWeight': 'normal' }}>correo</th>
+                            <th style={{ 'fontWeight': 'normal' }}>contrasena</th>
+                            <th style={{ 'fontWeight': 'normal' }}>codigo_invitacion</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
                 </DataTable>
             </div>
         </div>

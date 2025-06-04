@@ -7,6 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from "sweetalert2";
+import { ip, port } from '../utils/ipconfig.js';
 
 const GestionarProductos = () => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ const GestionarProductos = () => {
   const [productosOriginales, setProductosOriginales] = useState([]);
   const Lista = useCallback(async () => {
     try {
-      const respuesta = await axios.get(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion} `);
+      const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion} `);
       if (respuesta.data) {
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);
@@ -108,7 +109,7 @@ const GestionarProductos = () => {
       return;
     } else {
       try {
-        const respuesta2 = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
+        const respuesta2 = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
           registrarProductoUnico: true,
           nombre: nombre,
           precio: precio,

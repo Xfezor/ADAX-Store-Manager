@@ -5,6 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 
 const Proveedor = () => {
@@ -59,17 +60,22 @@ const Proveedor = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
+            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
                 listar: true
             });
-
             if (respuesta.data) {
                 setProveedor(respuesta.data);
             } else {
-
                 return null;
             }
         } catch (err) {
@@ -217,6 +223,8 @@ const Proveedor = () => {
                             <th style={{ 'fontWeight': 'normal' }}>telefono</th>
                             <th style={{ 'fontWeight': 'normal' }}>email</th>
                             <th style={{ 'fontWeight': 'normal' }}>id_tienda</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>

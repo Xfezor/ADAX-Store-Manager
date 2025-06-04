@@ -5,6 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 const Usuarios = () => {
 
@@ -71,10 +72,17 @@ const Usuarios = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
     const Lista = async () => {
     try {
-        const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
+        const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
             listar: true,
         });
         if (respuesta.data && respuesta.data.success) {
@@ -90,7 +98,7 @@ const Usuarios = () => {
     }
     const Eliminar = async (id) => {
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
                 eliminar: id,
             });
             if (respuesta.data.respuesta) {

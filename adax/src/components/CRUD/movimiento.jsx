@@ -5,6 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { ip, port } from '../../utils/ipconfig.js';
 
 
 
@@ -61,14 +62,21 @@ const Movimiento = () => {
 
     const usuario1 = localStorage.getItem('usuario');
     const usuario = JSON.parse(usuario1);
-
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(
-                'http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php',
-                { listar: true }
+            const respuesta = await axios.get(
+                `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php?listar=true`,
+               
             );
- // Verifica los datos aquí
+
             if (respuesta.data) {
                 setMovimientos(respuesta.data);
             } else {
@@ -221,14 +229,14 @@ const Movimiento = () => {
                 >
                     <thead className="table-dark light-header">
                         <tr className="text-center">
-                            <th>id_Movimiento</th>
-                            <th>cantidad_despues</th>
-                            <th>fecha_movimiento</th>
-                            <th>fecha_modificacion</th>
-                            <th>estado_despues</th>
-                            <th>inventario_id_Inventario</th>
-                            <th>Modificar</th>
-                            <th>Eliminar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>id_Movimiento</th>
+                            <th style={{ 'fontWeight': 'normal' }}>cantidad_despues</th>
+                            <th style={{ 'fontWeight': 'normal' }}>fecha_movimiento</th>
+                            <th style={{ 'fontWeight': 'normal' }}>fecha_modificacion</th>
+                            <th style={{ 'fontWeight': 'normal' }}>estado_despues</th>
+                            <th style={{ 'fontWeight': 'normal' }}>inventario_id_Inventario</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Modificar</th>
+                            <th style={{ 'fontWeight': 'normal' }}>Eliminar</th>
                         </tr>
                     </thead>
                     <tbody></tbody>

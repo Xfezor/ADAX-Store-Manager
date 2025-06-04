@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_registro.module.css';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const ActualizarCliente = () => {
     const navigate = useNavigate();
@@ -43,13 +44,13 @@ const ActualizarCliente = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.put(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?`, {
+            const respuesta = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?`, {
                 Documento: Documento,
                 Tipo_documento: Tipo_documento,
                 NombreCliente: NombreCliente,
                 ApellidoCliente: ApellidoCliente,
                 Correo: Correo,
-                actualizar: true,   
+                actualizar: true,
             });
             if (respuesta.data) {
                 const mensaje = respuesta.data.mensaje;
@@ -67,6 +68,14 @@ const ActualizarCliente = () => {
     const handleCancel = () => {
         navigate('/crud/cliente');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

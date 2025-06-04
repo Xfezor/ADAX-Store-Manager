@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_registro.module.css';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const ActualizarMetodosdepago = () => {
 
@@ -33,7 +34,7 @@ const ActualizarMetodosdepago = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php?`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php?`, {
                 actualizar: true,
                 ID_Met_pago: ID_Met_pago,
                 Nombre: Nombre,
@@ -54,6 +55,14 @@ const ActualizarMetodosdepago = () => {
     const handleCancel = () => {
         navigate('/crud/metodos_pago');
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>

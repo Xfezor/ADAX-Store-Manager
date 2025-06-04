@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import styles from '../registro/styles_registro.module.css';
 import Swal from 'sweetalert2';
+import { ip, port } from '../../../utils/ipconfig.js';
 
 const RegistrarVenta = () => {
 
@@ -41,7 +42,7 @@ const RegistrarVenta = () => {
         }
 
         try {
-            const respuesta = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php`, {
+            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php`, {
                 id_Venta,
                 FechaVenta,
                 HoraVenta,
@@ -65,6 +66,14 @@ const RegistrarVenta = () => {
             setError('Error en el registro de la venta.');
         }
     };
+    useEffect(() => {
+        const validador = () => {
+            if (localStorage.getItem('usuario') === null) {
+                navigate("/iniciar_sesion");
+            };
+        };
+        validador();
+    }, [navigate])
 
     return (
         <>
