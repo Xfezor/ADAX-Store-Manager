@@ -70,8 +70,36 @@ CREATE TABLE `entregaproductos` (
 
 LOCK TABLES `entregaproductos` WRITE;
 /*!40000 ALTER TABLE `entregaproductos` DISABLE KEYS */;
-INSERT INTO `entregaproductos` VALUES (2,2,'2024-08-02',150,'entregado'),(3,3,'2024-08-03',10,'entregado'),(4,4,'2024-08-04',8,'entregado'),(5,5,'2024-08-05',300,''),(6,6,'2024-08-06',350,''),(7,7,'2024-08-07',400,''),(8,8,'2024-08-08',450,''),(9,9,'2024-08-09',500,''),(10,10,'2024-08-10',550,''),(11,11,'2024-08-11',600,''),(12,12,'2024-08-12',650,''),(13,13,'2024-08-13',700,''),(14,14,'2024-08-14',750,''),(15,15,'2024-08-15',800,''),(16,16,'2024-08-16',850,''),(17,17,'2024-08-17',900,''),(18,18,'2024-08-18',950,''),(19,19,'2024-08-19',1000,''),(20,20,'2024-08-20',1050,''),(21,21,'2024-08-21',1100,''),(22,22,'2024-08-22',1150,''),(23,23,'2024-08-23',1200,''),(24,24,'2024-08-24',1250,''),(26,26,'2024-08-26',1350,''),(27,27,'2024-08-27',1400,''),(28,28,'2024-08-28',1450,''),(29,29,'2024-08-29',1500,''),(30,30,'2024-08-30',1550'');
-/*!40000 ALTER TABLE `entregaproductos` ENABLE KEYS */;
+INSERT INTO `entregaproductos` VALUES 
+  (2,2,'2024-08-02',150,'entregado'),
+  (3,3,'2024-08-03',10,'entregado'),
+  (4,4,'2024-08-04',8,'entregado'),
+  (5,5,'2024-08-05',300,''),
+  (6,6,'2024-08-06',350,''),
+  (7,7,'2024-08-07',400,''),
+  (8,8,'2024-08-08',450,''),
+  (9,9,'2024-08-09',500,''),
+  (10,10,'2024-08-10',550,''),
+  (11,11,'2024-08-11',600,''),
+  (12,12,'2024-08-12',650,''),
+  (13,13,'2024-08-13',700,''),
+  (14,14,'2024-08-14',750,''),
+  (15,15,'2024-08-15',800,''),
+  (16,16,'2024-08-16',850,''),
+  (17,17,'2024-08-17',900,''),
+  (18,18,'2024-08-18',950,''),
+  (19,19,'2024-08-19',1000,''),
+  (20,20,'2024-08-20',1050,''),
+  (21,21,'2024-08-21',1100,''),
+  (22,22,'2024-08-22',1150,''),
+  (23,23,'2024-08-23',1200,''),
+  (24,24,'2024-08-24',1250,''),
+  (26,26,'2024-08-26',1350,''),
+  (27,27,'2024-08-27',1400,''),
+  (28,28,'2024-08-28',1450,''),
+  (29,29,'2024-08-29',1500,''),
+  (30,30,'2024-08-30',1550,'');
+  /*!40000 ALTER TABLE `entregaproductos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -711,27 +739,6 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `desencriptarClaveTienda` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `desencriptarClaveTienda`(`docu` INT) RETURNS varchar(50) CHARSET utf8mb4 COLLATE utf8mb4_general_ci
-BEGIN
-declare contrasenaDesencriptada varchar(45);
-select aes_decrypt(contrasena, "adaxdecripter2024") into contrasenaDesencriptada from tienda where documento = docu;
-RETURN contrasenaDesencriptada;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `obtener_historial_movimientos` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
