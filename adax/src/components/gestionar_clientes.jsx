@@ -114,7 +114,7 @@ const GestionarClientes = () => {
 
     const agregarCliente = async (Documento, Tipo_documento, NombreCliente, ApellidoCliente, Correo) => {
         try {
-            const respuesta2 = await axios.post(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+            const respuesta2 = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                 registroCliente: true,
                 Documento: Documento,
                 Tipo_documento: Tipo_documento,
@@ -179,7 +179,7 @@ const GestionarClientes = () => {
     };
     const actuaCliente = async (Documento, Tipo_documento, NombreCliente, ApellidoCliente, Correo) => {
         try {
-            const respuesta3 = await axios.put(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+            const respuesta3 = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                 actualizar: true,
                 Documento: Documento,
                 Tipo_documento: Tipo_documento,
@@ -227,7 +227,7 @@ const GestionarClientes = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const respuesta4 = await axios.delete(`http://localhost/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+                    const respuesta4 = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                         data: {
                             eliminar: Documento
                         }
