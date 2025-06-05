@@ -8,7 +8,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
 import axios from 'axios';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 
 function Analisis() {
@@ -44,7 +44,7 @@ function Analisis() {
   const [productosOriginales, setProductosOriginales] = useState([]);
   const Lista = useCallback(async () => {
     try {
-      const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigo_invitacion}`);
+      const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigo_invitacion}`);
       if (respuesta.data) {
         setProductos(respuesta.data);
         setProductosOriginales(respuesta.data);

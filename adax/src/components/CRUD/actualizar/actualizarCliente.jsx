@@ -44,7 +44,7 @@ const ActualizarCliente = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?`, {
+            const respuesta = await axios.put(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?`, {
                 Documento: Documento,
                 Tipo_documento: Tipo_documento,
                 NombreCliente: NombreCliente,

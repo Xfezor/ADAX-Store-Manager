@@ -3,7 +3,7 @@ import {
     View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 
 const Contrasena = ({ navigation, route }) => {
@@ -25,7 +25,7 @@ const Contrasena = ({ navigation, route }) => {
         setError("");
 
         try {
-            const response = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`, {
+            const response = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`, {
                 action: "cambiar_contrasena",
                 correo: route.params.email, // Asegúrate de que esto venga desde la pantalla anterior
                 nuevaContrasena: nuevaContrasena

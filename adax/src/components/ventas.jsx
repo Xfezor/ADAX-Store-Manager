@@ -7,7 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 
 const Ventas = () => {
@@ -45,7 +45,7 @@ const Ventas = () => {
   // Llamada de API
   const Lista = useCallback(async () => {
     try {
-      const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`)
+      const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`)
       if (respuesta.data) {
         const productosDisponibles = respuesta.data.filter((producto) => producto[4] === 1);
         setProductos(productosDisponibles);

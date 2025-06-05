@@ -6,7 +6,7 @@ import {
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 
@@ -47,7 +47,7 @@ const ModificarProducto = () => {
     console.log('Código de invitación:', codigo_invitacion);
     codigo_invitacion = parseInt(codigo_invitacion);
     try {
-      const response = await fetch(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarNombreID=true&codigo_invitacion=${codigo_invitacion}`);
+      const response = await fetch(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php?listarNombreID=true&codigo_invitacion=${codigo_invitacion}`);
       const data = await response.json();
 
       if (Array.isArray(data)) {
@@ -67,8 +67,8 @@ const ModificarProducto = () => {
   const consultarProducto = async (id) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?consultaDatosProducto=${id}`);
-      if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+      const response = await fetch(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?consultaDatosProducto=${id}`);
+      if (!response.ok) throw new Error(`${protocol} error: ${response.status}`);
       const data = await response.json();
 
       if (Array.isArray(data) && data.length > 0) {
@@ -116,7 +116,7 @@ const ModificarProducto = () => {
       };
 
       const response = await fetch(
-        `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`,
+        `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -153,7 +153,7 @@ const ModificarProducto = () => {
       {
         text: "Eliminar", style: "destructive", onPress: async () => {
           try {
-            const response = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${idProducto}`);
+            const response = await axios.delete(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${idProducto}`);
 
             if (response.data?.Operacion === true) {
               Alert.alert("Éxito", "Producto eliminado correctamente.", [

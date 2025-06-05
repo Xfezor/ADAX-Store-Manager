@@ -63,7 +63,7 @@ const ActualizarProducto = () => {
             formData.append('modificarProducto2', true);
 
             const respuesta = await axios.post(
-                'http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php',
+                '${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php',
                 formData
             );
             navigate('/crud/producto', { state: respuesta.data?.mensaje || "Producto actualizado" });

@@ -82,7 +82,7 @@ const Usuarios = () => {
     }, [navigate])
     const Lista = async () => {
     try {
-        const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
+        const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`, {
             listar: true,
         });
         if (respuesta.data && respuesta.data.success) {
@@ -98,7 +98,7 @@ const Usuarios = () => {
     }
     const Eliminar = async (id) => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
                 eliminar: id,
             });
             if (respuesta.data.respuesta) {

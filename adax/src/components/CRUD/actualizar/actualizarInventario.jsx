@@ -44,7 +44,7 @@ const ActualizarInventario = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php?`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php?`, {
                 actualizar: true,
                 id_Inventario: id_Inventario,
                 cantidadInventario: CantidadInventario,

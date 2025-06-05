@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -51,7 +51,7 @@ const VentaCarrito = () => {
         setCargandoProductos(true);
         try {
             const response = await axios.get(
-                `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
+                `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo}`
             );
 
             if (response.data) {
@@ -137,7 +137,7 @@ const VentaCarrito = () => {
 
         try {
             const response = await fetch(
-                'http://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php?registrarVenta=true',
+                '${protocol}://192.168.1.11/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php?registrarVenta=true',
                 {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

@@ -73,7 +73,7 @@ const Movimiento = () => {
     const Lista = async () => {
         try {
             const respuesta = await axios.get(
-                `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php?listar=true`,
+                `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php?listar=true`,
                
             );
 

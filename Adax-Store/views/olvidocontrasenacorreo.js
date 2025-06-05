@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, StatusBar, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 
 const RecuperarContraseña = ({ navigation }) => {
@@ -22,7 +22,7 @@ const RecuperarContraseña = ({ navigation }) => {
     setCargando(true);
     try {
       const response = await axios.post(
-        `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
+        `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
         {
           action: 'enviar_codigo', 
           correo: correo

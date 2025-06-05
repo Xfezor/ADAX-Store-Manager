@@ -8,7 +8,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from "sweetalert2";
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 
 function GestionarVentas() {
@@ -66,7 +66,7 @@ function GestionarVentas() {
     const verProductos = (async (venta_id_Venta) => {
         try {
             setProductos([]);
-            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarProductos=true&codigo_invitacion=${codigo_invitacion}&venta_id_Venta=${venta_id_Venta}`);
+            const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarProductos=true&codigo_invitacion=${codigo_invitacion}&venta_id_Venta=${venta_id_Venta}`);
             if (respuesta.data) {
                 productos = (respuesta.data);
                 productosAlert();
@@ -82,7 +82,7 @@ function GestionarVentas() {
     const [facturasOriginales, setFacturasOriginales] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarTienda=true&codigo_invitacion=${codigo_invitacion}`);
+            const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setFactura(respuesta.data);
                 setFacturasOriginales(respuesta.data);

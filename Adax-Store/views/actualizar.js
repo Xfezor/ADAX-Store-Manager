@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, ScrollView, StyleSheet, Image,
 import { Ionicons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 
 const ActualizarDatos = ({ navigation }) => {
@@ -44,7 +44,7 @@ const ActualizarDatos = ({ navigation }) => {
   }, [documento]);
   const ObtenerDatosUsuarioSesion = async () => {
     try {
-      const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?obtenerUsuario=${documento}`);
+      const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?obtenerUsuario=${documento}`);
         if (respuesta.status && respuesta.data) {
           const datosUsuario = respuesta.data.data[0];
           const tipoDocumento = datosUsuario[1] || "";
@@ -93,7 +93,7 @@ const ActualizarDatos = ({ navigation }) => {
       actualizarApp: true,
     }));
     try {
-      const respuesta = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`,
+      const respuesta = await axios.put(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php?`,
         {
           documento: formData.documento,
           nombre1: formData.primerNombre,

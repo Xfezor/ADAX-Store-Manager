@@ -43,7 +43,7 @@ const ADAXApp = ({ navigation }) => {
 
     useEffect(() => {
         if (codigoTienda) {
-            const URL = `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
+            const URL = `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?verAnalisisCodigoInv=${codigoTienda}`;
             fetch(URL)
                 .then(async response => {
                     const text = await response.text();

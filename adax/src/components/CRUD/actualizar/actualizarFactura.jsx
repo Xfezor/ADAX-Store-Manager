@@ -54,7 +54,7 @@ const ActualizarFactura = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post('http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php', {
+            const respuesta = await axios.post('${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php', {
                 actualizar: true,
                 venta_id_Venta: venta_id_Venta,
                 producto_id_Producto: producto_id_Producto,

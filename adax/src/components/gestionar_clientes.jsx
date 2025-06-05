@@ -7,7 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import Swal from "sweetalert2";
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 const GestionarClientes = () => {
     const navigate = useNavigate();
@@ -50,7 +50,7 @@ const GestionarClientes = () => {
     const [clientesOriginal, setClientesOriginal] = useState([]);
     const Lista = useCallback(async () => {
         try {
-            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?listarClientesTienda=true&codigo_invitacion=${codigo_invitacion}`);
+            const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php?listarClientesTienda=true&codigo_invitacion=${codigo_invitacion}`);
             if (respuesta.data) {
                 setClientes(respuesta.data);
                 setClientesOriginal(respuesta.data);
@@ -114,7 +114,7 @@ const GestionarClientes = () => {
 
     const agregarCliente = async (Documento, Tipo_documento, NombreCliente, ApellidoCliente, Correo) => {
         try {
-            const respuesta2 = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+            const respuesta2 = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                 registroCliente: true,
                 Documento: Documento,
                 Tipo_documento: Tipo_documento,
@@ -179,7 +179,7 @@ const GestionarClientes = () => {
     };
     const actuaCliente = async (Documento, Tipo_documento, NombreCliente, ApellidoCliente, Correo) => {
         try {
-            const respuesta3 = await axios.put(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+            const respuesta3 = await axios.put(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                 actualizar: true,
                 Documento: Documento,
                 Tipo_documento: Tipo_documento,
@@ -227,7 +227,7 @@ const GestionarClientes = () => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
-                    const respuesta4 = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
+                    const respuesta4 = await axios.delete(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.cliente.php`, {
                         data: {
                             eliminar: Documento
                         }

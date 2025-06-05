@@ -76,7 +76,7 @@ const Producto = () => {
     }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listar=true`);
+            const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listar=true`);
 
             if (respuesta.data) {
                 setProducto(respuesta.data);

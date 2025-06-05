@@ -34,7 +34,7 @@ const ActualizarMetodosdepago = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php?`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php?`, {
                 actualizar: true,
                 ID_Met_pago: ID_Met_pago,
                 Nombre: Nombre,

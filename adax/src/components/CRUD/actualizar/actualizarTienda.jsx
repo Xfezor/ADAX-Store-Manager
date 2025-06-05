@@ -63,7 +63,7 @@ const ActualizarTienda = () => {
             formData.append('modificar', true);
 
             const respuesta = await axios.post(
-                'http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php',
+                '${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php',
                 formData
             );
 

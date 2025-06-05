@@ -11,7 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 
 const PantallaRecuperarContrasena = ({ navigation, route }) => {
@@ -43,7 +43,7 @@ const PantallaRecuperarContrasena = ({ navigation, route }) => {
       console.log('Enviando datos:', payload); // <-- DEPURACIÓN
 
       const response = await fetch(
-        `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
+        `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/servicios/contrasena_movil.php`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

@@ -69,7 +69,7 @@ const RegistrarProveedor = () => {
             return false;
         }
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
                 idproveedor: idproveedor,
                 nombre: nombre,
                 telefono: telefono,

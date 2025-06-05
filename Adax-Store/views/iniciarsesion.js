@@ -6,7 +6,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 const IniciarSesion = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ const IniciarSesion = ({ navigation }) => {
 
   const login = async () => {
     try {
-      const response = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`);
+      const response = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?tipo=${selectedTab}&email=${email}&contrasena=${password}`);
       console.log('Respuesta del login:', response.data);
 
       if (response.data.success) {

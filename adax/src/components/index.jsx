@@ -7,7 +7,7 @@ import { Outlet, Link } from "react-router-dom";
 import { useState } from 'react';
 import { faRocket, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Carousel from './Carousel';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 const Index = () => {
     const [isOpen, setIsOpen] = useState(false);

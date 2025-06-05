@@ -70,7 +70,7 @@ const Proveedor = () => {
     }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
+            const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.proveedor.php`, {
                 listar: true
             });
             if (respuesta.data) {

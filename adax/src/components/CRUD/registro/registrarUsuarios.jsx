@@ -130,7 +130,7 @@ const RegistrarUsuarios = () => {
 
 
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, {
                 nombre: nombre,
                 nombre2: nombre2,
                 apellido: apellido,

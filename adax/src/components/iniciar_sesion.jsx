@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import axios from 'axios';
 import axiosInstance from '../utils/axios';
 import { jwtDecode } from "jwt-decode";
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 
 const IniciarSesion = () => {
@@ -82,7 +82,7 @@ const IniciarSesion = () => {
                     tipo: isEmpleado ? 'empleado' : 'tienda', // Determina el tipo según el estado
                 });
                 try {
-                    const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?${params.toString()}&email=${email}&contrasena=${contrasena}`);
+                    const respuesta = await axios.get(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/login/procesologin.php?${params.toString()}&email=${email}&contrasena=${contrasena}`);
                     if (respuesta.data.success) {
                         const token = respuesta.data.token;
                         localStorage.setItem('token', token);

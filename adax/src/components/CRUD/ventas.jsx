@@ -72,7 +72,7 @@ const Ventas = () => {
     }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php`, {
                 listar: true,
             });
 

@@ -81,7 +81,7 @@ const Inventario = () => {
     }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 listar: true,
             });
 
@@ -98,7 +98,7 @@ const Inventario = () => {
     }
     const Eliminar = async (idInventario) => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 eliminar: idInventario,
             });
             console.log(respuesta.data)

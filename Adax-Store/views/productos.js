@@ -3,7 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image,
 import { KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -24,7 +24,7 @@ const Productos = () => {
     const registrarProducto = async () => {
         try {
             const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
-            const respuesta2 = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
+            const respuesta2 = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
                 registrarProductoUnico: true,
                 nombre: nombreProducto,
                 precio: precioProducto,
@@ -56,7 +56,7 @@ const Productos = () => {
                 return;
             }
 
-            const response = await fetch(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`);
+            const response = await fetch(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosApp=true&codigo_invitacion=${codigo_invitacion}`);
             const data = await response.json();
 
             console.log('Productos recibidos:', data);

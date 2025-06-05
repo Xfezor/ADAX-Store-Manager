@@ -69,7 +69,7 @@ const RegistrarInventario = () => {
             return false;
         }
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.inventario.php`, {
                 id_inventario: id_inventario,
                 CantidadInventario: CantidadInventario,
                 fechaModificacion: fechaModificacion,

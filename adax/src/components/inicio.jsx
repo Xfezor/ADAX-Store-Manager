@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark, faGear } from '@fortawesome/free-solid-svg-icons';
 import styles from '../styles/styles_inicio.module.css';
 import { useNavigate } from 'react-router-dom';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 const Inicio = () => {
   const navigate = useNavigate();

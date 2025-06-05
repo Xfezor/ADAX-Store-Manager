@@ -78,7 +78,7 @@ const Factura = () => {
    const Lista = async () => {
     try {
         const respuesta = await axios.get(
-            `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listar=true`
+            `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listar=true`
         );
         if (respuesta.data) {
             setFactura(respuesta.data);
@@ -93,7 +93,7 @@ const Factura = () => {
 
     const Eliminar = async (id) => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`, {
                 eliminar: id,
             });
             if (respuesta.data.respuesta) {

@@ -72,7 +72,7 @@ const Metodos_de_Pago = () => {
     }, [navigate])
     const Lista = async () => {
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.metodospago.php`, {
                 listar: true,
             });
 

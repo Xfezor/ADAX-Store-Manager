@@ -50,7 +50,7 @@ const ActualizarMovimiento = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const respuesta = await axios.post(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php?`, {
+            const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.movimiento.php?`, {
                 actualizar: true,
                 id_Movimiento: id_Movimiento,
                 cantidad_despues: cantidad_despues,

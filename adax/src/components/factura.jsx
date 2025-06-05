@@ -8,7 +8,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
 import axios from 'axios';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 
 function Factura() {
     const navigate = useNavigate();
@@ -65,7 +65,7 @@ function Factura() {
                 return; // Si el usuario cancela, no hace nadita
             }
             // Si el usuario confirma, procede a anular la venta con la siguinete llamado de la API para hacer PUT
-            const respuesta = await axios.post("http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+            const respuesta = await axios.post("${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
                 modificarEstado: true,
                 id_Venta: idVenta,
                 EstadoVenta: "Anulada",
@@ -108,7 +108,7 @@ function Factura() {
         }
         const actualizarEstadoVenta = async () => {
             try {
-                const respuesta = await axios.post("http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+                const respuesta = await axios.post("${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
                     modificarEstado: true,
                     id_Venta: idVenta,
                     EstadoVenta: "Completada",
@@ -131,7 +131,7 @@ function Factura() {
         // Actualizar Estado Pagado a la factura
         const ActualizarEstadoPagadoFactura = async () => {
             try {
-                const respuesta = await axios.post("http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php", {
+                const respuesta = await axios.post("${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php", {
                     ActualizarEstadoPagado: true,
                     venta_id_Venta: idVenta,
                 });

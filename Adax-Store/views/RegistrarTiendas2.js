@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Alert } from 'react-native';
-import { ip, port } from '../utils/ipconfig.js';
+import { ip, port, protocol } from '../utils/ipconfig.js';
 import axios from 'axios';
 
 const RegistrarTiendas2 = ({ route, navigation }) => {
@@ -30,7 +30,7 @@ const RegistrarTiendas2 = ({ route, navigation }) => {
 
     try {
       const response = await fetch(
-        `http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`,
+        `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.tienda.php`,
         
         {
           method: 'POST',
