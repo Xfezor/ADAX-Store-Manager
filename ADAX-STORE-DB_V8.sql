@@ -1079,7 +1079,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `RecuperarContrasenaUsuario`(IN `p_correo ` VARCHAR(100))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `RecuperarContrasenaUsuario`(IN `p_correo` VARCHAR(100))
 BEGIN
     DECLARE v_contrasena VARBINARY(255);
     
