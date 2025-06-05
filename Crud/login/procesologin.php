@@ -42,6 +42,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         exit();
 }
 
+$email = mb_convert_encoding($email, 'UTF-8', 'auto');
+$contra = mb_convert_encoding($contra, 'UTF-8', 'auto');
+
 
 if ($tipo === "empleado") {
 
