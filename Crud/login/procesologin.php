@@ -79,7 +79,7 @@ if ($tipo === "empleado") {
         exit();
     }
 } elseif ($tipo === "tienda") {
-    $sentencia = $cnn->prepare("SELECT * FROM tienda WHERE correo = ? and (select desencriptarClaveCorreoTienda('$email')) = ?;");
+    $sentencia = $cnn->prepare("SELECT * FROM tienda WHERE correo = ? and (select desencriptarClaveCorreoTienda('$email')) = ? COLLATE utf8mb4_general_ci;");
     $sentencia->execute([$email, $contra]);
     $valor = $sentencia->fetch(PDO::FETCH_OBJ);
     if ($valor === FALSE) {
