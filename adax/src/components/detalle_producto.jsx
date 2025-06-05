@@ -155,7 +155,6 @@ export function Detalle() {
     });
   };
   const modificarProducto = async () => {
-    console.log(formValues.idProveedor);
     try {
       const datosproducto = {
         modificarProducto: id_Producto,
@@ -184,6 +183,15 @@ export function Detalle() {
     }
   }
   const eliminarProducto = async () => {
+    if (rol === 3) {
+      Swal.fire({
+        title: "Error",
+        html: "No tienes permisos para eliminar productos",
+        icon: "error",
+        confirmButtonText: "Ok",
+      }); 
+      return null;
+    }
     try {
       const respuesta = await axios.delete(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?id_Producto=${id_Producto}`);
       if (respuesta.data.Operacion) {

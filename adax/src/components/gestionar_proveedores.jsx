@@ -41,7 +41,16 @@ const GestionarProveedores = () => {
     }
 
     const eliminarAlerta = (id) => {
-        console.log(id);
+        // verificar rol antes de eliminar 
+        if (rol === 3) {
+            Swal.fire({
+                title: 'Acceso Denegado',
+                text: 'No tienes permiso para agregar proveedores.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return null;
+        }
         Swal.fire({
             title: "Eliminar proveedor",
             html: "¿Está seguro de que desea eliminar este proveedor?",
@@ -87,6 +96,15 @@ const GestionarProveedores = () => {
     }
 
     const productsadd = async () => {
+        if (rol === 3) {
+            Swal.fire({
+                title: 'Acceso Denegado',
+                text: 'No tienes permiso para agregar proveedores.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
         Swal.fire({
             title: "Añadir nuevo proveedor",
             html: `
@@ -130,7 +148,7 @@ const GestionarProveedores = () => {
                     nombre: nombre,
                     telefono: telefono,
                     email: email,
-                    codigo_invitacion: codigo_invitacion
+                    codigo_invitacion: codigo_invitacion    
                 }
             );
             if (respuesta.data.success) {
@@ -257,11 +275,9 @@ const GestionarProveedores = () => {
                                 <td className={styles.tdventas}>
                                     <button className={styles.detail_button} onClick={() => verProductos(Fa[3])}>Ver Productos</button>
                                 </td>
-                                {(rol === 1 || rol === 3) && (
-                                    <td className={styles.tdventas}>
-                                        <button className={styles.detail_button} onClick={() => eliminarAlerta(Fa[3])}>Eliminar</button>
-                                    </td>
-                                )}
+                                <td className={styles.tdventas}>
+                                    <button className={styles.detail_button} onClick={() => eliminarAlerta(Fa[3])}>Eliminar</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>

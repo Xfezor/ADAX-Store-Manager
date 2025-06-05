@@ -192,7 +192,6 @@ const Registro = () => {
           registro: "registro",
         });
         if (respuesta.data.success) {
-          console.log('registro exitoso', respuesta.data)
           Swal.fire({
             title: 'Registro exitoso',
             text: 'El registro fue exitoso, puede iniciar sesión ahora',
@@ -252,7 +251,6 @@ const Registro = () => {
           registroTienda: "registroTienda",
         });
         if (respuesta.data.success) {
-          console.log('registro exitoso', respuesta.data)
           Swal.fire({
             title: 'Registro exitoso',
             text: 'El registro de la tienda fue exitoso, puede iniciar sesión ahora',

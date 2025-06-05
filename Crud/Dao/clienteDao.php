@@ -99,8 +99,9 @@ class clienteDao
             $query->bindParam(3, $ApellidoCliente);
             $query->bindParam(4, $Correo);
             $query->bindParam(5, $Documento);
-
             
+
+
             $query->execute();
             if ($query->rowCount() > 0) {
                 $mensaje = "Registro actualizado";

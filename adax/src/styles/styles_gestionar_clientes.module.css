@@ -63,13 +63,15 @@ body {
     transform: scale(1.2);
 }
 
-.container{
+.container {
     width: 100%;
     max-width: 85%;
     margin: 0 auto;
-    padding-left:10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-.form-control{
+
+.form-control {
     max-width: 100%;
     display: inline-block;
     margin-top: 10px;
@@ -79,7 +81,8 @@ body {
     width: 99%;
     padding-left: 10px;
 }
-#buscar{
+
+#buscar {
     background-color: #df6363;
     margin: 0 0;
     margin-top: 0;
@@ -89,6 +92,7 @@ body {
     vertical-align: 1px;
     margin-left: 1.4em;
 }
+
 #buscar:hover {
     background-color: #af3333;
     color: black;
@@ -105,7 +109,7 @@ body {
     margin-top: 2%;
 }
 
-#detalle{
+#detalle {
     background-color: #df6363;
     margin: 0 0;
     margin-top: 0;
@@ -118,7 +122,8 @@ body {
     float: inline-end;
     margin-right: 20px;
 }
-#detalle:hover{
+
+#detalle:hover {
     background-color: #af3333;
     color: black;
 }
@@ -219,7 +224,7 @@ body {
 
 .tdventas {
     text-align: center;
-    border-bottom: 1px solid #0002 ;
+    border-bottom: 1px solid #0002;
     padding: 10px 0;
 }
 
@@ -261,4 +266,39 @@ tbody .trventas.hide .tdventas {
     padding: 0;
     font: 0 / 0 Montserrat;
     transition: .2s ease-in-out .5s;
+}
+
+.text-left {
+    width: 100%;
+
+}
+
+.tableTitle-Button {
+    width: 100%;
+}
+
+.btn-anadir {
+    width: 10%;
+    background-color: #df6363;
+    margin: auto 0;
+    color: black;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-self: end;
+    text-align: center;
+}
+
+.detalle_button {
+    height: 100%;
+    width: 60%;
+    background-color: #df6363;
+    margin: auto 0;
+    color: black;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    justify-self: end;
+    border: none;
+    padding: 5px;
 }

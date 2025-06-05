@@ -36,7 +36,7 @@ function Pago() {
   const [totalPagar2, setTotalPagar2] = useState(0);
   const [cantidadRecibida, setCantidadRecibida] = useState(0);
   const [devuelta, setDevuelta] = useState(0);
-  const [ documentoCliente, setDocumentoCliente] = useState("");
+  const [documentoCliente, setDocumentoCliente] = useState("");
 
 
 
@@ -104,10 +104,8 @@ function Pago() {
         title: 'Error',
         text: 'Ingrese una cantidad válida',
       });
-      console.log(`Cantidad recibida: ${cantidadRecibidaNumerica}, Total a pagar: ${totalPagar}`);
       return;
     }
-    console.log(`Resta (totalPagar - cantidadRecibida): ${cantidadRecibidaNumerica - totalPagarNumerico}`, cantidadRecibida, totalPagar);
     if (cantidadRecibidaNumerica < totalPagarNumerico) {
       Swal.fire({
         icon: 'error',
@@ -126,12 +124,12 @@ function Pago() {
     }
 
     try {
-    const idVenta = await handleGenerarVenta();
+      const idVenta = await handleGenerarVenta();
 
-    if (idVenta) {
+      if (idVenta) {
 
-    }
-    await registrarFactura(idVenta);
+      }
+      await registrarFactura(idVenta);
     } catch (error) {
       console.error('Error al generar la venta:', error);
       Swal.fire({
@@ -153,11 +151,9 @@ function Pago() {
         metododepago_ID_Met_Pago: medioDePago,
         usuarios_documento: documentoUsuario,
       });
-      console.log("Respuesta de la API:", respuesta.data);
       if (respuesta.status === 200) {
         const idVenta = respuesta.data.id_Venta;
         localStorage.setItem('id_Venta', idVenta);
-        console.log("ID de la venta guardado en localStorage:", idVenta);
         return idVenta;
       } else {
         console.log("Error al generar la venta");
@@ -182,7 +178,7 @@ function Pago() {
   const registrarFactura = async (idVenta) => {
     console.log("ID de la venta:", idVenta);
     const prodCarrito2 = JSON.parse(localStorage.getItem('prodCarrito'));
-  
+
     const productos = prodCarrito2.map((producto) => ({
       id_Producto: producto[0],
       precio: producto[3],
@@ -203,7 +199,7 @@ function Pago() {
           datosFactura,
         );
         if (respuesta.data && respuesta.data.access) {
-          navigate("/factura", {replace: true, state: {totalPagar, cantidadRecibida, devuelta, prodCarrito}});
+          navigate("/factura", { replace: true, state: { totalPagar, cantidadRecibida, devuelta, prodCarrito } });
         } else {
           Swal.fire({
             icon: "error",

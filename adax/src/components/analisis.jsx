@@ -6,6 +6,7 @@ import styles from '../styles/styles_analisis.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
 import axios from 'axios';
 import { ip, port } from '../utils/ipconfig.js';
 
@@ -103,6 +104,15 @@ function Analisis() {
   };
 
   const vermovimientos = () => {
+    if (rol === 3) {
+      Swal.fire({
+        title: 'Acceso Denegado',
+        text: 'No tienes permiso para ver los movimientos.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
     navigate('/movimientos');
   };
 

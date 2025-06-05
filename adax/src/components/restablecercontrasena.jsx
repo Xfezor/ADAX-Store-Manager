@@ -152,9 +152,7 @@ function RestablecerContrasena() {
         },
         { headers: { "Content-Type": "application/json" } }
       );
-  
-      console.log("Respuesta del servidor:", respuesta.data);
-      
+        
      if (respuesta.data.success) {
         Swal.fire({
           icon: "success",
@@ -173,7 +171,6 @@ function RestablecerContrasena() {
         });
       }
     } catch (error) {
-      console.error("Error en la petición:", error);
       Swal.fire({
         icon: "error",
         title: "Error",

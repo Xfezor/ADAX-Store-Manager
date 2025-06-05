@@ -46,7 +46,6 @@ const Ventas = () => {
   const Lista = useCallback(async () => {
     try {
       const respuesta = await axios.get(`http://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?listarProductosAppPrecio=true&codigo_invitacion=${codigo_invitacion}`)
-      console.log(respuesta.data);
       if (respuesta.data) {
         const productosDisponibles = respuesta.data.filter((producto) => producto[4] === 1);
         setProductos(productosDisponibles);
@@ -76,7 +75,6 @@ const Ventas = () => {
   });
 
   useEffect(() => {
-    console.log(id_Tienda)
     localStorage.setItem('prodCarrito', JSON.stringify(prodCarrito));
   }, [prodCarrito]);
 
@@ -124,19 +122,24 @@ const Ventas = () => {
     navigate('/crud/usuarios');
   }
   const generarPago = async () => {
-    //Imprimir en consola todos los productos, cantidad, etc
-    console.log(prodCarrito);
-    for (const item of prodCarrito) {
-    if (item.cantidad > item[5]) {
+    const productosSinStock = prodCarrito.filter(item => item.cantidad > item[5]);
+    if (productosSinStock.length > 0) {
       Swal.fire({
-        icon: "error",
-        title: "¡Stock de algun producto insuficiente!",
-        showConfirmButton: false, 
-        timer: 1500
+        icon: 'error',
+        title: 'Error',
+        text: 'Estos productos no tienen suficiente stock para la cantidad solicitada: ' + productosSinStock.map(item => item[1]).join(', '),
       });
       return;
     }
-  }
+    // Verificar si el carrito está vacío
+    if (prodCarrito.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Carrito vacío',
+        text: 'Por favor, agregue productos al carrito antes de generar un pago.',
+      });
+      return;
+    }
     navigate('/generar_pago', { state: { prodCarrito, id_Tienda } });
   };
   const handleCerrarSesion = () => {

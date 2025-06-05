@@ -70,7 +70,6 @@ function Factura() {
                 id_Venta: idVenta,
                 EstadoVenta: "Anulada",
             });
-            console.log(respuesta.data);
             if (respuesta.data && respuesta.data.status) {
                 Swal.fire({
                     icon: "success",
@@ -115,7 +114,7 @@ function Factura() {
                     EstadoVenta: "Completada",
                 });
                 if (respuesta.data && respuesta.data.status) {
-                    console.log("Estado de la venta modificado a completada");
+                    // console.log("Estado de la venta modificado a completada");
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -136,9 +135,7 @@ function Factura() {
                     ActualizarEstadoPagado: true,
                     venta_id_Venta: idVenta,
                 });
-                console.log(respuesta.data);
                 if (respuesta.data && respuesta.data.success) {
-                    console.log("Estado de la factura modificado a pagado");
                     navigate('/inicio', { replace: true, state: null });
                     Swal.fire({
                         icon: "success",

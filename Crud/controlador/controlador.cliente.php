@@ -4,6 +4,7 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS"); // Mét
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Cabeceras permitidas
 header('Content-Type: application/json');
 
+
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
     exit();
@@ -85,7 +86,7 @@ if (isset($registroCliente)) {
     $cDto->setTipo_documento($Tipo_documento);
 
 
-    $mensaje = $cDao->registrarCliente($cDto);
+    $mensaje = $cDao->registrarcliente($cDto);
     if ($mensaje === 'Registrado Exitosamente') {
         echo json_encode(['success' => true]);
         exit();
@@ -144,7 +145,7 @@ if (isset($registroCliente)) {
 } else if (isset($Doc)) {
     $cDao = new clienteDao();
     $mensaje = $cDao->eliminarCliente($Doc);
-    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
+    echo json_encode(['success' => true, 'mensaje' => $mensaje]);
     exit();
 } else if (isset($actualizar)) {
     $cDao = new clienteDao();
@@ -157,7 +158,7 @@ if (isset($registroCliente)) {
     $cDto->setCorreo($Correo);
 
     $mensaje = $cDao->modificarCliente($cDto);
-    echo json_encode(['respuesta' => true, 'mensaje' => $mensaje]);
+    echo json_encode(['success' => true, 'mensaje' => $mensaje]);
 } else if (isset($actualizarCrud)) {
     $cDao = new clienteDao();
     $cDto = new clienteDto();
