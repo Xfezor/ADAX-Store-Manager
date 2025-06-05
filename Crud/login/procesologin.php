@@ -69,8 +69,7 @@ if ($tipo === "empleado") {
     }
 } elseif ($tipo === "tienda") {
     $sql = "SELECT * FROM tienda WHERE correo = ? 
-        AND CAST(AES_DECRYPT(contrasena, 'adaxdecripter2024') AS CHAR CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci) = 
-            CAST(? AS CHAR CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci)";
+        AND CONVERT(AES_DECRYPT(contrasena, 'adaxdecripter2024') USING utf8mb4) = ?";
     $sentencia = $cnn->prepare($sql);
     $sentencia->execute([$email, $contra]);
     $valor = $sentencia->fetch(PDO::FETCH_OBJ);
