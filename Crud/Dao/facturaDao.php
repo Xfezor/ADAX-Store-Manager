@@ -51,8 +51,15 @@ class FacturaDao
     {
         $conn = Conexion::getConexion();
         try {
-            $listarFactura = "SELECT f.venta_id_Venta,p.Nombre,p.Marca,sum(f.Cantidad) as Cantidad,f.Precio,f.Estado FROM factura f inner join venta v on f.venta_id_venta = v.id_venta inner join tienda t on t.idtienda = v.tienda_idtienda inner join producto p on p.id_Producto = f.producto_id_Producto where t.codigo_invitacion = $codigo_invitacion group by f.venta_id_Venta;";
+            $listarFactura = "SELECT f.venta_id_Venta, p.Nombre, p.Marca, SUM(f.Cantidad) as Cantidad, f.Precio, f.Estado
+            FROM factura f
+            INNER JOIN venta v ON f.venta_id_venta = v.id_venta
+            INNER JOIN tienda t ON t.idtienda = v.tienda_idtienda
+            INNER JOIN producto p ON p.id_Producto = f.producto_id_Producto
+            WHERE t.codigo_invitacion = ?
+            GROUP BY f.venta_id_Venta, p.Nombre, p.Marca, f.Precio, f.Estado";
             $query = $conn->prepare($listarFactura);
+            $query->bindParam(1, $codigo_invitacion);
             $query->execute();
             return $query->fetchAll();
         } catch (Exception  $ex) {
