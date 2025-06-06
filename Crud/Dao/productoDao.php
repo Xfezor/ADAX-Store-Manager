@@ -61,6 +61,7 @@ class productoDao
         $sentencia->execute();
         $valor = $sentencia->fetch(PDO::FETCH_OBJ);
         $idtienda = $valor->idtienda;
+        echo $idtienda;
         if ($valor === FALSE) {
             $mnensaje = "Codigo de invitacion incorrecto";
             return "No se encontró la tienda para el código de invitación";
@@ -70,6 +71,7 @@ class productoDao
             $sentencia2->execute();
             $valor2 = $sentencia2->fetch(PDO::FETCH_OBJ);
             $id_Inventario = $valor2->id_Inventario;
+            echo $id_Inventario;
             try {
                 $query = $conn->prepare("INSERT INTO producto(Nombre,Precio_unit,Descripcion,Marca,Categoria,Presentacion,Fecha_vencimiento,Stock,Stock_Min,estado,inventario_id_Inventario) values (?,?,?,?,?,?,?,?,?,?,?);");
                 $query->bindParam(1, $Nombre);
