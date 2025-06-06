@@ -56,15 +56,17 @@ class productoDao
         $Stock = $productoDto->getStock();
         $Stock_Min = $productoDto->getStock_Min();
         $estado = 1;
-        $sentencia = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = $codigo_invitacion;");
+        $sentencia = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = ?;");
+        $sentencia->bindParam(1, $codigo_invitacion);
         $sentencia->execute();
         $valor = $sentencia->fetch(PDO::FETCH_OBJ);
         $idtienda = $valor->idtienda;
         if ($valor === FALSE) {
-            //header('Location:../../PAGINA/inicio.php?error=1');
+            $mnensaje = "Codigo de invitacion incorrecto";
             exit();
         } elseif ($sentencia->rowcount() == 1) {
-            $sentencia2 = $conn->prepare("SELECT id_Inventario from inventario where tienda_idtienda = $idtienda;");
+            $sentencia2 = $conn->prepare("SELECT id_Inventario from inventario where tienda_idtienda = ?;");
+            $sentencia2->bindParam(1, $idtienda);
             $sentencia2->execute();
             $valor2 = $sentencia2->fetch(PDO::FETCH_OBJ);
             $id_Inventario = $valor2->id_Inventario;
