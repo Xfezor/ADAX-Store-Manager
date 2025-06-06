@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './styles_registro.module.css';
-import { ip, port } from '../../../utils/ipconfig.js';
+import { ip, port, protocol } from '../../../utils/ipconfig.js';
 
 const ActualizarProducto = () => {
     const navigate = useNavigate();
@@ -63,7 +63,7 @@ const ActualizarProducto = () => {
             formData.append('modificarProducto2', true);
 
             const respuesta = await axios.post(
-                '${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php',
+                `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`,
                 formData
             );
             navigate('/crud/producto', { state: respuesta.data?.mensaje || "Producto actualizado" });

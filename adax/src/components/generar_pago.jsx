@@ -143,7 +143,7 @@ function Pago() {
 
   const handleGenerarVenta = async () => {
     try {
-      const respuesta = await axios.post("${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php", {
+      const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.venta.php`, {
         registro: true,
         EstadoVenta: "Pendiente",
         documento_Cliente: documentoCliente,
@@ -195,7 +195,7 @@ function Pago() {
           Cantidad: producto.cantidad,
           Estado: "Pendiente"
         };
-        const respuesta = await axios.post("${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php",
+        const respuesta = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php`,
           datosFactura,
         );
         if (respuesta.data && respuesta.data.access) {

@@ -6,7 +6,7 @@ import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { ip, port } from '../../utils/ipconfig.js';
+import { ip, port, protocol } from '../../utils/ipconfig.js';
 
 
 const Cliente = () => {

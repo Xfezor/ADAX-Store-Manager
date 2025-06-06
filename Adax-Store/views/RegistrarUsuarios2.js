@@ -42,7 +42,7 @@ const RegistrarUsuarios2 = ({ route, navigation }) => {
       console.log('Payload:', payload); // ← Verifica en consola
   
       const response = await axios(
-        'http://192.168.252.207/adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php', 
+        `${protocol}://${ip}:${port}adx/ADAX-Store-Manager/Crud/controlador/controlador.usuarios.php`, 
         {
           method: 'POST',
           headers: {

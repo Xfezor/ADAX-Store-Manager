@@ -5,7 +5,7 @@ import DataTable from 'datatables.net-react';
 import DT from 'datatables.net-dt';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ip, port } from '../../utils/ipconfig.js';
+import { ip, port, protocol } from '../../utils/ipconfig.js';
 
 const Usuarios = () => {
 

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import styles from './styles_registro.module.css';
-import { ip, port } from '../../../utils/ipconfig.js';
+import { ip, port, protocol } from '../../../utils/ipconfig.js';
 
 const ActualizarMetodosdepago = () => {
 
