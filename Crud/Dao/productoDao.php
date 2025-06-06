@@ -45,6 +45,7 @@ class productoDao
     public function registrarProductoUnico(productoDto $productoDto, $codigo_invitacion)
     {
         $conn = Conexion::getConexion();
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $mensaje = "";
         $Nombre = $productoDto->getNombre();
         $Precio_unit = $productoDto->getPrecio_unit();
