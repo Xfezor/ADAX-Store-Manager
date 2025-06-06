@@ -123,7 +123,7 @@ if (isset($_POST['registrarProducto'])) {
     $pDto->setMarca('');
     $pDto->setCategoría('');
     $pDto->setPresentacion('');
-    $pDto->setFecha_vencimiento('0000-00-00'); // Fecha por defecto
+    $pDto->setFecha_vencimiento('1990-01-01'); // Fecha por defecto
     $pDto->setStock($cantidad);
     $pDto->setStock_Min('');
     $mensaje = $pDao->registrarProductoUnico($pDto, $codigo_invitacion);

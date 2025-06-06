@@ -63,7 +63,7 @@ class productoDao
         $idtienda = $valor->idtienda;
         if ($valor === FALSE) {
             $mnensaje = "Codigo de invitacion incorrecto";
-            exit();
+            return "No se encontró la tienda para el código de invitación";
         } elseif ($sentencia->rowcount() == 1) {
             $sentencia2 = $conn->prepare("SELECT id_Inventario from inventario where tienda_idtienda = ?;");
             $sentencia2->bindParam(1, $idtienda);

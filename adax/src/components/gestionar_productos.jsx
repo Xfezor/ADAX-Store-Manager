@@ -109,7 +109,7 @@ const GestionarProductos = () => {
       return;
     } else {
       try {
-        const respuesta2 = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php?`, {
+        const respuesta2 = await axios.post(`${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.producto.php`, {
           registrarProductoUnico: true,
           nombre: nombre,
           precio: precio,
