@@ -59,7 +59,6 @@ class productoDao
         $Precio_unit = intval($Precio_unit);
         $Stock_Min = $productoDto->getStock_Min();
         $estado = 1;
-        var_dump($Nombre, $Precio_unit, $Descripcion, $Marca, $Categoria, $Presentacion, $Fecha_vencimiento, $Stock, $Stock_Min, $estado, $codigo_invitacion);
         $sentencia = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = ?;");
         $sentencia->bindParam(1, $codigo_invitacion);
         $sentencia->execute();
@@ -88,12 +87,6 @@ class productoDao
                 $query->bindParam(10, $estado);
                 $query->bindParam(11, $id_Inventario);
                 $query->execute();
-                if ($query->rowCount() == 0) {
-                    throw new Exception("No se pudo registrar el producto");
-                } else {
-                    echo "Producto registrado exitosamente";
-                }
-
                 $mensaje = "Registrado Exitosamente";
             } catch (Exception $ex) {
                 $mensaje = $ex->getMessage();
