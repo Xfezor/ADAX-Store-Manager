@@ -57,6 +57,7 @@ class productoDao
         $Stock = $productoDto->getStock();
         $Stock_Min = $productoDto->getStock_Min();
         $estado = 1;
+        var_dump($Nombre, $Precio_unit, $Descripcion, $Marca, $Categoria, $Presentacion, $Fecha_vencimiento, $Stock, $Stock_Min, $estado, $codigo_invitacion);
         $sentencia = $conn->prepare("SELECT idtienda from tienda where codigo_invitacion = ?;");
         $sentencia->bindParam(1, $codigo_invitacion);
         $sentencia->execute();
