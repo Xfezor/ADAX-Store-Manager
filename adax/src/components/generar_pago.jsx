@@ -36,7 +36,7 @@ function Pago() {
   const [totalPagar2, setTotalPagar2] = useState(0);
   const [cantidadRecibida, setCantidadRecibida] = useState(0);
   const [devuelta, setDevuelta] = useState(0);
-  const [documentoCliente, setDocumentoCliente] = useState("");
+  const [documentoCliente, setDocumentoCliente] = useState(0);
 
 
 
