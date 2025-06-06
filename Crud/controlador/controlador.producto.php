@@ -125,7 +125,7 @@ if (isset($_POST['registrarProducto'])) {
     $pDto->setPresentacion('');
     $pDto->setFecha_vencimiento('1990-01-01'); // Fecha por defecto
     $pDto->setStock($cantidad);
-    $pDto->setStock_Min('');
+    $pDto->setStock_Min(0); // Stock mínimo por defecto
     $mensaje = $pDao->registrarProductoUnico($pDto, $codigo_invitacion);
     if ($mensaje === 'Registrado Exitosamente') {
         $response = ['registro' => true];

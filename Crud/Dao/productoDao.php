@@ -49,12 +49,14 @@ class productoDao
         $mensaje = "";
         $Nombre = $productoDto->getNombre();
         $Precio_unit = $productoDto->getPrecio_unit();
+        $Precio_unit = intval($Precio_unit);
         $Descripcion = $productoDto->getDescripcion();
         $Marca = $productoDto->getMarca();
         $Categoria = $productoDto->getCategoria();
         $Presentacion = $productoDto->getPresentacion();
         $Fecha_vencimiento = $productoDto->getFecha_vencimiento();
         $Stock = $productoDto->getStock();
+        $Precio_unit = intval($Precio_unit);
         $Stock_Min = $productoDto->getStock_Min();
         $estado = 1;
         var_dump($Nombre, $Precio_unit, $Descripcion, $Marca, $Categoria, $Presentacion, $Fecha_vencimiento, $Stock, $Stock_Min, $estado, $codigo_invitacion);
