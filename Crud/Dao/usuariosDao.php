@@ -81,6 +81,7 @@ class UsuarioDao
         $correo = $usuarioDto->getCorreo();
         $rol = $usuarioDto->getRol_id_Rol();
         $codinv = $usuarioDto->getCodigoInvitacion();
+        $codinv = intval($codinv); // Asegurarse de que el código de invitación sea un entero
         try {
             $query = $conn->prepare("SELECT codigo_invitacion from tienda where codigo_invitacion = '$codinv'");
             $query->execute();
