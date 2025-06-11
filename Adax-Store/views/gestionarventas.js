@@ -1,23 +1,84 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Platform, StatusBar } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Platform, StatusBar, Modal, FlatList } from 'react-native';
 import axios from 'axios';
+import { ip, port, protocol } from '../utils/ipconfig';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GestionarVentas = ({ navigation }) => {
     const [busqueda, setBusqueda] = useState('');
+    const [facturas, setFacturas] = useState([]);
+    const [facturasOriginales, setFacturasOriginales] = useState([]);
+    const [productos, setProductos] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
 
-    const productos = [
-        { nombre: 'Papaya', cantidad: 'Diana', precio: '$2500' },
-        { nombre: 'Arroz Premium', cantidad: 'Diana', precio: '$2800' },
-        { nombre: 'Lapiz Norma 2A', cantidad: 'Norma', precio: '$2000' },
-        { nombre: 'Cuaderno', cantidad: 'Norma', precio: '$1500' },
-        { nombre: 'Borrador', cantidad: 'Norma', precio: '$500' },
-        { nombre: 'Tijeras', cantidad: 'Norma', precio: '$3000' },
-    ];
+
+    // Listar facturas al cargar
+    useEffect(() => {
+        listarFacturas();
+    }, []);
+
+    const listarFacturas = async () => {
+        try {
+            const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
+            if (!codigo_invitacion) {
+                console.warn('No se encontró el código de invitación en AsyncStorage');
+                return;
+            }
+            const url = port
+                ? `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarTienda=true&codigo_invitacion=${codigo_invitacion}`
+                : `${protocol}://${ip}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarTienda=true&codigo_invitacion=${codigo_invitacion}`;
+            const response = await axios.get(url);
+            if (response.data) {
+                setFacturas(response.data);
+                setFacturasOriginales(response.data);
+            }
+        } catch (error) {
+            console.error('Error al listar facturas:', error);
+        }
+    };
+
+    // Buscar facturas por id venta o producto
+    const buscar = (valor) => {
+        setBusqueda(valor);
+        if (valor === "") {
+            setFacturas(facturasOriginales);
+        } else {
+            const filtradas = facturasOriginales.filter((fa) => {
+                const idVenta = String(fa[0]).toLowerCase();
+                const idProducto = String(fa[1]).toLowerCase();
+                return idVenta.includes(valor.toLowerCase()) || idProducto.includes(valor.toLowerCase());
+            });
+            setFacturas(filtradas);
+        }
+    };
+
+    // Ver productos de una factura
+    const verProductos = async (venta_id_Venta) => {
+        try {
+            const codigo_invitacion = await AsyncStorage.getItem('codigo_invitacion');
+            if (!codigo_invitacion) {
+                console.warn('No se encontró el código de invitación en AsyncStorage');
+                return;
+            }
+            const url = port
+                ? `${protocol}://${ip}:${port}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarProductos=true&codigo_invitacion=${codigo_invitacion}&venta_id_Venta=${venta_id_Venta}`
+                : `${protocol}://${ip}/adx/ADAX-Store-Manager/Crud/controlador/controlador.factura.php?listarProductos=true&codigo_invitacion=${codigo_invitacion}&venta_id_Venta=${venta_id_Venta}`;
+            const response = await axios.get(url);
+            if (response.data) {
+                setProductos(response.data);
+                setFacturaSeleccionada(venta_id_Venta);
+                setModalVisible(true);
+            }
+        } catch (error) {
+            console.error('Error al obtener productos:', error);
+        }
+    };
 
     const menuOptions = [
         { label: 'Productos', icon: require('../assets/producto.png'), route: 'Productos' },
-        { label: 'Venta',     icon: require('../assets/ventas.png'),    route: 'Venta' },
-        { label: 'Análisis',  icon: require('../assets/analisis.png'),  route: 'Analisis' },
+        { label: 'Venta', icon: require('../assets/ventas.png'), route: 'Venta' },
+        { label: 'Análisis', icon: require('../assets/analisis.png'), route: 'Analisis' },
         { label: 'Gestionar Ventas', icon: require('../assets/gestionar_Ventas.png'), route: 'GestionarVentas' },
     ];
 
@@ -40,48 +101,81 @@ const GestionarVentas = ({ navigation }) => {
 
                 <TextInput
                     style={styles.searchInput}
-                    placeholder="Escriba el código de la venta a buscar"
+                    placeholder="Escriba el código de la venta o producto a buscar"
                     placeholderTextColor="#555"
                     value={busqueda}
-                    onChangeText={setBusqueda}
+                    onChangeText={buscar}
                 />
 
-                <View style={styles.infoContainer}>
-                    <View style={styles.smallBox}>
-                        <Text style={styles.infoTitle}>Id Venta</Text>
-                        <Text>15</Text>
-                    </View>
-                    <View style={styles.smallBox}>
-                        <Text style={styles.infoTitle}>Precio Total</Text>
-                        <Text>$7300</Text>
-                    </View>
-                    <View style={styles.smallBox}>
-                        <Text style={styles.infoTitle}>Cliente</Text>
-                        <Text>1011522703</Text>
-                    </View>
-                </View>
-
+                {/* Tabla de facturas */}
                 <View style={styles.tableContainer}>
                     <View style={styles.tableHeader}>
-                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Productos</Text></View>
+                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>ID Venta</Text></View>
                         <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Cantidad</Text></View>
                         <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Precio</Text></View>
+                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Estado</Text></View>
+                        <View style={styles.tableHeaderBox}><Text style={styles.tableHeaderText}>Productos</Text></View>
                     </View>
                     <ScrollView style={styles.productList}>
-                        {productos.map((producto, index) => (
+                        {facturas.map((fa, index) => (
                             <View key={index} style={styles.productRow}>
-                                <Text style={styles.productText}>{producto.nombre}</Text>
-                                <Text style={styles.productText}>{producto.cantidad}</Text>
-                                <Text style={styles.productText}>{producto.precio}</Text>
+                                <Text style={styles.productText}>{fa[0]}</Text>
+                                <Text style={styles.productText}>{fa[3]}</Text>
+                                <Text style={styles.productText}>{fa[4]}</Text>
+                                <Text style={styles.productText}>{fa[5]}</Text>
+                                <TouchableOpacity
+                                    style={[styles.productText, { backgroundColor: '#D5C08F', borderRadius: 5, padding: 3 }]}
+                                    onPress={() => verProductos(fa[0])}
+                                >
+                                    <Text style={{ textAlign: 'center' }}>Ver Productos</Text>
+                                </TouchableOpacity>
                             </View>
                         ))}
                     </ScrollView>
                 </View>
 
-                <View style={styles.statusContainer}>
-                    <Text style={styles.statusLabel}>ESTADO</Text>
-                    <Text style={styles.statusText}>Pendiente</Text>
-                </View>
+                {/* Modal para mostrar productos de la factura */}
+                <Modal
+                    visible={modalVisible}
+                    animationType="slide"
+                    transparent={true}
+                    onRequestClose={() => setModalVisible(false)}
+                >
+                    <View style={{
+                        flex: 1,
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <View style={{
+                            backgroundColor: '#fff',
+                            borderRadius: 10,
+                            padding: 20,
+                            width: '90%',
+                            maxHeight: '70%'
+                        }}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 10 }}>
+                                Productos de la venta {facturaSeleccionada}
+                            </Text>
+                            <FlatList
+                                data={productos}
+                                keyExtractor={(_, idx) => idx.toString()}
+                                renderItem={({ item }) => (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 5 }}>
+                                        <Text>{item[0]}</Text>
+                                        <Text>{item[1]}</Text>
+                                    </View>
+                                )}
+                            />
+                            <TouchableOpacity
+                                style={{ marginTop: 20, alignSelf: 'center', backgroundColor: '#EBD8A0', padding: 10, borderRadius: 8 }}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Text>Cerrar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
             </ScrollView>
 
             {/* ——— Footer Fijo ——— */}
