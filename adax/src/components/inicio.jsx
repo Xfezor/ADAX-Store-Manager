@@ -76,9 +76,6 @@ const Inicio = () => {
     <>
       <header>
         <div className={styles.contenedorarriba}>
-          <button className={styles.back} onClick={backbutton}>
-            <FontAwesomeIcon icon={faGear} />
-          </button>
           <div className={styles.adax}>
             <h1 className={styles.title}>ADAX Store Manager</h1>
           </div>

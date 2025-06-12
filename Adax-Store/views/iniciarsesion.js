@@ -22,17 +22,21 @@ const IniciarSesion = ({ navigation }) => {
       if (response.data.success) {
         const token = response.data.token;
         const userData = jwtDecode(token);
+        const documento = userData.data.documento.toString();
         const codigo = userData.data.codigo_invitacion.toString();
         const usuario = email;
         const tienda = userData.data.nombreTienda;
+        const idTienda = userData.data.id_Tienda.toString();
         const rol = userData.data.rol.toString();
 
         if (codigo) {
           await AsyncStorage.setItem('codigo_invitacion', codigo);
+          await AsyncStorage.setItem('documento', documento);
           await AsyncStorage.setItem('usuario', usuario);
           await AsyncStorage.setItem('tienda', tienda);
+          await AsyncStorage.setItem('idTienda', idTienda);
           await AsyncStorage.setItem('rol', rol);
-          console.log('Código guardado en AsyncStorage:', codigo);
+
         }
         navigation.navigate('MenuPrincipal');
       } else {
@@ -68,7 +72,7 @@ const IniciarSesion = ({ navigation }) => {
     BackHandler.addEventListener("hardwareBackPress", handleBackPress);
 
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackPress);
+      BackHandler.remove();
     };
   }, []);
 
